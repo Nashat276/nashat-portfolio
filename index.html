@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nashat Aldhoun — Aeronautical Engineer | Aircraft Structures & MRO</title>
+<meta name="description" content="Nashat Omar Aldhoun — Junior Aeronautical Engineer specializing in Aircraft Structures, FEA, Modal Analysis, and MRO Operations. JUST Graduate, RJAF Trained. Based in Irbid, Jordan.">
+<meta property="og:title" content="Nashat Aldhoun — Aeronautical Engineer">
+<meta property="og:description" content="Junior Aeronautical Engineer | Aircraft Structures | FEA | MRO | JUST Graduate">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0c0e12;--surface:#13161d;--panel:#1a1e28;--panel2:#1f2435;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --white:#f0eeea;--muted:#7a8094;--text:#cdd2e0;
+  --gold:#c8a96e;--gold2:#e8c98e;
+  --blue:#5b8dd9;--blue2:#7aaff0;
+  --green:#4caf7d;--red:#e05c5c;--purple:#9b7fe8;
+  --shadow:0 4px 24px rgba(0,0,0,0.4);
+}
+[data-theme="light"]{
+  --bg:#f5f4f0;--surface:#fff;--panel:#f0eeea;--panel2:#e8e6e0;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);
+  --white:#1a1c22;--muted:#6b7280;--text:#374151;
+  --shadow:0 4px 24px rgba(0,0,0,0.1);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .5s;}
+#loader.gone{opacity:0;pointer-events:none;}
+.ld-logo{font-family:'DM Serif Display',serif;font-size:2.5rem;color:var(--white);}
+.ld-logo span{color:var(--gold);}
+.ld-bar{width:120px;height:2px;background:var(--border2);border-radius:2px;overflow:hidden;}
+.ld-prog{height:100%;background:var(--gold);width:0;animation:lp 1.3s ease forwards;}
+@keyframes lp{to{width:100%;}}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--surface);border:1px solid var(--border2);color:var(--text);border-radius:8px;padding:.7rem 1.4rem;font-size:.84rem;z-index:900;transition:transform .3s;box-shadow:var(--shadow);white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(12,14,18,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .3s;}
+[data-theme="light"] nav{background:rgba(245,244,240,.92);}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--white);cursor:pointer;text-decoration:none;user-select:none;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:.1rem;}
+.nav-links a,.nav-links button{color:var(--muted);text-decoration:none;font-size:.79rem;font-weight:500;padding:.38rem .75rem;border-radius:6px;border:none;background:none;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.nav-links a:hover,.nav-links button:hover,.nav-links a.active{color:var(--white);background:rgba(255,255,255,.06);}
+.nav-right{display:flex;align-items:center;gap:.5rem;}
+.icon-btn{background:none;border:1px solid var(--border2);color:var(--muted);border-radius:6px;padding:.32rem .65rem;cursor:pointer;font-size:.8rem;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.icon-btn:hover{color:var(--white);border-color:var(--gold);}
+.hire-btn{background:var(--gold);color:#0c0e12;border:none;border-radius:6px;padding:.38rem 1rem;font-size:.79rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.hire-btn:hover{background:var(--gold2);}
+.hamburger{display:none;background:none;border:1px solid var(--border2);color:var(--muted);border-radius:6px;padding:.32rem .6rem;cursor:pointer;font-size:.95rem;}
+.mob-menu{display:none;position:fixed;top:58px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 1.5rem;flex-direction:column;gap:.25rem;z-index:499;}
+.mob-menu.open{display:flex;}
+.mob-menu a,.mob-menu button{color:var(--text);text-decoration:none;font-size:.9rem;padding:.6rem .8rem;border-radius:6px;border:none;background:none;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:left;transition:background .2s;}
+.mob-menu a:hover,.mob-menu button:hover{background:var(--panel);}
+
+/* ── PAGE ── */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.v{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.7rem 1.7rem;border-radius:8px;font-size:.88rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;border:none;transition:all .2s;}
+.btn-gold{background:var(--gold);color:#0c0e12;}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,169,110,.3);}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2);}
+.btn-ghost:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.25);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:#3d9e6a;}
+.btn-danger{background:transparent;color:var(--red);border:1px solid rgba(224,92,92,.25);border-radius:6px;padding:.3rem .75rem;font-size:.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-danger:hover{background:rgba(224,92,92,.08);}
+.btn-sm{padding:.42rem .95rem;font-size:.78rem;}
+.btn-xs{padding:.28rem .65rem;font-size:.72rem;}
+
+/* ── SECTION ── */
+.section{padding:5rem 2.5rem;max-width:1080px;margin:0 auto;}
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.67rem;font-weight:700;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem;}
+.eyebrow::before{content:'';width:14px;height:1px;background:var(--gold);}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);color:var(--white);line-height:1.1;margin-bottom:.5rem;}
+.sec-sub{color:var(--muted);font-size:.92rem;max-width:500px;margin-bottom:2.5rem;line-height:1.75;}
+.sec-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 400px;align-items:center;padding:78px 2.5rem 3rem;gap:3.5rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(91,141,217,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(91,141,217,.035) 1px,transparent 1px);background-size:44px 44px;}
+.h-glow{position:absolute;right:15%;top:25%;width:500px;height:350px;background:radial-gradient(ellipse,rgba(91,141,217,.07) 0%,transparent 70%);}
+.h-glow2{position:absolute;left:5%;bottom:15%;width:350px;height:250px;background:radial-gradient(ellipse,rgba(200,169,110,.05) 0%,transparent 70%);}
+.plane-anim{position:absolute;top:20%;left:-80px;animation:fly 20s linear infinite;opacity:.1;}
+@keyframes fly{0%{left:-80px;top:20%;}100%{left:108%;top:13%;}}
+.hero-l{position:relative;z-index:1;}
+.status-pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.2);color:var(--green);font-size:.71rem;font-weight:600;padding:.28rem .9rem;border-radius:20px;margin-bottom:1.4rem;letter-spacing:.5px;}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(76,175,125,.4);}50%{opacity:.7;box-shadow:0 0 0 4px rgba(76,175,125,0);}}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.3rem,4.5vw,3.7rem);line-height:1.06;color:var(--white);margin-bottom:1.1rem;letter-spacing:-.5px;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero h1 .sub{display:block;color:var(--text);font-size:.7em;font-style:normal;margin-top:.15rem;}
+.hero-desc{font-size:.97rem;color:var(--muted);line-height:1.8;margin-bottom:2.2rem;max-width:500px;}
+.hero-desc strong{color:var(--text);}
+.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2.8rem;}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.hm{background:var(--surface);padding:1.1rem;text-align:center;}
+.hm-num{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--white);line-height:1;}
+.hm-num span{color:var(--gold);font-size:1.1rem;}
+.hm-label{font-size:.68rem;color:var(--muted);margin-top:.25rem;line-height:1.3;}
+/* ID CARD */
+.id-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;position:relative;z-index:1;box-shadow:var(--shadow);}
+.idc-top{background:linear-gradient(145deg,#0e1c35,#162d52);padding:2.2rem 1.8rem 1.8rem;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06);}
+.idc-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(91,141,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(91,141,217,.07) 1px,transparent 1px);background-size:18px 18px;}
+.idc-stripe{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--gold));}
+.avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.6rem;color:#0c0e12;margin:0 auto .8rem;position:relative;z-index:1;border:3px solid rgba(255,255,255,.1);overflow:hidden;background-size:cover;background-position:center;}
+.idc-name{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--white);position:relative;z-index:1;}
+.idc-role{font-size:.7rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:.2rem;position:relative;z-index:1;}
+.photo-btn{margin-top:.7rem;position:relative;z-index:1;background:rgba(255,255,255,.06);border:1px dashed rgba(255,255,255,.15);color:var(--muted);border-radius:5px;padding:.25rem .75rem;font-size:.68rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.photo-btn:hover{border-color:var(--gold);color:var(--gold);}
+.idc-body{padding:1.1rem 1.3rem;}
+.idc-row{display:flex;align-items:center;gap:.75rem;padding:.58rem 0;border-bottom:1px solid var(--border);font-size:.83rem;}
+.idc-row:last-child{border-bottom:none;}
+.idc-icon{width:28px;height:28px;border-radius:6px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;}
+.idc-key{font-size:.66rem;color:var(--muted);margin-bottom:.1rem;}
+.idc-val{color:var(--text);font-weight:500;font-size:.82rem;}
+.idc-foot{padding:.9rem 1.3rem;border-top:1px solid var(--border);display:flex;gap:.4rem;}
+.idc-foot a{flex:1;display:flex;align-items:center;justify-content:center;gap:.35rem;padding:.45rem;border-radius:7px;border:1px solid var(--border);color:var(--muted);font-size:.73rem;text-decoration:none;transition:all .2s;background:var(--panel);}
+.idc-foot a:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
+.about-p{color:var(--muted);line-height:1.9;margin-bottom:.9rem;font-size:.94rem;}
+.about-p strong{color:var(--text);font-weight:600;}
+.sg{margin-top:1.4rem;}
+.sg-label{font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;}
+.chips{display:flex;flex-wrap:wrap;gap:.38rem;}
+.chip{background:var(--panel);border:1px solid var(--border);color:var(--text);font-size:.76rem;padding:.28rem .72rem;border-radius:6px;transition:all .2s;cursor:default;}
+.chip:hover{border-color:var(--gold);color:var(--gold);}
+.tl-item{display:grid;grid-template-columns:88px 1fr;gap:1.3rem;padding:1.3rem 0;border-bottom:1px solid var(--border);}
+.tl-item:last-child{border-bottom:none;}
+.tl-date{font-size:.71rem;color:var(--muted);padding-top:.1rem;line-height:1.4;}
+.tl-t{font-weight:600;color:var(--white);font-size:.92rem;margin-bottom:.18rem;}
+.tl-o{font-size:.79rem;color:var(--gold);margin-bottom:.4rem;}
+.tl-d{font-size:.81rem;color:var(--muted);line-height:1.65;}
+/* CV DOWNLOAD */
+.cv-box{background:var(--panel);border:1px solid rgba(200,169,110,.2);border-radius:12px;padding:1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:2rem;}
+.cv-box h4{font-weight:600;color:var(--white);font-size:.92rem;margin-bottom:.2rem;}
+.cv-box p{font-size:.78rem;color:var(--muted);}
+
+/* ── WORKS ── */
+.works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.4rem;}
+.wcard{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s;cursor:pointer;}
+.wcard:hover{border-color:rgba(200,169,110,.3);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.3);}
+.wthumb{height:160px;position:relative;overflow:hidden;background:#0e1c35;}
+.wthumb img{width:100%;height:100%;object-fit:cover;display:none;}
+.wthumb img.on{display:block;}
+.wthumb-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.2rem;}
+.wthumb-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(91,141,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(91,141,217,.07) 1px,transparent 1px);background-size:18px 18px;}
+.wcat{position:absolute;top:.7rem;left:.7rem;background:rgba(12,14,18,.85);border:1px solid var(--border2);color:var(--text);font-size:.63rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;z-index:2;}
+.wprice{position:absolute;top:.7rem;right:.7rem;background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.35);color:var(--gold);font-size:.68rem;font-weight:700;padding:.18rem .55rem;border-radius:4px;z-index:2;}
+.photo-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;z-index:3;cursor:pointer;}
+.wcard:hover .photo-overlay{opacity:1;}
+.photo-overlay span{color:#fff;font-size:.73rem;background:rgba(200,169,110,.9);padding:.35rem .75rem;border-radius:5px;}
+.wbody{padding:1.1rem;}
+.wtitle{font-weight:600;color:var(--white);font-size:.92rem;margin-bottom:.35rem;line-height:1.3;}
+.wdesc{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:.85rem;}
+.wfoot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.35rem;}
+.wyear{font-size:.7rem;color:var(--muted);}
+
+/* ── POSTS (Scientific Feed) ── */
+.posts-layout{display:grid;grid-template-columns:1fr 300px;gap:2rem;align-items:start;}
+.post-compose{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.3rem;margin-bottom:1.5rem;}
+.post-compose-label{font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.post-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1rem;}
+.ptab{background:none;border:none;color:var(--muted);font-size:.78rem;font-family:'DM Sans',sans-serif;padding:.45rem 1rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;}
+.ptab.active,.ptab:hover{color:var(--gold);border-bottom-color:var(--gold);}
+.post-type-panel{display:none;}
+.post-type-panel.active{display:block;}
+.field{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:.65rem .95rem;color:var(--text);font-size:.86rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;margin-bottom:.7rem;}
+.field:focus{border-color:var(--blue);}
+textarea.field{min-height:85px;resize:vertical;}
+select.field option{background:var(--panel);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+.post-img-preview{width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:.7rem;display:none;}
+.post-img-preview.on{display:block;}
+.compose-foot{display:flex;justify-content:flex-end;gap:.5rem;flex-wrap:wrap;}
+/* FEED */
+.post-feed{display:grid;gap:1.2rem;}
+.pcard{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s;}
+.pcard:hover{border-color:var(--border2);}
+.pcard-head{display:flex;justify-content:space-between;align-items:flex-start;padding:1.1rem 1.2rem .7rem;gap:.8rem;flex-wrap:wrap;}
+.pcard-user{display:flex;align-items:center;gap:.65rem;}
+.p-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--gold));display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#0c0e12;flex-shrink:0;}
+.p-name{font-weight:600;color:var(--white);font-size:.88rem;}
+.p-meta{font-size:.7rem;color:var(--muted);}
+.pcard-type-badge{font-size:.63rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;}
+.type-article{background:rgba(91,141,217,.12);color:var(--blue2);}
+.type-link{background:rgba(200,169,110,.12);color:var(--gold);}
+.type-video{background:rgba(224,92,92,.12);color:#f08080;}
+.type-doc{background:rgba(155,127,232,.12);color:var(--purple);}
+.type-image{background:rgba(76,175,125,.12);color:var(--green);}
+.pcard-body{padding:0 1.2rem 1rem;}
+.pcard-title{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--white);margin-bottom:.45rem;line-height:1.25;}
+.pcard-text{font-size:.84rem;color:var(--muted);line-height:1.75;margin-bottom:.75rem;}
+.pcard-text.collapsed{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.read-more-btn{background:none;border:none;color:var(--gold);font-size:.76rem;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;}
+/* MEDIA TYPES */
+.pcard-img{width:100%;max-height:260px;object-fit:cover;display:block;}
+.pcard-video{width:100%;aspect-ratio:16/9;border:none;display:block;}
+.link-preview{margin:0 1.2rem .9rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;display:flex;gap:.8rem;align-items:flex-start;text-decoration:none;transition:border-color .2s;}
+.link-preview:hover{border-color:var(--gold);}
+.link-preview-icon{width:42px;height:42px;border-radius:8px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.lp-title{font-weight:600;color:var(--white);font-size:.85rem;margin-bottom:.2rem;}
+.lp-url{font-size:.72rem;color:var(--muted);}
+.doc-card{margin:0 1.2rem .9rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;display:flex;gap:.8rem;align-items:center;text-decoration:none;transition:border-color .2s;}
+.doc-card:hover{border-color:var(--purple);}
+.doc-icon{width:42px;height:42px;border-radius:8px;background:rgba(155,127,232,.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.doc-name{font-weight:600;color:var(--white);font-size:.85rem;margin-bottom:.2rem;}
+.doc-size{font-size:.7rem;color:var(--muted);}
+/* POST TAGS */
+.pcard-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.75rem;}
+.ptag{background:rgba(91,141,217,.1);border:1px solid rgba(91,141,217,.2);color:var(--blue2);font-size:.68rem;padding:.18rem .55rem;border-radius:4px;}
+/* POST ACTIONS */
+.pcard-foot{display:flex;align-items:center;gap:.7rem;padding:.8rem 1.2rem;border-top:1px solid var(--border);flex-wrap:wrap;}
+.pact-btn{background:none;border:none;color:var(--muted);font-size:.76rem;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.3rem;padding:.25rem .55rem;border-radius:5px;transition:all .2s;}
+.pact-btn:hover{background:rgba(255,255,255,.05);color:var(--text);}
+.pact-btn.liked{color:#e87461;}
+.pcard-admin{display:flex;gap:.4rem;margin-left:auto;}
+/* SIDEBAR */
+.post-sidebar{}
+.sidebar-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:1.2rem;}
+.sidebar-title{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:.4rem;}
+.topic-tag{background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.74rem;padding:.28rem .65rem;border-radius:6px;cursor:pointer;transition:all .2s;}
+.topic-tag:hover,.topic-tag.active{background:rgba(200,169,110,.1);border-color:rgba(200,169,110,.3);color:var(--gold);}
+.filter-count{font-size:.68rem;color:var(--muted);margin-top:.6rem;}
+
+/* ── CERTIFICATIONS ── */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;}
+.cert-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.3rem;transition:all .25s;cursor:pointer;}
+.cert-card:hover{border-color:rgba(200,169,110,.3);transform:translateY(-2px);}
+.cert-img{width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:.9rem;display:none;}
+.cert-img.on{display:block;}
+.cert-ph{width:100%;height:120px;background:linear-gradient(135deg,#0e1c35,#162d52);border-radius:8px;margin-bottom:.9rem;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden;}
+.cert-ph-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(91,141,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(91,141,217,.07) 1px,transparent 1px);background-size:18px 18px;}
+.cert-name{font-weight:600;color:var(--white);font-size:.9rem;margin-bottom:.25rem;}
+.cert-issuer{font-size:.77rem;color:var(--gold);margin-bottom:.2rem;}
+.cert-date{font-size:.72rem;color:var(--muted);}
+.cert-upload-btn{margin-top:.7rem;background:rgba(255,255,255,.04);border:1px dashed var(--border2);color:var(--muted);border-radius:5px;padding:.25rem .7rem;font-size:.68rem;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:all .2s;}
+.cert-upload-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.contact-info-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.8rem;}
+.ci-row{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;border-bottom:1px solid var(--border);}
+.ci-row:last-child{border-bottom:none;}
+.ci-icon{width:36px;height:36px;border-radius:8px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.ci-key{font-size:.68rem;color:var(--muted);margin-bottom:.1rem;}
+.ci-val{color:var(--text);font-size:.86rem;font-weight:500;}
+.ci-val a{color:var(--gold);text-decoration:none;}
+.contact-form-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.8rem;}
+.contact-form-card h3{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--white);margin-bottom:1.3rem;}
+.form-label{display:block;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.38rem;}
+.form-field-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+
+/* ── SERVICES ── */
+.hire-hero{background:linear-gradient(135deg,#0e1c35,#162d52);border:1px solid rgba(91,141,217,.15);border-radius:18px;padding:3rem;text-align:center;margin-bottom:2.5rem;position:relative;overflow:hidden;}
+.hh-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(91,141,217,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(91,141,217,.06) 1px,transparent 1px);background-size:26px 26px;}
+.hh-stripe{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue));z-index:1;}
+.hire-hero>*{position:relative;z-index:1;}
+.hire-hero h2{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--white);margin-bottom:.5rem;}
+.hire-hero p{color:var(--muted);font-size:.93rem;margin-bottom:1.5rem;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.75;}
+.email-pill{display:inline-block;background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.25);color:var(--gold);border-radius:8px;padding:.65rem 1.6rem;font-size:.88rem;font-weight:500;margin-bottom:1.3rem;}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1.3rem;margin-bottom:2.2rem;}
+.svc-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.7rem;transition:all .25s;}
+.svc-card:hover{border-color:rgba(200,169,110,.3);transform:translateY(-2px);}
+.svc-icon{font-size:2rem;margin-bottom:.9rem;}
+.svc-title{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--white);margin-bottom:.45rem;}
+.svc-desc{font-size:.81rem;color:var(--muted);line-height:1.7;margin-bottom:1.1rem;}
+.svc-price{font-size:1.4rem;font-weight:700;color:var(--gold);margin-bottom:1.1rem;font-family:'DM Serif Display',serif;}
+.csvc{background:var(--panel);border:1px solid rgba(76,175,125,.2);border-radius:10px;padding:1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.7rem;margin-bottom:.7rem;}
+.csvc h4{font-weight:600;color:var(--white);font-size:.9rem;margin-bottom:.15rem;}
+.csvc p{font-size:.78rem;color:var(--muted);}
+.csvc-price{color:var(--green);font-weight:700;font-size:.93rem;}
+.support-card{background:var(--panel);border:1px solid rgba(200,169,110,.18);border-radius:14px;padding:2.2rem;text-align:center;margin-top:2rem;}
+.support-card h3{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--white);margin-bottom:.45rem;}
+.support-card p{color:var(--muted);font-size:.86rem;margin-bottom:1.3rem;line-height:1.75;}
+
+/* ── DISCUSSION ── */
+.compose-box{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:1.4rem;margin-bottom:1.8rem;}
+.compose-lbl{font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;}
+.cmts{display:grid;gap:.9rem;}
+.cmt{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.2rem;transition:border-color .2s;}
+.cmt:hover{border-color:var(--border2);}
+.cmt-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem;flex-wrap:wrap;gap:.8rem;}
+.cmt-user{display:flex;align-items:center;gap:.65rem;}
+.cmt-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--gold));display:flex;align-items:center;justify-content:center;font-size:.77rem;font-weight:700;color:#0c0e12;flex-shrink:0;}
+.cmt-name{font-weight:600;font-size:.86rem;color:var(--white);}
+.cmt-time{font-size:.7rem;color:var(--muted);}
+.cmt-txt{font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:.7rem;}
+.cmt-acts{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.like-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:5px;padding:.2rem .65rem;font-size:.73rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.25rem;}
+.like-btn:hover,.like-btn.liked{border-color:#e87461;color:#e87461;background:rgba(232,116,97,.07);}
+.rep-btn{background:none;border:none;color:var(--muted);font-size:.73rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .2s;}
+.rep-btn:hover{color:var(--blue2);}
+.reps{display:none;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--border);}
+.reps.open{display:block;}
+.rep-item{display:flex;gap:.55rem;margin-bottom:.55rem;}
+.rep-av{width:22px;height:22px;border-radius:50%;background:rgba(91,141,217,.15);display:flex;align-items:center;justify-content:center;font-size:.62rem;color:var(--blue2);font-weight:700;flex-shrink:0;}
+.rep-txt{font-size:.8rem;color:var(--muted);line-height:1.55;}
+.rep-txt strong{color:var(--text);}
+.rep-row{display:flex;gap:.45rem;margin-top:.6rem;}
+.rep-row input{flex:1;margin-bottom:0;}
+
+/* ── MODALS ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:600;align-items:center;justify-content:center;padding:1rem;}
+.overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:2rem;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);}
+.modal-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem;}
+.modal-title{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--white);}
+.modal-x{background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:.15rem;}
+.modal-x:hover{color:var(--white);}
+.modal-actions{display:flex;gap:.7rem;justify-content:flex-end;margin-top:1.4rem;padding-top:1rem;border-top:1px solid var(--border);}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+
+/* ── FAB ── */
+.fab{position:fixed;bottom:2rem;right:2rem;z-index:100;width:48px;height:48px;border-radius:50%;background:var(--gold);color:#0c0e12;border:none;font-size:1.4rem;cursor:pointer;box-shadow:0 6px 22px rgba(200,169,110,.35);transition:all .2s;display:none;align-items:center;justify-content:center;font-weight:700;}
+.fab:hover{transform:scale(1.1);}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:1.8rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;}
+.ft-brand{font-family:'DM Serif Display',serif;font-size:.95rem;color:var(--white);}
+.ft-brand span{color:var(--gold);}
+.ft-copy{font-size:.73rem;color:var(--muted);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:920px){
+  nav{padding:0 1.3rem;}
+  .nav-links{display:none;}
+  .hamburger{display:block;}
+  .hero{grid-template-columns:1fr;padding:78px 1.5rem 3rem;gap:2.5rem;}
+  .id-card{max-width:340px;margin:0 auto;}
+  .section{padding:3.5rem 1.5rem;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem;}
+  .posts-layout{grid-template-columns:1fr;}
+  .post-sidebar{order:-1;}
+  footer{padding:1.5rem;}
+  .frow,.field-row,.form-field-row{grid-template-columns:1fr;}
+}
+@media(max-width:580px){
+  .hero h1{font-size:2.2rem;}
+  .hire-hero{padding:2rem 1.3rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader"><div class="ld-logo"><span>N.</span>Aldhoun</div><div class="ld-bar"><div class="ld-prog"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')"><span>N.</span>Aldhoun</div>
+  <div class="nav-links">
+    <a class="active" onclick="showPage('home',this)">Home</a>
+    <a onclick="showPage('about',this)">About</a>
+    <a onclick="showPage('works',this)">Works</a>
+    <a onclick="showPage('posts',this)">Posts</a>
+    <a onclick="showPage('certs',this)">Certifications</a>
+    <a onclick="showPage('discuss',this)">Discussion</a>
+  </div>
+  <div class="nav-right">
+    <button class="icon-btn" onclick="toggleTheme()">◐</button>
+    <button class="hire-btn" onclick="showPage('services',null)">Hire Me</button>
+    <button class="hamburger" onclick="toggleMob()">☰</button>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a onclick="nav2('home')">Home</a>
+  <a onclick="nav2('about')">About</a>
+  <a onclick="nav2('works')">Works</a>
+  <a onclick="nav2('posts')">Posts</a>
+  <a onclick="nav2('certs')">Certifications</a>
+  <a onclick="nav2('discuss')">Discussion</a>
+  <a onclick="nav2('contact')">Contact</a>
+  <button onclick="nav2('services')" style="background:var(--gold);color:#0c0e12;font-weight:700;border-radius:7px;margin-top:.3rem;">Hire Me</button>
+</div>
+
+<!-- ══ HOME ══ -->
+<div id="page-home" class="page active">
+<div class="hero">
+  <div class="hero-bg"><div class="h-grid"></div><div class="h-glow"></div><div class="h-glow2"></div>
+    <svg class="plane-anim" width="55" height="26" viewBox="0 0 55 26" fill="none"><path d="M0 13L46 0L55 13L46 16L50 26L37 18L28 20L0 13Z" fill="white"/></svg>
+  </div>
+  <div class="hero-l reveal">
+    <div class="status-pill"><div class="status-dot"></div>Open to Work — Junior / Entry Level</div>
+    <h1>I engineer<br><em>aircraft structures</em><span class="sub">& simulate flight.</span></h1>
+    <p class="hero-desc"><strong>Nashat Omar Aldhoun</strong> — Junior Aeronautical Engineer from JUST. Specialized in Aircraft Structures, FEA, Modal Analysis & MRO. Trained at the Royal Jordanian Air Force.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-gold" onclick="showPage('works',null)">View Projects →</button>
+      <button class="btn btn-ghost" onclick="showPage('contact',null)">Contact Me</button>
+      <a class="btn btn-ghost btn-sm" href="#" onclick="downloadCV();return false;">⬇ Download CV</a>
+    </div>
+    <div class="hero-metrics reveal d2">
+      <div class="hm"><div class="hm-num" id="hm-w">3<span>+</span></div><div class="hm-label">Projects</div></div>
+      <div class="hm"><div class="hm-num">8<span>wk</span></div><div class="hm-label">RJAF Training</div></div>
+      <div class="hm"><div class="hm-num" id="hm-p">2<span>+</span></div><div class="hm-label">Publications</div></div>
+    </div>
+  </div>
+  <div class="reveal d1">
+    <div class="id-card">
+      <div class="idc-top">
+        <div class="idc-grid"></div><div class="idc-stripe"></div>
+        <div class="avatar" id="avatarEl">NA</div>
+        <div class="idc-name">Nashat Omar Aldhoun</div>
+        <div class="idc-role">Aeronautical Engineer</div>
+        <button class="photo-btn" onclick="document.getElementById('photoIn').click()">+ Upload Photo</button>
+        <input type="file" id="photoIn" accept="image/*" style="display:none" onchange="handleProfilePhoto(event)">
+      </div>
+      <div class="idc-body">
+        <div class="idc-row"><div class="idc-icon">📍</div><div><div class="idc-key">Location</div><div class="idc-val">Irbid, Jordan</div></div></div>
+        <div class="idc-row"><div class="idc-icon">🎓</div><div><div class="idc-key">Education</div><div class="idc-val">B.Sc. Aeronautical Eng. — JUST '25</div></div></div>
+        <div class="idc-row"><div class="idc-icon">✈</div><div><div class="idc-key">Training</div><div class="idc-val">RJAF Overhaul Dept.</div></div></div>
+        <div class="idc-row"><div class="idc-icon">🔧</div><div><div class="idc-key">Specialization</div><div class="idc-val">Structures · FEA · MRO</div></div></div>
+        <div class="idc-row"><div class="idc-icon">📧</div><div><div class="idc-key">Email</div><div class="idc-val">nashataldhoun@yahoo.com</div></div></div>
+      </div>
+      <div class="idc-foot">
+        <a href="mailto:nashataldhoun@yahoo.com">📧 Email</a>
+        <a href="https://linkedin.com" target="_blank">💼 LinkedIn</a>
+        <a href="#" onclick="downloadCV();return false;">⬇ CV</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div id="page-about" class="page">
+<div class="section">
+  <div class="reveal"><div class="eyebrow">About Me</div><h2 class="sec-title">Engineer. Analyst.<br>Problem Solver.</h2></div>
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="about-p"><strong>Nashat Omar Aldhoun</strong> is a 2025 Aeronautical Engineering graduate from JUST with deep expertise in Aircraft Structures and MRO operations.</p>
+      <p class="about-p">His graduation project — <strong>Vibration Analysis on an Aircraft Wing</strong> — covered 3D modeling in Creo, modal analysis comparing Aluminum vs. CFRP in ANSYS, and CFD aerodynamic stability simulations with a validated notch-filter mitigation system.</p>
+      <p class="about-p">8-week training at the <strong>Royal Jordanian Air Force Overhaul Department</strong> gave him direct hands-on exposure to hydraulic systems, overhaul procedures, and aviation safety protocols.</p>
+      <div class="sg"><div class="sg-label">Engineering Software</div><div class="chips"><span class="chip">Creo</span><span class="chip">ANSYS CFD</span><span class="chip">SolidWorks</span><span class="chip">MATLAB</span></div></div>
+      <div class="sg"><div class="sg-label">Core Skills</div><div class="chips"><span class="chip">FEA</span><span class="chip">Modal Analysis</span><span class="chip">CFD Simulation</span><span class="chip">Aircraft MRO</span><span class="chip">Power BI</span><span class="chip">Technical Reports</span></div></div>
+      <div class="sg"><div class="sg-label">Languages</div><div class="chips"><span class="chip">Arabic — Native</span><span class="chip">English — B2</span></div></div>
+      <div class="cv-box">
+        <div><h4>Curriculum Vitae</h4><p>Download my full CV as PDF</p></div>
+        <button class="btn btn-gold btn-sm" onclick="downloadCV()">⬇ Download PDF</button>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <div class="eyebrow" style="margin-bottom:1.3rem;">Timeline</div>
+      <div class="tl-item"><div class="tl-date">Sep–Oct<br>2025</div><div><div class="tl-t">Overhaul Dept. Trainee</div><div class="tl-o">Royal Jordanian Air Force</div><div class="tl-d">8-week intensive aircraft maintenance. Hydraulic systems, functional testing, aviation safety.</div></div></div>
+      <div class="tl-item"><div class="tl-date">2021–<br>2025</div><div><div class="tl-t">B.Sc. Aeronautical Engineering</div><div class="tl-o">JUST — Jordan</div><div class="tl-d">Graduation: Vibration Analysis on Aircraft Wing using ANSYS, Creo & CFD.</div></div></div>
+      <div class="tl-item"><div class="tl-date">2026</div><div><div class="tl-t">Power BI Certification</div><div class="tl-o">Data Analysis & Visualization</div></div></div>
+      <div class="tl-item"><div class="tl-date">2024</div><div><div class="tl-t">Employment Skills Training</div><div class="tl-o">5 Hours Professional Dev.</div></div></div>
+      <div class="tl-item"><div class="tl-date">2019</div><div><div class="tl-t">Community Leaders Program</div><div class="tl-o">University Leadership</div></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ WORKS ══ -->
+<div id="page-works" class="page">
+<div class="section">
+  <div class="sec-row reveal">
+    <div><div class="eyebrow">Portfolio</div><h2 class="sec-title">Projects & Works</h2><p class="sec-sub" style="margin-bottom:0;">Click any project for full details. Upload photos to make it visual.</p></div>
+    <button class="btn btn-gold btn-sm" onclick="openM('workModal')">+ Add Project</button>
+  </div>
+  <div class="works-grid reveal" id="worksGrid"></div>
+</div>
+</div>
+
+<!-- ══ POSTS ══ -->
+<div id="page-posts" class="page">
+<div class="section">
+  <div class="sec-row reveal">
+    <div><div class="eyebrow">Scientific Posts</div><h2 class="sec-title">Knowledge Feed</h2><p class="sec-sub" style="margin-bottom:0;">Share articles, links, videos, documents, and images with the aerospace community.</p></div>
+    <button class="btn btn-gold btn-sm" onclick="openM('postModal')">+ New Post</button>
+  </div>
+  <div class="posts-layout reveal">
+    <div>
+      <div id="postFeed"></div>
+    </div>
+    <div class="post-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Filter by Topic</div>
+        <div class="tag-cloud" id="tagCloud"></div>
+        <div class="filter-count" id="filterCount"></div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-title">Post Types</div>
+        <div style="display:grid;gap:.4rem;font-size:.79rem;color:var(--muted);">
+          <span>📝 Article — Written content</span>
+          <span>🔗 Link — Website preview</span>
+          <span>▶ Video — YouTube embed</span>
+          <span>📄 Document — PDF/file</span>
+          <span>🖼 Image — Photo upload</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ CERTIFICATIONS ══ -->
+<div id="page-certs" class="page">
+<div class="section">
+  <div class="sec-row reveal">
+    <div><div class="eyebrow">Credentials</div><h2 class="sec-title">Certifications</h2><p class="sec-sub" style="margin-bottom:0;">Upload certificate images to make them visual and credible.</p></div>
+    <button class="btn btn-gold btn-sm" onclick="openM('certModal')">+ Add Certificate</button>
+  </div>
+  <div class="certs-grid reveal" id="certsGrid"></div>
+</div>
+</div>
+
+<!-- ══ DISCUSSION ══ -->
+<div id="page-discuss" class="page">
+<div class="section">
+  <div class="reveal"><div class="eyebrow">Community</div><h2 class="sec-title">Open Discussion</h2><p class="sec-sub">Ask questions, share ideas, or discuss anything aerospace-related.</p></div>
+  <div class="compose-box reveal">
+    <div class="compose-lbl">Leave a comment</div>
+    <input class="field" id="cName" placeholder="Your name (optional)">
+    <textarea class="field" id="cText" placeholder="Share a thought, question, or idea..."></textarea>
+    <div style="display:flex;justify-content:flex-end;"><button class="btn btn-gold btn-sm" onclick="addComment()">Post Comment →</button></div>
+  </div>
+  <div class="cmts reveal" id="cmtsList"></div>
+</div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div id="page-contact" class="page">
+<div class="section">
+  <div class="reveal"><div class="eyebrow">Get In Touch</div><h2 class="sec-title">Contact Me</h2><p class="sec-sub">Whether it's a job opportunity, project collaboration, or a question — I'd love to hear from you.</p></div>
+  <div class="contact-grid reveal">
+    <div>
+      <div class="contact-info-card">
+        <div class="ci-row"><div class="ci-icon">📧</div><div><div class="ci-key">Email</div><div class="ci-val"><a href="mailto:nashataldhoun@yahoo.com">nashataldhoun@yahoo.com</a></div></div></div>
+        <div class="ci-row"><div class="ci-icon">📱</div><div><div class="ci-key">Phone / WhatsApp</div><div class="ci-val">+962 776 763 628</div></div></div>
+        <div class="ci-row"><div class="ci-icon">📍</div><div><div class="ci-key">Location</div><div class="ci-val">Irbid, Jordan</div></div></div>
+        <div class="ci-row"><div class="ci-icon">💼</div><div><div class="ci-key">LinkedIn</div><div class="ci-val"><a href="https://linkedin.com" target="_blank">linkedin.com/in/nashat</a></div></div></div>
+        <div class="ci-row"><div class="ci-icon">🟢</div><div><div class="ci-key">Status</div><div class="ci-val" style="color:var(--green);">Open to work — Junior roles</div></div></div>
+      </div>
+      <div class="cv-box" style="margin-top:1.2rem;">
+        <div><h4>Curriculum Vitae</h4><p>Download my CV as PDF</p></div>
+        <button class="btn btn-gold btn-sm" onclick="downloadCV()">⬇ Download CV</button>
+      </div>
+    </div>
+    <div class="contact-form-card reveal d1">
+      <h3>Send a Message</h3>
+      <div class="form-field-row">
+        <div><label class="form-label">Your Name</label><input class="field" id="cf-name" placeholder="John Doe" style="margin-bottom:0;"></div>
+        <div><label class="form-label">Email</label><input class="field" id="cf-email" placeholder="email@company.com" style="margin-bottom:0;"></div>
+      </div><br>
+      <label class="form-label">Subject</label>
+      <select class="field" id="cf-subject">
+        <option>Job Opportunity</option><option>Project Collaboration</option>
+        <option>Service Inquiry</option><option>Academic Discussion</option><option>Other</option>
+      </select>
+      <label class="form-label">Message</label>
+      <textarea class="field" id="cf-msg" placeholder="Write your message here..." style="min-height:120px;"></textarea>
+      <button class="btn btn-gold" style="width:100%;" onclick="sendContactForm()">Send Message →</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<div id="page-services" class="page">
+<div class="section">
+  <div class="hire-hero reveal">
+    <div class="hh-grid"></div><div class="hh-stripe"></div>
+    <div class="eyebrow" style="justify-content:center;margin-bottom:.7rem;">Available for Work</div>
+    <h2>Work With Nashat</h2>
+    <p>Need structural analysis, 3D modeling, or engineering reports? Let's build something.</p>
+    <div class="email-pill">nashataldhoun@yahoo.com</div><br>
+    <a class="btn btn-gold" href="mailto:nashataldhoun@yahoo.com?subject=Work Inquiry">Send Inquiry →</a>
+  </div>
+  <div class="svc-grid reveal">
+    <div class="svc-card"><div class="svc-icon">🔧</div><div class="svc-title">Structural Analysis</div><div class="svc-desc">FEA & Modal Analysis using ANSYS or SolidWorks. Full reports with charts.</div><div class="svc-price">From $50</div><a class="btn btn-gold btn-sm" href="mailto:nashataldhoun@yahoo.com?subject=Structural Analysis">Request →</a></div>
+    <div class="svc-card"><div class="svc-icon">📐</div><div class="svc-title">3D Modeling</div><div class="svc-desc">Aircraft & mechanical modeling using Creo or SolidWorks.</div><div class="svc-price">From $30</div><a class="btn btn-gold btn-sm" href="mailto:nashataldhoun@yahoo.com?subject=3D Modeling">Request →</a></div>
+    <div class="svc-card"><div class="svc-icon">📊</div><div class="svc-title">Data Reports</div><div class="svc-desc">Engineering data visualization with Power BI dashboards.</div><div class="svc-price">From $20</div><a class="btn btn-gold btn-sm" href="mailto:nashataldhoun@yahoo.com?subject=Data Report">Request →</a></div>
+  </div>
+  <div class="sec-row reveal" style="margin-bottom:1rem;">
+    <div class="eyebrow">Custom Services</div>
+    <button class="btn btn-ghost btn-sm" onclick="openM('svcModal')">+ Add Service</button>
+  </div>
+  <div id="customSvcs" class="reveal"></div>
+  <div class="support-card reveal">
+    <h3>☕ Support My Work</h3>
+    <p>If my content or tools helped you, consider supporting via PayPal or bank transfer.</p>
+    <div class="email-pill" style="margin-bottom:1rem;">nashataldhoun@yahoo.com</div><br>
+    <button class="btn btn-gold btn-sm" onclick="openM('donateModal')">Send a Coffee</button>
+  </div>
+</div>
+</div>
+
+<!-- ══ MODALS ══ -->
+
+<!-- Work -->
+<div class="overlay" id="workModal">
+<div class="modal">
+  <div class="modal-hd"><div class="modal-title">Add / Edit Project</div><button class="modal-x" onclick="closeM('workModal')">×</button></div>
+  <input type="hidden" id="ewId">
+  <div class="frow">
+    <div><label class="form-label">Title</label><input class="field" id="wT" placeholder="Project name" style="margin-bottom:0;"></div>
+    <div><label class="form-label">Emoji</label><input class="field" id="wE" placeholder="✈" style="margin-bottom:0;"></div>
+  </div><br>
+  <label class="form-label">Category</label>
+  <select class="field" id="wC"><option>Simulation</option><option>3D Modeling</option><option>MRO</option><option>Data Analysis</option><option>Research</option><option>Design</option><option>Other</option></select>
+  <label class="form-label">Description</label>
+  <textarea class="field" id="wD" placeholder="Describe the project, tools, and outcomes..."></textarea>
+  <div class="frow">
+    <div><label class="form-label">Year</label><input class="field" id="wY" placeholder="2025" style="margin-bottom:0;"></div>
+    <div><label class="form-label">Price (optional)</label><input class="field" id="wP" placeholder="$50" style="margin-bottom:0;"></div>
+  </div><br>
+  <label class="form-label">Link (optional)</label>
+  <input class="field" id="wL" placeholder="https://..." style="margin-bottom:0;">
+  <div class="modal-actions">
+    <button class="btn btn-ghost btn-sm" onclick="closeM('workModal')">Cancel</button>
+    <button class="btn btn-gold btn-sm" onclick="saveWork()">Save</button>
+  </div>
+</div>
+</div>
+
+<!-- Project Detail -->
+<div class="overlay" id="pdModal">
+<div class="modal" style="max-width:640px;">
+  <div class="modal-hd"><div class="modal-title" id="pd-t"></div><button class="modal-x" onclick="closeM('pdModal')">×</button></div>
+  <div style="height:180px;background:#0e1c35;border-radius:10px;margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;font-size:4.5rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(91,141,217,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(91,141,217,.07) 1px,transparent 1px);background-size:18px 18px;"></div>
+    <img id="pd-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" src="" alt="">
+    <span id="pd-em" style="position:relative;z-index:1;"></span>
+  </div>
+  <div id="pd-meta" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.9rem;"></div>
+  <div id="pd-desc" style="font-size:.88rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem;"></div>
+  <div id="pd-link"></div>
+</div>
+</div>
+
+<!-- Post -->
+<div class="overlay" id="postModal">
+<div class="modal" style="max-width:560px;">
+  <div class="modal-hd"><div class="modal-title">New Post</div><button class="modal-x" onclick="closeM('postModal')">×</button></div>
+  <input type="hidden" id="epId">
+  <div class="post-tabs">
+    <button class="ptab active" onclick="switchPTab('article',this)">📝 Article</button>
+    <button class="ptab" onclick="switchPTab('link',this)">🔗 Link</button>
+    <button class="ptab" onclick="switchPTab('video',this)">▶ Video</button>
+    <button class="ptab" onclick="switchPTab('doc',this)">📄 Document</button>
+    <button class="ptab" onclick="switchPTab('image',this)">🖼 Image</button>
+  </div>
+  <input type="hidden" id="pType" value="article">
+  <label class="form-label">Title</label>
+  <input class="field" id="pTitle" placeholder="Post title">
+  <label class="form-label">Content / Description</label>
+  <textarea class="field" id="pContent" placeholder="Write here..."></textarea>
+  <!-- ARTICLE -->
+  <div class="post-type-panel active" id="pt-article"></div>
+  <!-- LINK -->
+  <div class="post-type-panel" id="pt-link">
+    <label class="form-label">URL</label>
+    <input class="field" id="pUrl" placeholder="https://...">
+    <label class="form-label">Link Title (optional)</label>
+    <input class="field" id="pLinkTitle" placeholder="Article / page name">
+    <label class="form-label">Link Icon Emoji</label>
+    <input class="field" id="pLinkIcon" placeholder="🌐">
+  </div>
+  <!-- VIDEO -->
+  <div class="post-type-panel" id="pt-video">
+    <label class="form-label">YouTube URL or Video ID</label>
+    <input class="field" id="pVideoUrl" placeholder="https://youtube.com/watch?v=... or video ID">
+  </div>
+  <!-- DOC -->
+  <div class="post-type-panel" id="pt-doc">
+    <label class="form-label">Document Name</label>
+    <input class="field" id="pDocName" placeholder="Research Paper.pdf">
+    <label class="form-label">Document URL (Google Drive, etc.)</label>
+    <input class="field" id="pDocUrl" placeholder="https://drive.google.com/...">
+  </div>
+  <!-- IMAGE -->
+  <div class="post-type-panel" id="pt-image">
+    <label class="form-label">Upload Image</label>
+    <input type="file" accept="image/*" id="pImageFile" class="field" onchange="previewPostImg(event)" style="padding:.5rem;">
+    <img id="pImgPreview" class="post-img-preview" src="" alt="">
+  </div>
+  <label class="form-label">Tags (comma separated)</label>
+  <input class="field" id="pTags" placeholder="CFD, Structures, MRO">
+  <div class="modal-actions">
+    <button class="btn btn-ghost btn-sm" onclick="closeM('postModal')">Cancel</button>
+    <button class="btn btn-gold btn-sm" onclick="savePost()">Publish Post</button>
+  </div>
+</div>
+</div>
+
+<!-- Cert -->
+<div class="overlay" id="certModal">
+<div class="modal">
+  <div class="modal-hd"><div class="modal-title">Add Certificate</div><button class="modal-x" onclick="closeM('certModal')">×</button></div>
+  <label class="form-label">Certificate Name</label>
+  <input class="field" id="certN" placeholder="e.g. Power BI Certification">
+  <label class="form-label">Issuing Organization</label>
+  <input class="field" id="certI" placeholder="e.g. Microsoft">
+  <label class="form-label">Date</label>
+  <input class="field" id="certD" placeholder="2026" style="margin-bottom:0;">
+  <div class="modal-actions">
+    <button class="btn btn-ghost btn-sm" onclick="closeM('certModal')">Cancel</button>
+    <button class="btn btn-gold btn-sm" onclick="saveCert()">Add</button>
+  </div>
+</div>
+</div>
+
+<!-- Service -->
+<div class="overlay" id="svcModal">
+<div class="modal">
+  <div class="modal-hd"><div class="modal-title">Add Custom Service</div><button class="modal-x" onclick="closeM('svcModal')">×</button></div>
+  <label class="form-label">Service Name</label><input class="field" id="sN" placeholder="e.g. CFD Consulting">
+  <label class="form-label">Description</label><textarea class="field" id="sD" style="min-height:70px;" placeholder="What do you offer?"></textarea>
+  <label class="form-label">Price</label><input class="field" id="sP" placeholder="$40 / project">
+  <div class="modal-actions">
+    <button class="btn btn-ghost btn-sm" onclick="closeM('svcModal')">Cancel</button>
+    <button class="btn btn-gold btn-sm" onclick="saveSvc()">Add</button>
+  </div>
+</div>
+</div>
+
+<!-- Donate -->
+<div class="overlay" id="donateModal">
+<div class="modal" style="text-align:center;">
+  <div class="modal-hd"><div class="modal-title">☕ Support Nashat</div><button class="modal-x" onclick="closeM('donateModal')">×</button></div>
+  <p style="color:var(--muted);font-size:.87rem;margin-bottom:1.4rem;line-height:1.75;">Thank you! Contact via email to complete via PayPal or bank transfer.</p>
+  <div class="email-pill">nashataldhoun@yahoo.com</div>
+  <div class="modal-actions" style="justify-content:center;margin-top:1.4rem;">
+    <button class="btn btn-ghost btn-sm" onclick="closeM('donateModal')">Close</button>
+  </div>
+</div>
+</div>
+
+<button class="fab" id="fab">+</button>
+
+<footer>
+  <div class="ft-brand"><span>N.</span>Aldhoun — Aeronautical Engineer</div>
+  <div class="ft-copy">Irbid, Jordan · nashataldhoun@yahoo.com · <a href="#" onclick="showPage('contact',null);return false;" style="color:var(--gold);">Contact</a></div>
+</footer>
+
+<script>
+// ════════════ DATA ════════════
+let works=[
+  {id:1,title:"Vibration Analysis on Aircraft Wing",emoji:"✈",cat:"Simulation",photo:"",
+   desc:"Comprehensive modal analysis comparing Aluminum Alloys vs. CFRP on a full wing model built in Creo. Executed ANSYS simulations to evaluate resonance behavior, ran CFD aerodynamic stability tests, and validated a notch-filter mitigation system for vibration-resistant wing design.",
+   year:"2025",link:"",price:""},
+  {id:2,title:"Hydraulic Pump Systems Study",emoji:"⚙",cat:"MRO",photo:"",
+   desc:"Hands-on inspection, disassembly, and functional testing of hydraulic pump systems during 8-week RJAF Overhaul Workshop training. Documented maintenance procedures and tested overhauled components to ensure 100% reliability before return to service.",
+   year:"2025",link:"",price:""},
+  {id:3,title:"CFD Aerodynamic Stability Model",emoji:"🛩",cat:"Simulation",photo:"",
+   desc:"CFD simulation to investigate aerodynamic stability of aircraft wing profiles under various flight conditions using ANSYS. Analyzed pressure distribution, lift coefficients, and validated model against theoretical data.",
+   year:"2025",link:"",price:""}
+];
+let posts=[
+  {id:1,type:"article",title:"Aluminum vs CFRP: What My Research Found",content:"During my graduation project at JUST, I performed an in-depth modal analysis comparing aluminum alloys to CFRP on a full aircraft wing model built in Creo. CFRP offers significantly higher natural frequencies and better resonance resistance, reducing flutter risk at high speeds. The stiffness-to-weight ratio advantage of CFRP was clear in every simulation run.",tags:["Structures","CFRP","FEA","ANSYS"],date:"2025-12-01",likes:0,liked:false,comments:[],url:"",linkTitle:"",linkIcon:"",videoId:"",docName:"",docUrl:"",imgData:""},
+  {id:2,type:"link",title:"NASA Report on Composite Aircraft Structures",content:"An excellent NASA technical report on the fatigue behavior of CFRP in aerospace applications. Highly recommended for anyone working on structural analysis.",tags:["Composites","NASA","Research"],date:"2025-11-15",likes:0,liked:false,comments:[],url:"https://ntrs.nasa.gov",linkTitle:"NASA Technical Reports Server",linkIcon:"🚀",videoId:"",docName:"",docUrl:"",imgData:""},
+  {id:3,type:"article",title:"What I Learned at the Royal Jordanian Air Force",content:"My 8-week training at the RJAF Overhaul Department was one of the most transformative experiences of my engineering journey. Working directly with aircraft components — particularly hydraulic pump systems — gave me a ground-level understanding that no textbook can provide.",tags:["MRO","Career","RJAF"],date:"2025-10-15",likes:0,liked:false,comments:[],url:"",linkTitle:"",linkIcon:"",videoId:"",docName:"",docUrl:"",imgData:""}
+];
+let certs=[
+  {id:1,name:"Power BI",issuer:"Microsoft",date:"2026",img:""},
+  {id:2,name:"Employment Skills Training",issuer:"Professional Development",date:"2024",img:""},
+  {id:3,name:"We Are Community Leaders",issuer:"University Program",date:"2019",img:""}
+];
+let comments=[],customSvcs=[];
+let nextWorkId=4,nextPostId=4,nextCertId=4,nextCmtId=1;
+let activeTag='';
+let currentPostTab='article';
+
+// ════════════ THEME ════════════
+function toggleTheme(){const t=document.documentElement.getAttribute('data-theme');document.documentElement.setAttribute('data-theme',t==='light'?'':'light');localStorage.setItem('theme',t==='light'?'':'light');}
+(()=>{const t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+
+// ════════════ LOADER ════════════
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('gone');trigRev();},1400);});
+
+// ════════════ MOBILE ════════════
+function toggleMob(){document.getElementById('mobMenu').classList.toggle('open');}
+function nav2(p){showPage(p,null);document.getElementById('mobMenu').classList.remove('open');}
+
+// ════════════ NAVIGATION ════════════
+function showPage(name,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  if(el)el.classList.add('active');
+  const fab=document.getElementById('fab');
+  const fabMap={works:()=>openM('workModal'),posts:()=>openM('postModal'),certs:()=>openM('certModal')};
+  if(fabMap[name]){fab.style.display='flex';fab.onclick=fabMap[name];}
+  else fab.style.display='none';
+  renderAll();window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(trigRev,60);
+}
+
+// ════════════ REVEAL ════════════
+function trigRev(){document.querySelectorAll('.reveal:not(.v)').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-50)el.classList.add('v');});}
+window.addEventListener('scroll',trigRev,{passive:true});
+
+// ════════════ MODALS ════════════
+function openM(id){document.getElementById(id).classList.add('open');}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+
+// ════════════ TOAST ════════════
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+// ════════════ CV DOWNLOAD ════════════
+function downloadCV(){
+  const content=`NASHAT OMAR ALDHOUN\nIrbid, Jordan | +962 776763628 | nashataldhoun@yahoo.com\n\nSUMMARY\nHighly motivated Junior Aeronautical Engineer and JUST graduate with specialized expertise in Aircraft Structures and MRO operations. Proficient in ANSYS, SolidWorks, and Creo. Proven technical ability in FEA and Modal Analysis.\n\nTECHNICAL SKILLS\n• Engineering Software: Creo, CFD (ANSYS), MATLAB, SolidWorks\n• Data Tools: Power BI, Microsoft Office\n• Core: Aircraft Structural Analysis, FEA, Modal Analysis, MRO, CFD\n• Languages: Arabic (Native), English (B2)\n\nEXPERIENCE\nRoyal Jordanian Air Force (RJAF) – Overhaul Department | Sep–Oct 2025\n• 8-week practical training in aircraft maintenance\n• Hands-on experience with hydraulic pump systems\n• Executed supervised maintenance tasks and functional testing\n\nPROJECTS\nVibration Analysis on Aircraft Wing – JUST 2025\n• Modal analysis on Aluminum vs CFRP using ANSYS\n• CFD simulations for aerodynamic stability\n• Validated notch-filter mitigation system\n\nEDUCATION\nB.Sc. Aeronautical Engineering – JUST, 2025\nHigh School Diploma – Kafr Awan, 2018\n\nCERTIFICATIONS\n• Power BI – 2026\n• Employment Skills Training – 2024\n• Community Leaders Program – 2019`;
+  const blob=new Blob([content],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Nashat_Aldhoun_CV.txt';a.click();
+  toast('✓ CV downloaded! Replace with your PDF for best results.');
+}
+
+// ════════════ PROFILE PHOTO ════════════
+function handleProfilePhoto(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{const av=document.getElementById('avatarEl');av.style.backgroundImage=`url(${ev.target.result})`;av.style.backgroundSize='cover';av.textContent='';localStorage.setItem('pp',ev.target.result);toast('✓ Photo updated!');};
+  r.readAsDataURL(f);
+}
+(()=>{const p=localStorage.getItem('pp');if(p){const av=document.getElementById('avatarEl');av.style.backgroundImage=`url(${p})`;av.style.backgroundSize='cover';av.textContent='';}})();
+
+// ════════════ WORKS ════════════
+function renderWorks(){
+  const g=document.getElementById('worksGrid');if(!g)return;
+  if(!works.length){g.innerHTML='<div style="text-align:center;padding:4rem;color:var(--muted);grid-column:1/-1;"><div style="font-size:3rem;margin-bottom:1rem;">✈</div><p>No projects yet. Add your first one!</p></div>';return;}
+  g.innerHTML=works.map(w=>`
+    <div class="wcard" onclick="openPD(${w.id})">
+      <div class="wthumb">
+        <img src="${w.photo||''}" class="${w.photo?'on':''}" alt="">
+        <div class="wthumb-ph" ${w.photo?'style="display:none"':''}>
+          <div class="wthumb-bg"></div>
+          <span style="position:relative;z-index:1;">${w.emoji||'📁'}</span>
+        </div>
+        <div class="wcat">${w.cat}</div>
+        ${w.price?`<div class="wprice">${w.price}</div>`:''}
+        <div class="photo-overlay" onclick="event.stopPropagation();document.getElementById('wph-${w.id}').click()">
+          <span>📷 Upload Photo</span>
+          <input type="file" id="wph-${w.id}" accept="image/*" style="display:none" onchange="workPhoto(${w.id},event)">
+        </div>
+      </div>
+      <div class="wbody">
+        <div class="wtitle">${w.title}</div>
+        <div class="wdesc">${w.desc.substring(0,110)}…</div>
+        <div class="wfoot">
+          <div class="wyear">${w.year}${w.link?` · <a href="${w.link}" target="_blank" onclick="event.stopPropagation()" style="color:var(--blue2);">View ↗</a>`:''}</div>
+          <div style="display:flex;gap:.35rem;">
+            <button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();editWork(${w.id})">Edit</button>
+            <button class="btn-danger" onclick="event.stopPropagation();delWork(${w.id})">Del</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function workPhoto(id,e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=ev=>{const w=works.find(x=>x.id===id);if(w){w.photo=ev.target.result;saveData();renderWorks();toast('✓ Photo saved!');}};r.readAsDataURL(f);
+}
+
+function openPD(id){
+  const w=works.find(x=>x.id===id);if(!w)return;
+  document.getElementById('pd-t').textContent=w.title;
+  const img=document.getElementById('pd-img'),em=document.getElementById('pd-em');
+  if(w.photo){img.src=w.photo;img.style.display='block';em.style.display='none';}
+  else{img.style.display='none';em.style.display='block';em.textContent=w.emoji||'📁';}
+  document.getElementById('pd-meta').innerHTML=`<span style="background:var(--panel);border:1px solid var(--border);color:var(--text);font-size:.72rem;padding:.23rem .6rem;border-radius:4px;">${w.cat}</span><span style="background:var(--panel);border:1px solid var(--border);color:var(--text);font-size:.72rem;padding:.23rem .6rem;border-radius:4px;">${w.year}</span>${w.price?`<span style="background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.3);color:var(--gold);font-size:.72rem;padding:.23rem .6rem;border-radius:4px;">${w.price}</span>`:''}`;
+  document.getElementById('pd-desc').textContent=w.desc;
+  document.getElementById('pd-link').innerHTML=w.link?`<a class="btn btn-ghost btn-sm" href="${w.link}" target="_blank" style="display:inline-flex;text-decoration:none;">View Project ↗</a>`:'';
+  openM('pdModal');
+}
+
+function saveWork(){
+  const id=document.getElementById('ewId').value;
+  const w={title:document.getElementById('wT').value||'Untitled',emoji:document.getElementById('wE').value||'📁',cat:document.getElementById('wC').value,desc:document.getElementById('wD').value,year:document.getElementById('wY').value||'2025',link:document.getElementById('wL').value,price:document.getElementById('wP').value};
+  if(id){const i=works.findIndex(x=>x.id==id);if(i>-1)works[i]={...works[i],...w};}
+  else works.push({id:nextWorkId++,photo:'',...w});
+  closeM('workModal');clearWForm();saveData();renderWorks();updateStats();toast('✓ Project saved!');
+}
+function editWork(id){
+  const w=works.find(x=>x.id===id);if(!w)return;
+  document.getElementById('ewId').value=id;document.getElementById('wT').value=w.title;document.getElementById('wE').value=w.emoji;document.getElementById('wC').value=w.cat;document.getElementById('wD').value=w.desc;document.getElementById('wY').value=w.year;document.getElementById('wL').value=w.link;document.getElementById('wP').value=w.price;
+  openM('workModal');
+}
+function delWork(id){if(confirm('Delete?')){works=works.filter(w=>w.id!==id);saveData();renderWorks();updateStats();toast('Deleted');}}
+function clearWForm(){['ewId','wT','wE','wY','wL','wP'].forEach(i=>document.getElementById(i).value='');document.getElementById('wD').value='';}
+
+// ════════════ POSTS ════════════
+function switchPTab(type,btn){
+  currentPostTab=type;
+  document.getElementById('pType').value=type;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.post-type-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pt-'+type).classList.add('active');
+}
+
+function previewPostImg(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{const p=document.getElementById('pImgPreview');p.src=ev.target.result;p.classList.add('on');};
+  r.readAsDataURL(f);
+}
+
+function getYTId(url){
+  const m=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+  return m?m[1]:url.trim().substring(0,11);
+}
+
+function savePost(){
+  const type=document.getElementById('pType').value;
+  const imgPrev=document.getElementById('pImgPreview');
+  const p={
+    id:nextPostId++,type,
+    title:document.getElementById('pTitle').value||'Untitled',
+    content:document.getElementById('pContent').value,
+    tags:document.getElementById('pTags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    date:new Date().toISOString().split('T')[0],
+    likes:0,liked:false,comments:[],
+    url:document.getElementById('pUrl')?.value||'',
+    linkTitle:document.getElementById('pLinkTitle')?.value||'',
+    linkIcon:document.getElementById('pLinkIcon')?.value||'🌐',
+    videoId:type==='video'?getYTId(document.getElementById('pVideoUrl')?.value||''):'',
+    docName:document.getElementById('pDocName')?.value||'',
+    docUrl:document.getElementById('pDocUrl')?.value||'',
+    imgData:type==='image'&&imgPrev.classList.contains('on')?imgPrev.src:''
+  };
+  posts.unshift(p);
+  closeM('postModal');clearPForm();saveData();renderPosts();updateStats();toast('✓ Post published!');
+}
+
+function clearPForm(){
+  ['pTitle','pContent','pTags','pUrl','pLinkTitle','pLinkIcon','pVideoUrl','pDocName','pDocUrl'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
+  const pi=document.getElementById('pImgPreview');if(pi){pi.src='';pi.classList.remove('on');}
+  document.getElementById('epId').value='';
+}
+
+function renderPosts(filterTag){
+  const feed=document.getElementById('postFeed');if(!feed)return;
+  let filtered=filterTag?posts.filter(p=>p.tags.includes(filterTag)):posts;
+  document.getElementById('filterCount').textContent=filterTag?`Showing ${filtered.length} post${filtered.length!==1?'s':''} tagged "${filterTag}" — `+(filtered.length<posts.length?`<button onclick="filterPosts('',null)" style="background:none;border:none;color:var(--gold);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.68rem;">Clear filter ×</button>`:''):'';
+  if(!filtered.length){feed.innerHTML='<div style="text-align:center;padding:4rem;color:var(--muted);"><div style="font-size:3rem;margin-bottom:1rem;">📝</div><p>No posts yet. Share your first one!</p></div>';return;}
+  feed.innerHTML=filtered.map(p=>{
+    let media='';
+    if(p.type==='image'&&p.imgData) media=`<img class="pcard-img" src="${p.imgData}" alt="${p.title}">`;
+    else if(p.type==='video'&&p.videoId) media=`<iframe class="pcard-video" src="https://www.youtube.com/embed/${p.videoId}" allowfullscreen></iframe>`;
+    else if(p.type==='link'&&p.url) media=`<a class="link-preview" href="${p.url}" target="_blank"><div class="link-preview-icon">${p.linkIcon||'🌐'}</div><div><div class="lp-title">${p.linkTitle||p.url}</div><div class="lp-url">${p.url}</div></div></a>`;
+    else if(p.type==='doc'&&p.docName) media=`<a class="doc-card" href="${p.docUrl||'#'}" target="_blank"><div class="doc-icon">📄</div><div><div class="doc-name">${p.docName}</div><div class="doc-size">Click to view / download</div></div></a>`;
+    const typeLabels={article:'type-article',link:'type-link',video:'type-video',doc:'type-doc',image:'type-image'};
+    const typeNames={article:'Article',link:'Link',video:'Video',doc:'Document',image:'Image'};
+    const isLong=p.content.length>220;
+    return `<div class="pcard">
+      <div class="pcard-head">
+        <div class="pcard-user"><div class="p-avatar">NA</div><div><div class="p-name">Nashat Aldhoun</div><div class="p-meta">${p.date}${p.tags.length?` · ${p.tags[0]}`:''}</div></div></div>
+        <span class="pcard-type-badge ${typeLabels[p.type]||''}">${typeNames[p.type]||p.type}</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">${p.title}</div>
+        <div class="pcard-text${isLong?' collapsed':''}" id="ptxt-${p.id}">${p.content.replace(/\n/g,'<br>')}</div>
+        ${isLong?`<button class="read-more-btn" onclick="togglePost(${p.id},this)">Read more →</button>`:''}
+        ${p.tags.length?`<div class="pcard-tags">${p.tags.map(t=>`<span class="ptag" onclick="filterPosts('${t}',this)">#${t}</span>`).join('')}</div>`:''}
+      </div>
+      ${media}
+      <div class="pcard-foot">
+        <button class="pact-btn${p.liked?' liked':''}" onclick="likePost(${p.id})">♥ ${p.likes}</button>
+        <button class="pact-btn" onclick="togglePostCmt(${p.id})">💬 ${p.comments.length}</button>
+        <div class="pcard-admin">
+          <button class="btn btn-ghost btn-xs" onclick="delPost(${p.id})">Del</button>
+        </div>
+      </div>
+      <div id="pcmt-${p.id}" style="display:none;padding:.8rem 1.2rem;border-top:1px solid var(--border);">
+        ${p.comments.map(c=>`<div style="display:flex;gap:.6rem;margin-bottom:.6rem;"><div class="cmt-av" style="width:26px;height:26px;font-size:.7rem;">${c.name[0]}</div><div><div style="font-size:.78rem;font-weight:600;color:var(--text);">${c.name}</div><div style="font-size:.8rem;color:var(--muted);">${c.text}</div></div></div>`).join('')}
+        <div style="display:flex;gap:.5rem;margin-top:.5rem;">
+          <input class="field" style="margin-bottom:0;font-size:.8rem;" id="pcin-${p.id}" placeholder="Add a comment...">
+          <button class="btn btn-gold btn-xs" onclick="addPostComment(${p.id})">Post</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  renderTagCloud();
+}
+
+function togglePost(id,btn){const el=document.getElementById('ptxt-'+id);const c=el.classList.contains('collapsed');el.classList.toggle('collapsed');btn.textContent=c?'Show less ↑':'Read more →';}
+function togglePostCmt(id){const el=document.getElementById('pcmt-'+id);el.style.display=el.style.display==='block'?'none':'block';}
+function likePost(id){const p=posts.find(x=>x.id===id);if(p){p.liked=!p.liked;p.likes+=p.liked?1:-1;saveData();renderPosts(activeTag);}}
+function delPost(id){if(confirm('Delete post?')){posts=posts.filter(p=>p.id!==id);saveData();renderPosts(activeTag);updateStats();toast('Deleted');}}
+function addPostComment(id){
+  const input=document.getElementById('pcin-'+id);const text=input.value.trim();if(!text)return;
+  const p=posts.find(x=>x.id===id);if(p){p.comments.push({name:'Visitor',text});saveData();renderPosts(activeTag);toast('✓ Comment added!');}
+}
+function filterPosts(tag,el){
+  activeTag=tag;
+  document.querySelectorAll('.topic-tag').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderPosts(tag);
+}
+function renderTagCloud(){
+  const tc=document.getElementById('tagCloud');if(!tc)return;
+  const allTags=[...new Set(posts.flatMap(p=>p.tags))];
+  tc.innerHTML=allTags.map(t=>`<span class="topic-tag${activeTag===t?' active':''}" onclick="filterPosts('${t}',this)">${t}</span>`).join('');
+  if(!allTags.length)tc.innerHTML='<span style="font-size:.78rem;color:var(--muted);">No tags yet</span>';
+}
+
+// ════════════ CERTIFICATIONS ════════════
+function saveCert(){
+  const c={id:nextCertId++,name:document.getElementById('certN').value||'Certificate',issuer:document.getElementById('certI').value,date:document.getElementById('certD').value,img:''};
+  certs.push(c);closeM('certModal');['certN','certI','certD'].forEach(i=>document.getElementById(i).value='');
+  saveData();renderCerts();toast('✓ Certificate added!');
+}
+function certPhoto(id,e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=ev=>{const c=certs.find(x=>x.id===id);if(c){c.img=ev.target.result;saveData();renderCerts();toast('✓ Image uploaded!');}};r.readAsDataURL(f);
+}
+function delCert(id){if(confirm('Delete certificate?')){certs=certs.filter(c=>c.id!==id);saveData();renderCerts();toast('Deleted');}}
+function renderCerts(){
+  const g=document.getElementById('certsGrid');if(!g)return;
+  if(!certs.length){g.innerHTML='<div style="text-align:center;padding:4rem;color:var(--muted);grid-column:1/-1;"><div style="font-size:3rem;margin-bottom:1rem;">🏆</div><p>No certificates yet.</p></div>';return;}
+  g.innerHTML=certs.map(c=>`
+    <div class="cert-card">
+      ${c.img?`<img class="cert-img on" src="${c.img}" alt="${c.name}">`:`<div class="cert-ph"><div class="cert-ph-bg"></div><span style="position:relative;z-index:1;">🏆</span></div>`}
+      <div class="cert-name">${c.name}</div>
+      <div class="cert-issuer">${c.issuer}</div>
+      <div class="cert-date">${c.date}</div>
+      <div style="display:flex;gap:.4rem;margin-top:.7rem;">
+        <button class="cert-upload-btn" onclick="document.getElementById('cph-${c.id}').click()" style="flex:1;">📷 Upload Image</button>
+        <input type="file" id="cph-${c.id}" accept="image/*" style="display:none" onchange="certPhoto(${c.id},event)">
+        <button class="btn-danger" onclick="delCert(${c.id})">Del</button>
+      </div>
+    </div>`).join('');
+}
+
+// ════════════ DISCUSSION ════════════
+function addComment(){
+  const name=document.getElementById('cName').value||'Visitor';
+  const text=document.getElementById('cText').value.trim();if(!text)return;
+  comments.unshift({id:nextCmtId++,name,text,time:new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'}),likes:0,liked:false,replies:[],showReps:false});
+  document.getElementById('cText').value='';saveData();renderCmts();updateStats();toast('✓ Posted!');
+}
+function renderCmts(){
+  const l=document.getElementById('cmtsList');if(!l)return;
+  if(!comments.length){l.innerHTML='<div style="text-align:center;padding:4rem;color:var(--muted);"><div style="font-size:3rem;margin-bottom:1rem;">💬</div><p>Be the first to join the discussion!</p></div>';return;}
+  l.innerHTML=comments.map(c=>`
+    <div class="cmt">
+      <div class="cmt-head">
+        <div class="cmt-user"><div class="cmt-av">${c.name[0].toUpperCase()}</div><div><div class="cmt-name">${c.name}</div><div class="cmt-time">${c.time}</div></div></div>
+      </div>
+      <div class="cmt-txt">${c.text}</div>
+      <div class="cmt-acts">
+        <button class="like-btn${c.liked?' liked':''}" onclick="likeCmt(${c.id})">♥ ${c.likes}</button>
+        <button class="rep-btn" onclick="toggleRep(${c.id})">↩ Reply (${c.replies.length})</button>
+        <button class="btn-danger" onclick="delCmt(${c.id})">Del</button>
+      </div>
+      <div class="reps${c.showReps?' open':''}" id="rblock-${c.id}">
+        ${c.replies.map(r=>`<div class="rep-item"><div class="rep-av">${r.name[0]}</div><div class="rep-txt"><strong>${r.name}:</strong> ${r.text}</div></div>`).join('')}
+        <div class="rep-row">
+          <input class="field" type="text" id="ri-${c.id}" placeholder="Write a reply..." style="margin-bottom:0;font-size:.81rem;">
+          <button class="btn btn-gold btn-xs" onclick="addRep(${c.id})">Send</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function likeCmt(id){const c=comments.find(x=>x.id===id);if(c){c.liked=!c.liked;c.likes+=c.liked?1:-1;saveData();renderCmts();}}
+function toggleRep(id){const c=comments.find(x=>x.id===id);if(c){c.showReps=!c.showReps;renderCmts();}}
+function addRep(id){const input=document.getElementById('ri-'+id);const text=input.value.trim();if(!text)return;const c=comments.find(x=>x.id===id);if(c){c.replies.push({name:'Nashat',text});saveData();renderCmts();}}
+function delCmt(id){if(confirm('Delete?')){comments=comments.filter(c=>c.id!==id);saveData();renderCmts();updateStats();}}
+
+// ════════════ CONTACT FORM ════════════
+function sendContactForm(){
+  const name=document.getElementById('cf-name').value;
+  const email=document.getElementById('cf-email').value;
+  const subject=document.getElementById('cf-subject').value;
+  const msg=document.getElementById('cf-msg').value;
+  if(!name||!email||!msg){toast('⚠ Please fill all fields');return;}
+  const mailto=`mailto:nashataldhoun@yahoo.com?subject=${encodeURIComponent(subject+' from '+name)}&body=${encodeURIComponent('From: '+name+'\nEmail: '+email+'\n\n'+msg)}`;
+  window.location.href=mailto;
+  toast('✓ Opening email client...');
+}
+
+// ════════════ SERVICES ════════════
+function saveSvc(){
+  const s={id:Date.now(),name:document.getElementById('sN').value||'Service',desc:document.getElementById('sD').value,price:document.getElementById('sP').value||'TBD'};
+  customSvcs.push(s);closeM('svcModal');['sN','sD','sP'].forEach(i=>document.getElementById(i).value='');
+  saveData();renderSvcs();toast('✓ Service added!');
+}
+function renderSvcs(){
+  const c=document.getElementById('customSvcs');if(!c)return;
+  c.innerHTML=customSvcs.map(s=>`<div class="csvc"><div><h4>${s.name}</h4><p>${s.desc}</p></div><div style="display:flex;gap:.55rem;align-items:center;"><span class="csvc-price">${s.price}</span><button class="btn-danger" onclick="delSvc(${s.id})">Del</button></div></div>`).join('');
+}
+function delSvc(id){customSvcs=customSvcs.filter(s=>s.id!==id);saveData();renderSvcs();}
+
+// ════════════ LOCALSTORAGE ════════════
+function saveData(){
+  try{
+    const d={
+      works:works.map(w=>({...w,photo:w.photo&&w.photo.length<40000?w.photo:''})),
+      posts:posts.map(p=>({...p,imgData:p.imgData&&p.imgData.length<40000?p.imgData:''})),
+      certs:certs.map(c=>({...c,img:c.img&&c.img.length<40000?c.img:''})),
+      comments,customSvcs,nextWorkId,nextPostId,nextCertId,nextCmtId
+    };
+    localStorage.setItem('pf4',JSON.stringify(d));
+  }catch(e){console.warn('Storage full');}
+}
+function loadData(){
+  try{
+    const raw=localStorage.getItem('pf4');if(!raw)return;
+    const d=JSON.parse(raw);
+    if(d.works?.length)works=d.works;
+    if(d.posts?.length)posts=d.posts;
+    if(d.certs?.length)certs=d.certs;
+    if(d.comments)comments=d.comments;
+    if(d.customSvcs)customSvcs=d.customSvcs;
+    if(d.nextWorkId)nextWorkId=d.nextWorkId;
+    if(d.nextPostId)nextPostId=d.nextPostId;
+    if(d.nextCertId)nextCertId=d.nextCertId;
+    if(d.nextCmtId)nextCmtId=d.nextCmtId;
+  }catch(e){console.warn('Load error');}
+}
+
+// ════════════ STATS ════════════
+function updateStats(){
+  const hw=document.getElementById('hm-w');const hp=document.getElementById('hm-p');
+  if(hw)hw.innerHTML=works.length+'<span>+</span>';
+  if(hp)hp.innerHTML=posts.length+'<span>+</span>';
+}
+
+// ════════════ RENDER ALL ════════════
+function renderAll(){renderWorks();renderPosts(activeTag);renderCerts();renderCmts();renderSvcs();updateStats();}
+
+// ════════════ INIT ════════════
+loadData();renderAll();setTimeout(trigRev,200);
+</script>
+</body>
+</html>
