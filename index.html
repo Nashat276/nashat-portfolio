@@ -348,125 +348,156 @@ select.field option{background:var(--pan);}
 .btn svg{vertical-align:middle;}
 .compose-modal-overlay{
   position:fixed;inset:0;z-index:1000;
-  background:rgba(0,0,0,.6);backdrop-filter:blur(6px);
+  background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
   display:none;align-items:center;justify-content:center;padding:1rem;
 }
 .compose-modal-overlay.open{display:flex;}
 .compose-modal{
-  background:var(--sur);border:1px solid var(--b);
-  border-radius:20px;width:100%;max-width:580px;
-  box-shadow:0 32px 80px rgba(0,0,0,.6);
-  overflow:hidden;animation:cmIn .22s cubic-bezier(.22,.61,.36,1);
+  background:#0d1420;
+  border:1px solid rgba(200,168,108,.2);
+  border-radius:22px;width:100%;max-width:600px;
+  box-shadow:0 40px 100px rgba(0,0,0,.8), 0 0 0 1px rgba(200,168,108,.08);
+  overflow:hidden;animation:cmIn .25s cubic-bezier(.22,.61,.36,1);
+  max-height:92vh;overflow-y:auto;
 }
-@keyframes cmIn{from{opacity:0;transform:translateY(16px) scale(.97);}to{opacity:1;transform:none;}}
+@keyframes cmIn{from{opacity:0;transform:translateY(20px) scale(.96);}to{opacity:1;transform:none;}}
+/* Scrollbar */
+.compose-modal::-webkit-scrollbar{width:4px;}
+.compose-modal::-webkit-scrollbar-track{background:transparent;}
+.compose-modal::-webkit-scrollbar-thumb{background:rgba(200,168,108,.2);border-radius:2px;}
+
 .cm-head{
   display:flex;align-items:center;justify-content:space-between;
-  padding:.9rem 1.2rem;border-bottom:1px solid var(--b);
+  padding:1rem 1.3rem;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);
+  position:sticky;top:0;z-index:5;backdrop-filter:blur(10px);
 }
-.cm-head-left{display:flex;align-items:center;gap:.7rem;}
+.cm-head-left{display:flex;align-items:center;gap:.75rem;}
 .cm-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:linear-gradient(135deg,var(--bl),var(--go));
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,#1a3a6e,#c8a86c);
   display:flex;align-items:center;justify-content:center;
-  font-size:.7rem;font-weight:700;color:#07090d;
+  font-size:.72rem;font-weight:700;color:#fff;
   overflow:hidden;background-size:cover;background-position:center;
-  border:1.5px solid rgba(200,168,108,.2);flex-shrink:0;
+  border:2px solid rgba(200,168,108,.3);flex-shrink:0;
+  box-shadow:0 0 0 3px rgba(200,168,108,.08);
 }
-.cm-head-info{display:flex;flex-direction:column;}
-.cm-name{font-size:.82rem;font-weight:600;color:var(--wh);}
+.cm-head-info{display:flex;flex-direction:column;gap:.18rem;}
+.cm-name{font-size:.88rem;font-weight:700;color:#fff;}
 .cm-type-sel{
-  display:inline-flex;align-items:center;gap:4px;
-  background:var(--pan);border:1px solid var(--b);
-  color:var(--mu);font-size:.65rem;font-weight:600;
-  padding:.18rem .5rem;border-radius:20px;cursor:pointer;
-  transition:all .18s;margin-top:.1rem;width:fit-content;
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(200,168,108,.08);
+  border:1px solid rgba(200,168,108,.2);
+  color:#c8a86c;font-size:.65rem;font-weight:700;
+  padding:.2rem .65rem;border-radius:20px;cursor:pointer;
+  transition:all .18s;width:fit-content;letter-spacing:.3px;
 }
-.cm-type-sel:hover{border-color:rgba(200,168,108,.3);color:var(--go);}
+.cm-type-sel:hover{background:rgba(200,168,108,.14);border-color:rgba(200,168,108,.4);}
 .cm-close{
-  background:none;border:none;color:var(--mu);cursor:pointer;
-  width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.5);cursor:pointer;
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
   font-size:1.1rem;transition:all .18s;
 }
-.cm-close:hover{background:rgba(255,255,255,.07);color:var(--tx);}
-.cm-body{padding:1rem 1.2rem;}
+.cm-close:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+.cm-body{padding:1.2rem 1.3rem;}
 .cm-title-input{
   width:100%;background:none;border:none;outline:none;
-  font-family:'DM Serif Display',serif;font-size:1.25rem;
-  color:var(--wh);margin-bottom:.65rem;
-  placeholder-color:var(--mu);
+  font-family:'DM Serif Display',serif;font-size:1.3rem;
+  color:#fff;margin-bottom:.7rem;
+  line-height:1.4;
 }
-.cm-title-input::placeholder{color:rgba(255,255,255,.18);}
+.cm-title-input::placeholder{color:rgba(255,255,255,.15);}
+.cm-divider{height:1px;background:rgba(255,255,255,.06);margin:.2rem 0 .8rem;}
 .cm-content-input{
   width:100%;background:none;border:none;outline:none;
-  font-family:'DM Sans',sans-serif;font-size:.88rem;
-  color:var(--tx);resize:none;line-height:1.7;min-height:100px;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;
+  color:rgba(255,255,255,.75);resize:none;line-height:1.75;min-height:110px;
 }
-.cm-content-input::placeholder{color:rgba(255,255,255,.2);}
-/* Extra fields (link/video/image/linkedin) */
-.cm-extra{display:none;flex-direction:column;gap:.6rem;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--b);}
+.cm-content-input::placeholder{color:rgba(255,255,255,.18);}
+
+/* Extra fields */
+.cm-extra{display:none;flex-direction:column;gap:.7rem;margin-top:.85rem;padding:.85rem;background:rgba(255,255,255,.03);border-radius:12px;border:1px solid rgba(255,255,255,.06);}
 .cm-extra.visible{display:flex;}
-.cm-extra-field{display:flex;flex-direction:column;gap:.22rem;}
-.cm-extra-label{font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mu);}
+.cm-extra-field{display:flex;flex-direction:column;gap:.28rem;}
+.cm-extra-label{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(200,168,108,.7);}
 .cm-extra input,.cm-extra textarea{
-  background:rgba(255,255,255,.04);border:1px solid var(--b);
-  border-radius:8px;padding:.5rem .75rem;color:var(--tx);
-  font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:9px;padding:.55rem .85rem;
+  color:#fff;font-size:.83rem;
+  font-family:'DM Sans',sans-serif;outline:none;
   transition:border-color .18s;width:100%;
 }
-.cm-extra input:focus,.cm-extra textarea:focus{border-color:rgba(200,168,108,.35);}
-.cm-extra textarea{resize:vertical;min-height:70px;}
-/* Image upload in extra */
+.cm-extra input:focus,.cm-extra textarea:focus{border-color:rgba(200,168,108,.4);background:rgba(200,168,108,.04);}
+.cm-extra textarea{resize:vertical;min-height:80px;}
+
+/* Image upload */
 .cm-img-zone{
-  border:1.5px dashed rgba(72,117,194,.25);border-radius:10px;
-  background:rgba(72,117,194,.03);cursor:pointer;
-  transition:all .2s;min-height:90px;display:flex;align-items:center;justify-content:center;
+  border:1.5px dashed rgba(200,168,108,.2);border-radius:12px;
+  background:rgba(200,168,108,.03);cursor:pointer;
+  transition:all .2s;min-height:100px;
+  display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;
 }
-.cm-img-zone:hover{border-color:rgba(200,168,108,.4);}
+.cm-img-zone:hover{border-color:rgba(200,168,108,.45);background:rgba(200,168,108,.06);}
 .cm-img-zone-ph{text-align:center;padding:.8rem;pointer-events:none;}
-.cm-img-zone-ph svg{opacity:.3;margin:0 auto .4rem;display:block;}
-.cm-img-zone-ph p{font-size:.73rem;color:var(--mu);}
-.cm-img-preview{width:100%;max-height:160px;object-fit:cover;display:none;}
-.cm-img-overlay{position:absolute;top:6px;right:6px;display:flex;gap:4px;opacity:0;transition:opacity .18s;}
+.cm-img-zone-ph svg{opacity:.35;margin:0 auto .5rem;display:block;color:#c8a86c;}
+.cm-img-zone-ph p{font-size:.73rem;color:rgba(255,255,255,.35);}
+.cm-img-preview{width:100%;max-height:180px;object-fit:cover;display:none;}
+.cm-img-overlay{position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transition:opacity .18s;}
 .cm-img-zone.has-img:hover .cm-img-overlay{opacity:1;}
+
 /* Tags */
-.cm-tags-section{margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--b);}
+.cm-tags-section{margin-top:.85rem;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.06);}
 .cm-tags-wrap{
-  display:flex;flex-wrap:wrap;gap:4px;
-  padding:.38rem .65rem;border:1px solid var(--b);border-radius:8px;
-  background:rgba(255,255,255,.03);cursor:text;min-height:34px;align-items:center;
+  display:flex;flex-wrap:wrap;gap:5px;
+  padding:.42rem .75rem;
+  border:1px solid rgba(255,255,255,.1);border-radius:9px;
+  background:rgba(255,255,255,.03);cursor:text;
+  min-height:38px;align-items:center;
   transition:border-color .18s;
 }
-.cm-tags-wrap:focus-within{border-color:rgba(200,168,108,.3);}
-.cm-tag-in{border:none;background:transparent;outline:none;font-size:.75rem;color:var(--tx);font-family:'DM Sans',sans-serif;min-width:80px;flex:1;}
+.cm-tags-wrap:focus-within{border-color:rgba(200,168,108,.35);}
+.cm-tag-in{border:none;background:transparent;outline:none;font-size:.77rem;color:#fff;font-family:'DM Sans',sans-serif;min-width:80px;flex:1;}
+
 /* Footer */
 .cm-footer{
   display:flex;align-items:center;justify-content:space-between;
-  padding:.82rem 1.2rem;border-top:1px solid var(--b);
+  padding:.9rem 1.3rem;
+  border-top:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);
+  position:sticky;bottom:0;backdrop-filter:blur(10px);
 }
-.cm-tools{display:flex;align-items:center;gap:.2rem;}
+.cm-tools{display:flex;align-items:center;gap:.15rem;}
 .cm-tool-btn{
-  background:none;border:none;color:var(--mu);cursor:pointer;
-  width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  background:none;border:none;color:rgba(255,255,255,.35);cursor:pointer;
+  width:36px;height:36px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
   transition:all .18s;position:relative;
 }
-.cm-tool-btn:hover{background:rgba(255,255,255,.07);color:var(--tx);}
-.cm-tool-btn.active{color:var(--go);background:rgba(200,168,108,.1);}
+.cm-tool-btn:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);}
+.cm-tool-btn.active{color:#c8a86c;background:rgba(200,168,108,.12);border:1px solid rgba(200,168,108,.2);}
 .cm-tool-btn[data-tip]:hover::after{
-  content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
-  background:#1a1f2e;border:1px solid var(--b);border-radius:5px;padding:.2rem .5rem;
-  font-size:.64rem;color:var(--tx);white-space:nowrap;pointer-events:none;z-index:10;
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#0d1420;border:1px solid rgba(200,168,108,.2);border-radius:7px;
+  padding:.25rem .6rem;font-size:.64rem;color:rgba(255,255,255,.7);
+  white-space:nowrap;pointer-events:none;z-index:10;
 }
 .cm-publish-btn{
-  display:inline-flex;align-items:center;gap:.4rem;
+  display:inline-flex;align-items:center;gap:.45rem;
   background:linear-gradient(135deg,#c8a86c,#e6c97a);color:#07090d;
-  font-size:.82rem;font-weight:700;padding:.48rem 1.1rem;
-  border-radius:20px;border:none;cursor:pointer;
-  transition:transform .18s,box-shadow .18s;font-family:'DM Sans',sans-serif;
-  box-shadow:0 4px 14px rgba(200,168,108,.25);
+  font-size:.84rem;font-weight:800;padding:.5rem 1.3rem;
+  border-radius:22px;border:none;cursor:pointer;
+  transition:all .2s;font-family:'DM Sans',sans-serif;
+  box-shadow:0 4px 16px rgba(200,168,108,.3);
+  letter-spacing:.2px;
 }
-.cm-publish-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,168,108,.4);}
-.cm-publish-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.cm-publish-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,168,108,.45);}
+.cm-publish-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
 
 /* Edit button on cards */
 .pcard-edit-btn{
@@ -1385,133 +1416,206 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 .jobs-sub{color:var(--mu);font-size:.9rem;}
 .jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;}
 .job-card{
-  background:var(--sur);border:1px solid var(--b);border-radius:16px;
-  padding:1.3rem 1.4rem;cursor:pointer;
-  transition:all .25s cubic-bezier(.22,.61,.36,1);
+  background:linear-gradient(145deg,rgba(13,20,32,0.95),rgba(8,12,22,0.98));
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:18px;padding:1.3rem 1.4rem;cursor:pointer;
+  transition:all .28s cubic-bezier(.22,.61,.36,1);
   position:relative;overflow:hidden;text-decoration:none;display:block;
 }
-.job-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent-color, #4caf7d),transparent);}
-.job-card:hover{border-color:rgba(200,168,108,.3);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.35);}
+.job-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent-color,#4caf7d),transparent);}
+.job-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 30% 0%,rgba(var(--accent-rgb,76,175,125),.04),transparent);pointer-events:none;}
+.job-card:hover{border-color:rgba(200,168,108,.25);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.5);}
 .job-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;margin-bottom:.85rem;}
-.job-logo{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;flex-shrink:0;letter-spacing:-.5px;}
-.job-new-badge{background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.25);color:#4caf7d;font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.15rem .5rem;border-radius:20px;white-space:nowrap;}
-.job-company{font-size:.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--mu);margin-bottom:.25rem;}
-.job-title{font-size:.95rem;font-weight:700;color:var(--tx);line-height:1.3;margin-bottom:.55rem;}
-.job-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.75rem;}
-.job-tag{font-size:.65rem;font-weight:600;padding:.18rem .55rem;border-radius:20px;}
-.job-footer{display:flex;align-items:center;justify-content:space-between;}
-.job-location{display:flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--mu);}
-.job-type{font-size:.65rem;font-weight:600;padding:.18rem .55rem;border-radius:20px;background:rgba(200,168,108,.08);color:#c8a86c;border:1px solid rgba(200,168,108,.15);}
-.job-apply{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;color:#c8a86c;font-weight:600;opacity:.7;transition:opacity .18s;}
+.job-logo{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:800;flex-shrink:0;
+  letter-spacing:-.3px;
+}
+.job-company{font-size:.68rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.3rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.job-title{font-size:.96rem;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.45rem;}
+.job-desc{font-size:.74rem;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:.7rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.job-tags{display:flex;flex-wrap:wrap;gap:.3rem;}
+.job-tag{font-size:.64rem;font-weight:600;padding:.18rem .55rem;border-radius:20px;}
+.job-footer{display:flex;align-items:center;justify-content:space-between;padding-top:.7rem;border-top:1px solid rgba(255,255,255,.06);}
+.job-type{font-size:.64rem;font-weight:700;padding:.2rem .6rem;border-radius:20px;letter-spacing:.3px;}
+.job-apply{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;color:#c8a86c;font-weight:700;opacity:.6;transition:opacity .18s;}
 .job-card:hover .job-apply{opacity:1;}
-.jobs-footer{text-align:center;margin-top:2rem;}
-.jobs-more-btn{display:inline-flex;align-items:center;gap:.5rem;background:none;border:1px solid rgba(200,168,108,.3);color:#c8a86c;font-size:.82rem;font-weight:600;padding:.6rem 1.4rem;border-radius:20px;text-decoration:none;transition:all .2s;}
-.jobs-more-btn:hover{background:rgba(200,168,108,.08);border-color:rgba(200,168,108,.5);}
-/* Skeleton loader */
-.job-skeleton{background:var(--sur);border:1px solid var(--b);border-radius:16px;padding:1.3rem 1.4rem;}
+.job-fresh-badge{font-size:.6rem;font-weight:700;padding:.18rem .55rem;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.job-fresh-badge.hot{background:rgba(239,83,80,.12);border:1px solid rgba(239,83,80,.25);color:#ef5350;}
+.job-fresh-badge.new{background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.25);color:#4caf7d;letter-spacing:.5px;text-transform:uppercase;}
+/* Skeleton */
+.job-skeleton{background:rgba(13,20,32,.8);border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:1.3rem 1.4rem;}
 .skel-line{background:rgba(255,255,255,.06);border-radius:4px;animation:skel-pulse 1.5s ease-in-out infinite;}
-@keyframes skel-pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+@keyframes skel-pulse{0%,100%{opacity:.3;}50%{opacity:.7;}}
+.jobs-footer{text-align:center;margin-top:2rem;}
+.jobs-more-btn{display:inline-flex;align-items:center;gap:.5rem;background:rgba(200,168,108,.06);border:1px solid rgba(200,168,108,.25);color:#c8a86c;font-size:.82rem;font-weight:600;padding:.65rem 1.5rem;border-radius:22px;text-decoration:none;transition:all .2s;}
+.jobs-more-btn:hover{background:rgba(200,168,108,.12);border-color:rgba(200,168,108,.45);transform:translateY(-1px);}
 </style>
 
 <script>
 (function renderJobs(){
+  // Date helper — days ago
+  function daysAgo(d){ return Math.floor((Date.now()-new Date(d))/(1000*60*60*24)); }
+  function timeLabel(d){
+    const n=daysAgo(d);
+    if(n===0) return 'Today';
+    if(n===1) return 'Yesterday';
+    if(n<7)  return n+'d ago';
+    if(n<14) return '1w ago';
+    return null; // older than a week → skip
+  }
+
+  const today = new Date();
+  const d = (daysBack) => {
+    const dt = new Date(today);
+    dt.setDate(dt.getDate() - daysBack);
+    return dt.toISOString().split('T')[0];
+  };
+
   const jobs = [
     {
-      company:'Royal Jordanian',logo:'RJ',logoColor:'rgba(200,168,108,.12)',logoText:'#c8a86c',
-      title:'Aircraft Structures Engineer',location:'Amman, Jordan',type:'Full-time',
-      tags:['Structures','MRO','CAMO'],tagColors:['rgba(200,168,108,.1)','rgba(76,175,125,.1)','rgba(72,117,194,.1)'],
-      tagTextColors:['#c8a86c','#4caf7d','#6b9fe4'],
-      accent:'#c8a86c',isNew:true,
-      url:'https://www.linkedin.com/jobs/search/?keywords=structures+engineer&location=Jordan'
+      company:'Royal Jordanian Airlines',companyShort:'RJ',
+      logo:'RJ',logoBg:'#0a1628',logoBorder:'rgba(200,168,108,.3)',logoText:'#c8a86c',
+      title:'Aircraft Structures Engineer',
+      location:'Amman, Jordan',
+      type:'Full-time',typeColor:'rgba(200,168,108,.1)',typeText:'#c8a86c',
+      tags:[{t:'Structures',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'CAMO',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
+      accent:'#c8a86c',
+      posted: d(1),
+      url:'https://www.linkedin.com/jobs/search/?keywords=aircraft+structures+engineer&location=Jordan&f_TPR=r604800',
+      desc:'Structural analysis and certification for fleet maintenance operations.'
     },
     {
-      company:'Emirates Engineering',logo:'EK',logoColor:'rgba(209,78,78,.1)',logoText:'#ef5350',
-      title:'Senior FEA Analysis Engineer',location:'Dubai, UAE',type:'Full-time',
-      tags:['FEA','ANSYS','Composites'],tagColors:['rgba(209,78,78,.1)','rgba(72,117,194,.1)','rgba(130,96,210,.1)'],
-      tagTextColors:['#ef5350','#6b9fe4','#9c72d4'],
-      accent:'#ef5350',isNew:true,
-      url:'https://www.linkedin.com/jobs/search/?keywords=FEA+engineer&location=Dubai'
+      company:'Emirates Engineering',companyShort:'EK',
+      logo:'EK',logoBg:'#1a0808',logoBorder:'rgba(209,78,78,.3)',logoText:'#ef5350',
+      title:'Senior FEA Analysis Engineer',
+      location:'Dubai, UAE',
+      type:'Full-time',typeColor:'rgba(209,78,78,.1)',typeText:'#ef5350',
+      tags:[{t:'FEA',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'ANSYS',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Composites',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
+      accent:'#ef5350',
+      posted: d(2),
+      url:'https://www.linkedin.com/jobs/search/?keywords=FEA+analysis+engineer&location=Dubai&f_TPR=r604800',
+      desc:'Lead FEA validation projects for wide-body composite structures.'
     },
     {
-      company:'Saudia Aerospace',logo:'SV',logoColor:'rgba(76,175,125,.1)',logoText:'#4caf7d',
-      title:'MRO Structures Technician',location:'Jeddah, Saudi Arabia',type:'Full-time',
-      tags:['MRO','Structures','A320'],tagColors:['rgba(76,175,125,.1)','rgba(200,168,108,.1)','rgba(72,117,194,.1)'],
-      tagTextColors:['#4caf7d','#c8a86c','#6b9fe4'],
-      accent:'#4caf7d',isNew:false,
-      url:'https://www.linkedin.com/jobs/search/?keywords=MRO+structures&location=Saudi+Arabia'
+      company:'Saudia Aerospace Engineering',companyShort:'SV',
+      logo:'SV',logoBg:'#081a10',logoBorder:'rgba(76,175,125,.3)',logoText:'#4caf7d',
+      title:'MRO Structures Technician',
+      location:'Jeddah, Saudi Arabia',
+      type:'Full-time',typeColor:'rgba(76,175,125,.1)',typeText:'#4caf7d',
+      tags:[{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'NDT',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
+      accent:'#4caf7d',
+      posted: d(3),
+      url:'https://www.linkedin.com/jobs/search/?keywords=MRO+structures&location=Saudi+Arabia&f_TPR=r604800',
+      desc:'Hands-on structural repair and overhaul for narrow-body fleet.'
     },
     {
-      company:'Etihad Engineering',logo:'EY',logoColor:'rgba(72,117,194,.1)',logoText:'#6b9fe4',
-      title:'Composite Repair Engineer',location:'Abu Dhabi, UAE',type:'Full-time',
-      tags:['Composites','CFRP','Repair'],tagColors:['rgba(72,117,194,.1)','rgba(130,96,210,.1)','rgba(200,168,108,.1)'],
-      tagTextColors:['#6b9fe4','#9c72d4','#c8a86c'],
-      accent:'#6b9fe4',isNew:false,
-      url:'https://www.linkedin.com/jobs/search/?keywords=composite+engineer&location=Abu+Dhabi'
+      company:'Etihad Engineering',companyShort:'EY',
+      logo:'EY',logoBg:'#080f1a',logoBorder:'rgba(72,117,194,.3)',logoText:'#6b9fe4',
+      title:'Composite Repair Engineer',
+      location:'Abu Dhabi, UAE',
+      type:'Full-time',typeColor:'rgba(72,117,194,.1)',typeText:'#6b9fe4',
+      tags:[{t:'CFRP',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Bonded Repair',c:'rgba(130,96,210,.1)',tc:'#9c72d4'},{t:'B787',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],
+      accent:'#6b9fe4',
+      posted: d(4),
+      url:'https://www.linkedin.com/jobs/search/?keywords=composite+repair+engineer&location=Abu+Dhabi&f_TPR=r604800',
+      desc:'Composite damage assessment and repair for next-gen aircraft programs.'
     },
     {
-      company:'ALIA (Abu Dhabi)',logo:'AL',logoColor:'rgba(130,96,210,.1)',logoText:'#9c72d4',
-      title:'Junior Aeronautical Engineer',location:'Abu Dhabi, UAE',type:'Graduate',
-      tags:['Entry Level','Structures','CFD'],tagColors:['rgba(76,175,125,.1)','rgba(200,168,108,.1)','rgba(72,117,194,.1)'],
-      tagTextColors:['#4caf7d','#c8a86c','#6b9fe4'],
-      accent:'#9c72d4',isNew:true,
-      url:'https://www.linkedin.com/jobs/search/?keywords=junior+aeronautical+engineer&location=UAE'
+      company:'ALIA — Abu Dhabi Aviation',companyShort:'AL',
+      logo:'AL',logoBg:'#110a1a',logoBorder:'rgba(130,96,210,.3)',logoText:'#9c72d4',
+      title:'Graduate Aeronautical Engineer',
+      location:'Abu Dhabi, UAE',
+      type:'Graduate',typeColor:'rgba(76,175,125,.1)',typeText:'#4caf7d',
+      tags:[{t:'Entry Level',c:'rgba(76,175,125,.12)',tc:'#4caf7d'},{t:'Structures',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'CFD',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
+      accent:'#9c72d4',
+      posted: d(5),
+      url:'https://www.linkedin.com/jobs/search/?keywords=graduate+aeronautical+engineer&location=UAE&f_TPR=r604800',
+      desc:'Entry-level structural role with mentorship in rotary & fixed wing.'
     },
     {
-      company:'Jordan Aerospace',logo:'JA',logoColor:'rgba(200,168,108,.1)',logoText:'#c8a86c',
-      title:'Flight Structures Analyst',location:'Amman, Jordan',type:'Contract',
-      tags:['FEA','SolidWorks','Analysis'],tagColors:['rgba(209,78,78,.1)','rgba(72,117,194,.1)','rgba(200,168,108,.1)'],
-      tagTextColors:['#ef5350','#6b9fe4','#c8a86c'],
-      accent:'#c8a86c',isNew:false,
-      url:'https://www.linkedin.com/jobs/search/?keywords=flight+structures&location=Jordan'
+      company:'King Abdullah II Design & Development Bureau',companyShort:'KADDB',
+      logo:'KA',logoBg:'#0d1209',logoBorder:'rgba(200,168,108,.3)',logoText:'#c8a86c',
+      title:'Aerospace Structures Analyst',
+      location:'Amman, Jordan',
+      type:'Full-time',typeColor:'rgba(200,168,108,.1)',typeText:'#c8a86c',
+      tags:[{t:'FEA',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'SolidWorks',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Defence',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
+      accent:'#c8a86c',
+      posted: d(6),
+      url:'https://www.linkedin.com/jobs/search/?keywords=aerospace+structures&location=Jordan&f_TPR=r604800',
+      desc:'Structural analysis for defense aviation platforms and UAV programs.'
     },
-  ];
+  ].filter(j => daysAgo(j.posted) <= 7); // Only jobs < 7 days old
 
   const grid = document.getElementById('jobsGrid');
   if(!grid) return;
 
-  // Show skeletons first
-  grid.innerHTML = Array(6).fill(0).map(()=>`
+  if(jobs.length === 0){
+    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:3rem;color:rgba(255,255,255,.3);">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto .8rem;display:block;opacity:.3;"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      <p style="font-size:.85rem;">No new positions this week — check back soon</p>
+    </div>`;
+    return;
+  }
+
+  // Skeletons
+  grid.innerHTML = Array(Math.min(jobs.length,6)).fill(0).map(()=>`
     <div class="job-skeleton">
-      <div class="skel-line" style="width:42px;height:42px;border-radius:10px;margin-bottom:.85rem;"></div>
-      <div class="skel-line" style="width:60%;height:10px;margin-bottom:.5rem;"></div>
-      <div class="skel-line" style="width:85%;height:14px;margin-bottom:.5rem;"></div>
-      <div class="skel-line" style="width:70%;height:14px;margin-bottom:1rem;"></div>
-      <div style="display:flex;gap:.3rem;margin-bottom:.75rem;">
-        <div class="skel-line" style="width:60px;height:20px;border-radius:20px;"></div>
+      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;">
+        <div class="skel-line" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;"></div>
+        <div style="flex:1;"><div class="skel-line" style="width:70%;height:11px;margin-bottom:.4rem;"></div><div class="skel-line" style="width:45%;height:9px;"></div></div>
+      </div>
+      <div class="skel-line" style="width:88%;height:14px;margin-bottom:.4rem;"></div>
+      <div class="skel-line" style="width:65%;height:11px;margin-bottom:1rem;"></div>
+      <div style="display:flex;gap:.3rem;">
+        <div class="skel-line" style="width:55px;height:20px;border-radius:20px;"></div>
+        <div class="skel-line" style="width:45px;height:20px;border-radius:20px;"></div>
         <div class="skel-line" style="width:50px;height:20px;border-radius:20px;"></div>
       </div>
-      <div class="skel-line" style="width:55%;height:10px;"></div>
     </div>
   `).join('');
 
-  // Render actual cards after short delay (simulate loading)
   setTimeout(()=>{
-    grid.innerHTML = jobs.map(j => `
+    grid.innerHTML = jobs.map(j=>{
+      const tl = timeLabel(j.posted);
+      const daysN = daysAgo(j.posted);
+      const freshness = daysN <= 1 ? 'hot' : daysN <= 3 ? 'new' : '';
+      return `
       <a class="job-card anim-card" href="${j.url}" target="_blank" rel="noopener" style="--accent-color:${j.accent}">
         <div class="job-card-top">
-          <div class="job-logo" style="background:${j.logoColor};color:${j.logoText};">${j.logo}</div>
-          ${j.isNew ? '<span class="job-new-badge">New</span>' : '<span style="width:1px"></span>'}
+          <div style="display:flex;align-items:center;gap:.65rem;flex:1;min-width:0;">
+            <div class="job-logo" style="background:${j.logoBg};border:1.5px solid ${j.logoBorder};color:${j.logoText};">${j.logo}</div>
+            <div style="min-width:0;">
+              <div class="job-company">${j.company}</div>
+              <div style="display:flex;align-items:center;gap:.35rem;margin-top:.12rem;">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span style="font-size:.65rem;color:rgba(255,255,255,.35);">${j.location}</span>
+              </div>
+            </div>
+          </div>
+          ${freshness==='hot' ? `<span class="job-fresh-badge hot">🔥 Hot</span>` : freshness==='new' ? `<span class="job-fresh-badge new">New</span>` : ''}
         </div>
-        <div class="job-company">${j.company}</div>
         <div class="job-title">${j.title}</div>
-        <div class="job-tags">
-          ${j.tags.map((t,i)=>`<span class="job-tag" style="background:${j.tagColors[i]};color:${j.tagTextColors[i]};border:1px solid ${j.tagTextColors[i]}22;">${t}</span>`).join('')}
+        <div class="job-desc">${j.desc}</div>
+        <div class="job-tags" style="margin-bottom:.8rem;">
+          ${j.tags.map(t=>`<span class="job-tag" style="background:${t.c};color:${t.tc};border:1px solid ${t.tc}28;">${t.t}</span>`).join('')}
         </div>
         <div class="job-footer">
-          <div class="job-location">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            ${j.location}
+          <div style="display:flex;align-items:center;gap:.4rem;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span style="font-size:.68rem;color:rgba(255,255,255,.3);">${tl||j.posted}</span>
           </div>
-          <div style="display:flex;align-items:center;gap:.5rem;">
-            <span class="job-type">${j.type}</span>
+          <div style="display:flex;align-items:center;gap:.45rem;">
+            <span class="job-type" style="background:${j.typeColor};color:${j.typeText};border:1px solid ${j.typeText}28;">${j.type}</span>
             <span class="job-apply">Apply <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </div>
         </div>
-      </a>
-    `).join('');
+      </a>`;
+    }).join('');
     if(window._srInit) window._srInit();
-    setTimeout(observeCards, 50);
-  }, 800);
+    setTimeout(observeCards,50);
+  }, 600);
 })();
 </script>
 
@@ -3136,6 +3240,7 @@ document.querySelectorAll && document.addEventListener('mouseout', e => {
     <div class="cm-body">
       <input type="hidden" id="cmType" value="article">
       <input class="cm-title-input" id="cmTitle" placeholder="Title…" autocomplete="off">
+      <div class="cm-divider"></div>
       <textarea class="cm-content-input" id="cmContent" placeholder="What's on your mind?…" rows="4" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
       <div class="cm-extra" id="cmExtraLink">
         <div class="cm-extra-field"><span class="cm-extra-label">URL</span><input id="cmUrl" placeholder="https://…"></div>
@@ -3312,7 +3417,20 @@ async function publishCm(){
   };
   try{
     if(cmEditingId){await SB.update('posts',cmEditingId,row);toast('✓ Updated!');}
-    else{await SB.insert('posts',row);toast('✓ Published!');}
+    else{
+      await SB.insert('posts',row);
+      toast('✓ Published!');
+      // Prompt to share on LinkedIn
+      if(type !== 'linkedin'){
+        setTimeout(()=>{
+          const liText = encodeURIComponent((title||content.substring(0,200)) + '\n\n' + (content.length > 200 ? content.substring(0,200)+'...' : '') + '\n\nnashat-aldhoun.netlify.app');
+          const liUrl = `https://www.linkedin.com/shareArticle?mini=true&url=https://nashat-aldhoun.netlify.app&title=${encodeURIComponent(title||'New Post')}&summary=${liText}`;
+          if(confirm('Post published! Share it on LinkedIn too?')){
+            window.open(liUrl,'_blank');
+          }
+        }, 600);
+      }
+    }
     closeComposeModal();
   }catch(e){
     toast('⚠ '+e.message);
@@ -3324,4 +3442,4 @@ async function publishCm(){
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('composeModalOverlay').classList.contains('open'))closeComposeModal();});
 </script>
 </body>
-  </html>
+                                          </html>
