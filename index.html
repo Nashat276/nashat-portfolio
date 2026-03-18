@@ -1476,12 +1476,12 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
       <p class="jobs-sub">Live opportunities from leading aviation companies in the region</p>
     </div>
     <div class="jobs-stage" id="jobsStage">
-      <div class="c-edge c-edge-left" onmouseenter="startJEdge(-1)" onmouseleave="stopJEdge()">
-        <div class="c-edge-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
-      </div>
-      <div class="c-edge c-edge-right" onmouseenter="startJEdge(1)" onmouseleave="stopJEdge()">
-        <div class="c-edge-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
-      </div>
+      <button class="nav-arrow-btn nav-arrow-left" onclick="jNavClick(-1)" aria-label="Previous">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="nav-arrow-btn nav-arrow-right" onclick="jNavClick(1)" aria-label="Next">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
       <div class="jobs-slider"><div class="jobs-track" id="jobsGrid"></div></div>
     </div>
     <div class="cdots" id="jobsDots"></div>
@@ -1506,7 +1506,13 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 .jobs-stage{position:relative;}
 .jobs-stage .c-edge-left{background:linear-gradient(90deg,var(--bg),transparent);}
 .jobs-stage .c-edge-right{background:linear-gradient(270deg,var(--bg),transparent);}
-.jobs-stage:hover .c-edge{opacity:1;}
+.jobs-stage:hover .c-edge{opacity:0!important;}
+.c-stage:hover .c-edge{opacity:0!important;}
+.nav-arrow-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:40px;height:40px;border-radius:50%;background:rgba(10,14,24,.9);border:1.5px solid rgba(200,168,108,.4);color:#c8a86c;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;backdrop-filter:blur(10px);box-shadow:0 4px 16px rgba(0,0,0,.5);}
+.nav-arrow-btn:hover{background:rgba(200,168,108,.2);border-color:#c8a86c;transform:translateY(-50%) scale(1.12);box-shadow:0 6px 22px rgba(200,168,108,.3);}
+.nav-arrow-btn:active{transform:translateY(-50%) scale(.94);}
+.nav-arrow-left{left:-20px;}
+.nav-arrow-right{right:-20px;}
 .jobs-slider{overflow:hidden;}
 .jobs-track{
   display:flex;gap:1rem;
@@ -1550,118 +1556,146 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 
 <script>
 (function renderJobs(){
-  // Date helper — days ago
   function daysAgo(d){ return Math.floor((Date.now()-new Date(d))/(1000*60*60*24)); }
   function timeLabel(d){
     const n=daysAgo(d);
-    if(n===0) return 'Today';
-    if(n===1) return 'Yesterday';
-    if(n<7)  return n+'d ago';
-    if(n<14) return '1w ago';
-    return null; // older than a week → skip
+    if(n===0)return'Today';if(n===1)return'Yesterday';if(n<7)return n+'d ago';return null;
   }
 
+  // LinkedIn SVG logo (official blue)
+  const LI_LOGO = `<svg viewBox="0 0 24 24" width="26" height="26" fill="#0a66c2" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
+
+  // LinkedIn job search URLs — filtered by location only
+  // f_TPR=r604800 = posted in last 7 days
+  // f_I=53 = Aerospace & Defense industry filter
+  const LI = 'https://www.linkedin.com/jobs/search/?f_TPR=r604800&f_I=53&keywords=';
+  const ENC = encodeURIComponent;
+
   const today = new Date();
-  const d = (daysBack) => {
-    const dt = new Date(today);
-    dt.setDate(dt.getDate() - daysBack);
-    return dt.toISOString().split('T')[0];
-  };
+  const D = n=>{ const dt=new Date(today); dt.setDate(dt.getDate()-n); return dt.toISOString().split('T')[0]; };
 
   const jobs = [
+    // ── Jordan first ──────────────────────────────────────────────────────
     {
-      company:'Royal Jordanian Airlines',companyShort:'RJ',
-      logo:'RJ',logoBg:'#fff',logoBorder:'rgba(200,168,108,.2)',logoText:'#c8a86c',
-      logoImg:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Royal_Jordanian_Logo.svg/200px-Royal_Jordanian_Logo.svg.png',
+      company:'Royal Jordanian Airlines', logo:'RJ', accent:'#c8a86c',
+      logoBg:'#fff', logoBorder:'rgba(200,168,108,.25)', logoText:'#c8a86c',
       title:'Aircraft Structures Engineer',
-      location:'Amman, Jordan',
-      type:'Full-time',typeColor:'rgba(200,168,108,.1)',typeText:'#c8a86c',
+      location:'Amman 🇯🇴', type:'Full-time',
       tags:[{t:'Structures',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'CAMO',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
-      accent:'#c8a86c',
-      posted: d(1),
-      url:'https://www.linkedin.com/jobs/search/?keywords=aircraft+structures+engineer&location=Jordan&f_TPR=r604800',
-      desc:'Structural analysis and certification for fleet maintenance operations.'
+      posted:D(1), isLinkedIn:true,
+      url: LI+ENC('aircraft structures engineer')+'&location=Jordan',
+      desc:'Structural analysis and airworthiness compliance for RJ fleet.'
     },
     {
-      company:'Emirates Engineering',companyShort:'EK',
-      logo:'EK',logoBg:'#fff',logoBorder:'rgba(209,78,78,.2)',logoText:'#ef5350',
-      logoImg:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Emirates_logo.svg/200px-Emirates_logo.svg.png',
+      company:'KADDB', logo:'KA', accent:'#c8a86c',
+      logoBg:'#fff', logoBorder:'rgba(200,168,108,.25)', logoText:'#c8a86c',
+      title:'Aerospace Structures Analyst',
+      location:'Amman 🇯🇴', type:'Full-time',
+      tags:[{t:'FEA',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'SolidWorks',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Defence',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
+      posted:D(2), isLinkedIn:true,
+      url: LI+ENC('aerospace structures analyst')+'&location=Jordan',
+      desc:'FEA and structural analysis for defense aviation platforms and UAVs.'
+    },
+    {
+      company:'Jordan Aerospace Industries', logo:'JA', accent:'#c8a86c',
+      logoBg:'#fff', logoBorder:'rgba(200,168,108,.25)', logoText:'#c8a86c',
+      title:'Aeronautical Engineer — Graduate',
+      location:'Amman 🇯🇴', type:'Graduate',
+      tags:[{t:'Entry Level',c:'rgba(76,175,125,.12)',tc:'#4caf7d'},{t:'CFD',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Structures',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],
+      posted:D(3), isLinkedIn:true,
+      url: LI+ENC('aeronautical engineer graduate')+'&location=Jordan',
+      desc:'Entry-level aerospace engineering role in aircraft structural design.'
+    },
+    {
+      company:'Royal Jordanian Air Force', logo:'RJAF', accent:'#c8a86c',
+      logoBg:'#fff', logoBorder:'rgba(200,168,108,.25)', logoText:'#c8a86c',
+      title:'Aircraft Maintenance Engineer',
+      location:'Amman 🇯🇴', type:'Full-time',
+      tags:[{t:'Maintenance',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'Overhaul',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'MRO',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
+      posted:D(1), isLinkedIn:true,
+      url: LI+ENC('aircraft maintenance engineer')+'&location=Jordan',
+      desc:'Aircraft overhaul and maintenance for military fixed-wing fleet.'
+    },
+    // ── Saudi Arabia ──────────────────────────────────────────────────────
+    {
+      company:'Saudia Technic', logo:'SV', accent:'#4caf7d',
+      logoBg:'#fff', logoBorder:'rgba(76,175,125,.25)', logoText:'#4caf7d',
+      title:'Aircraft Maintenance Engineer (B1)',
+      location:'Jeddah 🇸🇦', type:'Full-time',
+      tags:[{t:'B1 License',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'MRO',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
+      posted:D(2), isLinkedIn:true,
+      url: LI+ENC('aircraft maintenance engineer')+'&location=Saudi+Arabia',
+      desc:'Licensed B1 maintenance engineer for narrow-body fleet line operations.'
+    },
+    {
+      company:'Saudi Arabian Airlines', logo:'SV', accent:'#4caf7d',
+      logoBg:'#fff', logoBorder:'rgba(76,175,125,.25)', logoText:'#4caf7d',
+      title:'MRO Structures Technician',
+      location:'Riyadh 🇸🇦', type:'Full-time',
+      tags:[{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'NDT',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],
+      posted:D(4), isLinkedIn:true,
+      url: LI+ENC('MRO structures technician')+'&location=Saudi+Arabia',
+      desc:'Structural inspection and repair for narrow-body fleet operations.'
+    },
+    // ── UAE ───────────────────────────────────────────────────────────────
+    {
+      company:'Emirates Engineering', logo:'EK', accent:'#ef5350',
+      logoBg:'#fff', logoBorder:'rgba(209,78,78,.25)', logoText:'#ef5350',
       title:'Senior FEA Analysis Engineer',
-      location:'Dubai, UAE',
-      type:'Full-time',typeColor:'rgba(209,78,78,.1)',typeText:'#ef5350',
+      location:'Dubai 🇦🇪', type:'Full-time',
       tags:[{t:'FEA',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'ANSYS',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Composites',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
-      accent:'#ef5350',
-      posted: d(2),
-      url:'https://www.linkedin.com/jobs/search/?keywords=FEA+analysis+engineer&location=Dubai&f_TPR=r604800',
+      posted:D(1), isLinkedIn:true,
+      url: LI+ENC('FEA structures engineer')+'&location=Dubai%2C+UAE',
       desc:'Lead FEA validation projects for wide-body composite structures.'
     },
     {
-      company:'Saudia Aerospace Engineering',companyShort:'SV',
-      logo:'SV',logoBg:'#fff',logoBorder:'rgba(76,175,125,.2)',logoText:'#4caf7d',
-      logoImg:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Saudia_Logo.svg/200px-Saudia_Logo.svg.png',
-      title:'MRO Structures Technician',
-      location:'Jeddah, Saudi Arabia',
-      type:'Full-time',typeColor:'rgba(76,175,125,.1)',typeText:'#4caf7d',
-      tags:[{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'NDT',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
-      accent:'#4caf7d',
-      posted: d(3),
-      url:'https://www.linkedin.com/jobs/search/?keywords=MRO+structures&location=Saudi+Arabia&f_TPR=r604800',
-      desc:'Hands-on structural repair and overhaul for narrow-body fleet.'
-    },
-    {
-      company:'Etihad Engineering',companyShort:'EY',
-      logo:'EY',logoBg:'#fff',logoBorder:'rgba(72,117,194,.2)',logoText:'#6b9fe4',
-      logoImg:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Etihad_Airways_logo.svg/200px-Etihad_Airways_logo.svg.png',
+      company:'Etihad Engineering', logo:'EY', accent:'#6b9fe4',
+      logoBg:'#fff', logoBorder:'rgba(72,117,194,.25)', logoText:'#6b9fe4',
       title:'Composite Repair Engineer',
-      location:'Abu Dhabi, UAE',
-      type:'Full-time',typeColor:'rgba(72,117,194,.1)',typeText:'#6b9fe4',
+      location:'Abu Dhabi 🇦🇪', type:'Full-time',
       tags:[{t:'CFRP',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Bonded Repair',c:'rgba(130,96,210,.1)',tc:'#9c72d4'},{t:'B787',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],
-      accent:'#6b9fe4',
-      posted: d(4),
-      url:'https://www.linkedin.com/jobs/search/?keywords=composite+repair+engineer&location=Abu+Dhabi&f_TPR=r604800',
+      posted:D(3), isLinkedIn:true,
+      url: LI+ENC('composite repair engineer')+'&location=Abu+Dhabi%2C+UAE',
       desc:'Composite damage assessment and repair for next-gen aircraft programs.'
     },
     {
-      company:'ALIA — Abu Dhabi Aviation',companyShort:'AL',
-      logo:'AL',logoBg:'#fff',logoBorder:'rgba(130,96,210,.2)',logoText:'#9c72d4',
-      logoImg:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Abu_Dhabi_Aviation_logo.svg/200px-Abu_Dhabi_Aviation_logo.svg.png',
-      title:'Graduate Aeronautical Engineer',
-      location:'Abu Dhabi, UAE',
-      type:'Graduate',typeColor:'rgba(76,175,125,.1)',typeText:'#4caf7d',
-      tags:[{t:'Entry Level',c:'rgba(76,175,125,.12)',tc:'#4caf7d'},{t:'Structures',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'CFD',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
-      accent:'#9c72d4',
-      posted: d(5),
-      url:'https://www.linkedin.com/jobs/search/?keywords=graduate+aeronautical+engineer&location=UAE&f_TPR=r604800',
-      desc:'Entry-level structural role with mentorship in rotary & fixed wing.'
+      company:'Air Arabia MRO', logo:'G9', accent:'#ef5350',
+      logoBg:'#fff', logoBorder:'rgba(209,78,78,.25)', logoText:'#ef5350',
+      title:'Avionics Engineer',
+      location:'Sharjah 🇦🇪', type:'Full-time',
+      tags:[{t:'Avionics',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'Systems',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
+      posted:D(5), isLinkedIn:true,
+      url: LI+ENC('avionics engineer')+'&location=Sharjah%2C+UAE',
+      desc:'Avionics system maintenance and line troubleshooting for A320 family.'
     },
+    // ── Qatar ─────────────────────────────────────────────────────────────
     {
-      company:'King Abdullah II Design & Development Bureau',companyShort:'KADDB',
-      logo:'KA',logoBg:'#fff',logoBorder:'rgba(200,168,108,.2)',logoText:'#c8a86c',
-      logoImg:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/KADDB_logo.png/200px-KADDB_logo.png',
-      title:'Aerospace Structures Analyst',
-      location:'Amman, Jordan',
-      type:'Full-time',typeColor:'rgba(200,168,108,.1)',typeText:'#c8a86c',
-      tags:[{t:'FEA',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'SolidWorks',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Defence',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
-      accent:'#c8a86c',
-      posted: d(6),
-      url:'https://www.linkedin.com/jobs/search/?keywords=aerospace+structures&location=Jordan&f_TPR=r604800',
-      desc:'Structural analysis for defense aviation platforms and UAV programs.'
+      company:'Qatar Airways', logo:'QR', accent:'#9c72d4',
+      logoBg:'#fff', logoBorder:'rgba(130,96,210,.25)', logoText:'#9c72d4',
+      title:'Aerospace Structures Engineer',
+      location:'Doha 🇶🇦', type:'Full-time',
+      tags:[{t:'Structures',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'A350',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Boeing 777',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
+      posted:D(2), isLinkedIn:true,
+      url: LI+ENC('aerospace structures engineer')+'&location=Qatar',
+      desc:'Structural integrity analysis for wide-body mixed fleet operations.'
     },
-  ].filter(j => daysAgo(j.posted) <= 7); // Only jobs < 7 days old
+    // ── Kuwait ────────────────────────────────────────────────────────────
+    {
+      company:'Kuwait Airways', logo:'KU', accent:'#4caf7d',
+      logoBg:'#fff', logoBorder:'rgba(76,175,125,.25)', logoText:'#4caf7d',
+      title:'Flight Dynamics Engineer',
+      location:'Kuwait City 🇰🇼', type:'Full-time',
+      tags:[{t:'Flight Dynamics',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'Performance',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
+      posted:D(4), isLinkedIn:true,
+      url: LI+ENC('flight dynamics engineer')+'&location=Kuwait',
+      desc:'Aircraft performance monitoring and flight dynamics analysis for fleet.'
+    },
+  ]; // No date filter — always show all
 
   const grid = document.getElementById('jobsGrid');
   if(!grid) return;
 
-  if(jobs.length === 0){
-    grid.innerHTML=`<div style="padding:3rem;text-align:center;color:rgba(255,255,255,.3);">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto .8rem;display:block;opacity:.3;"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-      <p style="font-size:.85rem;">No new positions this week — check back soon</p>
-    </div>`;
-    return;
-  }
-
-  // Skeletons
-  grid.innerHTML = Array(Math.min(jobs.length,4)).fill(0).map(()=>`
+  grid.innerHTML = Array(4).fill(0).map(()=>`
     <div class="job-skeleton">
       <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;">
         <div class="skel-line" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;"></div>
@@ -1670,8 +1704,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
       <div class="skel-line" style="width:88%;height:14px;margin-bottom:.4rem;"></div>
       <div class="skel-line" style="width:65%;height:11px;margin-bottom:1rem;"></div>
       <div style="display:flex;gap:.3rem;"><div class="skel-line" style="width:55px;height:20px;border-radius:20px;"></div><div class="skel-line" style="width:45px;height:20px;border-radius:20px;"></div></div>
-    </div>
-  `).join('');
+    </div>`).join('');
 
   const dots = document.getElementById('jobsDots');
   let jIdx = 0;
@@ -1684,30 +1717,40 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 
   window.goJobCarousel = function(idx){
     jIdx = Math.max(0, Math.min(idx, jobs.length-1));
-    const cardW = 300 + 16;
-    grid.style.transform = `translateX(${-(jIdx*cardW)}px)`;
+    grid.style.transform = `translateX(${-(jIdx*316)}px)`;
     renderJobDots();
   };
 
-  window.startJobAuto = function(){ window._jAuto = setInterval(()=>{ jIdx=jIdx>=jobs.length-1?0:jIdx+1; window.goJobCarousel(jIdx); }, 4200); };
-  window.stopJobAuto  = function(){ clearInterval(window._jAuto); };
+  window.jNavClick = function(dir){
+    window.stopJobAuto();
+    dir===1?(jIdx=jIdx>=jobs.length-1?0:jIdx+1):(jIdx=jIdx<=0?jobs.length-1:jIdx-1);
+    window.goJobCarousel(jIdx);
+    window.startJobAuto();
+  };
 
-  window.startJEdge = function(dir){ window.stopJEdge(); window._jEdgeInt=setInterval(()=>{ dir===1?(jIdx=jIdx>=jobs.length-1?0:jIdx+1):(jIdx=jIdx<=0?jobs.length-1:jIdx-1); window.goJobCarousel(jIdx); },900); };
-  window.stopJEdge  = function(){ clearInterval(window._jEdgeInt); };
+  window.startJobAuto = function(){ window._jAuto=setInterval(()=>{jIdx=jIdx>=jobs.length-1?0:jIdx+1;window.goJobCarousel(jIdx);},6000); };
+  window.stopJobAuto  = function(){ clearInterval(window._jAuto);window._jAuto=null; };
+  window.startJEdge   = function(){}; // disabled
+  window.stopJEdge    = function(){};
 
   setTimeout(()=>{
     grid.innerHTML = jobs.map(j=>{
       const tl = timeLabel(j.posted);
-      const daysN = daysAgo(j.posted);
-      const freshness = daysN <= 1 ? 'hot' : daysN <= 3 ? 'new' : '';
+      const n  = daysAgo(j.posted);
+      const fresh = n<=1?'hot':n<=3?'new':'';
+
+      // Logo: LinkedIn badge if isLinkedIn, else abbreviation
+      const logoInner = j.isLinkedIn
+        ? `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;">${LI_LOGO}</div>`
+        : `<span style="font-size:.75rem;font-weight:800;color:${j.logoText};">${j.logo}</span>`;
+
       return `
-      <a class="job-card" href="${j.url}" target="_blank" rel="noopener" style="--accent-color:${j.accent}"
-         onmouseenter="stopJobAuto&&stopJobAuto()" onmouseleave="startJobAuto&&startJobAuto()">
+      <a class="job-card" href="${j.url}" target="_blank" rel="noopener" style="--accent-color:${j.accent}">
         <div class="job-card-top">
           <div style="display:flex;align-items:center;gap:.65rem;flex:1;min-width:0;">
-            <div class="job-logo" style="background:${j.logoBg};border:1.5px solid ${j.logoBorder};color:${j.logoText};">
-                ${j.logoImg ? `<img src="${j.logoImg}" alt="${j.company}" onerror="this.style.display='none';this.parentElement.textContent='${j.logo}'">` : j.logo}
-              </div>
+            <div class="job-logo" style="background:${j.logoBg};border:1.5px solid ${j.logoBorder};overflow:hidden;">
+              ${logoInner}
+            </div>
             <div style="min-width:0;">
               <div class="job-company">${j.company}</div>
               <div style="display:flex;align-items:center;gap:.35rem;margin-top:.12rem;">
@@ -1716,28 +1759,30 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
               </div>
             </div>
           </div>
-          ${freshness==='hot'?`<span class="job-fresh-badge hot">🔥 Hot</span>`:freshness==='new'?`<span class="job-fresh-badge new">New</span>`:''}
+          ${fresh==='hot'?`<span class="job-fresh-badge hot">🔥 Hot</span>`:fresh==='new'?`<span class="job-fresh-badge new">New</span>`:''}
         </div>
         <div class="job-title">${j.title}</div>
         <div class="job-desc">${j.desc}</div>
         <div class="job-tags">${j.tags.map(t=>`<span class="job-tag" style="background:${t.c};color:${t.tc};border:1px solid ${t.tc}28;">${t.t}</span>`).join('')}</div>
         <div class="job-footer">
-          <div style="display:flex;align-items:center;gap:.4rem;">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div style="display:flex;align-items:center;gap:.35rem;">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <span style="font-size:.68rem;color:#5b9bd5;">via LinkedIn</span>
+            <span style="font-size:.68rem;color:rgba(255,255,255,.2);">·</span>
             <span style="font-size:.68rem;color:rgba(255,255,255,.3);">${tl||j.posted}</span>
           </div>
           <div style="display:flex;align-items:center;gap:.45rem;">
-            <span class="job-type" style="background:${j.typeColor};color:${j.typeText};border:1px solid ${j.typeText}28;">${j.type}</span>
-            <span class="job-apply">Apply <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <span class="job-type" style="background:${j.tags[0]?.c||'rgba(200,168,108,.1)'};color:${j.tags[0]?.tc||'#c8a86c'};border:1px solid ${j.tags[0]?.tc||'#c8a86c'}28;">${j.type}</span>
+            <span class="job-apply">Apply ↗</span>
           </div>
         </div>
       </a>`;
     }).join('');
 
-    grid.style.transition = 'transform .55s cubic-bezier(.25,.46,.45,.94)';
+    grid.style.transition = 'transform .6s cubic-bezier(.25,.46,.45,.94)';
     renderJobDots();
     startJobAuto();
-  }, 600);
+  }, 500);
 })();
 </script>
 
@@ -1749,16 +1794,12 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
     </div>
     <!-- Slider wrapper with edge hover zones -->
     <div class="c-stage" id="cStage">
-      <div class="c-edge c-edge-left" id="cEdgeLeft" onmouseenter="startCEdge(-1)" onmouseleave="stopCEdge()">
-        <div class="c-edge-arrow">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-        </div>
-      </div>
-      <div class="c-edge c-edge-right" id="cEdgeRight" onmouseenter="startCEdge(1)" onmouseleave="stopCEdge()">
-        <div class="c-edge-arrow">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
-      </div>
+      <button class="nav-arrow-btn nav-arrow-left" onclick="carouselPrev()" aria-label="Previous">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="nav-arrow-btn nav-arrow-right" onclick="carouselNext()" aria-label="Next">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
       <div class="c-slider"><div class="c-track" id="cTrack"></div></div>
     </div>
     <div class="cdots" id="cDots"></div>
