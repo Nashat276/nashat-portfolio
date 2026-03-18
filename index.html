@@ -127,12 +127,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:54px;display:flex;ali
 
 /* ══ PAGES ══ */
 .page{display:none;min-height:100vh;}
-.page.active{display:block;animation:pageIn .42s ease;}
-@keyframes pageIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.page.active{display:block;animation:pageIn .38s cubic-bezier(.22,.61,.36,1);}
+.page.page-out{animation:pageOut .2s ease forwards;}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+@keyframes pageOut{from{opacity:1;transform:translateY(0);}to{opacity:0;transform:translateY(-10px);}}
 
 /* ══ REVEAL ══ */
 .rev{opacity:0;transform:translateY(22px);transition:opacity .58s ease,transform .58s ease;}
 .rev.v{opacity:1;transform:none;}
+
+/* ===== SCROLL REVEAL SYSTEM ===== */
+[data-sr]{opacity:0;transition:opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1);}
+[data-sr="fade-up"]   {transform:translateY(40px);}
+[data-sr="fade-down"] {transform:translateY(-30px);}
+[data-sr="fade-left"] {transform:translateX(50px);}
+[data-sr="fade-right"]{transform:translateX(-50px);}
+[data-sr="zoom"]      {transform:scale(0.88);}
+[data-sr="flip-up"]   {transform:perspective(600px) rotateX(18deg) translateY(20px);}
+[data-sr].sr-done     {opacity:1;transform:none;}
 .d1{transition-delay:.07s;}.d2{transition-delay:.14s;}.d3{transition-delay:.21s;}.d4{transition-delay:.28s;}
 
 /* ══ BUTTONS ══ */
@@ -197,6 +209,8 @@ select.field option{background:var(--pan);}
 .hero h1 .sub{display:block;color:var(--tx);font-size:.66em;font-style:normal;margin-top:.1rem;opacity:.75;-webkit-text-fill-color:var(--tx);}
 
 .hero-d{font-size:.94rem;color:var(--mu);line-height:1.85;margin-bottom:1.8rem;max-width:500px;}
+#typewriterText{border-right:3px solid #c8a86c;padding-right:3px;animation:blink-cursor .75s step-end infinite;}
+@keyframes blink-cursor{0%,100%{border-color:#c8a86c;}50%{border-color:transparent;}}
 .hero-d strong{color:var(--tx);font-weight:600;}
 
 .hero-email{display:inline-flex;align-items:center;gap:.62rem;background:var(--pan);border:1px solid var(--b);border-radius:9px;padding:.52rem .95rem;margin-bottom:1.8rem;transition:border-color .2s;}
@@ -244,8 +258,9 @@ select.field option{background:var(--pan);}
 .c-title{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--wh);letter-spacing:-.2px;}
 .c-controls{display:flex;align-items:center;gap:.65rem;}
 .ctabs{display:flex;gap:.3rem;}
-.ctab{background:var(--pan);border:1px solid var(--b);color:var(--mu);font-size:.74rem;font-weight:500;padding:.3rem .8rem;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;letter-spacing:.2px;}
+.ctab{background:var(--pan);border:1px solid var(--b);color:var(--mu);font-size:.74rem;font-weight:500;padding:.3rem .8rem;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;letter-spacing:.2px;display:inline-flex;align-items:center;gap:5px;}
 .ctab.on,.ctab:hover{background:var(--go3);border-color:rgba(200,168,108,.28);color:var(--go);}
+.ctab svg,.ptab svg,.jtab svg{flex-shrink:0;}
 .cnav{display:flex;gap:.3rem;}
 .cnav-btn{background:var(--pan);border:1px solid var(--b);color:var(--mu);border-radius:7px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.82rem;transition:all .2s;}
 .cnav-btn:hover{border-color:var(--go);color:var(--go);}
@@ -285,6 +300,22 @@ select.field option{background:var(--pan);}
 .tl-o{font-size:.76rem;color:var(--go);margin-bottom:.32rem;}
 .tl-d{font-size:.79rem;color:var(--mu);line-height:1.65;}
 .cv-box{background:var(--pan);border:1px solid rgba(200,168,108,.18);border-radius:var(--r);padding:1.15rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:1.8rem;}
+.skill-bars-wrap{margin-top:1.8rem;}
+/* ── CUSTOM CURSOR ── */
+*{cursor:none!important;}
+#cur-outer{display:none;}
+#cur-dot{display:none;}
+@media(hover:none){*{cursor:auto!important;}}
+/* ── TILT ── */
+.wcard{transform-style:preserve-3d;transition:transform .15s ease,box-shadow .15s ease!important;}
+.wcard:hover{box-shadow:0 12px 40px rgba(0,0,0,0.35)!important;}
+.skill-bars{display:flex;flex-direction:column;gap:.85rem;}
+.sb-item{}
+.sb-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.38rem;}
+.sb-name{font-size:.8rem;font-weight:500;color:var(--tx);}
+.sb-pct{font-size:.75rem;font-weight:700;color:#c8a86c;min-width:32px;text-align:right;}
+.sb-track{height:6px;background:rgba(200,168,108,.1);border-radius:4px;overflow:hidden;border:1px solid rgba(200,168,108,.12);}
+.sb-fill{height:100%;width:0%;border-radius:4px;background:linear-gradient(90deg,#c8a86c,#e6c97a);transition:width 1.2s cubic-bezier(.22,.61,.36,1);}
 .cv-box h4{font-weight:600;color:var(--wh);font-size:.88rem;margin-bottom:.16rem;}
 .cv-box p{font-size:.75rem;color:var(--mu);}
 
@@ -333,7 +364,7 @@ select.field option{background:var(--pan);}
 /* Type tabs */
 .ptabs{display:flex;gap:0;border-bottom:1px solid var(--b);overflow-x:auto;scrollbar-width:none;}
 .ptabs::-webkit-scrollbar{display:none;}
-.ptab{background:none;border:none;color:var(--mu);font-size:.73rem;font-family:'DM Sans',sans-serif;padding:.42rem .82rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;white-space:nowrap;}
+.ptab{background:none;border:none;color:var(--mu);font-size:.73rem;font-family:'DM Sans',sans-serif;padding:.42rem .82rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;}
 .ptab.active,.ptab:hover{color:var(--go);border-bottom-color:var(--go);}
 
 .pcompose-body{padding:1rem 1.25rem 1.1rem;display:flex;flex-direction:column;gap:.7rem;}
@@ -416,30 +447,44 @@ select.field option{background:var(--pan);}
 /* ══ POST CARD - NEW PROFESSIONAL ══ */
 .pfeed{display:grid;gap:1rem;}
 
+/* ══ POST CARDS — FULL REDESIGN ══ */
 .pcard{
   background:var(--sur);
   border:1px solid var(--b);
-  border-radius:14px;
+  border-radius:16px;
   overflow:hidden;
   cursor:pointer;
-  transition:all .28s;
+  transition:transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s, border-color .25s;
   position:relative;
+  display:flex;
+  flex-direction:column;
+}
+.pcard::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(200,168,108,.03) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
 }
 .pcard:hover{
-  border-color:rgba(200,168,108,.22);
-  transform:translateY(-2px);
-  box-shadow:0 12px 36px rgba(0,0,0,.35);
+  border-color:rgba(200,168,108,.3);
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,0,0,.4);
 }
 
-/* Card with cover image — horizontal layout on large, vertical on small */
-.pcard-inner{display:flex;flex-direction:column;}
-.pcard.has-cover .pcard-inner{flex-direction:row;}
+.pcard-inner{display:flex;flex-direction:column;flex:1;position:relative;z-index:1;}
+.pcard.has-cover .pcard-inner{flex-direction:column;}
+
+/* Top accent line by type */
+.pcard.t-border-article::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c8a86c,transparent);}
+.pcard.t-border-link::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#6b9fe4,transparent);}
+.pcard.t-border-video::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ef5350,transparent);}
+.pcard.t-border-doc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4caf7d,transparent);}
+.pcard.t-border-image::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#9c72d4,transparent);}
+.pcard.t-border-linkedin::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#0a66c2,transparent);}
 
 .pcard-cover{
-  width:220px;flex-shrink:0;
+  width:100%;height:180px;flex-shrink:0;
   position:relative;overflow:hidden;
   background:linear-gradient(135deg,#08162a,#0d1f3c);
-  min-height:160px;
 }
 .pcard.has-cover .pcard-cover{display:block;}
 .pcard:not(.has-cover) .pcard-cover{display:none;}
@@ -447,7 +492,6 @@ select.field option{background:var(--pan);}
 .pcard-cover-ph{
   position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;
-  font-size:2.2rem;
 }
 .pcard-cover-ph-bg{
   position:absolute;inset:0;
@@ -456,98 +500,134 @@ select.field option{background:var(--pan);}
   background-size:16px 16px;
 }
 .pcard-cover-type{
-  position:absolute;bottom:.55rem;left:.55rem;
-  background:rgba(7,9,13,.85);
-  border:1px solid var(--b2);
+  position:absolute;bottom:.6rem;left:.6rem;
+  background:rgba(7,9,13,.85);border:1px solid var(--b2);
   color:var(--tx);font-size:.55rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  padding:.1rem .38rem;border-radius:3px;
-  backdrop-filter:blur(4px);
+  padding:.1rem .38rem;border-radius:4px;backdrop-filter:blur(4px);
 }
 
-.pcard-main{flex:1;display:flex;flex-direction:column;padding:1rem 1.1rem .85rem;min-width:0;}
+.pcard-main{flex:1;display:flex;flex-direction:column;padding:1.1rem 1.2rem .95rem;min-width:0;}
 
-.pcard-top{display:flex;align-items:center;gap:.52rem;margin-bottom:.72rem;}
+.pcard-top{display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;}
 .pcard-av{
-  width:30px;height:30px;border-radius:50%;
+  width:32px;height:32px;border-radius:50%;
   background:linear-gradient(135deg,var(--bl),var(--go));
   display:flex;align-items:center;justify-content:center;
   font-size:.7rem;font-weight:700;color:#07090d;
   flex-shrink:0;overflow:hidden;background-size:cover;background-position:center;
+  border:1.5px solid rgba(200,168,108,.2);
 }
-.pcard-author{font-size:.79rem;font-weight:600;color:var(--wh);}
-.pcard-date{font-size:.66rem;color:var(--mu);}
+.pcard-author{font-size:.8rem;font-weight:600;color:var(--wh);}
+.pcard-date{font-size:.65rem;color:var(--mu);}
 .pcard-badge{
   margin-left:auto;
-  font-size:.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  padding:.15rem .48rem;border-radius:3px;
+  font-size:.57rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  padding:.18rem .55rem;border-radius:20px;display:flex;align-items:center;gap:4px;
 }
+.pcard-badge svg{width:9px;height:9px;}
 .pcard-rt{font-size:.63rem;color:var(--mu);display:flex;align-items:center;gap:.18rem;}
 
 .pcard-title{
   font-family:'DM Serif Display',serif;
-  font-size:1.08rem;color:var(--wh);
-  line-height:1.25;letter-spacing:-.1px;
-  margin-bottom:.4rem;
+  font-size:1.05rem;color:var(--wh);
+  line-height:1.3;letter-spacing:-.1px;
+  margin-bottom:.45rem;
 }
 .pcard-excerpt{
-  font-size:.8rem;color:var(--mu);line-height:1.72;
+  font-size:.8rem;color:var(--mu);line-height:1.75;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-  margin-bottom:.7rem;flex:1;
+  margin-bottom:.75rem;flex:1;
 }
-.pcard-tags{display:flex;flex-wrap:wrap;gap:.28rem;margin-bottom:.7rem;}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.75rem;}
 .pcard-tag{
-  background:rgba(72,117,194,.08);
-  border:1px solid rgba(72,117,194,.15);
-  color:var(--bl2);font-size:.62rem;
-  padding:.12rem .44rem;border-radius:3px;
+  background:rgba(72,117,194,.08);border:1px solid rgba(72,117,194,.15);
+  color:var(--bl2);font-size:.62rem;padding:.13rem .46rem;border-radius:20px;
+  transition:all .18s;
 }
+.pcard-tag:hover{background:rgba(72,117,194,.15);border-color:rgba(72,117,194,.3);}
 .pcard-foot{
-  display:flex;align-items:center;gap:.52rem;
-  padding:.62rem 0 0;
-  border-top:1px solid var(--b);
-  margin-top:auto;
+  display:flex;align-items:center;gap:.45rem;
+  padding:.7rem 0 0;border-top:1px solid var(--b);margin-top:auto;
 }
 .pact{
   background:none;border:none;color:var(--mu);
   font-size:.71rem;cursor:pointer;font-family:'DM Sans',sans-serif;
-  display:flex;align-items:center;gap:.2rem;
-  padding:.18rem .42rem;border-radius:5px;transition:all .2s;
+  display:flex;align-items:center;gap:.25rem;
+  padding:.2rem .5rem;border-radius:6px;transition:all .18s;
 }
-.pact:hover{background:rgba(255,255,255,.05);color:var(--tx);}
+.pact:hover{background:rgba(255,255,255,.06);color:var(--tx);}
 .pact.liked{color:#e87461;}
 .pcard-read{
-  margin-left:auto;
-  font-size:.68rem;color:var(--mu);
-  display:flex;align-items:center;gap:.2rem;opacity:.65;
+  margin-left:auto;font-size:.68rem;color:var(--mu);
+  display:flex;align-items:center;gap:.22rem;opacity:.65;
+  transition:opacity .18s;
 }
+.pcard:hover .pcard-read{opacity:1;color:var(--go);}
 
 /* Type badge colors */
-.t-article{background:rgba(72,117,194,.1);color:var(--bl2);}
-.t-link{background:rgba(200,168,108,.1);color:var(--go);}
-.t-video{background:rgba(209,78,78,.1);color:#ef8080;}
-.t-doc{background:rgba(130,96,210,.1);color:var(--pu);}
-.t-image{background:rgba(56,150,100,.1);color:#4caf7d;}
-.t-tool{background:rgba(200,168,108,.1);color:var(--go);}
+.t-article{background:rgba(200,168,108,.1);color:#c8a86c;}
+.t-link{background:rgba(107,159,228,.1);color:#6b9fe4;}
+.t-video{background:rgba(239,83,80,.1);color:#ef5350;}
+.t-doc{background:rgba(76,175,125,.1);color:#4caf7d;}
+.t-image{background:rgba(156,114,212,.1);color:#9c72d4;}
+.t-tool{background:rgba(200,168,108,.1);color:#c8a86c;}
+.t-linkedin{background:rgba(10,102,194,.12);color:#5b9bd5;}
 
-/* Inline media in post */
-.pcard-video{width:100%;aspect-ratio:16/9;border:none;display:block;}
+/* ── LINK PREVIEW ── */
 .link-prev{
-  background:var(--pan);border:1px solid var(--b);border-radius:9px;
-  padding:.72rem .88rem;display:flex;gap:.58rem;align-items:flex-start;
-  text-decoration:none;transition:border-color .2s;margin:.2rem 0 .6rem;
+  background:var(--pan);border:1px solid var(--b);border-radius:10px;
+  padding:.75rem .9rem;display:flex;gap:.6rem;align-items:flex-start;
+  text-decoration:none;transition:border-color .2s;margin:.2rem 0 .7rem;
 }
 .link-prev:hover{border-color:var(--go);}
-.lp-icon{width:32px;height:32px;border-radius:7px;background:var(--pan2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.lp-icon{width:34px;height:34px;border-radius:8px;background:var(--pan2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
 .lp-title{font-weight:600;color:var(--wh);font-size:.79rem;margin-bottom:.1rem;}
 .lp-url{font-size:.65rem;color:var(--mu);}
 
-/* Tool card special style */
+/* ── LINKEDIN CARD ── */
+.pcard-linkedin{
+  background:linear-gradient(145deg,#041929 0%,#062040 50%,#041929 100%);
+  border:1px solid rgba(10,102,194,.25);
+  border-radius:16px;overflow:hidden;
+  cursor:pointer;transition:all .25s;position:relative;
+}
+.pcard-linkedin:hover{border-color:rgba(10,102,194,.55);transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,102,194,.2);}
+.pcard-linkedin::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#0a66c2,transparent);}
+.li-card-inner{padding:1.2rem 1.3rem 1rem;position:relative;z-index:1;}
+.li-header{display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem;}
+.li-avatar{
+  width:42px;height:42px;border-radius:50%;overflow:hidden;
+  border:2px solid rgba(10,102,194,.4);flex-shrink:0;
+  background:linear-gradient(135deg,var(--bl),var(--go));
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:700;color:#07090d;
+  background-size:cover;background-position:center;
+}
+.li-name{font-size:.85rem;font-weight:700;color:#e8f4ff;}
+.li-meta{font-size:.68rem;color:rgba(200,220,255,.5);margin-top:.06rem;display:flex;align-items:center;gap:.4rem;}
+.li-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(10,102,194,.15);border:1px solid rgba(10,102,194,.3);
+  color:#5b9bd5;font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:.15rem .5rem;border-radius:20px;
+}
+.li-content{font-size:.82rem;color:rgba(210,230,255,.75);line-height:1.75;margin-bottom:.85rem;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+.li-footer{display:flex;align-items:center;justify-content:space-between;padding-top:.7rem;border-top:1px solid rgba(10,102,194,.15);}
+.li-actions{display:flex;gap:.3rem;}
+.li-action{background:none;border:1px solid rgba(10,102,194,.2);color:rgba(200,220,255,.5);font-size:.68rem;padding:.22rem .6rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:.3rem;transition:all .18s;}
+.li-action:hover{border-color:rgba(10,102,194,.5);color:#5b9bd5;background:rgba(10,102,194,.08);}
+.li-action.liked{color:#e87461;border-color:rgba(232,116,97,.3);}
+.li-open{display:inline-flex;align-items:center;gap:.35rem;color:#5b9bd5;font-size:.72rem;font-weight:600;text-decoration:none;padding:.22rem .7rem;border:1px solid rgba(10,102,194,.3);border-radius:6px;transition:all .18s;background:rgba(10,102,194,.06);}
+.li-open:hover{background:rgba(10,102,194,.15);border-color:rgba(10,102,194,.5);}
+.li-logo{position:absolute;top:1rem;right:1.1rem;opacity:.18;}
+
+/* Tool card */
 .pcard-tool{
   background:linear-gradient(135deg,#07111f 0%,#0d1e3a 45%,#091626 100%);
   border:1px solid rgba(72,117,194,.22);
-  border-radius:14px;overflow:hidden;transition:all .28s;cursor:pointer;
+  border-radius:16px;overflow:hidden;transition:all .25s;cursor:pointer;
 }
-.pcard-tool:hover{border-color:rgba(200,168,108,.3);transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.45);}
+.pcard-tool:hover{border-color:rgba(200,168,108,.3);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.45);}
 .pcard-tool-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.05) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
 .tool-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--go);margin-bottom:.45rem;}
 .tool-badge::before{content:'';width:12px;height:1px;background:var(--go);}
@@ -558,6 +638,22 @@ select.field option{background:var(--pan);}
 .psidebar{}
 .scard{background:var(--pan);border:1px solid var(--b);border-radius:var(--r);padding:.95rem;margin-bottom:.95rem;}
 .scard-t{font-size:.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--go);margin-bottom:.78rem;}
+.ptype-legend{display:flex;flex-direction:column;gap:.45rem;}
+.ptl-item{display:flex;align-items:center;gap:.65rem;padding:.42rem .6rem;border-radius:8px;border:1px solid transparent;transition:all .18s;}
+.ptl-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ptl-name{font-size:.76rem;font-weight:600;line-height:1.2;}
+.ptl-desc{font-size:.65rem;color:var(--mu);margin-top:.06rem;}
+.ptl-article .ptl-icon{background:rgba(200,168,108,.1);color:#c8a86c;}
+.ptl-article .ptl-name{color:#c8a86c;}
+.ptl-link .ptl-icon{background:rgba(72,117,194,.1);color:#6b9fe4;}
+.ptl-link .ptl-name{color:#6b9fe4;}
+.ptl-video .ptl-icon{background:rgba(229,57,53,.1);color:#ef5350;}
+.ptl-video .ptl-name{color:#ef5350;}
+.ptl-doc .ptl-icon{background:rgba(56,150,100,.1);color:#4caf7d;}
+.ptl-doc .ptl-name{color:#4caf7d;}
+.ptl-image .ptl-icon{background:rgba(130,96,210,.1);color:#9c72d4;}
+.ptl-image .ptl-name{color:#9c72d4;}
+.ptl-item:hover{background:var(--bg);border-color:var(--b);}
 .tag-cloud{display:flex;flex-wrap:wrap;gap:.32rem;}
 .ttag{background:var(--sur);border:1px solid var(--b);color:var(--tx);font-size:.7rem;padding:.24rem .56rem;border-radius:5px;cursor:pointer;transition:all .2s;}
 .ttag:hover,.ttag.on{background:var(--go3);border-color:rgba(200,168,108,.26);color:var(--go);}
@@ -585,7 +681,7 @@ select.field option{background:var(--pan);}
 .jimg{width:100%;max-height:145px;object-fit:cover;border-radius:7px;margin-top:.68rem;display:none;}
 .jimg.on{display:block;}
 .jtabs{display:flex;gap:.32rem;flex-wrap:wrap;margin-bottom:1.35rem;}
-.jtab{background:var(--pan);border:1px solid var(--b);color:var(--mu);font-size:.74rem;padding:.28rem .78rem;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;}
+.jtab{background:var(--pan);border:1px solid var(--b);color:var(--mu);font-size:.74rem;padding:.28rem .78rem;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;display:inline-flex;align-items:center;gap:5px;}
 .jtab:hover,.jtab.on{border-color:rgba(200,168,108,.28);color:var(--go);background:var(--go3);}
 
 /* ══ DISCUSSION ══ */
@@ -627,7 +723,7 @@ select.field option{background:var(--pan);}
 .dsc-stat-val{color:var(--wh);font-weight:600;font-family:'DM Serif Display',serif;}
 .dsc-guideline{display:flex;gap:.52rem;align-items:flex-start;padding:.42rem 0;border-bottom:1px solid var(--b);font-size:.77rem;color:var(--mu);}
 .dsc-guideline:last-child{border-bottom:none;}
-.dsc-guideline-icon{flex-shrink:0;font-size:.9rem;margin-top:.06rem;}
+.dsc-guideline-icon{flex-shrink:0;display:flex;align-items:center;color:var(--go);}
 
 /* ══ CONTACT ══ */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
@@ -653,7 +749,7 @@ select.field option{background:var(--pan);}
 .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:1.15rem;margin-bottom:1.7rem;}
 .svc-card{background:var(--pan);border:1px solid var(--b);border-radius:var(--r);padding:1.55rem;transition:all .25s;}
 .svc-card:hover{border-color:rgba(200,168,108,.25);transform:translateY(-2px);}
-.svc-icon{font-size:1.85rem;margin-bottom:.82rem;}
+.svc-icon{font-size:1.85rem;margin-bottom:.82rem;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(200,168,108,.08);border:1px solid rgba(200,168,108,.15);color:#c8a86c;}
 .svc-title{font-family:'DM Serif Display',serif;font-size:1.02rem;color:var(--wh);margin-bottom:.38rem;}
 .svc-desc{font-size:.78rem;color:var(--mu);line-height:1.72;margin-bottom:.95rem;}
 .svc-price{font-size:1.32rem;font-weight:700;color:var(--go);margin-bottom:.95rem;font-family:'DM Serif Display',serif;}
@@ -739,14 +835,7 @@ select.field option{background:var(--pan);}
 .reader-cmt-input-row input{flex:1;margin-bottom:0;}
 
 /* ══ RADAR ══ */
-.radar-wrap{position:relative;width:100%;max-width:340px;margin:0 auto;}
-.radar-label{font-size:.66rem;font-weight:600;fill:var(--tx);font-family:'DM Sans',sans-serif;}
-.radar-polygon{fill:rgba(72,117,194,.15);stroke:var(--bl2);stroke-width:1.5;transition:all .4s;}
-.radar-grid{fill:none;stroke:rgba(255,255,255,.06);stroke-width:.8;}
-.radar-axis{stroke:rgba(255,255,255,.08);stroke-width:.8;}
-.radar-dot{fill:var(--go);stroke:var(--pan);stroke-width:2;cursor:pointer;transition:r .2s;}
-.radar-dot:hover{r:6;}
-.radar-tooltip{position:absolute;background:var(--pan2);border:1px solid var(--b2);border-radius:7px;padding:.32rem .68rem;font-size:.72rem;color:var(--wh);pointer-events:none;opacity:0;transition:opacity .18s;white-space:nowrap;font-family:'DM Sans',sans-serif;z-index:10;}
+
 
 /* ══ ANIM CARD ══ */
 .anim-card{opacity:0;transform:translateY(24px) scale(.98);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1);}
@@ -797,6 +886,8 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 </style>
 </head>
 <body>
+<div id="cur-outer"></div>
+<div id="cur-dot"></div>
 
 <!-- LOADER -->
 <div id="loader">
@@ -821,11 +912,11 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
     <a onclick="showPage('discuss',this)">Discussion</a>
   </div>
   <div class="nav-r">
-    <button class="icon-btn" onclick="toggleTheme()">◐</button>
+    <button class="icon-btn" onclick="toggleTheme()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20V2z" fill="currentColor"/></svg></button>
     <button class="icon-btn admin-only" onclick="doSignOut()">↪ Logout</button>
-    <button class="icon-btn" id="loginNavBtn" onclick="openM('loginModal')" style="display:none;">🔐</button>
+    <button class="icon-btn" id="loginNavBtn" onclick="openM('loginModal')" style="display:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button>
     <button class="hire-btn" onclick="showPage('services',null)">Hire Me ↗</button>
-    <button class="ham" onclick="toggleMob()">☰</button>
+    <button class="ham" onclick="toggleMob()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </div>
 </nav>
 <!-- AVIATION NEWS TICKER -->
@@ -858,7 +949,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
     flex-shrink: 0;
     gap: 6px;
     box-shadow: 4px 0 16px rgba(0,0,0,0.4);
-  ">✈ LIVE NEWS</div>
+  "><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> AERO FEED</div>
   <div style="width:1px;height:55%;background:rgba(200,168,108,0.25);flex-shrink:0;margin:0 4px;"></div>
   <div style="overflow:hidden; flex:1; position:relative; padding: 0 8px;">
     <div id="ticker-track" style="
@@ -982,6 +1073,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 <div id="page-home" class="page active">
 <div class="hero">
   <div class="hbg">
+    <canvas id="particleCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
     <div class="hgrid"></div>
     <div class="hgrid2"></div>
     <div class="hglow-blue"></div>
@@ -1002,7 +1094,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
   </div>
   <div class="hero-l rev">
     <div class="status-pill rev d1"><div class="sdot"></div>Open to Work — Junior / Entry Level</div>
-    <h1>I engineer<br><em>aircraft structures</em><span class="sub">& simulate flight.</span></h1>
+    <h1>I engineer<br><em id="typewriterText"></em><span class="sub">& simulate flight.</span></h1>
     <p class="hero-d rev d1"><strong>Nashat Omar Aldhoun</strong> — Junior Aeronautical Engineer from JUST. Specialized in Aircraft Structures, FEA, Modal Analysis & MRO. Trained at the Royal Jordanian Air Force.</p>
     <div class="hero-email rev d2" id="heroEmailBox">
       <div class="em-dot"></div>
@@ -1065,6 +1157,140 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
     </div>
   </div>
 </div>
+<!-- VIRTUAL LAB SECTION -->
+<div class="vlab-section">
+  <div class="vlab-inner">
+    <div class="vlab-header" data-sr="fade-up">
+      <div class="vlab-tag"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Interactive Engineering Tools</div>
+      <h2 class="vlab-title">Virtual Engineering Lab</h2>
+      <p class="vlab-sub">Real aeronautical tools — built and deployed by Nashat. Not just designs, but working digital solutions.</p>
+    </div>
+    <div class="vlab-card" data-sr="zoom">
+      <div class="vlab-left">
+        <div class="vlab-badge"><span class="vbadge-dot"></span>LIVE TOOL</div>
+        <div class="vlab-tool-name">AeroSizer Pro</div>
+        <div class="vlab-tool-desc">Aircraft preliminary sizing estimator. Input mission parameters and get instant structural & performance estimates — wing loading, thrust-to-weight, Payload-Range diagram, and more.</div>
+        <div class="vlab-stats">
+          <div class="vlab-stat"><div class="vls-val">W/S</div><div class="vls-key">Wing Loading</div></div>
+          <div class="vlab-stat"><div class="vls-val">T/W</div><div class="vls-key">Thrust-to-Weight</div></div>
+          <div class="vlab-stat"><div class="vls-val">P-R</div><div class="vls-key">Payload-Range</div></div>
+          <div class="vlab-stat"><div class="vls-val">MTOW</div><div class="vls-key">Weight Estimate</div></div>
+        </div>
+        <a href="https://aircraftestimatorpy-czwfnxoarms8xd6offnevj.streamlit.app/" target="_blank" rel="noopener" class="vlab-cta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Launch Simulation
+        </a>
+      </div>
+      <div class="vlab-right">
+        <div class="vlab-preview-label"><span class="vpl-dot"></span> Payload-Range Preview</div>
+        <canvas id="payloadRangeChart" width="400" height="220"></canvas>
+        <div class="vlab-inputs">
+          <div class="vli-group">
+            <label>Max Payload (kg)</label>
+            <input type="range" id="vlPayload" min="500" max="5000" value="2000" oninput="updateAeroChart()">
+            <span id="vlPayloadVal">2000 kg</span>
+          </div>
+          <div class="vli-group">
+            <label>Max Range (km)</label>
+            <input type="range" id="vlRange" min="500" max="8000" value="3000" oninput="updateAeroChart()">
+            <span id="vlRangeVal">3000 km</span>
+          </div>
+        </div>
+        <div class="vlab-chart-note">↑ Adjust sliders to preview — full simulation on the tool</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.vlab-section{background:linear-gradient(180deg,var(--bg) 0%,rgba(10,15,26,0.5) 100%);padding:4rem 2rem;position:relative;overflow:hidden;}
+.vlab-section::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 50%,rgba(200,168,108,0.05) 0%,transparent 70%);pointer-events:none;}
+.vlab-inner{max-width:1100px;margin:0 auto;}
+.vlab-header{text-align:center;margin-bottom:2.5rem;}
+.vlab-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(200,168,108,0.1);border:1px solid rgba(200,168,108,0.25);color:#c8a86c;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1rem;}
+.vlab-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--tx);margin-bottom:.5rem;}
+.vlab-sub{color:var(--mu);font-size:.95rem;max-width:540px;margin:0 auto;line-height:1.6;}
+.vlab-card{display:grid;grid-template-columns:1fr 1.1fr;gap:2rem;background:var(--c2);border:1px solid var(--b);border-radius:20px;padding:2.2rem;position:relative;overflow:hidden;}
+.vlab-card::before{content:'⚙';position:absolute;font-size:180px;opacity:0.03;right:-20px;bottom:-30px;line-height:1;pointer-events:none;}
+.vlab-left{display:flex;flex-direction:column;gap:1rem;}
+.vlab-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.3);color:#4caf7d;font-size:10px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;width:fit-content;}
+.vbadge-dot{width:7px;height:7px;background:#4caf7d;border-radius:50%;animation:pulse-green 1.5s ease-in-out infinite;}
+@keyframes pulse-green{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.3);}}
+.vlab-tool-name{font-size:1.6rem;font-weight:800;color:var(--tx);letter-spacing:-.5px;}
+.vlab-tool-desc{color:var(--mu);font-size:.88rem;line-height:1.65;}
+.vlab-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;}
+.vlab-stat{background:var(--bg);border:1px solid var(--b);border-radius:10px;padding:.6rem .5rem;text-align:center;}
+.vls-val{font-size:.95rem;font-weight:800;color:#c8a86c;letter-spacing:.5px;}
+.vls-key{font-size:.65rem;color:var(--mu);margin-top:3px;}
+.vlab-cta{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#c8a86c,#e6c97a);color:#07090d;font-size:.9rem;font-weight:800;padding:.75rem 1.5rem;border-radius:10px;text-decoration:none;width:fit-content;margin-top:.3rem;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(200,168,108,0.25);}
+.vlab-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(200,168,108,0.4);}
+.vlab-right{display:flex;flex-direction:column;gap:.8rem;}
+.vlab-preview-label{display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--mu);letter-spacing:.5px;text-transform:uppercase;}
+.vpl-dot{width:7px;height:7px;background:#c8a86c;border-radius:50%;}
+#payloadRangeChart{width:100%;height:auto;border-radius:10px;background:var(--bg);border:1px solid var(--b);}
+.vlab-inputs{display:flex;flex-direction:column;gap:.5rem;}
+.vli-group{display:grid;grid-template-columns:110px 1fr 80px;align-items:center;gap:.5rem;}
+.vli-group label{font-size:.75rem;color:var(--mu);font-weight:600;}
+.vli-group input[type=range]{accent-color:#c8a86c;cursor:pointer;}
+.vli-group span{font-size:.78rem;color:#c8a86c;font-weight:700;text-align:right;}
+.vlab-chart-note{font-size:.72rem;color:var(--mu);opacity:.6;text-align:center;}
+@media(max-width:768px){.vlab-card{grid-template-columns:1fr;}.vli-group{grid-template-columns:90px 1fr 70px;}}
+</style>
+
+<script>
+function drawPayloadRangeChart(payload,range){
+  const canvas=document.getElementById('payloadRangeChart');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  const isDark=document.documentElement.getAttribute('data-theme')!=='light';
+  const bg=isDark?'#080c14':'#f8f6f1';
+  const grid=isDark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.06)';
+  const tx=isDark?'rgba(200,200,220,0.5)':'rgba(80,80,100,0.6)';
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const pad={t:20,r:20,b:40,l:50};
+  const cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  ctx.strokeStyle=grid;ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=pad.t+(cH/4)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);ctx.stroke();
+    const x=pad.l+(cW/4)*i;ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,pad.t+cH);ctx.stroke();
+  }
+  ctx.fillStyle=tx;ctx.font='10px DM Sans,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Range (km)',pad.l+cW/2,H-6);
+  ctx.save();ctx.translate(12,pad.t+cH/2);ctx.rotate(-Math.PI/2);ctx.fillText('Payload (kg)',0,0);ctx.restore();
+  ctx.font='9px DM Sans,sans-serif';ctx.fillStyle=tx;
+  for(let i=0;i<=4;i++){
+    const x=pad.l+(cW/4)*i;ctx.textAlign='center';ctx.fillText(Math.round((range/4)*i),x,H-pad.b+14);
+    const y=pad.t+cH-(cH/4)*i;ctx.textAlign='right';ctx.fillText(Math.round((payload/4)*i),pad.l-6,y+3);
+  }
+  const pts=[[0,payload],[range*0.3,payload],[range*0.65,payload*0.72],[range*0.85,payload*0.38],[range,0]];
+  const toX=r=>pad.l+(r/range)*cW,toY=p=>pad.t+cH-(p/payload)*cH;
+  const grad=ctx.createLinearGradient(pad.l,pad.t,pad.l,pad.t+cH);
+  grad.addColorStop(0,'rgba(200,168,108,0.18)');grad.addColorStop(1,'rgba(200,168,108,0.01)');
+  ctx.beginPath();ctx.moveTo(toX(pts[0][0]),toY(pts[0][1]));
+  for(let i=1;i<pts.length;i++){const[x0,y0]=pts[i-1],[x1,y1]=pts[i];const cx=(toX(x0)+toX(x1))/2;ctx.bezierCurveTo(cx,toY(y0),cx,toY(y1),toX(x1),toY(y1));}
+  ctx.lineTo(toX(range),toY(0));ctx.lineTo(pad.l,toY(0));ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+  ctx.beginPath();ctx.moveTo(toX(pts[0][0]),toY(pts[0][1]));
+  for(let i=1;i<pts.length;i++){const[x0,y0]=pts[i-1],[x1,y1]=pts[i];const cx=(toX(x0)+toX(x1))/2;ctx.bezierCurveTo(cx,toY(y0),cx,toY(y1),toX(x1),toY(y1));}
+  ctx.strokeStyle='#c8a86c';ctx.lineWidth=2.5;ctx.stroke();
+  [[range*0.3,payload],[range*0.65,payload*0.72],[range,0]].forEach(([r,p])=>{
+    ctx.beginPath();ctx.arc(toX(r),toY(p),4,0,Math.PI*2);ctx.fillStyle='#e6c97a';ctx.fill();
+    ctx.strokeStyle=bg;ctx.lineWidth=2;ctx.stroke();
+  });
+}
+function updateAeroChart(){
+  const payload=parseInt(document.getElementById('vlPayload').value);
+  const range=parseInt(document.getElementById('vlRange').value);
+  document.getElementById('vlPayloadVal').textContent=payload.toLocaleString()+' kg';
+  document.getElementById('vlRangeVal').textContent=range.toLocaleString()+' km';
+  drawPayloadRangeChart(payload,range);
+}
+setTimeout(updateAeroChart,300);
+const _origToggleTheme=window.toggleTheme;
+window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(updateAeroChart,100);};
+</script>
+
 <!-- CAROUSEL -->
 <div class="carousel-section">
   <div class="c-inner">
@@ -1072,9 +1298,9 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
       <div class="c-title">Highlights</div>
       <div class="c-controls">
         <div class="ctabs">
-          <button class="ctab on" onclick="switchCarousel('works',this)">✈ Projects</button>
-          <button class="ctab" onclick="switchCarousel('journey',this)">🗓 Journey</button>
-          <button class="ctab" onclick="switchCarousel('posts',this)">📝 Posts</button>
+          <button class="ctab on" onclick="switchCarousel('works',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> Projects</button>
+          <button class="ctab" onclick="switchCarousel('journey',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Journey</button>
+          <button class="ctab" onclick="switchCarousel('posts',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Posts</button>
         </div>
         <div class="cnav">
           <button class="cnav-btn" onclick="carouselPrev()">←</button>
@@ -1093,43 +1319,63 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 <div class="section">
   <div class="rev"><div class="eyebrow">About Me</div><h2 class="sec-t">Engineer. Analyst.<br>Problem Solver.</h2></div>
   <div class="about-grid">
-    <div class="rev">
+    <div class="rev" data-sr="fade-right">
       <p class="ap"><strong>Nashat Omar Aldhoun</strong> is a 2025 Aeronautical Engineering graduate from JUST with deep expertise in Aircraft Structures and MRO operations.</p>
       <p class="ap">His graduation project — <strong>Vibration Analysis on an Aircraft Wing</strong> — covered 3D modeling in Creo, modal analysis comparing Aluminum vs. CFRP in ANSYS, and CFD aerodynamic stability simulations with a validated notch-filter mitigation system.</p>
       <p class="ap">8-week training at the <strong>Royal Jordanian Air Force Overhaul Department</strong> gave him hands-on exposure to hydraulic systems, overhaul procedures, and aviation safety protocols.</p>
       <div class="sg"><div class="sg-l">Engineering Software</div><div class="chips"><span class="chip">Creo</span><span class="chip">ANSYS CFD</span><span class="chip">SolidWorks</span><span class="chip">MATLAB</span></div></div>
       <div class="sg"><div class="sg-l">Core Skills</div><div class="chips"><span class="chip">FEA</span><span class="chip">Modal Analysis</span><span class="chip">CFD Simulation</span><span class="chip">Aircraft MRO</span><span class="chip">Power BI</span><span class="chip">Structural Analysis</span></div></div>
       <div class="sg"><div class="sg-l">Languages</div><div class="chips"><span class="chip">Arabic — Native</span><span class="chip">English — B2</span></div></div>
-      <div class="sg" style="margin-top:1.6rem;">
-        <div class="sg-l" style="margin-bottom:.75rem;">Technical Proficiency</div>
-        <div class="radar-wrap" id="radarWrap">
-          <div class="radar-tooltip" id="radarTip"></div>
-          <svg id="radarSvg" viewBox="0 0 280 260" width="100%" style="overflow:visible;"></svg>
+      <!-- SKILL BARS -->
+      <div class="skill-bars-wrap" id="skillBarsWrap" data-sr="fade-up" style="--sr-delay:0.1s">
+        <div class="sg-l" style="margin-bottom:1rem;">Software Proficiency</div>
+        <div class="skill-bars">
+          <div class="sb-item">
+            <div class="sb-header"><span class="sb-name">ANSYS FEA / CFD</span><span class="sb-pct" id="sb-pct-0">0%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-pct="90"></div></div>
+          </div>
+          <div class="sb-item">
+            <div class="sb-header"><span class="sb-name">SolidWorks</span><span class="sb-pct" id="sb-pct-1">0%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-pct="85"></div></div>
+          </div>
+          <div class="sb-item">
+            <div class="sb-header"><span class="sb-name">Creo Parametric</span><span class="sb-pct" id="sb-pct-2">0%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-pct="80"></div></div>
+          </div>
+          <div class="sb-item">
+            <div class="sb-header"><span class="sb-name">MATLAB</span><span class="sb-pct" id="sb-pct-3">0%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-pct="75"></div></div>
+          </div>
+          <div class="sb-item">
+            <div class="sb-header"><span class="sb-name">Power BI</span><span class="sb-pct" id="sb-pct-4">0%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-pct="70"></div></div>
+          </div>
         </div>
       </div>
+
       <div class="cv-box">
         <div><h4>Curriculum Vitae</h4><p>Download my full CV as PDF</p><div style="margin-top:.42rem;font-size:.76rem;" id="aboutEmail"></div></div>
-        <button class="btn btn-go btn-sm" onclick="downloadCV()">⬇ Download CV</button>
+        <button class="btn btn-go btn-sm" onclick="downloadCV()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download CV</button>
       </div>
     </div>
-    <div class="rev d1">
+    <div class="rev d1" data-sr="fade-left">
       <div class="eyebrow" style="margin-bottom:1.15rem;">Timeline</div>
-      <div class="tl-item"><div class="tl-date">Sep–Oct<br>2025</div><div><div class="tl-t">Overhaul Dept. Trainee</div><div class="tl-o">Royal Jordanian Air Force</div><div class="tl-d">8-week intensive aircraft maintenance. Hydraulic systems, functional testing, aviation safety.</div></div></div>
-      <div class="tl-item"><div class="tl-date">2021–2025</div><div><div class="tl-t">B.Sc. Aeronautical Engineering</div><div class="tl-o">JUST — Jordan</div><div class="tl-d">Graduation: Vibration Analysis on Aircraft Wing using ANSYS, Creo & CFD.</div></div></div>
-      <div class="tl-item"><div class="tl-date">2026</div><div><div class="tl-t">Power BI Certification</div><div class="tl-o">Data Analysis & Visualization</div></div></div>
-      <div class="tl-item"><div class="tl-date">2024</div><div><div class="tl-t">Employment Skills Training</div><div class="tl-o">Professional Development — 5 hrs</div></div></div>
+      <div class="tl-item" data-sr="fade-up" style="--sr-delay:0.05s"><div class="tl-date">Sep–Oct<br>2025</div><div><div class="tl-t">Overhaul Dept. Trainee</div><div class="tl-o">Royal Jordanian Air Force</div><div class="tl-d">8-week intensive aircraft maintenance. Hydraulic systems, functional testing, aviation safety.</div></div></div>
+      <div class="tl-item" data-sr="fade-up" style="--sr-delay:0.15s"><div class="tl-date">2021–2025</div><div><div class="tl-t">B.Sc. Aeronautical Engineering</div><div class="tl-o">JUST — Jordan</div><div class="tl-d">Graduation: Vibration Analysis on Aircraft Wing using ANSYS, Creo & CFD.</div></div></div>
+      <div class="tl-item" data-sr="fade-up" style="--sr-delay:0.25s"><div class="tl-date">2026</div><div><div class="tl-t">Power BI Certification</div><div class="tl-o">Data Analysis & Visualization</div></div></div>
+      <div class="tl-item" data-sr="fade-up" style="--sr-delay:0.35s"><div class="tl-date">2024</div><div><div class="tl-t">Employment Skills Training</div><div class="tl-o">Professional Development — 5 hrs</div></div></div>
     </div>
   </div>
-  <div class="rev" style="margin-top:2.8rem;">
+  <div class="rev" style="margin-top:2.8rem;" data-sr="fade-up">
     <div class="eyebrow">Credentials</div>
     <h3 style="font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--wh);margin-bottom:.3rem;letter-spacing:-.2px;">Certifications & Training</h3>
     <p style="font-size:.84rem;color:var(--mu);margin-bottom:0;">Official credentials and professional development.</p>
     <div class="cert-grid">
-      <div class="cert-card"><div class="cert-icon" style="background:rgba(72,117,194,.12);">🎓</div><div><div class="cert-name">B.Sc. Aeronautical Engineering</div><div class="cert-org">Jordan University of Science & Technology</div><div class="cert-year">2021 – 2025 · Irbid, Jordan</div></div></div>
-      <div class="cert-card"><div class="cert-icon" style="background:rgba(56,150,100,.1);">✈</div><div><div class="cert-name">Aircraft Maintenance Training</div><div class="cert-org">Royal Jordanian Air Force — Overhaul Dept.</div><div class="cert-year">Sep – Oct 2025 · 8 Weeks Intensive</div></div></div>
-      <div class="cert-card"><div class="cert-icon" style="background:rgba(200,168,108,.1);">📊</div><div><div class="cert-name">Power BI — Data Analysis & Visualization</div><div class="cert-org">Microsoft Power BI</div><div class="cert-year">2026 · 3 Hours</div></div></div>
-      <div class="cert-card"><div class="cert-icon" style="background:rgba(130,96,210,.1);">🤝</div><div><div class="cert-name">We Are Community Leaders</div><div class="cert-org">University Leadership Program</div><div class="cert-year">2019</div></div></div>
-      <div class="cert-card"><div class="cert-icon" style="background:rgba(56,150,100,.1);">💼</div><div><div class="cert-name">Employment Skills Training</div><div class="cert-org">Professional Development</div><div class="cert-year">2024 · 5 Hours</div></div></div>
+      <div class="cert-card" data-sr="zoom" style="--sr-delay:0s"><div class="cert-icon" style="background:rgba(72,117,194,.12);color:#4875c2;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><div><div class="cert-name">B.Sc. Aeronautical Engineering</div><div class="cert-org">Jordan University of Science & Technology</div><div class="cert-year">2021 – 2025 · Irbid, Jordan</div></div></div>
+      <div class="cert-card" data-sr="zoom" style="--sr-delay:0.1s"><div class="cert-icon" style="background:rgba(56,150,100,.1);color:#4caf7d;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div><div><div class="cert-name">Aircraft Maintenance Training</div><div class="cert-org">Royal Jordanian Air Force — Overhaul Dept.</div><div class="cert-year">Sep – Oct 2025 · 8 Weeks Intensive</div></div></div>
+      <div class="cert-card" data-sr="zoom" style="--sr-delay:0.2s"><div class="cert-icon" style="background:rgba(200,168,108,.1);color:#c8a86c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div><div class="cert-name">Power BI — Data Analysis & Visualization</div><div class="cert-org">Microsoft Power BI</div><div class="cert-year">2026 · 3 Hours</div></div></div>
+      <div class="cert-card" data-sr="zoom" style="--sr-delay:0.3s"><div class="cert-icon" style="background:rgba(130,96,210,.1);color:#8260d2;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="cert-name">We Are Community Leaders</div><div class="cert-org">University Leadership Program</div><div class="cert-year">2019</div></div></div>
+      <div class="cert-card" data-sr="zoom" style="--sr-delay:0.4s"><div class="cert-icon" style="background:rgba(56,150,100,.1);color:#4caf7d;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div><div><div class="cert-name">Employment Skills Training</div><div class="cert-org">Professional Development</div><div class="cert-year">2024 · 5 Hours</div></div></div>
     </div>
   </div>
 </div>
@@ -1138,7 +1384,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 <!-- ══ WORKS ══ -->
 <div id="page-works" class="page">
 <div class="section">
-  <div class="sec-row rev">
+  <div class="sec-row rev" data-sr="fade-up">
     <div><div class="eyebrow">Portfolio</div><h2 class="sec-t">Projects & Works</h2><p class="sec-s" style="margin-bottom:0;">Click any project for full details.</p></div>
     <button class="btn btn-go btn-sm admin-only" onclick="openM('workModal')">+ Add Project</button>
   </div>
@@ -1149,7 +1395,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 <!-- ══ POSTS ══ -->
 <div id="page-posts" class="page">
 <div class="section">
-  <div class="sec-row rev">
+  <div class="sec-row rev" data-sr="fade-up">
     <div><div class="eyebrow">Knowledge Feed</div><h2 class="sec-t">Scientific Posts</h2><p class="sec-s" style="margin-bottom:0;">Articles, links, videos, documents, and images.</p></div>
     <button class="btn btn-go btn-sm admin-only" onclick="openM('postModal')">+ New Post</button>
   </div>
@@ -1164,12 +1410,13 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
           </div>
         </div>
         <div class="ptabs" id="composeTabs">
-          <button class="ptab active" onclick="switchPTab('article',this)">📝 Article</button>
-          <button class="ptab" onclick="switchPTab('link',this)">🔗 Link</button>
-          <button class="ptab" onclick="switchPTab('video',this)">▶ Video</button>
-          <button class="ptab" onclick="switchPTab('doc',this)">📄 Doc</button>
-          <button class="ptab" onclick="switchPTab('image',this)">🖼 Image</button>
-          <button class="ptab" onclick="switchPTab('tool',this)">⚙ Tool</button>
+          <button class="ptab active" onclick="switchPTab('article',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Article</button>
+          <button class="ptab" onclick="switchPTab('link',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Link</button>
+          <button class="ptab" onclick="switchPTab('video',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Video</button>
+          <button class="ptab" onclick="switchPTab('doc',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Doc</button>
+          <button class="ptab" onclick="switchPTab('image',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Image</button>
+          <button class="ptab" onclick="switchPTab('tool',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Tool</button>
+          <button class="ptab" onclick="switchPTab('linkedin',this)" style="color:#5b9bd5;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 23.994 23.227 23.994 22.271V1.729C23.994.774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</button>
         </div>
         <div class="pcompose-body">
           <input type="hidden" id="pType" value="article">
@@ -1236,13 +1483,27 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
                   <div class="img-upload-ph-sub">PNG, JPG, GIF up to 10MB</div>
                 </div>
                 <img id="pImgPrev" class="img-upload-preview" src="" alt="" style="display:none;">
-                <!-- Overlay buttons: change + delete -->
                 <div class="img-overlay-btns">
                   <button class="img-ov-btn change" title="Change image" onclick="event.stopPropagation();document.getElementById('pImgFile').click()">✎</button>
                   <button class="img-ov-btn remove" title="Remove image" onclick="event.stopPropagation();removeComposeImg()">✕</button>
                 </div>
               </div>
               <input type="file" id="pImgFile" accept="image/*" style="display:none" onchange="prevPostImg(event)">
+            </div>
+          </div>
+
+          <div class="ptype-panel" id="pt-linkedin">
+            <div class="pcompose-field">
+              <span class="pcompose-flabel">LinkedIn Post URL</span>
+              <input class="field" id="pLinkedInUrl" placeholder="https://www.linkedin.com/posts/..." style="margin-bottom:0;">
+            </div>
+            <div class="pcompose-field" style="margin-top:.7rem;">
+              <span class="pcompose-flabel">Post Content</span>
+              <textarea class="field" id="pLinkedInContent" rows="4" placeholder="Paste the post text here…" style="resize:vertical;"></textarea>
+            </div>
+            <div style="margin-top:.5rem;padding:.6rem .8rem;background:rgba(10,102,194,.08);border:1px solid rgba(10,102,194,.2);border-radius:8px;font-size:.73rem;color:rgba(150,190,255,.7);display:flex;align-items:center;gap:.5rem;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="color:#5b9bd5;flex-shrink:0;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 23.994 23.227 23.994 22.271V1.729C23.994.774 23.2 0 22.222 0h.003z"/></svg>
+              سيظهر البوست كبطاقة LinkedIn أنيقة مع زر "عرض على LinkedIn"
             </div>
           </div>
 
@@ -1265,13 +1526,41 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
     </div>
     <div class="psidebar">
       <div class="scard"><div class="scard-t">Filter by Topic</div><div class="tag-cloud" id="tagCloud"></div><div style="font-size:.64rem;color:var(--mu);margin-top:.52rem;" id="filterCount"></div></div>
-      <div class="scard"><div class="scard-t">Post Types</div><div style="display:grid;gap:.32rem;font-size:.75rem;color:var(--mu);line-height:1.6;">
-        <span>📝 Article — Written content</span>
-        <span>🔗 Link — Website preview</span>
-        <span>▶ Video — YouTube embed</span>
-        <span>📄 Document — PDF/file</span>
-        <span>🖼 Image — Photo</span>
-      </div></div>
+      <div class="scard">
+        <div class="scard-t">Post Types</div>
+        <div class="ptype-legend">
+          <div class="ptl-item ptl-article">
+            <div class="ptl-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <div class="ptl-info"><div class="ptl-name">Article</div><div class="ptl-desc">Written content</div></div>
+          </div>
+          <div class="ptl-item ptl-link">
+            <div class="ptl-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div class="ptl-info"><div class="ptl-name">Link</div><div class="ptl-desc">Website preview</div></div>
+          </div>
+          <div class="ptl-item ptl-video">
+            <div class="ptl-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <div class="ptl-info"><div class="ptl-name">Video</div><div class="ptl-desc">YouTube embed</div></div>
+          </div>
+          <div class="ptl-item ptl-doc">
+            <div class="ptl-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="ptl-info"><div class="ptl-name">Document</div><div class="ptl-desc">PDF / file</div></div>
+          </div>
+          <div class="ptl-item ptl-image">
+            <div class="ptl-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="ptl-info"><div class="ptl-name">Image</div><div class="ptl-desc">Photo</div></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1290,9 +1579,9 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
   </div>
   <div class="jtabs rev">
     <button class="jtab on" onclick="filterJourney('all',this)">All</button>
-    <button class="jtab" onclick="filterJourney('milestone',this)">🏆 Milestones</button>
-    <button class="jtab" onclick="filterJourney('course',this)">📚 Courses</button>
-    <button class="jtab" onclick="filterJourney('event',this)">🎤 Events</button>
+    <button class="jtab" onclick="filterJourney('milestone',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="8 21 12 17 16 21"/><path d="M12 17V3"/><path d="M4 7H2v7a6 6 0 0 0 12 0V7H2"/><path d="M22 7h-2v7a6 6 0 0 1-12 0V7h14"/></svg> Milestones</button>
+    <button class="jtab" onclick="filterJourney('course',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Courses</button>
+    <button class="jtab" onclick="filterJourney('event',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg> Events</button>
   </div>
   <div class="journey-timeline rev" id="journeyTimeline"></div>
 </div>
@@ -1336,9 +1625,9 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
       </div>
       <div class="disc-sidebar-card">
         <div class="dsc-title">Guidelines</div>
-        <div class="dsc-guideline"><span class="dsc-guideline-icon">✈</span><span>Keep discussions aerospace-related or academic</span></div>
-        <div class="dsc-guideline"><span class="dsc-guideline-icon">💬</span><span>Feel free to ask questions or share ideas</span></div>
-        <div class="dsc-guideline"><span class="dsc-guideline-icon">🤝</span><span>Be respectful and constructive</span></div>
+        <div class="dsc-guideline"><span class="dsc-guideline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span><span>Keep discussions aerospace-related or academic</span></div>
+        <div class="dsc-guideline"><span class="dsc-guideline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>Feel free to ask questions or share ideas</span></div>
+        <div class="dsc-guideline"><span class="dsc-guideline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Be respectful and constructive</span></div>
         <div class="dsc-guideline"><span class="dsc-guideline-icon">📌</span><span>New topics are posted by Nashat only</span></div>
       </div>
     </div>
@@ -1388,9 +1677,9 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
     <a class="btn btn-go" id="svcEmailLink">Send Inquiry →</a>
   </div>
   <div class="svc-grid rev">
-    <div class="svc-card"><div class="svc-icon">🔧</div><div class="svc-title">Structural Analysis</div><div class="svc-desc">FEA & Modal Analysis using ANSYS or SolidWorks. Full reports with charts.</div><div class="svc-price">From $50</div><a class="btn btn-go btn-sm" id="svc1Link">Request →</a></div>
-    <div class="svc-card"><div class="svc-icon">📐</div><div class="svc-title">3D Modeling</div><div class="svc-desc">Aircraft & mechanical modeling using Creo or SolidWorks.</div><div class="svc-price">From $30</div><a class="btn btn-go btn-sm" id="svc2Link">Request →</a></div>
-    <div class="svc-card"><div class="svc-icon">📊</div><div class="svc-title">Data Reports</div><div class="svc-desc">Engineering data visualization with Power BI dashboards.</div><div class="svc-price">From $20</div><a class="btn btn-go btn-sm" id="svc3Link">Request →</a></div>
+    <div class="svc-card"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="svc-title">Structural Analysis</div><div class="svc-desc">FEA & Modal Analysis using ANSYS or SolidWorks. Full reports with charts.</div><div class="svc-price">From $50</div><a class="btn btn-go btn-sm" id="svc1Link">Request →</a></div>
+    <div class="svc-card"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div><div class="svc-title">3D Modeling</div><div class="svc-desc">Aircraft & mechanical modeling using Creo or SolidWorks.</div><div class="svc-price">From $30</div><a class="btn btn-go btn-sm" id="svc2Link">Request →</a></div>
+    <div class="svc-card"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="svc-title">Data Reports</div><div class="svc-desc">Engineering data visualization with Power BI dashboards.</div><div class="svc-price">From $20</div><a class="btn btn-go btn-sm" id="svc3Link">Request →</a></div>
   </div>
   <div class="sec-row rev" style="margin-bottom:.95rem;">
     <div class="eyebrow">Custom Services</div>
@@ -1398,7 +1687,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
   </div>
   <div id="customSvcs" class="rev"></div>
   <div class="sup-card rev">
-    <h3>☕ Support My Work</h3>
+    <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> Support My Work</h3>
     <p>If my content or tools helped you, consider supporting via PayPal or bank transfer.</p>
     <div class="epill" id="supEmailPill" onclick="copyEmail()" style="margin-bottom:1rem;"></div><br>
     <button class="btn btn-go btn-sm" onclick="openM('donateModal')">Send a Coffee</button>
@@ -1474,12 +1763,12 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
   <div class="mhd"><div class="mt">New Post</div><button class="mx" onclick="closeM('postModal')">×</button></div>
   <input type="hidden" id="mPType" value="article">
   <div class="ptabs" id="modalPTabs">
-    <button class="ptab active" onclick="switchModalPTab('article',this)">📝 Article</button>
-    <button class="ptab" onclick="switchModalPTab('link',this)">🔗 Link</button>
-    <button class="ptab" onclick="switchModalPTab('video',this)">▶ Video</button>
-    <button class="ptab" onclick="switchModalPTab('doc',this)">📄 Doc</button>
-    <button class="ptab" onclick="switchModalPTab('image',this)">🖼 Image</button>
-    <button class="ptab" onclick="switchModalPTab('tool',this)">⚙ Tool</button>
+    <button class="ptab active" onclick="switchModalPTab('article',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Article</button>
+    <button class="ptab" onclick="switchModalPTab('link',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Link</button>
+    <button class="ptab" onclick="switchModalPTab('video',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Video</button>
+    <button class="ptab" onclick="switchModalPTab('doc',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Doc</button>
+    <button class="ptab" onclick="switchModalPTab('image',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Image</button>
+    <button class="ptab" onclick="switchModalPTab('tool',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Tool</button>
   </div>
   <label class="flabel">Title</label><input class="field" id="mPTitle" placeholder="Post title">
   <label class="flabel">Content</label><textarea class="field" id="mPContent" placeholder="Write here…"></textarea>
@@ -1589,7 +1878,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 
 <div class="ov" id="donateModal">
 <div class="modal" style="text-align:center;">
-  <div class="mhd"><div class="mt">☕ Support Nashat</div><button class="mx" onclick="closeM('donateModal')">×</button></div>
+  <div class="mhd"><div class="mt"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> Support Nashat</div><button class="mx" onclick="closeM('donateModal')">×</button></div>
   <p style="color:var(--mu);font-size:.83rem;margin-bottom:1.25rem;line-height:1.78;">Thank you for your support! Contact via email to complete via PayPal or bank transfer.</p>
   <div class="epill" id="donateEmailPill" onclick="copyEmail()"></div>
   <div class="macts" style="justify-content:center;margin-top:1.25rem;"><button class="btn btn-gh btn-sm" onclick="closeM('donateModal')">Close</button></div>
@@ -1736,7 +2025,7 @@ function showPage(name,el){
   if(isAdmin&&fm[name]){fab.style.display='flex';fab.onclick=fm[name];}else fab.style.display='none';
   document.getElementById('mobMenu').classList.remove('open');
   window.scrollTo({top:0,behavior:'smooth'});
-  setTimeout(()=>{trigRev();observeCards();},60);
+  setTimeout(()=>{trigRev();observeCards();if(window._srInit)window._srInit();},60);
 }
 
 // ══ REVEAL ══
@@ -2007,7 +2296,7 @@ async function savePost(){
     tags:composeTags.slice(),
     date:new Date().toISOString().split('T')[0],
     likes:0,comments:[],
-    url:document.getElementById('pUrl')?.value||'',
+    url:document.getElementById('pUrl')?.value||document.getElementById('pLinkedInUrl')?.value||'',
     link_title:document.getElementById('pLinkTitle')?.value||'',
     link_icon:document.getElementById('pLinkIcon')?.value||'🌐',
     video_id:type==='video'?getYTId(document.getElementById('pVideoUrl')?.value||''):'',
@@ -2018,6 +2307,10 @@ async function savePost(){
     tool_stack:document.getElementById('pToolStack')?.value||'',
     tool_icon:document.getElementById('pToolIcon')?.value||'⚙'
   };
+  if(type==='linkedin'){
+    row.content=document.getElementById('pLinkedInContent')?.value||row.content;
+    row.title=row.title==='Untitled'?(row.content||'').substring(0,60)||'LinkedIn Post':row.title;
+  }
   try{
     await SB.insert('posts',row);
     ['pTitle','pContent'].forEach(i=>document.getElementById(i).value='');
@@ -2060,17 +2353,57 @@ function renderPosts(filterTag){
   const feed=document.getElementById('postFeed');if(!feed)return;
   let filtered=filterTag?posts.filter(p=>p.tags&&p.tags.includes(filterTag)):posts;
   document.getElementById('filterCount').innerHTML=filterTag?`Showing ${filtered.length} for <strong style="color:var(--go)">#${filterTag}</strong> — <button onclick="filterPosts('',null)" style="background:none;border:none;color:var(--mu);cursor:pointer;font-size:.64rem;font-family:'DM Sans',sans-serif;">Clear ×</button>`:'';
-  if(!filtered.length){feed.innerHTML='<div style="text-align:center;padding:4rem;color:var(--mu);"><div style="font-size:2.6rem;margin-bottom:.82rem;opacity:.35;">📝</div><p style="font-size:.86rem;">No posts yet.</p></div>';return;}
-  const tl={article:'t-article',link:'t-link',video:'t-video',doc:'t-doc',image:'t-image',tool:'t-tool'};
-  const tn={article:'Article',link:'Link',video:'Video',doc:'Document',image:'Image',tool:'Tool'};
+  if(!filtered.length){feed.innerHTML='<div style="text-align:center;padding:4rem;color:var(--mu);"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".25" style="margin:0 auto .8rem;display:block;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg><p style="font-size:.86rem;">No posts yet.</p></div>';return;}
+
+  const tl={article:'t-article',link:'t-link',video:'t-video',doc:'t-doc',image:'t-image',tool:'t-tool',linkedin:'t-linkedin'};
+  const tn={article:'Article',link:'Link',video:'Video',doc:'Document',image:'Image',tool:'Tool',linkedin:'LinkedIn'};
   const pp=localStorage.getItem('pp');
   const avStyle=pp?`style="background-image:url(${pp});background-size:cover;background-position:center;"`:'';
   const avText=pp?'':'NA';
 
+  const liIconSvg=`<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 23.994 23.227 23.994 22.271V1.729C23.994.774 23.2 0 22.222 0h.003z"/></svg>`;
+
   feed.innerHTML=filtered.map(p=>{
     const rt=readTime(p.content);
-    const preview=(p.content||'').substring(0,160)+(p.content&&p.content.length>160?'…':'');
-    const hasCover=!!(p.imgData||(p.type==='video'&&p.videoId));
+    const preview=(p.content||'').substring(0,180)+(p.content&&p.content.length>180?'…':'');
+
+    // ── LinkedIn card ──
+    if(p.type==='linkedin'){
+      const liContent=(p.content||'').substring(0,320)+(p.content&&p.content.length>320?'…':'');
+      return `<div class="pcard-linkedin anim-card" onclick="openPostReader('${p.id}')">
+        <div class="li-logo">${liIconSvg.replace('width="11" height="11"','width="32" height="32"')}</div>
+        <div class="li-card-inner">
+          <div class="li-header">
+            <div class="li-avatar" ${avStyle}>${avText}</div>
+            <div>
+              <div class="li-name">Nashat Aldhoun</div>
+              <div class="li-meta">
+                <span>Aeronautical Engineer</span>
+                <span>·</span>
+                <span>${p.date||''}</span>
+                <span class="li-badge">${liIconSvg} LinkedIn</span>
+              </div>
+            </div>
+          </div>
+          <div class="li-content">${liContent}</div>
+          ${p.tags?.length?`<div class="pcard-tags" style="margin-bottom:.8rem;">${p.tags.map(t=>`<span class="pcard-tag" onclick="event.stopPropagation();filterPosts('${t}',this)">#${t}</span>`).join('')}</div>`:''}
+          <div class="li-footer">
+            <div class="li-actions">
+              <button class="li-action${p.liked?' liked':''}" onclick="event.stopPropagation();likePost('${p.id}')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="${p.liked?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                ${p.likes||0}
+              </button>
+              <button class="li-action" onclick="event.stopPropagation();openPostReader('${p.id}',true)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                ${(p.comments||[]).length}
+              </button>
+              <button class="btn-del" style="display:${isAdmin?'inline-flex':'none'}" onclick="event.stopPropagation();delPost('${p.id}')">🗑</button>
+            </div>
+            ${p.url?`<a href="${p.url}" target="_blank" onclick="event.stopPropagation()" class="li-open">${liIconSvg} View on LinkedIn</a>`:''}
+          </div>
+        </div>
+      </div>`;
+    }
 
     // ── Tool card ──
     if(p.type==='tool'){
@@ -2078,7 +2411,10 @@ function renderPosts(filterTag){
       return `<div class="pcard-tool anim-card" onclick="openPostReader('${p.id}')" style="position:relative;padding:1.2rem 1.3rem .9rem;">
         <div class="pcard-tool-bg"></div>
         <div style="position:relative;z-index:1;">
-          <div class="tool-badge">${p.toolIcon||'⚙'} Engineering Tool</div>
+          <div class="tool-badge">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Engineering Tool
+          </div>
           <div style="font-family:'DM Serif Display',serif;font-size:1.18rem;color:var(--wh);margin-bottom:.35rem;letter-spacing:-.15px;">${p.title}</div>
           <div style="font-size:.82rem;color:var(--tx);line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${preview}</div>
           <div class="tool-chips">${stack.map(s=>`<span class="tool-chip">${s}</span>`).join('')}</div>
@@ -2086,7 +2422,10 @@ function renderPosts(filterTag){
         <div style="padding:.65rem 0 0;border-top:1px solid rgba(255,255,255,.06);margin-top:.75rem;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;">
           <div style="display:flex;gap:.5rem;align-items:center;">
             <button class="pact${p.liked?' liked':''}" onclick="event.stopPropagation();likePost('${p.id}')">♥ ${p.likes||0}</button>
-            <button class="pact" onclick="event.stopPropagation();openPostReader('${p.id}',true)">💬 ${(p.comments||[]).length}</button>
+            <button class="pact" onclick="event.stopPropagation();openPostReader('${p.id}',true)">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              ${(p.comments||[]).length}
+            </button>
           </div>
           <div style="display:flex;align-items:center;gap:.5rem;">
             ${p.toolUrl?`<a href="${p.toolUrl}" target="_blank" onclick="event.stopPropagation()" class="btn btn-go btn-xs" style="text-decoration:none;">Launch ↗</a>`:''}
@@ -2097,14 +2436,24 @@ function renderPosts(filterTag){
     }
 
     // Cover HTML for image/video
+    const hasCover=!!(p.imgData||(p.type==='video'&&p.videoId));
     let coverHtml='';
     if(p.imgData){
       coverHtml=`<div class="pcard-cover"><img src="${p.imgData}" alt=""><div class="pcard-cover-type">${tn[p.type]||p.type}</div></div>`;
     }else if(p.type==='video'&&p.videoId){
-      coverHtml=`<div class="pcard-cover"><div class="pcard-cover-ph"><div class="pcard-cover-ph-bg"></div><span style="position:relative;z-index:1;font-size:2rem;">▶</span></div><div class="pcard-cover-type">Video</div></div>`;
+      coverHtml=`<div class="pcard-cover"><div class="pcard-cover-ph"><div class="pcard-cover-ph-bg"></div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.5" style="position:relative;z-index:1;"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="pcard-cover-type">Video</div></div>`;
     }
 
-    return `<div class="pcard anim-card${hasCover?' has-cover':''}" onclick="openPostReader('${p.id}')">
+    // badge icon per type
+    const badgeIcons={
+      article:`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+      link:`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+      video:`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>`,
+      doc:`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+      image:`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
+    };
+
+    return `<div class="pcard anim-card t-border-${p.type||'article'}${hasCover?' has-cover':''}" onclick="openPostReader('${p.id}')">
       <div class="pcard-inner">
         ${coverHtml}
         <div class="pcard-main">
@@ -2114,16 +2463,25 @@ function renderPosts(filterTag){
               <div class="pcard-author">Nashat Aldhoun</div>
               <div class="pcard-date">${p.date||''}</div>
             </div>
-            <span class="pcard-badge ${tl[p.type]||''}">${tn[p.type]||p.type}</span>
-            <span class="pcard-rt">⏱ ${rt} min</span>
+            <span class="pcard-badge ${tl[p.type]||''}">${badgeIcons[p.type]||''} ${tn[p.type]||p.type}</span>
+            <span class="pcard-rt">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${rt} min
+            </span>
             <button class="btn-del" style="display:${isAdmin?'inline-flex':'none'};margin-left:.2rem;" onclick="event.stopPropagation();delPost('${p.id}')">🗑</button>
           </div>
           <div class="pcard-title">${p.title}</div>
           <div class="pcard-excerpt">${preview}</div>
           ${p.tags?.length?`<div class="pcard-tags">${p.tags.map(t=>`<span class="pcard-tag" onclick="event.stopPropagation();filterPosts('${t}',this)">#${t}</span>`).join('')}</div>`:''}
           <div class="pcard-foot">
-            <button class="pact${p.liked?' liked':''}" onclick="event.stopPropagation();likePost('${p.id}')">♥ ${p.likes||0}</button>
-            <button class="pact" onclick="event.stopPropagation();openPostReader('${p.id}',true)">💬 ${(p.comments||[]).length}</button>
+            <button class="pact${p.liked?' liked':''}" onclick="event.stopPropagation();likePost('${p.id}')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="${p.liked?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              ${p.likes||0}
+            </button>
+            <button class="pact" onclick="event.stopPropagation();openPostReader('${p.id}',true)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              ${(p.comments||[]).length}
+            </button>
             <span class="pcard-read">Read full <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
           </div>
         </div>
@@ -2388,27 +2746,6 @@ async function submitDiscReaderReply(cmtId){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReader();});
 
-// ══ RADAR ══
-function drawRadar(){
-  const svg=document.getElementById('radarSvg');if(!svg)return;svg.innerHTML='';
-  const skills=[{label:'ANSYS / FEA',val:85},{label:'Creo / 3D',val:80},{label:'SolidWorks',val:72},{label:'MATLAB',val:65},{label:'CFD Sim.',val:78},{label:'Aircraft MRO',val:88},{label:'Power BI',val:70},{label:'Structures',val:90}];
-  const N=skills.length,cx=140,cy=130,R=95,levels=5;
-  for(let l=1;l<=levels;l++){const r=(R/levels)*l;const pts=skills.map((_,i)=>{const a=(Math.PI*2/N)*i-Math.PI/2;return`${cx+r*Math.cos(a)},${cy+r*Math.sin(a)}`;}).join(' ');const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');poly.setAttribute('points',pts);poly.setAttribute('class','radar-grid');svg.appendChild(poly);}
-  skills.forEach((_,i)=>{const a=(Math.PI*2/N)*i-Math.PI/2;const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',cx+R*Math.cos(a));line.setAttribute('y2',cy+R*Math.sin(a));line.setAttribute('class','radar-axis');svg.appendChild(line);});
-  const pts=skills.map((s,i)=>{const a=(Math.PI*2/N)*i-Math.PI/2;const r=R*(s.val/100);return`${cx+r*Math.cos(a)},${cy+r*Math.sin(a)}`;}).join(' ');
-  const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');poly.setAttribute('points',pts);poly.setAttribute('class','radar-polygon');svg.appendChild(poly);
-  const tip=document.getElementById('radarTip');const wrap=document.getElementById('radarWrap');
-  skills.forEach((s,i)=>{
-    const a=(Math.PI*2/N)*i-Math.PI/2;const r=R*(s.val/100);
-    const dx=cx+r*Math.cos(a),dy=cy+r*Math.sin(a);const lx=cx+(R+22)*Math.cos(a),ly=cy+(R+22)*Math.sin(a);
-    const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');circle.setAttribute('cx',dx);circle.setAttribute('cy',dy);circle.setAttribute('r','4');circle.setAttribute('class','radar-dot');
-    circle.onmouseenter=(e)=>{if(!tip||!wrap)return;const wr=wrap.getBoundingClientRect();const er=e.target.getBoundingClientRect();tip.textContent=s.label+' — '+s.val+'%';tip.style.opacity='1';tip.style.left=(er.left-wr.left+8)+'px';tip.style.top=(er.top-wr.top-28)+'px';};
-    circle.onmouseleave=()=>{if(tip)tip.style.opacity='0';};
-    svg.appendChild(circle);
-    const text=document.createElementNS('http://www.w3.org/2000/svg','text');text.setAttribute('x',lx);text.setAttribute('y',ly+4);text.setAttribute('text-anchor',Math.cos(a)>0.1?'start':Math.cos(a)<-0.1?'end':'middle');text.setAttribute('class','radar-label');text.textContent=s.label;svg.appendChild(text);
-  });
-}
-
 // ══ STATS COUNTER ══
 function animateCounters(){
   document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
@@ -2420,9 +2757,6 @@ function animateCounters(){
 let countersRan=false;
 const _counterObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!countersRan){countersRan=true;animateCounters();}});},{threshold:0.5});
 const _statsRow=document.getElementById('statsRow');if(_statsRow)_counterObs.observe(_statsRow);
-const _radarObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){drawRadar();_radarObs.disconnect();}});},{threshold:0.1});
-const _radarEl=document.getElementById('radarWrap');if(_radarEl)_radarObs.observe(_radarEl);
-
 // ══ INIT ══
 loadLocalData();
 renderAll();
@@ -2430,7 +2764,273 @@ setupEmails();
 initApp();
 startCarouselAuto();
 loadProfilePhoto();
-setTimeout(()=>{trigRev();observeCards();},200);
+setTimeout(()=>{trigRev();observeCards();if(window._srInit)window._srInit();},200);
+</script>
+
+<script>
+(function(){
+  const el = document.getElementById('typewriterText');
+  if(!el) return;
+  const words = [
+    'aircraft structures',
+    'FEA analysis',
+    'flight simulation',
+    'wing dynamics',
+    'MRO systems',
+    'CFD models'
+  ];
+  let wi = 0, ci = 0, deleting = false, pausing = false;
+
+  function type(){
+    if(pausing) return;
+    const word = words[wi];
+    if(!deleting){
+      ci++;
+      el.textContent = word.slice(0, ci);
+      if(ci === word.length){
+        pausing = true;
+        setTimeout(()=>{ pausing = false; deleting = true; type(); }, 2000);
+        return;
+      }
+      setTimeout(type, 80 + Math.random()*40);
+    } else {
+      ci--;
+      el.textContent = word.slice(0, ci);
+      if(ci === 0){
+        deleting = false;
+        wi = (wi + 1) % words.length;
+        setTimeout(type, 350);
+        return;
+      }
+      setTimeout(type, 40);
+    }
+  }
+  setTimeout(type, 800);
+})();
+</script>
+
+<script>
+/* ── CUSTOM CURSOR ── */
+(function(){
+  const SVG_NORMAL  = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M4 2L4 18L8.5 13.5L11.5 20L13.5 19L10.5 12.5L16 12.5Z' fill='%23c8a86c' stroke='%23332200' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2, auto`;
+  const SVG_POINTER = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='28' viewBox='0 0 24 28'%3E%3Cpath d='M4 2L4 18L8.5 13.5L11.5 20L13.5 19L10.5 12.5L16 12.5Z' fill='%23e6c97a' stroke='%23332200' stroke-width='1' stroke-linejoin='round'/%3E%3Ccircle cx='18' cy='22' r='4' fill='%23e6c97a' opacity='.35'/%3E%3C/svg%3E") 4 2, pointer`;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    * { cursor: ${SVG_NORMAL} !important; }
+    a, button, .btn, .hire-btn, .wcard, .pcard-tool, .ctab, .icon-btn, [onclick], label, select, input[type=range], input[type=checkbox] { cursor: ${SVG_POINTER} !important; }
+    @media(hover:none){ * { cursor: auto !important; } }
+  `;
+  document.head.appendChild(style);
+})();
+
+/* ── SMOOTH PAGE TRANSITIONS ── */
+window.addEventListener('load', function(){
+  const orig = window.showPage;
+  if(!orig) return;
+  window.showPage = function(name, el){
+    const current = document.querySelector('.page.active');
+    if(current && current.id !== 'page-'+name){
+      current.classList.add('page-out');
+      setTimeout(()=>{ current.classList.remove('page-out'); orig.call(window,name,el); }, 180);
+    } else { orig.call(window,name,el); }
+  };
+});
+
+/* ── TILT ON PROJECT CARDS ── */
+document.addEventListener('mousemove', e => {
+  const card = e.target.closest('.wcard');
+  if(!card) return;
+  const r = card.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width  - 0.5;
+  const y = (e.clientY - r.top)  / r.height - 0.5;
+  card.style.transform = `perspective(700px) rotateY(${x*10}deg) rotateX(${-y*10}deg) scale(1.025)`;
+});
+document.addEventListener('mouseleave', e => {
+  const card = e.target.closest ? e.target.closest('.wcard') : null;
+  if(card) card.style.transform = '';
+}, true);
+document.addEventListener('mouseover', e => {}, true);
+document.querySelectorAll && document.addEventListener('mouseout', e => {
+  if(e.target.classList && e.target.classList.contains('wcard')){
+    e.target.style.transform = '';
+  }
+});
+</script>
+
+<script>
+/* SKILL BARS ANIMATION */
+(function(){
+  let fired = false;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting && !fired){
+        fired = true;
+        const fills = document.querySelectorAll('.sb-fill');
+        fills.forEach((fill, i) => {
+          const pct = parseInt(fill.dataset.pct);
+          const pctEl = document.getElementById('sb-pct-' + i);
+          setTimeout(() => {
+            fill.style.width = pct + '%';
+            let n = 0;
+            const step = Math.ceil(pct / 40);
+            const t = setInterval(() => {
+              n = Math.min(n + step, pct);
+              if(pctEl) pctEl.textContent = n + '%';
+              if(n >= pct) clearInterval(t);
+            }, 30);
+          }, i * 120);
+        });
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  function initSkillBars(){
+    const wrap = document.getElementById('skillBarsWrap');
+    if(wrap) obs.observe(wrap);
+  }
+
+  window._initSkillBars = initSkillBars;
+  setTimeout(initSkillBars, 500);
+})();
+</script>
+
+<script>
+/* ===== SCROLL REVEAL ENGINE ===== */
+(function(){
+  const srObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const delay = el.style.getPropertyValue('--sr-delay') || '0s';
+        el.style.transitionDelay = delay;
+        el.classList.add('sr-done');
+        srObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  function initSR(){
+    document.querySelectorAll('[data-sr]:not(.sr-done)').forEach((el, i) => {
+      if(!el.dataset.srInit){
+        el.dataset.srInit = '1';
+        srObs.observe(el);
+      }
+    });
+  }
+
+  // Run on page switch too
+  window._srInit = initSR;
+  document.addEventListener('DOMContentLoaded', initSR);
+  setTimeout(initSR, 400);
+  window.addEventListener('scroll', ()=>{ initSR(); }, {passive:true, once:true});
+})();
+</script>
+
+<script>
+(function(){
+  const canvas = document.getElementById('particleCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, mouse = {x:-999, y:-999};
+  const COUNT = 65;
+  const MAX_DIST = 130;
+  const MOUSE_DIST = 160;
+
+  function resize(){
+    const hero = canvas.parentElement.parentElement;
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+
+  const pts = Array.from({length: COUNT}, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random() - 0.5) * 0.45,
+    vy: (Math.random() - 0.5) * 0.45,
+    r: Math.random() * 1.5 + 1
+  }));
+
+  function draw(){
+    resize();
+    ctx.clearRect(0, 0, W, H);
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    const ptColor = isDark ? 'rgba(200,168,108,' : 'rgba(160,120,60,';
+    const lineColor = isDark ? 'rgba(200,168,108,' : 'rgba(160,120,60,';
+
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0 || p.x > W) p.vx *= -1;
+      if(p.y < 0 || p.y > H) p.vy *= -1;
+
+      // mouse repulsion
+      const dx = p.x - mouse.x, dy = p.y - mouse.y;
+      const md = Math.sqrt(dx*dx + dy*dy);
+      if(md < MOUSE_DIST && md > 0){
+        const force = (MOUSE_DIST - md) / MOUSE_DIST;
+        p.x += (dx/md) * force * 1.8;
+        p.y += (dy/md) * force * 1.8;
+      }
+    });
+
+    // draw connections
+    for(let i = 0; i < pts.length; i++){
+      for(let j = i+1; j < pts.length; j++){
+        const dx = pts[i].x - pts[j].x;
+        const dy = pts[i].y - pts[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if(d < MAX_DIST){
+          const alpha = (1 - d/MAX_DIST) * 0.35;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = lineColor + alpha + ')';
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+      }
+      // mouse connections
+      const mdx = pts[i].x - mouse.x, mdy = pts[i].y - mouse.y;
+      const md = Math.sqrt(mdx*mdx + mdy*mdy);
+      if(md < MOUSE_DIST){
+        const alpha = (1 - md/MOUSE_DIST) * 0.6;
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x, pts[i].y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = lineColor + alpha + ')';
+        ctx.lineWidth = 0.9;
+        ctx.stroke();
+      }
+    }
+
+    // draw dots
+    pts.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = ptColor + '0.75)';
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  // track mouse relative to hero
+  const hero = canvas.closest('.hero') || document.querySelector('.hero');
+  if(hero){
+    hero.addEventListener('mousemove', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    hero.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+  }
+
+  // make hero pointer-events active but keep children interactive
+  canvas.style.pointerEvents = 'none';
+  window.addEventListener('resize', resize);
+  draw();
+})();
 </script>
 </body>
-    </html>
+  </html>
