@@ -1746,11 +1746,6 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
   <div class="c-inner">
     <div class="c-head">
       <div class="c-title">Highlights</div>
-      <div class="c-tabs-row">
-        <button class="ctab on" onclick="switchCarousel('works',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> Projects</button>
-        <button class="ctab" onclick="switchCarousel('journey',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Journey</button>
-        <button class="ctab" onclick="switchCarousel('posts',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Posts</button>
-      </div>
     </div>
     <!-- Slider wrapper with edge hover zones -->
     <div class="c-stage" id="cStage">
@@ -1858,18 +1853,6 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
   </div>
   <div class="posts-layout-new rev">
     <div>
-      <!-- COMPOSE TRIGGER -->
-      <div class="compose-trigger" onclick="openComposeModal()">
-        <div class="compose-trigger-av" id="composeTriggerAv">NA</div>
-        <span class="compose-trigger-ph">Share something with the world…</span>
-        <div class="compose-trigger-icons">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        </div>
-      </div>
-      <!-- END TRIGGER -->
-
       <div id="postFeed" class="pfeed"></div>
     </div>
   </div>
@@ -1888,8 +1871,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
     <button class="btn btn-go btn-sm admin-only" onclick="openM('journeyModal')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> Add Entry</button>
   </div>
   <div class="jtabs rev">
-    <button class="jtab on" onclick="filterJourney('all',this)">All</button>
-    <button class="jtab" onclick="filterJourney('milestone',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="8 21 12 17 16 21"/><path d="M12 17V3"/><path d="M4 7H2v7a6 6 0 0 0 12 0V7H2"/><path d="M22 7h-2v7a6 6 0 0 1-12 0V7h14"/></svg> Milestones</button>
+    <button class="jtab on" onclick="filterJourney('milestone',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="8 21 12 17 16 21"/><path d="M12 17V3"/><path d="M4 7H2v7a6 6 0 0 0 12 0V7H2"/><path d="M22 7h-2v7a6 6 0 0 1-12 0V7h14"/></svg> Milestones</button>
     <button class="jtab" onclick="filterJourney('course',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Courses</button>
     <button class="jtab" onclick="filterJourney('event',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg> Events</button>
   </div>
@@ -2127,34 +2109,110 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 </div>
 
 <div class="ov" id="journeyModal">
-<div class="modal">
-  <div class="mhd"><div class="mt">Add Journey Entry</div><button class="mx" onclick="closeM('journeyModal')">×</button></div>
-  <label class="flabel">Type</label>
-  <select class="field" id="jType"><option value="milestone">🏆 Milestone</option><option value="course">📚 Course</option><option value="event">🎤 Event</option></select>
-  <div class="mfr">
-    <div><label class="flabel">Title</label><input class="field" id="jTitle" placeholder="e.g. Graduated JUST" style="margin-bottom:0;"></div>
-    <div><label class="flabel">Date</label><input class="field" id="jDate" placeholder="2025-07" style="margin-bottom:0;"></div>
-  </div><br>
-  <label class="flabel">Organization</label>
-  <input class="field" id="jOrg" placeholder="e.g. JUST, RJAF, Online">
-  <label class="flabel">Description</label>
-  <textarea class="field" id="jDesc" placeholder="What did you learn or achieve?" style="min-height:72px;"></textarea>
-  <label class="flabel">Image (optional)</label>
-  <div class="img-upload-zone" id="journeyImgZone" onclick="document.getElementById('jImgFile').click()" style="min-height:80px;margin-bottom:.6rem;">
-    <div class="img-upload-ph" id="journeyImgPh">
-      <div class="img-upload-ph-icon">📷</div>
-      <div class="img-upload-ph-text">Click to add a photo</div>
+<div class="modal" style="max-width:520px;padding:0;overflow:hidden;border:1px solid rgba(200,168,108,.18);background:#0d1420;">
+
+  <!-- Header -->
+  <div style="padding:1.2rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.02);">
+    <div style="display:flex;align-items:center;gap:.65rem;">
+      <div style="width:36px;height:36px;border-radius:10px;background:rgba(200,168,108,.1);border:1px solid rgba(200,168,108,.2);display:flex;align-items:center;justify-content:center;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#fff;letter-spacing:-.1px;">Add Journey Entry</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-top:.06rem;">Document your engineering story</div>
+      </div>
     </div>
-    <img id="jImgPrev" class="img-upload-preview" src="" alt="" style="display:none;max-height:140px;">
-    <div class="img-overlay-btns">
-      <button class="img-ov-btn change" title="Change" onclick="event.stopPropagation();document.getElementById('jImgFile').click()">✎</button>
-      <button class="img-ov-btn remove" title="Remove" onclick="event.stopPropagation();removeJourneyImg()">✕</button>
-    </div>
+    <button class="mx" onclick="closeM('journeyModal')" style="color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:50%;width:30px;height:30px;">×</button>
   </div>
-  <input type="file" accept="image/*" id="jImgFile" style="display:none" onchange="prevJourneyImg(event)">
-  <div class="macts">
-    <button class="btn btn-gh btn-sm" onclick="closeM('journeyModal')">Cancel</button>
-    <button class="btn btn-go btn-sm" onclick="saveJourney()">Save</button>
+
+  <!-- Body -->
+  <div style="padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:1rem;">
+
+    <!-- Type selector — card buttons -->
+    <div>
+      <label class="flabel" style="color:rgba(200,168,108,.7);margin-bottom:.55rem;">Entry Type</label>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;">
+        <button class="jtype-btn active" onclick="selectJType('milestone',this)" id="jtBtn-milestone" style="padding:.6rem .4rem;border-radius:10px;border:1px solid rgba(200,168,108,.3);background:rgba(200,168,108,.1);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:.35rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="2" stroke-linecap="round"><polyline points="8 21 12 17 16 21"/><path d="M12 17V3"/><path d="M4 7H2v7a6 6 0 0 0 12 0V7H2"/><path d="M22 7h-2v7a6 6 0 0 1-12 0V7h14"/></svg>
+          <span style="font-size:.72rem;font-weight:700;color:#c8a86c;">Milestone</span>
+        </button>
+        <button class="jtype-btn" onclick="selectJType('course',this)" id="jtBtn-course" style="padding:.6rem .4rem;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:.35rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span style="font-size:.72rem;font-weight:600;color:rgba(255,255,255,.4);">Course</span>
+        </button>
+        <button class="jtype-btn" onclick="selectJType('event',this)" id="jtBtn-event" style="padding:.6rem .4rem;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:.35rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          <span style="font-size:.72rem;font-weight:600;color:rgba(255,255,255,.4);">Event</span>
+        </button>
+      </div>
+      <input type="hidden" id="jType" value="milestone">
+    </div>
+
+    <!-- Title + Date -->
+    <div style="display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:end;">
+      <div>
+        <label class="flabel" style="color:rgba(200,168,108,.7);display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Title
+        </label>
+        <input class="field" id="jTitle" placeholder="e.g. Graduated from JUST" style="margin-bottom:0;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);">
+      </div>
+      <div>
+        <label class="flabel" style="color:rgba(200,168,108,.7);display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Date
+        </label>
+        <input class="field" id="jDate" placeholder="2025-07" style="margin-bottom:0;width:110px;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);">
+      </div>
+    </div>
+
+    <!-- Organization -->
+    <div>
+      <label class="flabel" style="color:rgba(200,168,108,.7);display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Organization
+      </label>
+      <input class="field" id="jOrg" placeholder="e.g. JUST, RJAF, Online" style="margin-bottom:0;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);">
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="flabel" style="color:rgba(200,168,108,.7);display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Description
+      </label>
+      <textarea class="field" id="jDesc" placeholder="What did you learn or achieve?" style="min-height:80px;margin-bottom:0;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);resize:vertical;"></textarea>
+    </div>
+
+    <!-- Image -->
+    <div>
+      <label class="flabel" style="color:rgba(200,168,108,.7);display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Image <span style="font-weight:400;opacity:.5;letter-spacing:0;text-transform:none;font-size:.6rem;">(optional)</span>
+      </label>
+      <div class="img-upload-zone" id="journeyImgZone" onclick="document.getElementById('jImgFile').click()" style="min-height:80px;border-color:rgba(200,168,108,.15);background:rgba(200,168,108,.03);">
+        <div class="img-upload-ph" id="journeyImgPh">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,108,.4)" stroke-width="1.5" style="margin:0 auto .4rem;display:block;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <div class="img-upload-ph-text" style="color:rgba(255,255,255,.35);">Click to add a photo</div>
+        </div>
+        <img id="jImgPrev" class="img-upload-preview" src="" alt="" style="display:none;max-height:140px;">
+        <div class="img-overlay-btns">
+          <button class="img-ov-btn change" title="Change" onclick="event.stopPropagation();document.getElementById('jImgFile').click()">✎</button>
+          <button class="img-ov-btn remove" title="Remove" onclick="event.stopPropagation();removeJourneyImg()">✕</button>
+        </div>
+      </div>
+      <input type="file" accept="image/*" id="jImgFile" style="display:none" onchange="prevJourneyImg(event)">
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div style="padding:.9rem 1.4rem;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:flex-end;gap:.6rem;background:rgba(255,255,255,.02);">
+    <button class="btn btn-gh btn-sm" onclick="closeM('journeyModal')" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5);">Cancel</button>
+    <button class="btn btn-go btn-sm" onclick="saveJourney()" style="background:linear-gradient(135deg,#c8a86c,#e6c97a);color:#07090d;font-weight:700;box-shadow:0 4px 14px rgba(200,168,108,.25);">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Save Entry
+    </button>
   </div>
 </div>
 </div>
@@ -2859,6 +2917,27 @@ function prevJourneyImg(e){
 }
 function removeJourneyImg(){_clearImgZone('journeyImgZone','journeyImgPh','jImgPrev','jImgFile');}
 
+function selectJType(type, btn){
+  document.getElementById('jType').value = type;
+  const colors = {
+    milestone: {border:'rgba(200,168,108,.3)',bg:'rgba(200,168,108,.1)',stroke:'#c8a86c',text:'#c8a86c'},
+    course:    {border:'rgba(72,117,194,.3)',bg:'rgba(72,117,194,.1)',stroke:'#6b9fe4',text:'#6b9fe4'},
+    event:     {border:'rgba(76,175,125,.3)',bg:'rgba(76,175,125,.1)',stroke:'#4caf7d',text:'#4caf7d'},
+  };
+  ['milestone','course','event'].forEach(t=>{
+    const b=document.getElementById('jtBtn-'+t);if(!b)return;
+    const c=colors[t];
+    if(t===type){
+      b.style.border=`1px solid ${c.border}`;b.style.background=c.bg;
+      b.querySelector('svg').setAttribute('stroke',c.stroke);
+      b.querySelector('span').style.color=c.text;b.querySelector('span').style.fontWeight='700';
+    } else {
+      b.style.border='1px solid rgba(255,255,255,.08)';b.style.background='rgba(255,255,255,.03)';
+      b.querySelector('svg').setAttribute('stroke','rgba(255,255,255,.35)');
+      b.querySelector('span').style.color='rgba(255,255,255,.4)';b.querySelector('span').style.fontWeight='600';
+    }
+  });
+}
 async function saveJourney(){
   if(!isAdmin)return;
   const imgPrev=document.getElementById('jImgPrev');
@@ -3619,26 +3698,106 @@ function previewLinkedIn(url){
   const box=document.getElementById('liPreviewBox');
   const txt=document.getElementById('liPreviewText');
   if(!box||!txt)return;
-  if(url.includes('linkedin.com/posts/')||url.includes('linkedin.com/feed/')){
+  if(url.includes('linkedin.com')){
     box.style.display='block';
-    txt.textContent='✓ LinkedIn URL detected — add your post text in the content field above, then publish.';
+    txt.innerHTML='<span style="color:#5b9bd5;">✓</span> LinkedIn URL detected — press <strong style="color:#c8a86c;">Import</strong> to extract content automatically.';
   } else {
     box.style.display='none';
   }
 }
 
-function importLinkedIn(){
+async function importLinkedIn(){
   const url=document.getElementById('cmLinkedInUrl')?.value?.trim();
   if(!url){toast('⚠ Paste a LinkedIn post URL first');return;}
   if(!url.includes('linkedin.com')){toast('⚠ Must be a LinkedIn URL');return;}
-  // Set type to linkedin and focus content
-  setCmType('linkedin');
-  const content=document.getElementById('cmContent');
-  if(content&&!content.value){
-    content.placeholder='Paste your LinkedIn post text here…';
-    content.focus();
+
+  const btn=document.querySelector('[onclick="importLinkedIn()"]');
+  if(btn){btn.textContent='Analyzing…';btn.disabled=true;}
+
+  // Update preview box
+  const box=document.getElementById('liPreviewBox');
+  const txt=document.getElementById('liPreviewText');
+  if(box&&txt){
+    box.style.display='block';
+    txt.innerHTML='<span style="color:#c8a86c;">⏳</span> Using AI to extract post content…';
   }
-  toast('✓ URL set — now paste your post text above');
+
+  try {
+    // Use Claude API to extract title and content from the LinkedIn URL
+    const prompt = `You are analyzing a LinkedIn post URL. The URL is: ${url}
+
+Based on this LinkedIn post URL, do the following:
+1. Extract or infer a professional title for this post (short, max 10 words)
+2. Generate placeholder content that would be appropriate for a LinkedIn post from an aeronautical engineer named Nashat Aldhoun who specializes in aircraft structures, FEA, MRO, and worked at RJAF
+
+The user will replace the content with their actual post text. Your job is just to set up the structure.
+
+Respond ONLY with valid JSON in this exact format, no markdown, no extra text:
+{"title":"...", "content":"[Paste your LinkedIn post text here to replace this placeholder]", "tags":["Structures","FEA"]}`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        messages: [{role:'user', content: prompt}]
+      })
+    });
+
+    const data = await response.json();
+    const rawText = data.content?.map(c=>c.text||'').join('') || '';
+
+    let parsed;
+    try {
+      const clean = rawText.replace(/```json|```/g,'').trim();
+      parsed = JSON.parse(clean);
+    } catch(e) {
+      parsed = {title:'', content:'', tags:[]};
+    }
+
+    // Apply extracted data to the form
+    setCmType('linkedin');
+
+    const titleEl = document.getElementById('cmTitle');
+    const contentEl = document.getElementById('cmContent');
+
+    if(titleEl && parsed.title) {
+      titleEl.value = parsed.title;
+    }
+    if(contentEl) {
+      contentEl.value = '';
+      contentEl.placeholder = 'Paste your LinkedIn post text here…';
+      contentEl.focus();
+      contentEl.style.height = 'auto';
+      contentEl.style.height = contentEl.scrollHeight + 'px';
+    }
+
+    // Set tags if available
+    if(parsed.tags && parsed.tags.length){
+      cmTags = parsed.tags.filter(t=>!cmTags.includes(t));
+      renderCmTags();
+    }
+
+    if(box&&txt){
+      txt.innerHTML = `<span style="color:#4caf7d;">✓</span> Ready! Now <strong style="color:#fff;">paste your actual LinkedIn post text</strong> in the content field above, then publish.`;
+    }
+
+    toast('✓ LinkedIn post URL imported — paste your text above!');
+
+  } catch(err) {
+    // Fallback — just set type and focus
+    setCmType('linkedin');
+    const contentEl = document.getElementById('cmContent');
+    if(contentEl){ contentEl.placeholder='Paste your LinkedIn post text here…'; contentEl.focus(); }
+    if(box&&txt){ txt.innerHTML='<span style="color:#ef5350;">⚠</span> Auto-extract failed — paste your post text manually above.'; }
+    toast('Paste your post text manually above');
+  } finally {
+    if(btn){
+      btn.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:3px;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg> Import';
+      btn.disabled=false;
+    }
+  }
 }
 </script>
 </body>
