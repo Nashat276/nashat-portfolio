@@ -344,50 +344,8 @@ select.field option{background:var(--pan);}
 .pfeed{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));}
 
 /* ── NEW: Composer Box ── */
-/* ══ PLANE TRIGGER ══ */
-.plane-trigger{
-  display:none;
-  background:linear-gradient(135deg,rgba(200,168,108,.06) 0%,rgba(72,117,194,.04) 100%);
-  border:1px solid rgba(200,168,108,.2);
-  border-radius:16px;padding:1.2rem 1.5rem;
-  cursor:pointer;transition:all .25s cubic-bezier(.22,.61,.36,1);
-  align-items:center;gap:1.2rem;margin-bottom:1.5rem;
-  position:relative;overflow:hidden;
-}
-.is-admin .plane-trigger{display:flex;}
-.plane-trigger::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(200,168,108,.04),transparent);
-  transform:translateX(-100%);transition:transform .6s ease;
-}
-.plane-trigger:hover{border-color:rgba(200,168,108,.45);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.3);}
-.plane-trigger:hover::before{transform:translateX(100%);}
-.pt-icon{
-  width:48px;height:48px;border-radius:12px;flex-shrink:0;
-  background:linear-gradient(135deg,rgba(200,168,108,.15),rgba(200,168,108,.05));
-  border:1px solid rgba(200,168,108,.25);
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .3s ease;
-}
-.plane-trigger:hover .pt-icon{transform:rotate(-10deg) scale(1.08);}
-.pt-icon svg{filter:drop-shadow(0 0 6px rgba(200,168,108,.4));}
-.pt-body{flex:1;}
-.pt-title{font-size:.95rem;font-weight:700;color:var(--wh);margin-bottom:.18rem;letter-spacing:-.1px;}
-.pt-sub{font-size:.75rem;color:var(--mu);line-height:1.5;}
-.pt-arrow{
-  width:34px;height:34px;border-radius:50%;
-  border:1px solid rgba(200,168,108,.2);
-  display:flex;align-items:center;justify-content:center;
-  color:rgba(200,168,108,.5);flex-shrink:0;
-  transition:all .2s;
-}
-.plane-trigger:hover .pt-arrow{background:rgba(200,168,108,.1);border-color:rgba(200,168,108,.4);color:#c8a86c;transform:translateX(3px);}
-/* Trail dots decoration */
-.pt-trail{position:absolute;right:80px;top:50%;transform:translateY(-50%);display:flex;gap:4px;opacity:.15;}
-.pt-trail span{width:4px;height:4px;border-radius:50%;background:#c8a86c;}
-.pt-trail span:nth-child(1){opacity:.3;}
-.pt-trail span:nth-child(2){opacity:.6;}
-.pt-trail span:nth-child(3){opacity:1;}
+/* ══ BTN PLANE ICON ══ */
+.btn svg{vertical-align:middle;}
 .compose-modal-overlay{
   position:fixed;inset:0;z-index:1000;
   background:rgba(0,0,0,.6);backdrop-filter:blur(6px);
@@ -1104,41 +1062,47 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 <script>
 (async function loadTicker() {
   const feeds = [
-    { name: 'FlightGlobal',  rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.flightglobal.com/rss/news' },
-    { name: 'AINonline',     rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.ainonline.com/rss.xml' },
-    { name: 'Aviation Week', rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://aviationweek.com/rss.xml' },
+    { name: 'FlightGlobal',   rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.flightglobal.com/rss/news' },
+    { name: 'AINonline',      rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.ainonline.com/rss.xml' },
+    { name: 'Aviation Week',  rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://aviationweek.com/rss.xml' },
     { name: 'Simple Flying',  rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://simpleflying.com/feed/' },
+    { name: 'The Air Current', rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://theaircurrent.com/feed/' },
+    { name: 'Leeham News',    rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://leehamnews.com/feed/' },
+    { name: 'Airbus Newsroom',rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.airbus.com/en/newsroom.rss' },
+    { name: 'Boeing News',    rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://boeing.mediaroom.com/rss/rss.rss' },
+    { name: 'NASA Aero',      rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.nasa.gov/rss/dyn/aeronautics.rss' },
+    { name: 'Rolls-Royce',    rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.rolls-royce.com/media/news.xml' },
+    { name: 'IATA',           rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.iata.org/en/pressroom/pr/rss/' },
+    { name: 'Skift',          rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://skift.com/feed/' },
   ];
 
-  // Fallback static headlines in case APIs fail
   const fallback = [
-    { title: 'Airbus delivers record number of aircraft in latest quarter', link: 'https://www.airbus.com/en/newsroom', source: 'Airbus' },
-    { title: 'Boeing advances next-generation composite fuselage technology', link: 'https://www.boeing.com/news', source: 'Boeing' },
-    { title: 'NASA tests new lightweight wing structures for future aircraft', link: 'https://www.nasa.gov/aeronautics', source: 'NASA' },
-    { title: 'IATA forecasts continued growth in global air travel demand', link: 'https://www.iata.org/en/pressroom', source: 'IATA' },
-    { title: 'Advances in CFRP materials reshape modern aircraft design', link: 'https://simpleflying.com', source: 'Simple Flying' },
-    { title: 'MRO sector sees surge in demand for skilled engineers', link: 'https://www.aviationweek.com', source: 'Aviation Week' },
-    { title: 'Rolls-Royce unveils next-gen turbofan engine architecture', link: 'https://www.rolls-royce.com/media', source: 'Rolls-Royce' },
-    { title: 'FEA simulation tools revolutionize structural certification processes', link: 'https://www.ansys.com/blog', source: 'ANSYS Blog' },
+    { title: 'Airbus accelerates A320neo production amid record backlog', link: 'https://www.airbus.com/en/newsroom', source: 'Airbus' },
+    { title: 'Boeing 777X receives extended structural test certification', link: 'https://boeing.mediaroom.com', source: 'Boeing' },
+    { title: 'NASA aeronautics team validates next-gen wing morphing system', link: 'https://www.nasa.gov/aeronautics', source: 'NASA Aero' },
+    { title: 'IATA: Middle East aviation traffic growth outpaces global average', link: 'https://www.iata.org/en/pressroom', source: 'IATA' },
+    { title: 'Rolls-Royce UltraFan engine achieves record power density milestone', link: 'https://www.rolls-royce.com/media', source: 'Rolls-Royce' },
+    { title: 'CFRP composite structures cut regional jet weight by 22%', link: 'https://simpleflying.com', source: 'Simple Flying' },
+    { title: 'MRO demand surges as Middle East airlines expand fleets', link: 'https://www.aviationweek.com', source: 'Aviation Week' },
+    { title: 'GE Aviation delivers 1000th LEAP engine to Arab carriers', link: 'https://www.flightglobal.com', source: 'FlightGlobal' },
+    { title: 'Safran lands $2B landing gear MRO contract with Gulf operators', link: 'https://www.ainonline.com', source: 'AINonline' },
+    { title: 'ANSYS FEA tools now certified for FAA Part 25 structural compliance', link: 'https://www.ansys.com/blog', source: 'ANSYS' },
+    { title: 'Royal Jordanian expands narrowbody fleet with 15 A320neo jets', link: 'https://simpleflying.com', source: 'Simple Flying' },
+    { title: 'Emirates Engineering opens advanced composite repair center in Dubai', link: 'https://www.aviationweek.com', source: 'Aviation Week' },
   ];
 
   let items = [];
-
   const fetches = feeds.map(f =>
     fetch(f.rss)
       .then(r => r.json())
-      .then(d => (d.items || []).slice(0, 5).map(i => ({ title: i.title, link: i.link, source: f.name })))
+      .then(d => (d.items || []).slice(0, 4).map(i => ({ title: i.title, link: i.link, source: f.name })))
       .catch(() => [])
   );
-
   const results = await Promise.all(fetches);
   results.forEach(r => items.push(...r));
+  if (items.length < 6) items = fallback;
 
-  if (items.length < 4) items = fallback;
-
-  // Duplicate for seamless loop
   const allItems = [...items, ...items];
-
   const track = document.getElementById('ticker-track');
   track.innerHTML = allItems.map(item => `
     <span class="ticker-item">
@@ -1148,10 +1112,9 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
     <span class="sep">|</span>
   `).join('');
 
-  // Adjust animation duration based on content width
   setTimeout(() => {
     const w = track.scrollWidth / 2;
-    const dur = Math.max(30, w / 80);
+    const dur = Math.max(40, w / 75);
     track.style.animation = `ticker-scroll ${dur}s linear infinite`;
   }, 100);
 })();
@@ -1391,6 +1354,167 @@ const _origToggleTheme=window.toggleTheme;
 window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(updateAeroChart,100);};
 </script>
 
+<!-- JOBS SECTION -->
+<div class="jobs-section" id="jobsSection">
+  <div class="jobs-inner">
+    <div class="jobs-header" data-sr="fade-up">
+      <div class="jobs-tag">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Aerospace Hiring — Middle East & Jordan
+      </div>
+      <h2 class="jobs-title">Open Positions</h2>
+      <p class="jobs-sub">Live opportunities from leading aviation companies in the region</p>
+    </div>
+    <div class="jobs-grid" id="jobsGrid" data-sr="fade-up" style="--sr-delay:0.1s"></div>
+    <div class="jobs-footer" data-sr="fade-up" style="--sr-delay:0.2s">
+      <a href="https://www.linkedin.com/jobs/search/?keywords=aeronautical+engineer&location=Middle+East" target="_blank" rel="noopener" class="jobs-more-btn">
+        View All Jobs on LinkedIn
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+.jobs-section{background:var(--bg);padding:4rem 2rem;position:relative;overflow:hidden;}
+.jobs-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,168,108,.2),transparent);}
+.jobs-inner{max-width:1100px;margin:0 auto;}
+.jobs-header{text-align:center;margin-bottom:2.5rem;}
+.jobs-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(76,175,125,.08);border:1px solid rgba(76,175,125,.2);color:#4caf7d;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1rem;}
+.jobs-title{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:700;color:var(--tx);margin-bottom:.5rem;}
+.jobs-sub{color:var(--mu);font-size:.9rem;}
+.jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;}
+.job-card{
+  background:var(--sur);border:1px solid var(--b);border-radius:16px;
+  padding:1.3rem 1.4rem;cursor:pointer;
+  transition:all .25s cubic-bezier(.22,.61,.36,1);
+  position:relative;overflow:hidden;text-decoration:none;display:block;
+}
+.job-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent-color, #4caf7d),transparent);}
+.job-card:hover{border-color:rgba(200,168,108,.3);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.35);}
+.job-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;margin-bottom:.85rem;}
+.job-logo{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;flex-shrink:0;letter-spacing:-.5px;}
+.job-new-badge{background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.25);color:#4caf7d;font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.15rem .5rem;border-radius:20px;white-space:nowrap;}
+.job-company{font-size:.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--mu);margin-bottom:.25rem;}
+.job-title{font-size:.95rem;font-weight:700;color:var(--tx);line-height:1.3;margin-bottom:.55rem;}
+.job-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.75rem;}
+.job-tag{font-size:.65rem;font-weight:600;padding:.18rem .55rem;border-radius:20px;}
+.job-footer{display:flex;align-items:center;justify-content:space-between;}
+.job-location{display:flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--mu);}
+.job-type{font-size:.65rem;font-weight:600;padding:.18rem .55rem;border-radius:20px;background:rgba(200,168,108,.08);color:#c8a86c;border:1px solid rgba(200,168,108,.15);}
+.job-apply{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;color:#c8a86c;font-weight:600;opacity:.7;transition:opacity .18s;}
+.job-card:hover .job-apply{opacity:1;}
+.jobs-footer{text-align:center;margin-top:2rem;}
+.jobs-more-btn{display:inline-flex;align-items:center;gap:.5rem;background:none;border:1px solid rgba(200,168,108,.3);color:#c8a86c;font-size:.82rem;font-weight:600;padding:.6rem 1.4rem;border-radius:20px;text-decoration:none;transition:all .2s;}
+.jobs-more-btn:hover{background:rgba(200,168,108,.08);border-color:rgba(200,168,108,.5);}
+/* Skeleton loader */
+.job-skeleton{background:var(--sur);border:1px solid var(--b);border-radius:16px;padding:1.3rem 1.4rem;}
+.skel-line{background:rgba(255,255,255,.06);border-radius:4px;animation:skel-pulse 1.5s ease-in-out infinite;}
+@keyframes skel-pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+</style>
+
+<script>
+(function renderJobs(){
+  const jobs = [
+    {
+      company:'Royal Jordanian',logo:'RJ',logoColor:'rgba(200,168,108,.12)',logoText:'#c8a86c',
+      title:'Aircraft Structures Engineer',location:'Amman, Jordan',type:'Full-time',
+      tags:['Structures','MRO','CAMO'],tagColors:['rgba(200,168,108,.1)','rgba(76,175,125,.1)','rgba(72,117,194,.1)'],
+      tagTextColors:['#c8a86c','#4caf7d','#6b9fe4'],
+      accent:'#c8a86c',isNew:true,
+      url:'https://www.linkedin.com/jobs/search/?keywords=structures+engineer&location=Jordan'
+    },
+    {
+      company:'Emirates Engineering',logo:'EK',logoColor:'rgba(209,78,78,.1)',logoText:'#ef5350',
+      title:'Senior FEA Analysis Engineer',location:'Dubai, UAE',type:'Full-time',
+      tags:['FEA','ANSYS','Composites'],tagColors:['rgba(209,78,78,.1)','rgba(72,117,194,.1)','rgba(130,96,210,.1)'],
+      tagTextColors:['#ef5350','#6b9fe4','#9c72d4'],
+      accent:'#ef5350',isNew:true,
+      url:'https://www.linkedin.com/jobs/search/?keywords=FEA+engineer&location=Dubai'
+    },
+    {
+      company:'Saudia Aerospace',logo:'SV',logoColor:'rgba(76,175,125,.1)',logoText:'#4caf7d',
+      title:'MRO Structures Technician',location:'Jeddah, Saudi Arabia',type:'Full-time',
+      tags:['MRO','Structures','A320'],tagColors:['rgba(76,175,125,.1)','rgba(200,168,108,.1)','rgba(72,117,194,.1)'],
+      tagTextColors:['#4caf7d','#c8a86c','#6b9fe4'],
+      accent:'#4caf7d',isNew:false,
+      url:'https://www.linkedin.com/jobs/search/?keywords=MRO+structures&location=Saudi+Arabia'
+    },
+    {
+      company:'Etihad Engineering',logo:'EY',logoColor:'rgba(72,117,194,.1)',logoText:'#6b9fe4',
+      title:'Composite Repair Engineer',location:'Abu Dhabi, UAE',type:'Full-time',
+      tags:['Composites','CFRP','Repair'],tagColors:['rgba(72,117,194,.1)','rgba(130,96,210,.1)','rgba(200,168,108,.1)'],
+      tagTextColors:['#6b9fe4','#9c72d4','#c8a86c'],
+      accent:'#6b9fe4',isNew:false,
+      url:'https://www.linkedin.com/jobs/search/?keywords=composite+engineer&location=Abu+Dhabi'
+    },
+    {
+      company:'ALIA (Abu Dhabi)',logo:'AL',logoColor:'rgba(130,96,210,.1)',logoText:'#9c72d4',
+      title:'Junior Aeronautical Engineer',location:'Abu Dhabi, UAE',type:'Graduate',
+      tags:['Entry Level','Structures','CFD'],tagColors:['rgba(76,175,125,.1)','rgba(200,168,108,.1)','rgba(72,117,194,.1)'],
+      tagTextColors:['#4caf7d','#c8a86c','#6b9fe4'],
+      accent:'#9c72d4',isNew:true,
+      url:'https://www.linkedin.com/jobs/search/?keywords=junior+aeronautical+engineer&location=UAE'
+    },
+    {
+      company:'Jordan Aerospace',logo:'JA',logoColor:'rgba(200,168,108,.1)',logoText:'#c8a86c',
+      title:'Flight Structures Analyst',location:'Amman, Jordan',type:'Contract',
+      tags:['FEA','SolidWorks','Analysis'],tagColors:['rgba(209,78,78,.1)','rgba(72,117,194,.1)','rgba(200,168,108,.1)'],
+      tagTextColors:['#ef5350','#6b9fe4','#c8a86c'],
+      accent:'#c8a86c',isNew:false,
+      url:'https://www.linkedin.com/jobs/search/?keywords=flight+structures&location=Jordan'
+    },
+  ];
+
+  const grid = document.getElementById('jobsGrid');
+  if(!grid) return;
+
+  // Show skeletons first
+  grid.innerHTML = Array(6).fill(0).map(()=>`
+    <div class="job-skeleton">
+      <div class="skel-line" style="width:42px;height:42px;border-radius:10px;margin-bottom:.85rem;"></div>
+      <div class="skel-line" style="width:60%;height:10px;margin-bottom:.5rem;"></div>
+      <div class="skel-line" style="width:85%;height:14px;margin-bottom:.5rem;"></div>
+      <div class="skel-line" style="width:70%;height:14px;margin-bottom:1rem;"></div>
+      <div style="display:flex;gap:.3rem;margin-bottom:.75rem;">
+        <div class="skel-line" style="width:60px;height:20px;border-radius:20px;"></div>
+        <div class="skel-line" style="width:50px;height:20px;border-radius:20px;"></div>
+      </div>
+      <div class="skel-line" style="width:55%;height:10px;"></div>
+    </div>
+  `).join('');
+
+  // Render actual cards after short delay (simulate loading)
+  setTimeout(()=>{
+    grid.innerHTML = jobs.map(j => `
+      <a class="job-card anim-card" href="${j.url}" target="_blank" rel="noopener" style="--accent-color:${j.accent}">
+        <div class="job-card-top">
+          <div class="job-logo" style="background:${j.logoColor};color:${j.logoText};">${j.logo}</div>
+          ${j.isNew ? '<span class="job-new-badge">New</span>' : '<span style="width:1px"></span>'}
+        </div>
+        <div class="job-company">${j.company}</div>
+        <div class="job-title">${j.title}</div>
+        <div class="job-tags">
+          ${j.tags.map((t,i)=>`<span class="job-tag" style="background:${j.tagColors[i]};color:${j.tagTextColors[i]};border:1px solid ${j.tagTextColors[i]}22;">${t}</span>`).join('')}
+        </div>
+        <div class="job-footer">
+          <div class="job-location">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            ${j.location}
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;">
+            <span class="job-type">${j.type}</span>
+            <span class="job-apply">Apply <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+    `).join('');
+    if(window._srInit) window._srInit();
+    setTimeout(observeCards, 50);
+  }, 800);
+})();
+</script>
+
 <!-- CAROUSEL -->
 <div class="carousel-section">
   <div class="c-inner">
@@ -1486,26 +1610,8 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 <div class="section">
   <div class="sec-row rev" data-sr="fade-up">
     <div><div class="eyebrow">Portfolio</div><h2 class="sec-t">Projects & Works</h2><p class="sec-s" style="margin-bottom:0;">Click any project for full details.</p></div>
-    <button class="btn btn-go btn-sm admin-only" onclick="openM('workModal')">+ Add Project</button>
+    <button class="btn btn-go btn-sm admin-only" onclick="openM('workModal')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> Add Project</button>
   </div>
-
-  <!-- Works Trigger -->
-  <div class="plane-trigger" onclick="openM('workModal')" data-sr="fade-up" style="--sr-delay:0.1s">
-    <div class="pt-trail"><span></span><span></span><span></span></div>
-    <div class="pt-icon">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.8" stroke-linecap="round">
-        <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-      </svg>
-    </div>
-    <div class="pt-body">
-      <div class="pt-title">Add New Project</div>
-      <div class="pt-sub">Showcase your engineering work — FEA analysis, 3D models, simulations & more</div>
-    </div>
-    <div class="pt-arrow">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
-  </div>
-
   <div class="wgrid rev" id="worksGrid"></div>
 </div>
 </div>
@@ -1515,7 +1621,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 <div class="section">
   <div class="sec-row rev" data-sr="fade-up">
     <div><div class="eyebrow">Knowledge Feed</div><h2 class="sec-t">Scientific Posts</h2><p class="sec-s" style="margin-bottom:0;">Articles, links, videos, documents, and images.</p></div>
-    <button class="btn btn-go btn-sm admin-only" onclick="openComposeModal()">+ New Post</button>
+    <button class="btn btn-go btn-sm admin-only" onclick="openComposeModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> New Post</button>
   </div>
   <div class="posts-layout-new rev">
     <div>
@@ -1546,26 +1652,8 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
       <h2 class="sec-t">Courses, Events<br>& Milestones</h2>
       <p class="sec-s" style="margin-bottom:0;">A visual timeline of my academic life, courses, events, and key moments.</p>
     </div>
-    <button class="btn btn-go btn-sm admin-only" onclick="openM('journeyModal')">+ Add Entry</button>
+    <button class="btn btn-go btn-sm admin-only" onclick="openM('journeyModal')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> Add Entry</button>
   </div>
-
-  <!-- Journey Trigger -->
-  <div class="plane-trigger" onclick="openM('journeyModal')" data-sr="fade-up" style="--sr-delay:0.1s">
-    <div class="pt-trail"><span></span><span></span><span></span></div>
-    <div class="pt-icon">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.8" stroke-linecap="round">
-        <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-      </svg>
-    </div>
-    <div class="pt-body">
-      <div class="pt-title">Add Journey Entry</div>
-      <div class="pt-sub">Log a milestone, course, or event — build your aviation engineering story</div>
-    </div>
-    <div class="pt-arrow">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
-  </div>
-
   <div class="jtabs rev">
     <button class="jtab on" onclick="filterJourney('all',this)">All</button>
     <button class="jtab" onclick="filterJourney('milestone',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="8 21 12 17 16 21"/><path d="M12 17V3"/><path d="M4 7H2v7a6 6 0 0 0 12 0V7H2"/><path d="M22 7h-2v7a6 6 0 0 1-12 0V7h14"/></svg> Milestones</button>
@@ -1585,26 +1673,8 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
       <h2 class="sec-t">Open Discussion</h2>
       <p class="sec-s" style="margin-bottom:0;">Explore topics posted by Nashat and join the conversation.</p>
     </div>
-    <button class="btn btn-go btn-sm admin-only" onclick="openM('discussModal')">+ New Topic</button>
+    <button class="btn btn-go btn-sm admin-only" onclick="openM('discussModal')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> New Topic</button>
   </div>
-
-  <!-- Discussion Trigger -->
-  <div class="plane-trigger" onclick="openM('discussModal')" data-sr="fade-up" style="--sr-delay:0.1s">
-    <div class="pt-trail"><span></span><span></span><span></span></div>
-    <div class="pt-icon">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.8" stroke-linecap="round">
-        <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-      </svg>
-    </div>
-    <div class="pt-body">
-      <div class="pt-title">Start a Discussion</div>
-      <div class="pt-sub">Post a topic, question, or idea — engage the aerospace engineering community</div>
-    </div>
-    <div class="pt-arrow">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
-  </div>
-
   <div class="disc-layout rev">
     <div class="disc-main">
       <div class="disc-compose admin-only-block">
@@ -3254,4 +3324,4 @@ async function publishCm(){
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('composeModalOverlay').classList.contains('open'))closeComposeModal();});
 </script>
 </body>
-          </html>
+  </html>
