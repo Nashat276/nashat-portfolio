@@ -161,6 +161,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:54px;display:flex;ali
 .btn-xs{padding:.2rem .56rem;font-size:.68rem;}
 .btn-del{background:transparent;color:var(--re);border:1px solid rgba(209,78,78,.16);border-radius:6px;padding:.2rem .58rem;font-size:.69rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:.2rem;}
 .btn-del:hover{background:rgba(209,78,78,.08);border-color:var(--re);}
+.pcard-hl-btn{position:absolute;top:.55rem;left:2.8rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--mu);border-radius:5px;padding:.18rem .42rem;font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;z-index:3;line-height:1;opacity:0;}
+.pcard:hover .pcard-hl-btn,.pcard-hl-btn.on{opacity:1;}
+.pcard-hl-btn.on{background:rgba(200,168,108,.12);border-color:rgba(200,168,108,.4);color:var(--go);}
 
 /* ══ SECTION ══ */
 .section{padding:5.5rem 2rem 4rem;max-width:1080px;margin:0 auto;}
@@ -2398,7 +2401,7 @@ async function doSignOut(){await SB.signOut();isAdmin=false;document.body.classL
 // ══ LISTENERS ══
 function startListeners(){
   SB.listen('works',data=>{works=data.map(r=>({id:r.id,title:r.title||'',emoji:r.emoji||'📁',cat:r.cat||'',desc:r.description||'',year:r.year||'',link:r.link||'',price:r.price||'',photo:r.photo||'',tagsText:r.tags_text||''}));renderWorks();renderCarousel();updateStats();});
-  SB.listen('posts',data=>{posts=data.map(r=>({id:r.id,type:r.type||'article',title:r.title||'',content:r.content||'',tags:Array.isArray(r.tags)?r.tags:[],date:r.date||'',likes:r.likes||0,liked:false,comments:Array.isArray(r.comments)?r.comments:[],url:r.url||'',linkTitle:r.link_title||'',linkIcon:r.link_icon||'🌐',videoId:r.video_id||'',docName:r.doc_name||'',docUrl:r.doc_url||'',imgData:r.img_data||'',toolUrl:r.tool_url||'',toolStack:r.tool_stack||'',toolIcon:r.tool_icon||'⚙'}));renderPosts(activeTag);renderCarousel();updateStats();});
+  SB.listen('posts',data=>{posts=data.map(r=>({id:r.id,type:r.type||'article',title:r.title||'',content:r.content||'',tags:Array.isArray(r.tags)?r.tags:[],date:r.date||'',likes:r.likes||0,liked:false,comments:Array.isArray(r.comments)?r.comments:[],url:r.url||'',linkTitle:r.link_title||'',linkIcon:r.link_icon||'🌐',videoId:r.video_id||'',docName:r.doc_name||'',docUrl:r.doc_url||'',imgData:r.img_data||'',toolUrl:r.tool_url||'',toolStack:r.tool_stack||'',toolIcon:r.tool_icon||'⚙',isHighlight:r.is_highlight||false}));renderPosts(activeTag);renderCarousel();updateStats();});
   SB.listen('journey',data=>{journey=data.map(r=>({id:r.id,type:r.type||'milestone',title:r.title||'',org:r.org||'',date:r.date||'',desc:r.description||'',img:r.img||''})).reverse();renderJourney(activeJType);renderCarousel();});
   SB.listen('comments',data=>{comments=data.map(r=>({id:r.id,isAdminPost:r.is_admin_post,name:r.name||'Visitor',title:r.title||'',text:r.body||r.text||'',time:r.time||'',date:r.date||'',likes:r.likes||0,liked:false,replies:Array.isArray(r.replies)?r.replies:[],showReps:false}));renderCmts();updateDiscStats();});
 }
@@ -2514,7 +2517,11 @@ function renderCarousel(){
   let items=[];
   if(cType==='works')items=works.map(w=>({emoji:w.emoji||'✈',photo:w.photo||'',badge:w.cat,title:w.title,sub:w.desc,date:w.year,fn:()=>openPD(w.id)}));
   else if(cType==='journey')items=journey.map(j=>({emoji:j.type==='milestone'?'🏆':j.type==='course'?'📚':'🎤',photo:j.img||'',badge:j.type,title:j.title,sub:j.desc||j.org,date:j.date,fn:null}));
-  else items=posts.map(p=>({emoji:p.type==='video'?'▶':p.type==='link'?'🔗':p.type==='doc'?'📄':'📝',photo:p.imgData||'',badge:p.type,title:p.title,sub:p.content,date:p.date,fn:()=>openPostReader(p.id)}));
+  else {
+    const highlighted=posts.filter(p=>p.isHighlight).sort((a,b)=>(b.likes||0)-(a.likes||0));
+    const displayPosts=highlighted.length?highlighted:posts.slice(0,6);
+    items=displayPosts.map(p=>({emoji:p.type==='video'?'▶':p.type==='link'?'🔗':p.type==='doc'?'📄':'📝',photo:p.imgData||'',badge:p.isHighlight?'⭐ '+p.type:p.type,title:p.title,sub:p.content,date:p.date,fn:()=>openPostReader(p.id)}));
+  }
   if(!items.length){track.innerHTML='<div style="padding:2rem;color:var(--mu);font-size:.84rem;">No items yet.</div>';dots.innerHTML='';return;}
   track.innerHTML=items.map((item,i)=>`<div class="ccard" onclick="cClick(${i})"><div class="ccard-img"><div class="ccard-img-bg"></div>${item.photo?`<img src="${item.photo}" alt="">`:`<span style="position:relative;z-index:1;">${item.emoji}</span>`}<div class="ccard-badge">${item.badge}</div></div><div class="ccard-body"><div class="ccard-title">${item.title}</div><div class="ccard-sub">${item.sub||''}</div><div class="ccard-foot"><span class="ccard-date">${item.date||''}</span><button class="ccard-btn">View →</button></div></div></div>`).join('');
   dots.innerHTML=items.map((_,i)=>`<button class="cdot${i===cIdx?' on':''}" onclick="goCarousel(${i})"></button>`).join('');
@@ -2900,6 +2907,7 @@ function renderPosts(filterTag){
       <button class="pcard-edit-btn" onclick="event.stopPropagation();openComposeModal('${p.id}')">
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Edit
       </button>
+      ${isAdmin?`<button class="pcard-hl-btn${p.isHighlight?' on':''}" onclick="event.stopPropagation();toggleHighlight('${p.id}')" title="${p.isHighlight?'Remove from Highlights':'Add to Highlights'}">⭐</button>`:''}
       <div class="pcard-inner">
         ${coverHtml}
         <div class="pcard-main">
@@ -2941,6 +2949,17 @@ function renderPosts(filterTag){
 
 async function likePost(id){const p=posts.find(x=>x.id===id);if(!p)return;p.liked=!p.liked;p.likes=(p.likes||0)+(p.liked?1:-1);try{await SB.update('posts',id,{likes:p.likes});}catch(e){}renderPosts(activeTag);}
 async function delPost(id){if(!isAdmin||!confirm('Delete post?'))return;try{await SB.delete('posts',id);toast('Deleted');}catch(e){toast('⚠ '+e.message);}}
+async function toggleHighlight(id){
+  if(!isAdmin)return;
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  p.isHighlight=!p.isHighlight;
+  try{
+    await SB.update('posts',id,{is_highlight:p.isHighlight});
+    toast(p.isHighlight?'⭐ Added to Highlights!':'✓ Removed from Highlights');
+    renderPosts(activeTag);
+    renderCarousel();
+  }catch(e){toast('⚠ '+e.message);}
+}
 function filterPosts(tag,el){activeTag=tag;document.querySelectorAll('.ttag').forEach(t=>t.classList.remove('on'));if(el)el.classList.add('on');renderPosts(tag);}
 function renderTagCloud(){
   const tc=document.getElementById('tagCloud');if(!tc)return;
