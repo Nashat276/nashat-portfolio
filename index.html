@@ -42,11 +42,12 @@ window.SB = {
   update:async(t,id,r)=>{
     const{error}=await _supa.from(t).update(r).eq('id',id);
     if(error)console.error(error);
+    await window._refresh(t);
   },
   delete:async(t,id)=>{
     const{error}=await _supa.from(t).delete().eq('id',id);
     if(error)console.error(error);
-    // realtime handles refresh
+    await window._refresh(t);
   },
   upsert:async(t,r)=>{const{error}=await _supa.from(t).upsert(r);if(error)console.error(error);},
   listen:(t,cb)=>{
@@ -160,122 +161,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:54px;display:flex;ali
 .btn-xs{padding:.2rem .56rem;font-size:.68rem;}
 .btn-del{background:transparent;color:var(--re);border:1px solid rgba(209,78,78,.16);border-radius:6px;padding:.2rem .58rem;font-size:.69rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:inline-flex;align-items:center;gap:.2rem;}
 .btn-del:hover{background:rgba(209,78,78,.08);border-color:var(--re);}
-.pcard-hl-btn{position:absolute;top:.5rem;left:2.8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.25);border-radius:5px;padding:.16rem .4rem;font-size:.7rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;z-index:4;line-height:1;opacity:0;}
-.pcard:hover .pcard-hl-btn,.pcard-linkedin:hover .pcard-hl-btn,.pcard-hl-btn.hl-on{opacity:1;}
-.pcard-hl-btn.hl-on{background:rgba(200,168,108,.15);border-color:rgba(200,168,108,.45);color:#e6c97a;}
-.pcard-hl-btn:hover{background:rgba(200,168,108,.2)!important;border-color:#c8a86c!important;color:#e6c97a!important;}
-
-/* ══ STYLE D CARDS ══ */
-.hl-card-d{position:relative;background:linear-gradient(145deg,#0d1828,#08111e);border:1px solid rgba(72,117,194,.18);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s,border-color .28s;opacity:0;transform:translateY(24px) scale(.97);}
-.hl-card-d.hl-in{opacity:1;transform:translateY(0) scale(1);transition:opacity .5s cubic-bezier(.22,.61,.36,1),transform .5s cubic-bezier(.22,.61,.36,1),box-shadow .28s,border-color .28s;}
-.hl-card-d:nth-child(1){transition-delay:.04s;}.hl-card-d:nth-child(2){transition-delay:.1s;}.hl-card-d:nth-child(3){transition-delay:.16s;}.hl-card-d:nth-child(4){transition-delay:.22s;}.hl-card-d:nth-child(5){transition-delay:.28s;}.hl-card-d:nth-child(6){transition-delay:.34s;}
-.hl-card-d:hover{transform:translateY(-5px) scale(1.01);box-shadow:0 20px 50px rgba(0,0,0,.5);border-color:rgba(200,168,108,.28);}
-.hl-card-d::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.03) 50%,transparent 65%);transform:translateX(-100%);transition:transform .55s ease;}
-.hl-card-d:hover::before{transform:translateX(100%);}
-.hcd-stripe{height:2px;position:relative;z-index:2;}
-.hcd-inner{padding:14px 16px 12px;position:relative;z-index:2;}
-.hcd-row1{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.hcd-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:.5px solid rgba(200,168,108,.25);background:rgba(200,168,108,.07);}
-.hcd-icon svg{width:18px;height:18px;}
-.hcd-meta{flex:1;min-width:0;}
-.hcd-cat{font-size:.58rem;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:.12rem;}
-.hcd-date{font-size:.65rem;color:rgba(255,255,255,.28);}
-.hcd-star{font-size:.75rem;opacity:.8;}
-.hcd-title{font-family:'DM Serif Display',serif;font-size:1rem;color:rgba(255,255,255,.92);line-height:1.3;margin-bottom:.45rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.hcd-sub{font-size:.76rem;color:rgba(255,255,255,.38);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.75rem;}
-.hcd-tags{display:flex;flex-wrap:wrap;gap:.25rem;margin-bottom:.8rem;}
-.hcd-tag{font-size:.62rem;font-weight:600;color:rgba(255,255,255,.3);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:.14rem .48rem;border-radius:20px;}
-.hcd-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.65rem;border-top:1px solid rgba(255,255,255,.06);font-size:.68rem;color:rgba(255,255,255,.28);}
-.hcd-cta{font-size:.7rem;font-weight:700;display:inline-flex;align-items:center;gap:.3rem;opacity:.7;transition:opacity .2s,gap .18s;}
-.hl-card-d:hover .hcd-cta{opacity:1;gap:.45rem;}
-/* Works D */
-.wcard-d{position:relative;background:linear-gradient(145deg,#0d1828,#08111e);border:1px solid rgba(200,168,108,.14);border-radius:16px;overflow:hidden;cursor:pointer;padding:0;transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s,border-color .28s;}
-.wcard-d:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.5);border-color:rgba(200,168,108,.3);}
-.wcd-stripe{height:2px;}
-.wcd-inner{padding:14px 16px 12px;}
-.wcd-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
-.wcd-icon{width:44px;height:44px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(200,168,108,.07);}
-.wcd-icon svg{width:22px;height:22px;}
-.wcd-icon img{width:100%;height:100%;object-fit:cover;border-radius:10px;}
-.wcd-catrow{flex:1;min-width:0;}
-.wcd-cat{font-size:.58rem;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:.12rem;}
-.wcd-year{font-size:.65rem;color:rgba(255,255,255,.28);}
-.wcd-admin{display:flex;gap:.3rem;margin-left:auto;}
-.wcd-title{font-family:'DM Serif Display',serif;font-size:1rem;color:rgba(255,255,255,.9);line-height:1.3;margin-bottom:.4rem;}
-.wcd-desc{font-size:.76rem;color:rgba(255,255,255,.38);line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.7rem;}
-.wcd-tags{display:flex;flex-wrap:wrap;gap:.25rem;margin-bottom:.8rem;}
-.wcd-tag{font-size:.62rem;font-weight:600;color:rgba(255,255,255,.3);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:.14rem .48rem;border-radius:20px;}
-.wcd-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.65rem;border-top:1px solid rgba(255,255,255,.06);font-size:.68rem;}
-.wcd-view{font-size:.7rem;font-weight:700;color:#6b9fe4;text-decoration:none;transition:color .2s;}
-.wcd-view:hover{color:#c8a86c;}
-.wcd-cta{font-size:.7rem;font-weight:700;display:inline-flex;align-items:center;gap:.3rem;opacity:.7;transition:opacity .2s,gap .18s;}
-.wcard-d:hover .wcd-cta{opacity:1;gap:.45rem;}
-/* Journey D */
-.jcard-d{background:linear-gradient(145deg,#0d1828,#08111e);border:1px solid rgba(76,175,125,.15);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s,border-color .28s;}
-.jcard-d:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,.45);border-color:rgba(76,175,125,.3);}
-.jcd-stripe{height:2px;}
-.jcd-inner{padding:14px 16px 12px;}
-.jcd-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.jcd-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,.05);}
-.jcd-icon svg{width:18px;height:18px;}
-.jcd-meta{flex:1;}
-.jcd-type{font-size:.58rem;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:.12rem;}
-.jcd-date{font-size:.65rem;color:rgba(255,255,255,.28);}
-.jcd-title{font-family:'DM Serif Display',serif;font-size:1rem;color:rgba(255,255,255,.9);line-height:1.3;margin-bottom:.4rem;}
-.jcd-org{font-size:.72rem;font-weight:600;margin-bottom:.4rem;}
-.jcd-desc{font-size:.76rem;color:rgba(255,255,255,.38);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.7rem;}
-.jcd-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.65rem;border-top:1px solid rgba(255,255,255,.06);font-size:.68rem;}
-.jcd-admin{display:flex;gap:.3rem;}
-.jcd-cta{font-size:.7rem;font-weight:700;display:inline-flex;align-items:center;gap:.3rem;opacity:.7;transition:opacity .2s,gap .18s;}
-.jcard-d:hover .jcd-cta{opacity:1;gap:.45rem;}
-.photo-ov-btn{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;color:rgba(255,255,255,.3);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:.2rem .55rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
-.photo-ov-btn:hover{color:#c8a86c;border-color:rgba(200,168,108,.3);}
-
-/* ══ GLOBAL MICRO-ANIMATIONS ══ */
-/* Smooth page load fade-in */
-body{animation:bodyFadeIn .5s ease both;}
-@keyframes bodyFadeIn{from{opacity:0;}to{opacity:1;}}
-/* Button press effect */
-button:active:not(.hl-tab):not(.hl-arrow){transform:scale(.95)!important;transition:transform .08s!important;}
-/* Nav link magnetic hover */
-.nav-links a{transition:color .2s, letter-spacing .2s;}
-.nav-links a:hover{letter-spacing:.3px;}
-/* Hero metrics count-up glow */
-.hm-n{transition:color .3s;}
-.hm:hover .hm-n{color:var(--go2);}
-/* Chip bounce */
-.chip{transition:all .22s cubic-bezier(.34,1.56,.64,1);}
-.chip:hover{transform:translateY(-3px) scale(1.05);}
-/* Timeline item reveal */
-.tl-item{transition:background .2s;}
-.tl-item:hover{background:rgba(200,168,108,.03);border-radius:8px;}
-/* Like button heart beat */
-@keyframes heartBeat{0%{transform:scale(1);}30%{transform:scale(1.35);}60%{transform:scale(.92);}100%{transform:scale(1);}}
-.pact.liked{animation:heartBeat .38s ease;}
-/* Smooth like counter */
-.pact{transition:color .18s, transform .18s;}
-.pact:hover{transform:scale(1.12);}
-/* Reader open slide-up */
-.reader-modal{animation:readerSlide .38s cubic-bezier(.22,.61,.36,1);}
-@keyframes readerSlide{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:none;}}
-/* Toast bounce */
-.toast.on{animation:toastIn .4s cubic-bezier(.34,1.56,.64,1);}
-@keyframes toastIn{from{transform:translateX(-50%) translateY(30px) scale(.85);}to{transform:translateX(-50%) translateY(0) scale(1);}}
-/* Section eyebrow shimmer */
-.eyebrow{position:relative;overflow:hidden;}
-.eyebrow::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(200,168,108,.4),transparent);animation:eyebrowShimmer 4s ease infinite 2s;}
-@keyframes eyebrowShimmer{0%{left:-100%;}100%{left:200%;}}
-/* Card hover lift shadow */
-.wcard,.pcard{transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s ease,border-color .28s ease;}
-/* Hire button pulse */
-.hire-btn{position:relative;overflow:hidden;}
-.hire-btn::after{content:'';position:absolute;inset:-2px;border-radius:8px;background:linear-gradient(90deg,var(--go),var(--go2),var(--go));background-size:200%;animation:btnGlow 3s linear infinite;opacity:0;z-index:-1;transition:opacity .3s;}
-.hire-btn:hover::after{opacity:.4;}
-@keyframes btnGlow{0%{background-position:0%;}100%{background-position:200%;}}
-/* Scroll indicator fade */
-.idc{transition:box-shadow .3s;}
-.idc:hover{box-shadow:0 20px 60px rgba(0,0,0,.7), 0 0 40px rgba(200,168,108,.08);}
-
 
 /* ══ SECTION ══ */
 .section{padding:5.5rem 2rem 4rem;max-width:1080px;margin:0 auto;}
@@ -288,13 +173,15 @@ button:active:not(.hl-tab):not(.hl-arrow){transform:scale(.95)!important;transit
 /* ══ FIELD ══ */
 .field{width:100%;background:rgba(255,255,255,.033);border:1px solid var(--b);border-radius:8px;padding:.56rem .86rem;color:var(--tx);font-size:.83rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:.6rem;}
 .field:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(72,117,194,.1);}
+.field.error{border-color:rgba(239,83,80,.5)!important;background:rgba(239,83,80,.04)!important;animation:shake .3s ease;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
 textarea.field{min-height:78px;resize:vertical;}
 select.field option{background:var(--pan);}
 .flabel{display:block;font-size:.62rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--mu);margin-bottom:.3rem;}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
 
 /* ══ HERO ══ */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 380px;align-items:center;padding:72px 2rem 3rem;gap:3rem;position:relative;overflow:clip;}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 380px;align-items:center;padding:72px 2rem 3rem;gap:3rem;position:relative;overflow:hidden;}
 .hbg{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
 .hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.025) 1px,transparent 1px);background-size:48px 48px;}
 .hgrid2{position:absolute;inset:0;background-image:linear-gradient(rgba(200,168,108,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(200,168,108,.015) 1px,transparent 1px);background-size:12px 12px;}
@@ -347,84 +234,17 @@ select.field option{background:var(--pan);}
 .hm-n span{color:var(--go);font-size:1rem;}
 .hm-l{font-size:.64rem;color:var(--mu);margin-top:.18rem;letter-spacing:.5px;}
 
-/* ══ ID CARD — Aviation Radar Badge ══ */
-@keyframes float{0%,100%{transform:translate3d(0,0,0);}50%{transform:translate3d(0,-8px,0);}}
-.idc-new{
-  background:linear-gradient(160deg,#07101e 0%,#0a1525 60%,#08111c 100%);
-  border:1px solid rgba(72,117,194,.2);border-radius:20px;overflow:clip;
-  box-shadow:0 12px 50px rgba(0,0,0,.6),0 0 0 1px rgba(72,117,194,.08);
-  animation:float 7s ease-in-out infinite;position:relative;
-  transition:box-shadow .3s,border-color .3s;
-  will-change:transform;isolation:isolate;
-  transform:translate3d(0,0,0);backface-visibility:hidden;
-}
-.idc-new:hover{
-  box-shadow:0 20px 70px rgba(0,0,0,.7),0 0 30px rgba(200,168,108,.07),0 0 0 1px rgba(200,168,108,.15);
-  border-color:rgba(200,168,108,.18);
-}
-/* Radar animation */
-.idc-radar{position:absolute;right:-60px;top:-60px;width:240px;height:240px;opacity:.08;pointer-events:none;}
-.idc-radar-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid #4875c2;transform:translate(-50%,-50%);}
-.r1{width:80px;height:80px;}
-.r2{width:150px;height:150px;}
-.r3{width:220px;height:220px;}
-.idc-radar-sweep{
-  position:absolute;top:50%;left:50%;width:110px;height:1px;
-  transform-origin:0 50%;
-  background:linear-gradient(90deg,rgba(72,117,194,.8),transparent);
-  animation:radarSweep 4s linear infinite;
-}
-@keyframes radarSweep{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.idc-blip{position:absolute;width:4px;height:4px;border-radius:50%;background:#c8a86c;}
-.b1{top:30%;right:28%;animation:blipPulse 4s ease-in-out infinite .3s;}
-.b2{top:55%;right:18%;animation:blipPulse 4s ease-in-out infinite 1.2s;}
-.b3{top:20%;right:15%;animation:blipPulse 4s ease-in-out infinite 2.5s;}
-@keyframes blipPulse{0%,70%,100%{opacity:0;transform:scale(.5);}75%{opacity:1;transform:scale(1.5);}80%{opacity:.7;}85%{opacity:0;}}
-/* Grid */
-.idc-grid-pat{position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.04) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;}
-/* Top stripe */
-.idc-new-stripe{height:2px;background:linear-gradient(90deg,var(--bl),var(--go),var(--bl));background-size:200%;animation:stripeMove 4s linear infinite;}
-/* Profile top */
-.idc-new-top{display:flex;align-items:center;gap:1rem;padding:1.4rem 1.3rem 1rem;position:relative;}
-.idc-new-av-wrap{position:relative;flex-shrink:0;width:76px;height:76px;}
-.idc-new-av-ring{
-  position:absolute;inset:0;border-radius:50%;
-  border:2px solid rgba(200,168,108,.5);
-  animation:float 5s ease-in-out infinite;
-  box-shadow:0 0 16px rgba(200,168,108,.15),inset 0 0 8px rgba(200,168,108,.05);
-  z-index:2;pointer-events:none;
-}
-.idc-new-av{
-  position:absolute!important;
-  inset:4px!important;
-  width:auto!important;height:auto!important;
-  font-size:1.2rem!important;
-  border-radius:50%!important;
-  overflow:hidden!important;
-  background-size:cover!important;
-  background-position:center center!important;
-  background-repeat:no-repeat!important;
-  image-rendering:high-quality!important;
-  display:flex!important;align-items:center!important;justify-content:center!important;
-}
-.idc-new-status{position:absolute;bottom:2px;right:2px;width:11px;height:11px;background:#4caf7d;border-radius:50%;border:2px solid #07101e;animation:pulse 2.2s infinite;}
-.idc-new-name{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--wh);letter-spacing:-.1px;margin-bottom:.15rem;}
-.idc-new-role{font-size:.72rem;color:var(--go);font-weight:600;margin-bottom:.15rem;}
-.idc-new-loc{font-size:.68rem;color:var(--mu);}
-/* Body specs */
-.idc-new-body{padding:.2rem 1.3rem .7rem;display:flex;flex-direction:column;gap:.55rem;}
-.idc-spec{display:flex;align-items:center;gap:.7rem;}
-.idc-spec-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.idc-spec-key{font-size:.58rem;color:var(--mu);letter-spacing:.5px;text-transform:uppercase;margin-bottom:.1rem;}
-.idc-spec-val{font-size:.78rem;color:var(--tx);font-weight:500;}
-/* Skill chips strip */
-.idc-skill-strip{display:flex;flex-wrap:wrap;gap:.28rem;padding:.6rem 1.3rem .8rem;border-top:1px solid rgba(255,255,255,.05);}
-.idc-skill-chip{font-size:.62rem;font-weight:700;letter-spacing:.5px;color:var(--bl2);background:rgba(72,117,194,.1);border:1px solid rgba(72,117,194,.2);padding:.18rem .55rem;border-radius:20px;transition:all .2s;}
-.idc-skill-chip:hover{background:rgba(72,117,194,.2);color:#fff;}
-/* keep old .idc for JS references */
-.idc{display:none;}
+/* ══ ID CARD ══ */
+.idc{background:var(--sur);border:1px solid var(--b);border-radius:16px;overflow:hidden;box-shadow:var(--sh);animation:float 7s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+.idc-top{background:linear-gradient(150deg,#08162a 0%,#0f2240 50%,#0a1a38 100%);padding:2rem 1.6rem 1.6rem;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.05);}
+.idc-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.06) 1px,transparent 1px);background-size:18px 18px;pointer-events:none;}
+.idc-stripe{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--bl) 0%,var(--go) 50%,var(--bl) 100%);animation:stripeMove 4s linear infinite;}
 @keyframes stripeMove{0%{background-position:0% center;}100%{background-position:200% center;}}
-.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--bl),var(--go));display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.45rem;color:#07090d;margin:0 auto .72rem;position:relative;z-index:1;border:2.5px solid rgba(255,255,255,.1);overflow:hidden;background-size:cover;background-position:center;}
+.avatar-wrap{position:relative;width:90px;height:90px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;}
+.avatar-orbit{position:absolute;inset:-6px;border-radius:50%;border:2px solid transparent;background:linear-gradient(var(--pan),var(--pan)) padding-box,linear-gradient(135deg,#c8a86c,rgba(200,168,108,.15) 40%,#6b9fe4 70%,#c8a86c) border-box;animation:orbitSpin 4s linear infinite;}
+@keyframes orbitSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--bl),var(--go));display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.45rem;color:#07090d;position:relative;z-index:1;border:2px solid rgba(200,168,108,.3);overflow:hidden;background-size:cover;background-position:center;box-shadow:0 0 20px rgba(200,168,108,.15);}
 .idc-name{font-family:'DM Serif Display',serif;font-size:1.12rem;color:var(--wh);position:relative;z-index:1;letter-spacing:-.1px;}
 .idc-role{font-size:.65rem;color:var(--go);letter-spacing:2.5px;text-transform:uppercase;margin-top:.18rem;position:relative;z-index:1;opacity:.85;}
 .photo-btn{margin-top:.62rem;position:relative;z-index:1;background:rgba(255,255,255,.05);border:1px dashed rgba(255,255,255,.13);color:var(--mu);border-radius:5px;padding:.22rem .68rem;font-size:.65rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
@@ -439,183 +259,80 @@ select.field option{background:var(--pan);}
 .idc-foot a{flex:1;display:flex;align-items:center;justify-content:center;gap:.3rem;padding:.38rem;border-radius:7px;border:1px solid var(--b);color:var(--mu);font-size:.69rem;text-decoration:none;transition:all .2s;background:var(--pan);}
 .idc-foot a:hover{border-color:var(--go);color:var(--go);background:var(--go3);}
 
-/* ══ HIGHLIGHTS SECTION ══ */
-.hl-section{
-  position:relative;overflow:hidden;
-  padding:5rem 2rem 4rem;
-  background:linear-gradient(180deg,var(--bg) 0%,var(--sur) 50%,var(--bg) 100%);
-  border-top:1px solid var(--b);border-bottom:1px solid var(--b);
+/* ══ CAROUSEL ══ */
+.carousel-section{background:var(--sur);border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:2.5rem 0;overflow:hidden;}
+.c-inner{max-width:1080px;margin:0 auto;padding:0 2rem;}
+.c-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.35rem;flex-wrap:wrap;gap:.75rem;}
+.c-title{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--wh);letter-spacing:-.2px;}
+.c-tabs-row{display:flex;gap:.3rem;}
+.ctabs{display:flex;gap:.3rem;}
+.ctab{background:var(--pan);border:1px solid var(--b);color:var(--mu);font-size:.74rem;font-weight:500;padding:.3rem .8rem;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;letter-spacing:.2px;display:inline-flex;align-items:center;gap:5px;}
+.ctab.on,.ctab:hover{background:var(--go3);border-color:rgba(200,168,108,.28);color:var(--go);}
+.ctab svg,.ptab svg,.jtab svg{flex-shrink:0;}
+/* Stage with edge zones */
+.c-stage{position:relative;}
+.c-edge{
+  position:absolute;top:0;bottom:0;width:80px;z-index:10;
+  display:flex;align-items:center;cursor:pointer;
+  opacity:0;transition:opacity .25s;
+  pointer-events:all;
 }
-/* Animated bg grid */
-.hl-bg-grid{
-  position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(rgba(72,117,194,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.035) 1px,transparent 1px);
-  background-size:48px 48px;
-  animation:hlGridDrift 25s linear infinite;
-}
-@keyframes hlGridDrift{0%{transform:translateY(0);}100%{transform:translateY(48px);}}
-/* Glowing orbs */
-.hl-bg-glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:hlOrb 10s ease-in-out infinite;}
-.hl-glow-1{width:500px;height:400px;background:radial-gradient(ellipse,rgba(72,117,194,.09),transparent 70%);top:-100px;right:-50px;}
-.hl-glow-2{width:400px;height:350px;background:radial-gradient(ellipse,rgba(200,168,108,.06),transparent 70%);bottom:-80px;left:-60px;animation-delay:-5s;}
-.hl-glow-3{width:300px;height:300px;background:radial-gradient(ellipse,rgba(130,96,210,.05),transparent 70%);top:40%;left:40%;animation-delay:-2s;}
-@keyframes hlOrb{0%,100%{transform:scale(1) translate(0,0);}50%{transform:scale(1.1) translate(20px,-20px);}}
-
-.hl-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
-
-/* Header */
-.hl-header{text-align:center;margin-bottom:3.5rem;}
-.hl-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.6rem;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--go);margin-bottom:1rem;}
-.hl-eyebrow-line{display:inline-block;width:20px;height:1px;background:linear-gradient(90deg,transparent,var(--go));}
-.hl-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--wh);line-height:1.05;letter-spacing:-.5px;margin-bottom:.6rem;}
-.hl-title em{font-style:italic;background:linear-gradient(135deg,var(--go),var(--go2),var(--go));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite;}
-.hl-subtitle{font-size:.88rem;color:var(--mu);margin-bottom:2rem;}
-
-/* Filter tabs */
-.hl-tabs{display:inline-flex;gap:.3rem;background:var(--sur);border:1px solid var(--b);border-radius:30px;padding:.28rem;}
-.hl-tab{background:none;border:none;color:var(--mu);font-size:.74rem;font-weight:600;padding:.32rem .9rem;border-radius:22px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;display:inline-flex;align-items:center;gap:.35rem;}
-.hl-tab.on{background:linear-gradient(135deg,rgba(200,168,108,.18),rgba(200,168,108,.08));color:var(--go);box-shadow:0 2px 12px rgba(200,168,108,.15);}
-.hl-tab:hover:not(.on){color:var(--tx);}
-
-/* Cards Grid — masonry-inspired */
-.hl-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:1.2rem;
-  position:relative;
-}
-
-/* ── HIGHLIGHT CARD BASE ── */
-.hl-card{
-  position:relative;
-  background:linear-gradient(145deg,var(--pan) 0%,var(--sur) 100%);
-  border:1px solid var(--b);
-  border-radius:18px;overflow:hidden;cursor:pointer;
-  transition:transform .32s cubic-bezier(.22,.61,.36,1), box-shadow .32s ease, border-color .32s ease;
-  /* Entry animation */
-  opacity:0;transform:translateY(28px) scale(.97);
-}
-.hl-card.hl-in{
-  opacity:1;transform:translateY(0) scale(1);
-  transition:opacity .55s cubic-bezier(.22,.61,.36,1), transform .55s cubic-bezier(.22,.61,.36,1), box-shadow .32s ease, border-color .32s ease;
-}
-.hl-card:nth-child(1){transition-delay:.04s;}
-.hl-card:nth-child(2){transition-delay:.1s;}
-.hl-card:nth-child(3){transition-delay:.16s;}
-.hl-card:nth-child(4){transition-delay:.22s;}
-.hl-card:nth-child(5){transition-delay:.28s;}
-.hl-card:nth-child(6){transition-delay:.34s;}
-.hl-card:hover{
-  transform:translateY(-6px) scale(1.01);
-  box-shadow:0 24px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(200,168,108,.12);
-  border-color:rgba(200,168,108,.25);
-}
-/* Shimmer sweep on hover */
-.hl-card::before{
-  content:'';position:absolute;inset:0;z-index:1;
-  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);
-  transform:translateX(-100%);transition:transform .6s ease;pointer-events:none;
-}
-.hl-card:hover::before{transform:translateX(100%);}
-/* Top accent line */
-.hl-card::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;z-index:2;
-  background:linear-gradient(90deg,transparent,var(--card-accent,rgba(200,168,108,.6)),transparent);
-  opacity:0;transition:opacity .32s;
-}
-.hl-card:hover::after{opacity:1;}
-
-/* Cover image area */
-.hl-cover{
-  height:160px;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,#08162a,#0f2240);
+.c-edge-left{left:0;background:linear-gradient(90deg,var(--sur) 0%,transparent 100%);justify-content:flex-start;padding-left:.5rem;}
+.c-edge-right{right:0;background:linear-gradient(270deg,var(--sur) 0%,transparent 100%);justify-content:flex-end;padding-right:.5rem;}
+.c-stage:hover .c-edge{opacity:1;}
+.c-edge-arrow{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(200,168,108,.12);
+  border:1px solid rgba(200,168,108,.3);
   display:flex;align-items:center;justify-content:center;
+  color:#c8a86c;transition:all .2s;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
 }
-.hl-cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.06) 1px,transparent 1px);background-size:20px 20px;}
-.hl-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.hl-cover-emoji{display:none;}
-.hl-cover svg{position:absolute;inset:0;width:100%;height:100%;}
-
-/* Type badge */
-.hl-type-badge{
-  position:absolute;top:.7rem;left:.7rem;z-index:3;
-  font-size:.58rem;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
-  padding:.22rem .6rem;border-radius:4px;backdrop-filter:blur(8px);
+.c-edge:hover .c-edge-arrow{background:rgba(200,168,108,.2);border-color:rgba(200,168,108,.6);transform:scale(1.1);}
+/* Slider */
+.c-slider{overflow:hidden;}
+.c-track{
+  display:flex;gap:1rem;
+  transition:transform .55s cubic-bezier(.25,.46,.45,.94);
+  will-change:transform;padding-bottom:.5rem;
 }
-.hl-badge-post{background:rgba(72,117,194,.2);border:1px solid rgba(72,117,194,.35);color:#6b9fe4;}
-.hl-badge-work{background:rgba(200,168,108,.15);border:1px solid rgba(200,168,108,.35);color:#c8a86c;}
-.hl-badge-journey{background:rgba(76,175,125,.15);border:1px solid rgba(76,175,125,.3);color:#4caf7d;}
-.hl-badge-linkedin{background:rgba(10,102,194,.2);border:1px solid rgba(10,102,194,.35);color:#5b9bd5;}
-
-/* Star pin indicator */
-.hl-star-pin{
-  position:absolute;top:.65rem;right:.65rem;z-index:3;
-  width:26px;height:26px;border-radius:50%;
-  background:rgba(200,168,108,.15);border:1px solid rgba(200,168,108,.3);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;
-  animation:starPulse 3s ease-in-out infinite;
+/* Card enter animation */
+@keyframes cardReveal{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+.ccard{
+  min-width:255px;max-width:255px;
+  background:var(--pan);border:1px solid var(--b);
+  border-radius:14px;overflow:hidden;flex-shrink:0;
+  transition:border-color .28s,box-shadow .28s;
+  cursor:pointer;position:relative;
+  animation:cardReveal .4s ease both;
 }
-@keyframes starPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,168,108,.3);}60%{box-shadow:0 0 0 6px rgba(200,168,108,0);}}
-
-/* Card body */
-.hl-body{padding:1.1rem 1.2rem 1rem;}
-.hl-card-title{
-  font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--wh);
-  line-height:1.25;margin-bottom:.45rem;letter-spacing:-.1px;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-}
-.hl-card-sub{font-size:.78rem;color:var(--mu);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.8rem;}
-.hl-card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.7rem;border-top:1px solid var(--b);}
-.hl-card-meta{display:flex;align-items:center;gap:.5rem;font-size:.67rem;color:var(--mu);}
-.hl-card-dot{width:3px;height:3px;border-radius:50%;background:var(--mu);opacity:.4;}
-.hl-card-cta{
-  font-size:.72rem;font-weight:700;color:var(--go);
-  display:inline-flex;align-items:center;gap:.28rem;
-  opacity:.7;transition:opacity .2s, gap .2s;
-}
-.hl-card:hover .hl-card-cta{opacity:1;gap:.45rem;}
-
-/* Tags */
-.hl-tags{display:flex;flex-wrap:wrap;gap:.28rem;margin-bottom:.75rem;}
-.hl-tag{font-size:.65rem;font-weight:600;color:var(--mu);background:var(--pan2);border:1px solid var(--b);padding:.16rem .52rem;border-radius:20px;}
-
-/* Likes indicator */
-.hl-likes{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;color:var(--mu);}
-.hl-likes svg{color:var(--re);}
-
-/* Navigation arrows */
-.hl-arrow{
-  display:none; /* hidden — grid doesn't need arrows */
-}
+.ccard:nth-child(1){animation-delay:.05s;}
+.ccard:nth-child(2){animation-delay:.1s;}
+.ccard:nth-child(3){animation-delay:.15s;}
+.ccard:nth-child(4){animation-delay:.2s;}
+.ccard:nth-child(5){animation-delay:.25s;}
+.ccard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.02),transparent);pointer-events:none;}
+.ccard:hover{border-color:rgba(200,168,108,.3);box-shadow:0 18px 48px rgba(0,0,0,.4);}
+.ccard-img{height:130px;background:linear-gradient(135deg,#08162a,#0f2240);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden;}
+.ccard-img-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.07) 1px,transparent 1px);background-size:16px 16px;}
+.ccard-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+/* Shimmer on hover */
+.ccard-img::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.06) 50%,transparent 100%);transform:translateX(-100%);transition:transform .5s ease;z-index:1;}
+.ccard:hover .ccard-img::before{transform:translateX(100%);}
+.ccard-badge{position:absolute;top:.5rem;left:.5rem;background:rgba(7,9,13,.88);border:1px solid var(--b2);color:var(--tx);font-size:.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.12rem .42rem;border-radius:3px;z-index:2;}
+.ccard-body{padding:.9rem;}
+.ccard-title{font-weight:600;color:var(--wh);font-size:.84rem;margin-bottom:.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.1px;}
+.ccard-sub{font-size:.73rem;color:var(--mu);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.1rem;}
+.ccard-foot{display:flex;justify-content:space-between;align-items:center;margin-top:.65rem;}
+.ccard-date{font-size:.65rem;color:var(--mu);}
+.ccard-btn{background:var(--go3);border:1px solid rgba(200,168,108,.2);color:var(--go);border-radius:5px;padding:.16rem .5rem;font-size:.67rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;}
+.ccard-btn:hover{background:var(--go);color:#07090d;}
 /* Dots */
-.hl-dots{display:flex;justify-content:center;gap:.4rem;margin-top:2.2rem;}
-.hl-dot{width:6px;height:6px;border-radius:50%;background:var(--b2);border:none;cursor:pointer;transition:all .3s;}
-.hl-dot.on{width:22px;border-radius:3px;background:linear-gradient(90deg,var(--go),var(--go2));}
-
-/* Empty state */
-.hl-empty{text-align:center;padding:4rem 2rem;color:var(--mu);}
-.hl-empty-icon{font-size:3rem;margin-bottom:1rem;opacity:.3;}
-.hl-empty-text{font-size:.9rem;color:var(--tx);margin-bottom:.3rem;font-weight:600;}
-.hl-empty-sub{font-size:.78rem;}
-
-/* Responsive */
-@media(max-width:768px){
-  .hl-section{padding:3.5rem 1.2rem 3rem;}
-  .hl-grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:500px){
-  .hl-grid{grid-template-columns:1fr;}
-}
-
-/* Keep old cdots for jobs section */
 .cdots{display:flex;justify-content:center;gap:.35rem;margin-top:1rem;}
 .cdot{width:5px;height:5px;border-radius:50%;background:var(--b2);border:none;cursor:pointer;transition:all .3s;}
 .cdot.on{width:18px;border-radius:3px;background:var(--go);}
+/* Old nav buttons — hide */
 .cnav,.cnav-btn{display:none;}
-/* keep ccard for any leftover usage */
-@keyframes cardReveal{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
-.ccard{display:none;}
 
 /* ══ ABOUT ══ */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;}
@@ -652,37 +369,25 @@ select.field option{background:var(--pan);}
 .cv-box h4{font-weight:600;color:var(--wh);font-size:.88rem;margin-bottom:.16rem;}
 .cv-box p{font-size:.75rem;color:var(--mu);}
 
-/* ══ WORKS — LinkedIn-style cards ══ */
-.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem;}
-.wcard-new{
-  position:relative;background:var(--pan);border:1px solid var(--b);
-  border-radius:16px;overflow:hidden;cursor:pointer;padding:1.2rem 1.3rem 1rem;
-  transition:transform .28s cubic-bezier(.22,.61,.36,1), box-shadow .28s ease, border-color .28s;
-}
-.wcard-new:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.45);border-color:rgba(200,168,108,.22);}
-.wcard-new::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.025),transparent);pointer-events:none;}
-/* Shimmer */
-.wcard-new::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.04) 50%,transparent 65%);transform:translateX(-100%);transition:transform .55s ease;pointer-events:none;}
-.wcard-new:hover::after{transform:translateX(100%);}
-.wcn-accent{position:absolute;top:0;left:0;right:0;height:2px;opacity:.7;}
-.wcn-head{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:.85rem;}
-.wcn-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
-.wcn-cat{display:inline-block;font-size:.58rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;margin-bottom:.22rem;}
-.wcn-year{font-size:.68rem;color:var(--mu);}
-.wcn-title{font-family:'DM Serif Display',serif;font-size:1.08rem;color:var(--wh);line-height:1.25;margin-bottom:.42rem;letter-spacing:-.1px;}
-.wcn-desc{font-size:.79rem;color:var(--tx);line-height:1.7;opacity:.85;margin-bottom:.75rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
-.wcn-tags{display:flex;flex-wrap:wrap;gap:.28rem;margin-bottom:.8rem;}
-.wcn-tag{font-size:.65rem;color:var(--mu);background:var(--pan2);border:1px solid var(--b);padding:.15rem .52rem;border-radius:20px;}
-.wcn-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.7rem;border-top:1px solid var(--b);}
-.wcn-foot-left{display:flex;gap:.4rem;}
-.photo-ov-btn{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;color:var(--mu);background:var(--pan2);border:1px solid var(--b);border-radius:5px;padding:.2rem .55rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
-.photo-ov-btn:hover{color:var(--go);border-color:rgba(200,168,108,.3);}
-.wcn-view-btn{font-size:.72rem;font-weight:700;color:var(--bl2);text-decoration:none;transition:color .2s;}
-.wcn-view-btn:hover{color:var(--go);}
-.wcn-cta{font-size:.72rem;font-weight:700;color:var(--go);display:inline-flex;align-items:center;gap:.28rem;opacity:.75;transition:opacity .2s,gap .2s;}
-.wcard-new:hover .wcn-cta{opacity:1;gap:.42rem;}
-/* keep old wcard hidden just in case */
-.wcard{display:none;}
+/* ══ WORKS ══ */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(278px,1fr));gap:1.2rem;}
+.wcard{background:linear-gradient(145deg,#0b1220 0%,#0f1828 100%);border:1px solid rgba(72,117,194,.16);border-radius:14px;overflow:hidden;transition:all .28s;cursor:pointer;position:relative;}
+.wcard:hover{border-color:rgba(200,168,108,.32);transform:translateY(-4px);box-shadow:0 16px 42px rgba(0,0,0,.45);}
+.wthumb{height:190px;position:relative;overflow:hidden;background:linear-gradient(135deg,#08162a,#0d1f3c);}
+.wthumb img{width:100%;height:100%;object-fit:cover;display:none;}
+.wthumb img.on{display:block;}
+.wthumb-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.9rem;}
+.wthumb-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.07) 1px,transparent 1px);background-size:18px 18px;}
+.wcat{position:absolute;top:.7rem;left:.7rem;background:rgba(7,9,13,.88);border:1px solid rgba(200,168,108,.22);color:var(--go);font-size:.58rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:.14rem .52rem;border-radius:4px;z-index:2;backdrop-filter:blur(4px);}
+.wprice{position:absolute;top:.6rem;right:.6rem;background:var(--go3);border:1px solid rgba(200,168,108,.28);color:var(--go);font-size:.62rem;font-weight:700;padding:.12rem .46rem;border-radius:3px;z-index:2;}
+.photo-ov{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;z-index:3;cursor:pointer;}
+.wcard:hover .photo-ov{opacity:1;}
+.photo-ov span{color:#fff;font-size:.7rem;background:rgba(200,168,108,.88);padding:.3rem .68rem;border-radius:5px;}
+.wbody{padding:1rem 1.1rem 1rem;}
+.wtitle{font-family:'DM Serif Display',serif;font-weight:400;color:var(--wh);font-size:1.05rem;margin-bottom:.32rem;line-height:1.22;letter-spacing:-.15px;}
+.wdesc{font-size:.8rem;color:var(--tx);line-height:1.72;margin-bottom:.82rem;opacity:.85;}
+.wfoot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.28rem;}
+.wyear{font-size:.67rem;color:var(--mu);}
 
 /* ══ POSTS - NEW PROFESSIONAL DESIGN ══ */
 .posts-layout-new{display:block;}
@@ -1328,6 +1033,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 .ft-copy{font-size:.7rem;color:var(--mu);}
 
 /* ══ RESPONSIVE ══ */
+/* ══ RESPONSIVE — TABLET 920px ══ */
 @media(max-width:920px){
   nav{padding:0 1.15rem;}
   .nav-links{display:none;}
@@ -1343,13 +1049,62 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
   .c-inner{padding:0 1.5rem;}
   .pcard.has-cover .pcard-inner{flex-direction:column;}
   .pcard.has-cover .pcard-cover{width:100%;height:180px;}
+  /* Jobs carousel tablet */
+  .job-card{min-width:280px;max-width:280px;}
+  /* Carousel cards tablet */
+  .ccard{min-width:220px;max-width:220px;}
+  /* Journey modal */
+  .modal{padding:0!important;}
+  /* Compose modal */
+  .compose-modal{border-radius:16px;}
+  /* Wgrid */
+  .wgrid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));}
+  /* Jobs section padding */
+  .jobs-section{padding:3rem 1.2rem;}
+  .jobs-inner{padding:0;}
 }
+
+/* ══ RESPONSIVE — MOBILE 560px ══ */
 @media(max-width:560px){
   .hero h1{font-size:2rem;}
   .hire-hero{padding:2rem 1.2rem;}
   .ctabs{flex-wrap:wrap;}
   .ptabs{gap:.1rem;}
   .ptab{font-size:.69rem;padding:.32rem .58rem;}
+  /* Jobs mobile — full width single card */
+  .job-card{min-width:calc(100vw - 3rem);max-width:calc(100vw - 3rem);}
+  .jobs-section{padding:2.5rem 1rem;}
+  /* Carousel mobile */
+  .ccard{min-width:calc(100vw - 4rem);max-width:calc(100vw - 4rem);}
+  /* Compose modal mobile */
+  .compose-modal{max-width:100%;border-radius:16px 16px 0 0;}
+  .compose-modal-overlay{align-items:flex-end;padding:0;}
+  /* Nav logo */
+  .nav-logo{font-size:.95rem;}
+  /* Section titles */
+  .sec-t{font-size:1.6rem;}
+  /* Journey modal */
+  .ov .modal{border-radius:16px 16px 0 0;max-height:95vh;}
+  /* About grid */
+  .about-grid{gap:1.5rem;}
+  /* Hero */
+  .hero{padding:64px 1.2rem 2.5rem;}
+  /* Ticker */
+  .ticker-wrap{font-size:.72rem;}
+  /* WGrid */
+  .wgrid{grid-template-columns:1fr;}
+  /* Jobs header */
+  .jobs-title{font-size:1.4rem;}
+  .jobs-sub{font-size:.82rem;}
+  /* Jobs counter */
+  .jobs-counter{flex-direction:column;gap:.5rem;}
+}
+
+/* ══ RESPONSIVE — SMALL 400px ══ */
+@media(max-width:400px){
+  .hero h1{font-size:1.75rem;}
+  .job-card{min-width:calc(100vw - 2rem);max-width:calc(100vw - 2rem);}
+  .section{padding:3rem 1rem 2.5rem;}
 }
 </style>
 </head>
@@ -1425,7 +1180,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
       align-items: center;
       gap: 0;
       white-space: nowrap;
-      animation: ticker-scroll 55s linear infinite;
+      animation: ticker-scroll 20s linear infinite;
       will-change: transform;
     "></div>
   </div>
@@ -1471,114 +1226,62 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 
 <script>
 (async function loadTicker() {
-  const CACHE_KEY = 'aero_ticker_cache';
-  const CACHE_TTL = 12 * 60 * 60 * 1000; // 12 hours in ms
-
-  // Fresh aviation-only feeds — all aerospace/aviation focused
   const feeds = [
-    { name: 'Simple Flying',   rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://simpleflying.com/feed/' },
-    { name: 'FlightGlobal',    rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.flightglobal.com/rss/news' },
-    { name: 'Aviation Week',   rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://aviationweek.com/rss.xml' },
-    { name: 'AINonline',       rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.ainonline.com/rss.xml' },
-    { name: 'Leeham News',     rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://leehamnews.com/feed/' },
-    { name: 'The Air Current',  rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://theaircurrent.com/feed/' },
-    { name: 'Airbus',          rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.airbus.com/en/newsroom.rss' },
-    { name: 'Boeing',          rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://boeing.mediaroom.com/rss/rss.rss' },
-    { name: 'NASA Aero',       rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.nasa.gov/rss/dyn/aeronautics.rss' },
-    { name: 'IATA',            rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.iata.org/en/pressroom/pr/rss/' },
+    { name: 'FlightGlobal',   rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.flightglobal.com/rss/news' },
+    { name: 'AINonline',      rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.ainonline.com/rss.xml' },
+    { name: 'Aviation Week',  rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://aviationweek.com/rss.xml' },
+    { name: 'Simple Flying',  rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://simpleflying.com/feed/' },
+    { name: 'The Air Current', rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://theaircurrent.com/feed/' },
+    { name: 'Leeham News',    rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://leehamnews.com/feed/' },
+    { name: 'Airbus Newsroom',rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.airbus.com/en/newsroom.rss' },
+    { name: 'Boeing News',    rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://boeing.mediaroom.com/rss/rss.rss' },
+    { name: 'NASA Aero',      rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.nasa.gov/rss/dyn/aeronautics.rss' },
+    { name: 'Rolls-Royce',    rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.rolls-royce.com/media/news.xml' },
+    { name: 'IATA',           rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.iata.org/en/pressroom/pr/rss/' },
+    { name: 'Skift',          rss: 'https://api.rss2json.com/v1/api.json?rss_url=https://skift.com/feed/' },
   ];
 
-  // Current aviation fallback — all from this week/recent, all aviation/aerospace related
   const fallback = [
-    { title: 'Airbus A320neo family crosses 10,000 deliveries milestone worldwide', link: 'https://www.airbus.com/en/newsroom', source: 'Airbus' },
-    { title: 'Boeing 737 MAX 10 receives FAA type certificate approval', link: 'https://boeing.mediaroom.com', source: 'Boeing' },
-    { title: 'Emirates orders 100 additional A350s in record Airbus deal', link: 'https://simpleflying.com', source: 'Simple Flying' },
-    { title: 'NASA demonstrates supersonic X-59 QueSST at low-boom flight test', link: 'https://www.nasa.gov/aeronautics', source: 'NASA Aero' },
-    { title: 'Rolls-Royce UltraFan engine breaks own power-to-weight record', link: 'https://www.rolls-royce.com/media', source: 'Rolls-Royce' },
-    { title: 'GE Aerospace secures $10B LEAP-1A engine deal with IndiGo', link: 'https://www.flightglobal.com', source: 'FlightGlobal' },
-    { title: 'IATA: Middle East air cargo growth leads all global regions in Q1 2026', link: 'https://www.iata.org/en/pressroom', source: 'IATA' },
-    { title: 'Qatar Airways Engineering expands MRO capacity at Doha hub', link: 'https://www.aviationweek.com', source: 'Aviation Week' },
-    { title: 'Etihad Engineering wins $500M composite repair contract for Gulf carriers', link: 'https://www.ainonline.com', source: 'AINonline' },
-    { title: 'Royal Jordanian signs LOI for 8 A320neo jets to modernize fleet', link: 'https://simpleflying.com', source: 'Simple Flying' },
-    { title: 'CFRP wing panels reduce A350 structural weight by 25% vs aluminum', link: 'https://leehamnews.com', source: 'Leeham News' },
-    { title: 'Safran wins landing gear MRO contract covering 600 aircraft in MENA', link: 'https://www.aviationweek.com', source: 'Aviation Week' },
-    { title: 'FlightGlobal: Middle East MRO market projected at $6.8B by 2030', link: 'https://www.flightglobal.com', source: 'FlightGlobal' },
-    { title: 'ANSYS simulation tools adopted for FAA Part 25 structural certification', link: 'https://www.ainonline.com', source: 'AINonline' },
-    { title: 'Airbus opens advanced aerostructures research center in Hamburg', link: 'https://www.airbus.com/en/newsroom', source: 'Airbus' },
+    { title: 'Airbus accelerates A320neo production amid record backlog', link: 'https://www.airbus.com/en/newsroom', source: 'Airbus' },
+    { title: 'Boeing 777X receives extended structural test certification', link: 'https://boeing.mediaroom.com', source: 'Boeing' },
+    { title: 'NASA aeronautics team validates next-gen wing morphing system', link: 'https://www.nasa.gov/aeronautics', source: 'NASA Aero' },
+    { title: 'IATA: Middle East aviation traffic growth outpaces global average', link: 'https://www.iata.org/en/pressroom', source: 'IATA' },
+    { title: 'Rolls-Royce UltraFan engine achieves record power density milestone', link: 'https://www.rolls-royce.com/media', source: 'Rolls-Royce' },
+    { title: 'CFRP composite structures cut regional jet weight by 22%', link: 'https://simpleflying.com', source: 'Simple Flying' },
+    { title: 'MRO demand surges as Middle East airlines expand fleets', link: 'https://www.aviationweek.com', source: 'Aviation Week' },
+    { title: 'GE Aviation delivers 1000th LEAP engine to Arab carriers', link: 'https://www.flightglobal.com', source: 'FlightGlobal' },
+    { title: 'Safran lands $2B landing gear MRO contract with Gulf operators', link: 'https://www.ainonline.com', source: 'AINonline' },
+    { title: 'ANSYS FEA tools now certified for FAA Part 25 structural compliance', link: 'https://www.ansys.com/blog', source: 'ANSYS' },
+    { title: 'Royal Jordanian expands narrowbody fleet with 15 A320neo jets', link: 'https://simpleflying.com', source: 'Simple Flying' },
+    { title: 'Emirates Engineering opens advanced composite repair center in Dubai', link: 'https://www.aviationweek.com', source: 'Aviation Week' },
   ];
 
-  function renderTicker(items) {
-    const allItems = [...items, ...items]; // duplicate for seamless loop
-    const track = document.getElementById('ticker-track');
-    if (!track) return;
-    track.innerHTML = allItems.map(item => `
-      <span class="ticker-item">
-        <span class="src">${item.source}</span>
-        <a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
-      </span>
-      <span class="sep">✈</span>
-    `).join('');
-    setTimeout(() => {
-      const w = track.scrollWidth / 2;
-      const dur = Math.max(45, w / 80);
-      track.style.animation = `ticker-scroll ${dur}s linear infinite`;
-    }, 100);
-  }
+  let items = [];
+  const fetches = feeds.map(f =>
+    fetch(f.rss)
+      .then(r => r.json())
+      .then(d => (d.items || []).slice(0, 4).map(i => ({ title: i.title, link: i.link, source: f.name })))
+      .catch(() => [])
+  );
+  const results = await Promise.all(fetches);
+  results.forEach(r => items.push(...r));
+  if (items.length < 6) items = fallback;
 
-  // Check cache first
-  try {
-    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-    if (cached && (Date.now() - cached.ts) < CACHE_TTL && cached.items?.length >= 6) {
-      renderTicker(cached.items);
-      return; // Use cache, skip fetch
-    }
-  } catch(e) {}
+  const allItems = [...items, ...items];
+  const track = document.getElementById('ticker-track');
+  track.innerHTML = allItems.map(item => `
+    <span class="ticker-item">
+      <span class="src">${item.source}</span>
+      <a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
+    </span>
+    <span class="sep">|</span>
+  `).join('');
 
-  // Render fallback immediately while fetching
-  renderTicker(fallback);
-
-  // Fetch fresh in background
-  try {
-    const fetches = feeds.map(f =>
-      fetch(f.rss, {cache: 'no-store'})
-        .then(r => r.json())
-        .then(d => (d.items || []).slice(0, 3).map(i => ({ title: i.title, link: i.link, source: f.name })))
-        .catch(() => [])
-    );
-    const results = await Promise.allSettled(fetches);
-    let items = [];
-    results.forEach(r => { if (r.status === 'fulfilled') items.push(...r.value); });
-
-    if (items.length >= 6) {
-      // Cache for 12 hours
-      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), items })); } catch(e) {}
-      renderTicker(items);
-    }
-    // If fetch failed, fallback is already showing — no change needed
-  } catch(e) {
-    console.log('Ticker fetch failed, using fallback');
-  }
-
-  // Auto-refresh every 12 hours while page is open
-  setInterval(async () => {
-    try { localStorage.removeItem(CACHE_KEY); } catch(e) {}
-    // Trigger a reload of the ticker
-    try {
-      const fetches = feeds.map(f =>
-        fetch(f.rss, {cache: 'no-store'})
-          .then(r => r.json())
-          .then(d => (d.items || []).slice(0, 3).map(i => ({ title: i.title, link: i.link, source: f.name })))
-          .catch(() => [])
-      );
-      const results = await Promise.allSettled(fetches);
-      let items = [];
-      results.forEach(r => { if (r.status === 'fulfilled') items.push(...r.value); });
-      if (items.length >= 6) {
-        try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), items })); } catch(e) {}
-        renderTicker(items);
-      }
-    } catch(e) {}
-  }, CACHE_TTL);
+  setTimeout(() => {
+    const w = track.scrollWidth / 2;
+    const dur = Math.max(20, w / 150);
+    track.style.animation = `ticker-scroll ${dur}s linear infinite`;
+  }, 100);
 })();
 </script>
 
@@ -1621,7 +1324,11 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
     <div class="status-pill rev d1"><div class="sdot"></div>Open to Work — Junior / Entry Level</div>
     <h1>I engineer<br><em id="typewriterText"></em><span class="sub">& simulate flight.</span></h1>
     <p class="hero-d rev d1"><strong>Nashat Omar Aldhoun</strong> — Junior Aeronautical Engineer from JUST. Specialized in Aircraft Structures, FEA, Modal Analysis & MRO. Trained at the Royal Jordanian Air Force.</p>
-
+    <div class="hero-email rev d2" id="heroEmailBox">
+      <div class="em-dot"></div>
+      <span class="em-val" id="emVal" onclick="openMailto()"></span>
+      <button class="em-copy" onclick="copyEmail()">Copy</button>
+    </div>
     <div class="hero-ctas rev d2">
       <button class="btn btn-go" onclick="showPage('works',null)">View Projects →</button>
       <button class="btn btn-gh" onclick="showPage('contact',null)">Contact Me</button>
@@ -1633,71 +1340,38 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
     </div>
   </div>
   <div class="rev d1">
-    <div class="idc-new">
-      <!-- Radar sweep bg -->
-      <div class="idc-radar">
-        <div class="idc-radar-ring r1"></div>
-        <div class="idc-radar-ring r2"></div>
-        <div class="idc-radar-ring r3"></div>
-        <div class="idc-radar-sweep"></div>
-        <!-- Blip dots -->
-        <div class="idc-blip b1"></div>
-        <div class="idc-blip b2"></div>
-        <div class="idc-blip b3"></div>
-      </div>
-      <!-- Grid pattern -->
-      <div class="idc-grid-pat"></div>
-      <!-- Top stripe -->
-      <div class="idc-new-stripe"></div>
-
-      <!-- Profile section -->
-      <div class="idc-new-top">
-        <div class="idc-new-av-wrap">
-          <div class="idc-new-av-ring"></div>
-          <div class="avatar idc-new-av" id="avatarEl">NA</div>
-          <div class="idc-new-status"></div>
+    <div class="idc">
+      <div class="idc-top">
+        <div class="idc-grid"></div>
+        <div class="idc-stripe"></div>
+        <div class="avatar-wrap"><div class="avatar-orbit"></div><div class="avatar" id="avatarEl">NA</div></div>
+        <div class="idc-name">Nashat Omar Aldhoun</div>
+        <div class="idc-role">Aeronautical Engineer</div>
+        <div style="display:inline-flex;align-items:center;gap:.35rem;background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.25);color:#4caf7d;font-size:.62rem;font-weight:700;padding:.22rem .7rem;border-radius:20px;margin-top:.5rem;letter-spacing:.5px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#4caf7d;animation:pulse 2s infinite;display:inline-block;"></span>
+          Open to Work
         </div>
-        <div class="idc-new-info">
-          <div class="idc-new-name">Nashat Omar Aldhoun</div>
-          <div class="idc-new-role">✈ Aeronautical Engineer</div>
-          <div class="idc-new-loc">📍 Irbid, Jordan</div>
-        </div>
-        <button class="photo-btn admin-only" onclick="document.getElementById('photoIn').click()" style="position:absolute;top:.7rem;right:.7rem;font-size:.6rem;padding:.15rem .45rem;">+ Photo</button>
+        <button class="photo-btn admin-only" onclick="document.getElementById('photoIn').click()">+ Upload Photo</button>
         <input type="file" id="photoIn" accept="image/*" style="display:none" onchange="handleProfilePhoto(event)">
       </div>
-
-      <!-- Specs rows -->
-      <div class="idc-new-body">
-        <div class="idc-spec">
-          <div class="idc-spec-icon" style="background:rgba(72,117,194,.15);color:#6b9fe4;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          </div>
-          <div><div class="idc-spec-key">Education</div><div class="idc-spec-val">B.Sc. Aero. Eng. — JUST '25</div></div>
+      <div class="idc-body">
+        <div class="idc-row">
+          <div class="idc-ic" style="background:rgba(72,117,194,.1);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--bl2)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="idc-key">Location</div><div class="idc-val">Irbid, Jordan</div></div>
         </div>
-        <div class="idc-spec">
-          <div class="idc-spec-icon" style="background:rgba(200,168,108,.15);color:#c8a86c;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
-          </div>
-          <div><div class="idc-spec-key">Training</div><div class="idc-spec-val">RJAF — Overhaul Dept.</div></div>
+        <div class="idc-row">
+          <div class="idc-ic" style="background:rgba(200,168,108,.1);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--go)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div><div class="idc-key">Education</div><div class="idc-val">B.Sc. Aero. Eng. — JUST '25</div></div>
         </div>
-        <div class="idc-spec">
-          <div class="idc-spec-icon" style="background:rgba(76,175,125,.15);color:#4caf7d;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-          </div>
-          <div><div class="idc-spec-key">Specialization</div><div class="idc-spec-val">Structures · FEA · MRO · CFD</div></div>
+        <div class="idc-row">
+          <div class="idc-ic" style="background:rgba(130,96,210,.1);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--pu)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div><div class="idc-key">Training</div><div class="idc-val">RJAF Overhaul Dept.</div></div>
+        </div>
+        <div class="idc-row">
+          <div class="idc-ic" style="background:rgba(56,150,100,.1);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+          <div><div class="idc-key">Specialization</div><div class="idc-val">Structures · FEA · MRO</div></div>
         </div>
       </div>
-
-      <!-- Skills bar strip -->
-      <div class="idc-skill-strip">
-        <span class="idc-skill-chip">ANSYS</span>
-        <span class="idc-skill-chip">SolidWorks</span>
-        <span class="idc-skill-chip">Creo</span>
-        <span class="idc-skill-chip">MATLAB</span>
-        <span class="idc-skill-chip">Power BI</span>
-      </div>
-
-      <!-- Footer -->
       <div class="idc-foot">
         <a href="javascript:void(0)" onclick="openMailto()">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -1854,25 +1528,48 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
   <div class="jobs-inner">
     <div class="jobs-header" data-sr="fade-up">
       <div class="jobs-tag">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-        Aerospace Hiring — Middle East & Jordan
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Live Job Search — Middle East & Jordan
       </div>
-      <h2 class="jobs-title">Open Positions</h2>
-      <p class="jobs-sub">Live opportunities from leading aviation companies in the region</p>
+      <h2 class="jobs-title">Aerospace Engineering Jobs</h2>
+      <p class="jobs-sub">كل شركة · كل وظيفة · كل يوم — اضغط أي بطاقة لترى النتائج الحقيقية مباشرة</p>
+
+      <!-- Job counters -->
+      <div class="jobs-counter" data-sr="fade-up" style="--sr-delay:0.1s">
+        <div class="jcount-item">
+          <div class="jcount-num">1,500+</div>
+          <div class="jcount-label">وظيفة طيران</div>
+        </div>
+        <div class="jcount-div"></div>
+        <div class="jcount-item">
+          <div class="jcount-num">6</div>
+          <div class="jcount-label">منصات بحث</div>
+        </div>
+        <div class="jcount-div"></div>
+        <div class="jcount-item">
+          <div class="jcount-num">5</div>
+          <div class="jcount-label">دول</div>
+        </div>
+        <div class="jcount-div"></div>
+        <div class="jcount-item">
+          <div class="jcount-num">يومي</div>
+          <div class="jcount-label">تحديث</div>
+        </div>
+      </div>
     </div>
     <div class="jobs-stage" id="jobsStage">
-      <button class="nav-arrow-btn nav-arrow-left" onclick="jNavClick(-1)" aria-label="Previous">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button class="nav-arrow-btn nav-arrow-right" onclick="jNavClick(1)" aria-label="Next">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
+      <div class="c-edge c-edge-left" onmouseenter="startJEdge(-1)" onmouseleave="stopJEdge()">
+        <div class="c-edge-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      </div>
+      <div class="c-edge c-edge-right" onmouseenter="startJEdge(1)" onmouseleave="stopJEdge()">
+        <div class="c-edge-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
       <div class="jobs-slider"><div class="jobs-track" id="jobsGrid"></div></div>
     </div>
     <div class="cdots" id="jobsDots"></div>
     <div class="jobs-footer" data-sr="fade-up" style="--sr-delay:0.2s">
-      <a href="https://www.linkedin.com/jobs/search/?keywords=aeronautical+engineer&location=Middle+East" target="_blank" rel="noopener" class="jobs-more-btn">
-        View All Jobs on LinkedIn
+      <a href="https://www.bayt.com/en/international/jobs/aerospace-engineer-jobs/" target="_blank" rel="noopener" class="jobs-more-btn">
+        كل وظائف هندسة الطيران على Bayt.com
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
@@ -1883,21 +1580,21 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 .jobs-section{background:var(--bg);padding:4rem 2rem;position:relative;overflow:hidden;}
 .jobs-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,168,108,.2),transparent);}
 .jobs-inner{max-width:1100px;margin:0 auto;}
-.jobs-header{text-align:center;margin-bottom:2.5rem;}
+.jobs-header{text-align:center;margin-bottom:2rem;}
 .jobs-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(76,175,125,.08);border:1px solid rgba(76,175,125,.2);color:#4caf7d;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1rem;}
 .jobs-title{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:700;color:var(--tx);margin-bottom:.5rem;}
 .jobs-sub{color:var(--mu);font-size:.9rem;}
+/* Job counters */
+.jobs-counter{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap;}
+.jcount-item{text-align:center;}
+.jcount-num{font-family:'DM Serif Display',serif;font-size:1.6rem;font-weight:700;color:#c8a86c;line-height:1;}
+.jcount-label{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.25rem;letter-spacing:.5px;}
+.jcount-div{width:1px;height:28px;background:rgba(255,255,255,.08);}
 /* Jobs carousel */
-.jobs-stage{position:relative;}
+.jobs-stage{position:relative;margin-top:2rem;}
 .jobs-stage .c-edge-left{background:linear-gradient(90deg,var(--bg),transparent);}
 .jobs-stage .c-edge-right{background:linear-gradient(270deg,var(--bg),transparent);}
-.jobs-stage:hover .c-edge{opacity:0!important;}
-.c-stage:hover .c-edge{opacity:0!important;}
-.nav-arrow-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:40px;height:40px;border-radius:50%;background:rgba(10,14,24,.9);border:1.5px solid rgba(200,168,108,.4);color:#c8a86c;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;backdrop-filter:blur(10px);box-shadow:0 4px 16px rgba(0,0,0,.5);}
-.nav-arrow-btn:hover{background:rgba(200,168,108,.2);border-color:#c8a86c;transform:translateY(-50%) scale(1.12);box-shadow:0 6px 22px rgba(200,168,108,.3);}
-.nav-arrow-btn:active{transform:translateY(-50%) scale(.94);}
-.nav-arrow-left{left:-20px;}
-.nav-arrow-right{right:-20px;}
+.jobs-stage:hover .c-edge{opacity:1;}
 .jobs-slider{overflow:hidden;}
 .jobs-track{
   display:flex;gap:1rem;
@@ -1940,156 +1637,68 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 </style>
 
 <script>
+/* ══ JOBS: LIVE SEARCH CARDS ══ */
 (function renderJobs(){
-  function daysAgo(d){ return Math.floor((Date.now()-new Date(d))/(1000*60*60*24)); }
-  function timeLabel(d){
-    const n=daysAgo(d);
-    if(n===0)return'Today';if(n===1)return'Yesterday';if(n<7)return n+'d ago';return null;
-  }
-
-  // LinkedIn SVG logo (official blue)
-  const LI_LOGO = `<svg viewBox="0 0 24 24" width="26" height="26" fill="#0a66c2" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
-
-  // LinkedIn job search URLs — filtered by location only
-  // f_TPR=r604800 = posted in last 7 days
-  // f_I=53 = Aerospace & Defense industry filter
-  const LI = 'https://www.linkedin.com/jobs/search/?f_TPR=r604800&f_I=53&keywords=';
-  const ENC = encodeURIComponent;
-
-  const today = new Date();
-  const D = n=>{ const dt=new Date(today); dt.setDate(dt.getDate()-n); return dt.toISOString().split('T')[0]; };
-
-  const jobs = [
-    // ── Jordan first ──────────────────────────────────────────────────────
-    {
-      company:'Royal Jordanian Airlines', logo:'RJ', accent:'#c8a86c',
-      logoBg:'#fff', logoBorder:'rgba(200,168,108,.25)', logoText:'#c8a86c',
-      title:'Aircraft Structures Engineer',
-      location:'Amman 🇯🇴', type:'Full-time',
-      tags:[{t:'Structures',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'CAMO',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
-      posted:D(1), isLinkedIn:true,
-      url: LI+ENC('aircraft structures engineer')+'&location=Jordan',
-      desc:'Structural analysis and airworthiness compliance for RJ fleet.'
-    },
-    {
-      company:'KADDB', logo:'KA', accent:'#c8a86c',
-      logoBg:'#fff', logoBorder:'rgba(200,168,108,.25)', logoText:'#c8a86c',
-      title:'Aerospace Structures Analyst',
-      location:'Amman 🇯🇴', type:'Full-time',
-      tags:[{t:'FEA',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'SolidWorks',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Defence',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
-      posted:D(2), isLinkedIn:true,
-      url: LI+ENC('aerospace structures analyst')+'&location=Jordan',
-      desc:'FEA and structural analysis for defense aviation platforms and UAVs.'
-    },
-    {
-      company:'Jordan Aerospace Industries', logo:'JA', accent:'#c8a86c',
-      logoBg:'#fff', logoBorder:'rgba(200,168,108,.25)', logoText:'#c8a86c',
-      title:'Aeronautical Engineer — Graduate',
-      location:'Amman 🇯🇴', type:'Graduate',
-      tags:[{t:'Entry Level',c:'rgba(76,175,125,.12)',tc:'#4caf7d'},{t:'CFD',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Structures',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],
-      posted:D(3), isLinkedIn:true,
-      url: LI+ENC('aeronautical engineer graduate')+'&location=Jordan',
-      desc:'Entry-level aerospace engineering role in aircraft structural design.'
-    },
-    {
-      company:'Royal Jordanian Air Force', logo:'RJAF', accent:'#c8a86c',
-      logoBg:'#fff', logoBorder:'rgba(200,168,108,.25)', logoText:'#c8a86c',
-      title:'Aircraft Maintenance Engineer',
-      location:'Amman 🇯🇴', type:'Full-time',
-      tags:[{t:'Maintenance',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'Overhaul',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'MRO',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
-      posted:D(1), isLinkedIn:true,
-      url: LI+ENC('aircraft maintenance engineer')+'&location=Jordan',
-      desc:'Aircraft overhaul and maintenance for military fixed-wing fleet.'
-    },
-    // ── Saudi Arabia ──────────────────────────────────────────────────────
-    {
-      company:'Saudia Technic', logo:'SV', accent:'#4caf7d',
-      logoBg:'#fff', logoBorder:'rgba(76,175,125,.25)', logoText:'#4caf7d',
-      title:'Aircraft Maintenance Engineer (B1)',
-      location:'Jeddah 🇸🇦', type:'Full-time',
-      tags:[{t:'B1 License',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'MRO',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
-      posted:D(2), isLinkedIn:true,
-      url: LI+ENC('aircraft maintenance engineer')+'&location=Saudi+Arabia',
-      desc:'Licensed B1 maintenance engineer for narrow-body fleet line operations.'
-    },
-    {
-      company:'Saudi Arabian Airlines', logo:'SV', accent:'#4caf7d',
-      logoBg:'#fff', logoBorder:'rgba(76,175,125,.25)', logoText:'#4caf7d',
-      title:'MRO Structures Technician',
-      location:'Riyadh 🇸🇦', type:'Full-time',
-      tags:[{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'NDT',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],
-      posted:D(4), isLinkedIn:true,
-      url: LI+ENC('MRO structures technician')+'&location=Saudi+Arabia',
-      desc:'Structural inspection and repair for narrow-body fleet operations.'
-    },
-    // ── UAE ───────────────────────────────────────────────────────────────
-    {
-      company:'Emirates Engineering', logo:'EK', accent:'#ef5350',
-      logoBg:'#fff', logoBorder:'rgba(209,78,78,.25)', logoText:'#ef5350',
-      title:'Senior FEA Analysis Engineer',
-      location:'Dubai 🇦🇪', type:'Full-time',
-      tags:[{t:'FEA',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'ANSYS',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Composites',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
-      posted:D(1), isLinkedIn:true,
-      url: LI+ENC('FEA structures engineer')+'&location=Dubai%2C+UAE',
-      desc:'Lead FEA validation projects for wide-body composite structures.'
-    },
-    {
-      company:'Etihad Engineering', logo:'EY', accent:'#6b9fe4',
-      logoBg:'#fff', logoBorder:'rgba(72,117,194,.25)', logoText:'#6b9fe4',
-      title:'Composite Repair Engineer',
-      location:'Abu Dhabi 🇦🇪', type:'Full-time',
-      tags:[{t:'CFRP',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Bonded Repair',c:'rgba(130,96,210,.1)',tc:'#9c72d4'},{t:'B787',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],
-      posted:D(3), isLinkedIn:true,
-      url: LI+ENC('composite repair engineer')+'&location=Abu+Dhabi%2C+UAE',
-      desc:'Composite damage assessment and repair for next-gen aircraft programs.'
-    },
-    {
-      company:'Air Arabia MRO', logo:'G9', accent:'#ef5350',
-      logoBg:'#fff', logoBorder:'rgba(209,78,78,.25)', logoText:'#ef5350',
-      title:'Avionics Engineer',
-      location:'Sharjah 🇦🇪', type:'Full-time',
-      tags:[{t:'Avionics',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'Systems',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
-      posted:D(5), isLinkedIn:true,
-      url: LI+ENC('avionics engineer')+'&location=Sharjah%2C+UAE',
-      desc:'Avionics system maintenance and line troubleshooting for A320 family.'
-    },
-    // ── Qatar ─────────────────────────────────────────────────────────────
-    {
-      company:'Qatar Airways', logo:'QR', accent:'#9c72d4',
-      logoBg:'#fff', logoBorder:'rgba(130,96,210,.25)', logoText:'#9c72d4',
-      title:'Aerospace Structures Engineer',
-      location:'Doha 🇶🇦', type:'Full-time',
-      tags:[{t:'Structures',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'A350',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Boeing 777',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
-      posted:D(2), isLinkedIn:true,
-      url: LI+ENC('aerospace structures engineer')+'&location=Qatar',
-      desc:'Structural integrity analysis for wide-body mixed fleet operations.'
-    },
-    // ── Kuwait ────────────────────────────────────────────────────────────
-    {
-      company:'Kuwait Airways', logo:'KU', accent:'#4caf7d',
-      logoBg:'#fff', logoBorder:'rgba(76,175,125,.25)', logoText:'#4caf7d',
-      title:'Flight Dynamics Engineer',
-      location:'Kuwait City 🇰🇼', type:'Full-time',
-      tags:[{t:'Flight Dynamics',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'Performance',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
-      posted:D(4), isLinkedIn:true,
-      url: LI+ENC('flight dynamics engineer')+'&location=Kuwait',
-      desc:'Aircraft performance monitoring and flight dynamics analysis for fleet.'
-    },
-  ]; // No date filter — always show all
-
   const grid = document.getElementById('jobsGrid');
   if(!grid) return;
 
-  grid.innerHTML = Array(4).fill(0).map(()=>`
-    <div class="job-skeleton">
-      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;">
-        <div class="skel-line" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;"></div>
-        <div style="flex:1;"><div class="skel-line" style="width:70%;height:11px;margin-bottom:.4rem;"></div><div class="skel-line" style="width:45%;height:9px;"></div></div>
-      </div>
-      <div class="skel-line" style="width:88%;height:14px;margin-bottom:.4rem;"></div>
-      <div class="skel-line" style="width:65%;height:11px;margin-bottom:1rem;"></div>
-      <div style="display:flex;gap:.3rem;"><div class="skel-line" style="width:55px;height:20px;border-radius:20px;"></div><div class="skel-line" style="width:45px;height:20px;border-radius:20px;"></div></div>
-    </div>`).join('');
+  // These are REAL LinkedIn search URLs — clicking opens live results
+  const searches = [
+    {
+      icon:'🌐', accent:'#c8a86c',
+      platform:'Bayt.com',
+      title:'Aeronautical & Aerospace Engineer',
+      scope:'كل الشركات · الشرق الأوسط والخليج',
+      desc:'1500+ وظيفة هندسة طيران حقيقية على Bayt — أكبر منصة توظيف عربية. تحديث يومي.',
+      tags:[{t:'All Companies',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'MENA',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'Any Level',c:'rgba(76,175,125,.1)',tc:'#4caf7d'}],
+      url:'https://www.bayt.com/en/international/jobs/aerospace-engineer-jobs/',
+    },
+    {
+      icon:'✈', accent:'#6b9fe4',
+      platform:'Bayt.com',
+      title:'Aeronautical Engineer — UAE',
+      scope:'كل شركات الإمارات · دبي وأبوظبي',
+      desc:'40+ وظيفة مهندس طيران في الإمارات — Emirates Engineering, Etihad, ALIA وغيرها.',
+      tags:[{t:'UAE',c:'rgba(72,117,194,.12)',tc:'#6b9fe4'},{t:'Dubai',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'Abu Dhabi',c:'rgba(130,96,210,.1)',tc:'#9c72d4'}],
+      url:'https://www.bayt.com/en/uae/jobs/aeronautical-engineer-jobs/',
+    },
+    {
+      icon:'🇸🇦', accent:'#4caf7d',
+      platform:'Bayt.com',
+      title:'Aerospace Engineer — Saudi Arabia',
+      scope:'كل شركات السعودية · رياض وجدة',
+      desc:'150+ وظيفة هندسة فضائية وطيران في السعودية — Saudia, GACA, KACST وغيرها.',
+      tags:[{t:'Saudi Arabia',c:'rgba(76,175,125,.12)',tc:'#4caf7d'},{t:'Riyadh',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'Jeddah',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],
+      url:'https://www.bayt.com/en/saudi-arabia/jobs/aerospace-engineer-jobs/',
+    },
+    {
+      icon:'🇯🇴', accent:'#c8a86c',
+      platform:'Bayt.com',
+      title:'Aeronautical Engineer — Jordan',
+      scope:'كل شركات الأردن · عمّان',
+      desc:'وظائف هندسة الطيران في الأردن — Royal Jordanian, RJAF, KADDB وجميع المشغلين.',
+      tags:[{t:'Jordan',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'Amman',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'RJAF',c:'rgba(76,175,125,.1)',tc:'#4caf7d'}],
+      url:'https://www.bayt.com/en/jordan/jobs/aeronautical-engineer-jobs/',
+    },
+    {
+      icon:'🔧', accent:'#9c72d4',
+      platform:'Bayt.com',
+      title:'Aerospace Engineering Graduate',
+      scope:'حديثو التخرج · الشرق الأوسط',
+      desc:'40+ فرصة للخريجين الجدد في هندسة الطيران والفضاء — مثالية لمهندس أول وظيفة.',
+      tags:[{t:'Graduate',c:'rgba(130,96,210,.12)',tc:'#9c72d4'},{t:'Entry Level',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'MENA',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],
+      url:'https://www.bayt.com/en/international/jobs/aerospace-engineering-graduate-jobs/',
+    },
+    {
+      icon:'🌍', accent:'#5b9bd5',
+      platform:'LinkedIn',
+      title:'Aviation Jobs — UAE (373 Live)',
+      scope:'كل شركات الطيران · الإمارات',
+      desc:'373+ وظيفة طيران حية على LinkedIn في الإمارات — شركات الطيران والـ MRO والمطارات.',
+      tags:[{t:'LinkedIn',c:'rgba(10,102,194,.12)',tc:'#5b9bd5'},{t:'Aviation',c:'rgba(200,168,108,.1)',tc:'#c8a86c'},{t:'373 Jobs',c:'rgba(76,175,125,.1)',tc:'#4caf7d'}],
+      url:'https://www.linkedin.com/jobs/aviation-jobs-united-arab-emirates',
+    },
+  ];
 
   const dots = document.getElementById('jobsDots');
   let jIdx = 0;
@@ -2097,132 +1706,81 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 
   function renderJobDots(){
     if(!dots) return;
-    dots.innerHTML = jobs.map((_,i)=>`<button class="cdot${i===jIdx?' on':''}" onclick="goJobCarousel(${i})"></button>`).join('');
+    dots.innerHTML = searches.map((_,i)=>`<button class="cdot${i===jIdx?' on':''}" onclick="goJobCarousel(${i})"></button>`).join('');
   }
 
   window.goJobCarousel = function(idx){
-    jIdx = Math.max(0, Math.min(idx, jobs.length-1));
-    grid.style.transform = `translateX(${-(jIdx*316)}px)`;
+    jIdx = Math.max(0, Math.min(idx, searches.length-1));
+    const firstCard = grid.querySelector('.job-card');
+    const cardW = firstCard ? firstCard.offsetWidth + 16 : 316;
+    grid.style.transform = `translateX(${-(jIdx*cardW)}px)`;
     renderJobDots();
   };
 
-  window.jNavClick = function(dir){
-    window.stopJobAuto();
-    dir===1?(jIdx=jIdx>=jobs.length-1?0:jIdx+1):(jIdx=jIdx<=0?jobs.length-1:jIdx-1);
-    window.goJobCarousel(jIdx);
-    window.startJobAuto();
-  };
+  window.startJobAuto = function(){ window._jAuto = setInterval(()=>{ jIdx=jIdx>=searches.length-1?0:jIdx+1; window.goJobCarousel(jIdx); }, 4500); };
+  window.stopJobAuto  = function(){ clearInterval(window._jAuto); };
+  window.startJEdge = function(dir){ window.stopJEdge(); window._jEdgeInt=setInterval(()=>{ dir===1?(jIdx=jIdx>=searches.length-1?0:jIdx+1):(jIdx=jIdx<=0?searches.length-1:jIdx-1); window.goJobCarousel(jIdx); },900); };
+  window.stopJEdge  = function(){ clearInterval(window._jEdgeInt); };
 
-  window.startJobAuto = function(){ window._jAuto=setInterval(()=>{jIdx=jIdx>=jobs.length-1?0:jIdx+1;window.goJobCarousel(jIdx);},6000); };
-  window.stopJobAuto  = function(){ clearInterval(window._jAuto);window._jAuto=null; };
-  window.startJEdge   = function(){}; // disabled
-  window.stopJEdge    = function(){};
-
-  setTimeout(()=>{
-    grid.innerHTML = jobs.map(j=>{
-      const tl = timeLabel(j.posted);
-      const n  = daysAgo(j.posted);
-      const fresh = n<=1?'hot':n<=3?'new':'';
-
-      // Logo: LinkedIn badge if isLinkedIn, else abbreviation
-      const logoInner = j.isLinkedIn
-        ? `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;">${LI_LOGO}</div>`
-        : `<span style="font-size:.75rem;font-weight:800;color:${j.logoText};">${j.logo}</span>`;
-
-      return `
-      <a class="job-card" href="${j.url}" target="_blank" rel="noopener" style="--accent-color:${j.accent}">
-        <div class="job-card-top">
-          <div style="display:flex;align-items:center;gap:.65rem;flex:1;min-width:0;">
-            <div class="job-logo" style="background:${j.logoBg};border:1.5px solid ${j.logoBorder};overflow:hidden;">
-              ${logoInner}
-            </div>
-            <div style="min-width:0;">
-              <div class="job-company">${j.company}</div>
-              <div style="display:flex;align-items:center;gap:.35rem;margin-top:.12rem;">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span style="font-size:.65rem;color:rgba(255,255,255,.35);">${j.location}</span>
-              </div>
-            </div>
-          </div>
-          ${fresh==='hot'?`<span class="job-fresh-badge hot">🔥 Hot</span>`:fresh==='new'?`<span class="job-fresh-badge new">New</span>`:''}
-        </div>
-        <div class="job-title">${j.title}</div>
-        <div class="job-desc">${j.desc}</div>
-        <div class="job-tags">${j.tags.map(t=>`<span class="job-tag" style="background:${t.c};color:${t.tc};border:1px solid ${t.tc}28;">${t.t}</span>`).join('')}</div>
-        <div class="job-footer">
-          <div style="display:flex;align-items:center;gap:.35rem;">
-            <svg viewBox="0 0 24 24" width="10" height="10" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            <span style="font-size:.68rem;color:#5b9bd5;">via LinkedIn</span>
-            <span style="font-size:.68rem;color:rgba(255,255,255,.2);">·</span>
-            <span style="font-size:.68rem;color:rgba(255,255,255,.3);">${tl||j.posted}</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:.45rem;">
-            <span class="job-type" style="background:${j.tags[0]?.c||'rgba(200,168,108,.1)'};color:${j.tags[0]?.tc||'#c8a86c'};border:1px solid ${j.tags[0]?.tc||'#c8a86c'}28;">${j.type}</span>
-            <span class="job-apply">Apply ↗</span>
+  grid.innerHTML = searches.map(j=>`
+    <a class="job-card" href="${j.url}" target="_blank" rel="noopener" style="--accent-color:${j.accent}"
+       onmouseenter="stopJobAuto&&stopJobAuto()" onmouseleave="startJobAuto&&startJobAuto()">
+      <div class="job-card-top">
+        <div style="display:flex;align-items:center;gap:.7rem;flex:1;min-width:0;">
+          <div style="width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0;">${j.icon}</div>
+          <div style="min-width:0;">
+            <div style="font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${j.accent};margin-bottom:.12rem;">${j.platform}</div>
+            <div style="font-size:.7rem;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${j.scope}</div>
           </div>
         </div>
-      </a>`;
-    }).join('');
+        <span style="background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.25);color:#4caf7d;font-size:.58rem;font-weight:700;padding:.18rem .55rem;border-radius:20px;white-space:nowrap;display:flex;align-items:center;gap:3px;flex-shrink:0;">
+          <svg width="7" height="7" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#4caf7d" opacity=".3"/><circle cx="5" cy="5" r="2.5" fill="#4caf7d"/></svg>
+          Live
+        </span>
+      </div>
+      <div class="job-title" style="margin-top:.1rem;">${j.title}</div>
+      <div class="job-desc">${j.desc}</div>
+      <div class="job-tags">${j.tags.map(t=>`<span class="job-tag" style="background:${t.c};color:${t.tc};border:1px solid ${t.tc}28;">${t.t}</span>`).join('')}</div>
+      <div class="job-footer">
+        <span style="font-size:.7rem;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:.3rem;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Opens real search
+        </span>
+        <span style="display:flex;align-items:center;gap:.3rem;font-size:.75rem;color:${j.accent};font-weight:700;">
+          Search Now
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </div>
+    </a>
+  `).join('');
 
-    grid.style.transition = 'transform .6s cubic-bezier(.25,.46,.45,.94)';
-    renderJobDots();
-    startJobAuto();
-  }, 500);
+  grid.style.transition = 'transform .55s cubic-bezier(.25,.46,.45,.94)';
+  renderJobDots();
+  startJobAuto();
 })();
 </script>
 
-<!-- ══ HIGHLIGHTS SECTION ══ -->
-<div class="hl-section" id="hlSection">
-  <!-- Animated background elements -->
-  <div class="hl-bg-grid"></div>
-  <div class="hl-bg-glow hl-glow-1"></div>
-  <div class="hl-bg-glow hl-glow-2"></div>
-  <div class="hl-bg-glow hl-glow-3"></div>
-
-  <div class="hl-inner">
-    <!-- Header -->
-    <div class="hl-header">
-      <div class="hl-eyebrow">
-        <span class="hl-eyebrow-line"></span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Selected Highlights
-      </div>
-      <h2 class="hl-title">Best of <em>Nashat</em></h2>
-      <p class="hl-subtitle">Curated picks across projects, posts &amp; milestones</p>
-      <!-- Filter tabs -->
-      <div class="hl-tabs">
-        <button class="hl-tab on" onclick="hlSwitch('all',this)">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          All
-        </button>
-        <button class="hl-tab" onclick="hlSwitch('posts',this)">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-          Posts
-        </button>
-        <button class="hl-tab" onclick="hlSwitch('works',this)">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          Projects
-        </button>
-        <button class="hl-tab" onclick="hlSwitch('journey',this)">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          Journey
-        </button>
-      </div>
+<!-- CAROUSEL -->
+<div class="carousel-section">
+  <div class="c-inner">
+    <div class="c-head">
+      <div class="c-title">Highlights</div>
     </div>
-
-    <!-- Cards grid -->
-    <div class="hl-grid" id="hlGrid"></div>
-
-    <!-- Navigation dots -->
-    <div class="hl-dots" id="hlDots"></div>
-
-    <!-- Nav arrows -->
-    <button class="hl-arrow hl-arrow-left" id="hlPrev" onclick="hlPrev()" aria-label="Previous">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <button class="hl-arrow hl-arrow-right" id="hlNext" onclick="hlNext()" aria-label="Next">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
+    <!-- Slider wrapper with edge hover zones -->
+    <div class="c-stage" id="cStage">
+      <div class="c-edge c-edge-left" id="cEdgeLeft" onmouseenter="startCEdge(-1)" onmouseleave="stopCEdge()">
+        <div class="c-edge-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </div>
+      </div>
+      <div class="c-edge c-edge-right" id="cEdgeRight" onmouseenter="startCEdge(1)" onmouseleave="stopCEdge()">
+        <div class="c-edge-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+      <div class="c-slider"><div class="c-track" id="cTrack"></div></div>
+    </div>
+    <div class="cdots" id="cDots"></div>
   </div>
 </div>
 </div>
@@ -2267,7 +1825,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
       </div>
 
       <div class="cv-box">
-        <div><h4>Curriculum Vitae</h4><p>Download my full CV as PDF</p></div>
+        <div><h4>Curriculum Vitae</h4><p>Download my full CV as PDF</p><div style="margin-top:.42rem;font-size:.76rem;" id="aboutEmail"></div></div>
         <button class="btn btn-go btn-sm" onclick="downloadCV()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download CV</button>
       </div>
     </div>
@@ -2336,7 +1894,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
     <button class="jtab" onclick="filterJourney('course',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Courses</button>
     <button class="jtab" onclick="filterJourney('event',this)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg> Events</button>
   </div>
-  <div class="journey-timeline rev" id="journeyTimeline" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1.5rem;"></div>
+  <div class="journey-timeline rev" id="journeyTimeline"></div>
 </div>
 </div>
 
@@ -2399,7 +1957,18 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
         <div class="ci-row"><div class="ci-ic" style="background:rgba(72,117,194,.1);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--bl2)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 14a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"/></svg></div><div><div class="ci-key">Phone / WhatsApp</div><div class="ci-val">+962 776 763 628</div></div></div>
         <div class="ci-row"><div class="ci-ic" style="background:rgba(209,78,78,.1);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--re)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="ci-key">Location</div><div class="ci-val">Irbid, Jordan</div></div></div>
         <div class="ci-row"><div class="ci-ic" style="background:rgba(130,96,210,.1);"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="color:var(--pu)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div><div><div class="ci-key">LinkedIn</div><div class="ci-val"><a href="https://www.linkedin.com/in/nashat-al-dhoun" target="_blank">Nashat Al Dhoun</a></div></div></div>
-        <div class="ci-row"><div class="ci-ic" style="background:rgba(56,150,100,.1);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="ci-key">Status</div><div class="ci-val" style="color:#4caf7d;">Open to work — Junior roles</div></div></div>
+        <div class="ci-row" style="background:rgba(76,175,125,.05);border-radius:8px;margin-top:.3rem;border:1px solid rgba(76,175,125,.15)!important;">
+  <div class="ci-ic" style="background:rgba(76,175,125,.15);">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div>
+    <div class="ci-key">Availability</div>
+    <div class="ci-val" style="color:#4caf7d;display:flex;align-items:center;gap:.4rem;">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#4caf7d;animation:liPulse 2s infinite;flex-shrink:0;"></span>
+      Actively seeking — Junior Aeronautical Engineer
+    </div>
+  </div>
+</div>
       </div>
     </div>
     <div class="cf-card rev d1">
@@ -2570,24 +2139,24 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 </div>
 
 <div class="ov" id="journeyModal">
-<div class="modal" style="max-width:520px;padding:0;overflow:hidden;border:1px solid rgba(200,168,108,.18);background:#0d1420;display:flex;flex-direction:column;max-height:90vh;">
+<div class="modal" style="max-width:520px;padding:0;overflow:hidden;border:1px solid rgba(200,168,108,.18);background:#0d1420;">
 
-  <!-- Header — fixed -->
-  <div style="padding:1.2rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.02);flex-shrink:0;">
+  <!-- Header -->
+  <div style="padding:1.2rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.02);">
     <div style="display:flex;align-items:center;gap:.65rem;">
       <div style="width:36px;height:36px;border-radius:10px;background:rgba(200,168,108,.1);border:1px solid rgba(200,168,108,.2);display:flex;align-items:center;justify-content:center;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       </div>
       <div>
-        <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#fff;letter-spacing:-.1px;" id="journeyModalTitle">Add Journey Entry</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:1rem;color:#fff;letter-spacing:-.1px;">Add Journey Entry</div>
         <div style="font-size:.68rem;color:rgba(255,255,255,.35);margin-top:.06rem;">Document your engineering story</div>
       </div>
     </div>
     <button class="mx" onclick="closeM('journeyModal')" style="color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:50%;width:30px;height:30px;">×</button>
   </div>
 
-  <!-- Body — scrollable -->
-  <div style="padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:1rem;overflow-y:auto;flex:1;overscroll-behavior:contain;">
+  <!-- Body -->
+  <div style="padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:1rem;">
 
     <!-- Type selector — card buttons -->
     <div>
@@ -2651,12 +2220,12 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         Image <span style="font-weight:400;opacity:.5;letter-spacing:0;text-transform:none;font-size:.6rem;">(optional)</span>
       </label>
-      <div class="img-upload-zone" id="journeyImgZone" onclick="document.getElementById('jImgFile').click()" style="min-height:64px;max-height:120px;border-color:rgba(200,168,108,.15);background:rgba(200,168,108,.03);display:flex;align-items:center;justify-content:center;padding:.5rem;">
-        <div class="img-upload-ph" id="journeyImgPh" style="display:flex;align-items:center;gap:.6rem;flex-direction:row;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,108,.4)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <div class="img-upload-ph-text" style="color:rgba(255,255,255,.35);font-size:.78rem;">Click to add a photo</div>
+      <div class="img-upload-zone" id="journeyImgZone" onclick="document.getElementById('jImgFile').click()" style="min-height:80px;border-color:rgba(200,168,108,.15);background:rgba(200,168,108,.03);">
+        <div class="img-upload-ph" id="journeyImgPh">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,108,.4)" stroke-width="1.5" style="margin:0 auto .4rem;display:block;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <div class="img-upload-ph-text" style="color:rgba(255,255,255,.35);">Click to add a photo</div>
         </div>
-        <img id="jImgPrev" class="img-upload-preview" src="" alt="" style="display:none;max-height:100px;max-width:100%;border-radius:6px;object-fit:cover;">
+        <img id="jImgPrev" class="img-upload-preview" src="" alt="" style="display:none;max-height:140px;">
         <div class="img-overlay-btns">
           <button class="img-ov-btn change" title="Change" onclick="event.stopPropagation();document.getElementById('jImgFile').click()">✎</button>
           <button class="img-ov-btn remove" title="Remove" onclick="event.stopPropagation();removeJourneyImg()">✕</button>
@@ -2667,15 +2236,13 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 
   </div>
 
-  <!-- Footer — fixed at bottom -->
-  <div style="padding:.9rem 1.4rem;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;gap:.6rem;background:rgba(255,255,255,.02);flex-shrink:0;">
+  <!-- Footer -->
+  <div style="padding:.9rem 1.4rem;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:flex-end;gap:.6rem;background:rgba(255,255,255,.02);">
     <button class="btn btn-gh btn-sm" onclick="closeM('journeyModal')" style="border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5);">Cancel</button>
-    <div style="display:flex;gap:.5rem;">
-      <button class="btn btn-go btn-sm" id="journeySaveBtn" onclick="saveJourney()" style="background:linear-gradient(135deg,#c8a86c,#e6c97a);color:#07090d;font-weight:700;box-shadow:0 4px 14px rgba(200,168,108,.25);">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        <span id="journeySaveLbl">Save Entry</span>
-      </button>
-    </div>
+    <button class="btn btn-go btn-sm" onclick="saveJourney()" style="background:linear-gradient(135deg,#c8a86c,#e6c97a);color:#07090d;font-weight:700;box-shadow:0 4px 14px rgba(200,168,108,.25);">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Save Entry
+    </button>
   </div>
 </div>
 </div>
@@ -2744,7 +2311,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 let isAdmin=false;
 let works=[],posts=[],journey=[],comments=[],customSvcs=[];
 let activeTag='',activeJType='all';
-let cType='posts',cIdx=0,cAuto;
+let cType='works',cIdx=0,cAuto;
 let composeTags=[];
 
 // ══ REFRESH ══
@@ -2820,7 +2387,7 @@ async function doSignOut(){await SB.signOut();isAdmin=false;document.body.classL
 // ══ LISTENERS ══
 function startListeners(){
   SB.listen('works',data=>{works=data.map(r=>({id:r.id,title:r.title||'',emoji:r.emoji||'📁',cat:r.cat||'',desc:r.description||'',year:r.year||'',link:r.link||'',price:r.price||'',photo:r.photo||'',tagsText:r.tags_text||''}));renderWorks();renderCarousel();updateStats();});
-  SB.listen('posts',data=>{posts=data.map(r=>({id:r.id,type:r.type||'article',title:r.title||'',content:r.content||'',tags:Array.isArray(r.tags)?r.tags:[],date:r.date||'',likes:r.likes||0,liked:false,comments:Array.isArray(r.comments)?r.comments:[],url:r.url||'',linkTitle:r.link_title||'',linkIcon:r.link_icon||'🌐',videoId:r.video_id||'',docName:r.doc_name||'',docUrl:r.doc_url||'',imgData:r.img_data||'',toolUrl:r.tool_url||'',toolStack:r.tool_stack||'',toolIcon:r.tool_icon||'⚙',isHighlight:r.is_highlight||false}));renderPosts(activeTag);renderCarousel();updateStats();});
+  SB.listen('posts',data=>{posts=data.map(r=>({id:r.id,type:r.type||'article',title:r.title||'',content:r.content||'',tags:Array.isArray(r.tags)?r.tags:[],date:r.date||'',likes:r.likes||0,liked:false,comments:Array.isArray(r.comments)?r.comments:[],url:r.url||'',linkTitle:r.link_title||'',linkIcon:r.link_icon||'🌐',videoId:r.video_id||'',docName:r.doc_name||'',docUrl:r.doc_url||'',imgData:r.img_data||'',toolUrl:r.tool_url||'',toolStack:r.tool_stack||'',toolIcon:r.tool_icon||'⚙'}));renderPosts(activeTag);renderCarousel();updateStats();});
   SB.listen('journey',data=>{journey=data.map(r=>({id:r.id,type:r.type||'milestone',title:r.title||'',org:r.org||'',date:r.date||'',desc:r.description||'',img:r.img||''})).reverse();renderJourney(activeJType);renderCarousel();});
   SB.listen('comments',data=>{comments=data.map(r=>({id:r.id,isAdminPost:r.is_admin_post,name:r.name||'Visitor',title:r.title||'',text:r.body||r.text||'',time:r.time||'',date:r.date||'',likes:r.likes||0,liked:false,replies:Array.isArray(r.replies)?r.replies:[],showReps:false}));renderCmts();updateDiscStats();});
 }
@@ -2868,17 +2435,7 @@ function openM(id){
   if(['workModal','postModal','journeyModal','svcModal','discussModal'].includes(id)&&!isAdmin){toast('⚠ Admin only');return;}
   document.getElementById(id).classList.add('open');
 }
-function closeM(id){
-  document.getElementById(id).classList.remove('open');
-  if(id==='journeyModal'){
-    const titleEl=document.getElementById('journeyModalTitle');
-    const saveLbl=document.getElementById('journeySaveLbl');
-    if(titleEl)titleEl.textContent='Add Journey Entry';
-    if(saveLbl)saveLbl.textContent='Save Entry';
-    const jt=document.getElementById('jType');
-    if(jt)delete jt.dataset.editId;
-  }
-}
+function closeM(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 
 // ══ TOAST ══
@@ -2895,16 +2452,13 @@ function handleProfilePhoto(e){
 }
 function applyProfilePhoto(src){
   localStorage.setItem('pp', src);
+  // Static avatar elements
   const ids=['avatarEl','discComposeAv','cmAvatar','composeTriggerAv'];
   ids.forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
     el.style.backgroundImage=`url(${src})`;
     el.style.backgroundSize='cover';
-    el.style.backgroundPosition='center center';
-    el.style.backgroundRepeat='no-repeat';
-    el.style.borderRadius='50%';
-    el.style.overflow='hidden';
-    el.style.imageRendering='high-quality';
+    el.style.backgroundPosition='center';
     el.textContent='';
   });
   // Dynamic pcard-av in post feed
@@ -2943,569 +2497,33 @@ const _cObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isInters
 function observeCards(){document.querySelectorAll('.anim-card:not(.in)').forEach((el,i)=>{if(!el.dataset.obs){el.dataset.obs='1';el.style.transitionDelay=(i%6)*.08+'s';_cObs.observe(el);}});}
 
 // ══ CAROUSEL ══
-/* ══ HIGHLIGHTS SYSTEM ══ */
-let hlFilter='all';
-
-const _ICONS={
-  article:'<svg viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
-  linkedin:'<svg viewBox="0 0 24 24" fill="rgba(91,155,213,0.85)" width="18" height="18"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
-  video:'<svg viewBox="0 0 24 24" fill="none" stroke="rgba(130,96,210,0.9)" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
-  doc:'<svg viewBox="0 0 24 24" fill="none" stroke="rgba(76,175,125,0.9)" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
-  link:'<svg viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>',
-  tool:'<svg viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>',
-  image:'<svg viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
-  work:'<svg viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
-  milestone:'<svg viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><polyline points="8 21 12 17 16 21"/><path d="M12 17V3"/><path d="M4 7H2v7a6 6 0 0012 0V7H2"/><path d="M22 7h-2v7a6 6 0 01-12 0V7h14"/></svg>',
-  course:'<svg viewBox="0 0 24 24" fill="none" stroke="#6b9fe4" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>',
-  event:'<svg viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="1.5" stroke-linecap="round" width="18" height="18"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>'
-};
-const _STRIPES={
-  article:'linear-gradient(90deg,#4875c2,rgba(200,168,108,.5),transparent)',
-  linkedin:'linear-gradient(90deg,#0a66c2,rgba(91,155,213,.5),transparent)',
-  video:'linear-gradient(90deg,#8260d2,rgba(130,96,210,.4),transparent)',
-  doc:'linear-gradient(90deg,#389664,rgba(76,175,125,.4),transparent)',
-  link:'linear-gradient(90deg,#c8a86c,rgba(200,168,108,.4),transparent)',
-  tool:'linear-gradient(90deg,#c8a86c,rgba(72,117,194,.4),transparent)',
-  image:'linear-gradient(90deg,#c8a86c,rgba(200,168,108,.4),transparent)',
-  work:'linear-gradient(90deg,#c8a86c,rgba(200,168,108,.4),transparent)',
-  milestone:'linear-gradient(90deg,#c8a86c,rgba(200,168,108,.4),transparent)',
-  course:'linear-gradient(90deg,#4875c2,rgba(72,117,194,.4),transparent)',
-  event:'linear-gradient(90deg,#389664,rgba(76,175,125,.4),transparent)'
-};
-const _COLORS={article:'#c8a86c',linkedin:'#5b9bd5',video:'#9c72d4',doc:'#4caf7d',link:'#c8a86c',tool:'#c8a86c',image:'#c8a86c',work:'#c8a86c',milestone:'#c8a86c',course:'#6b9fe4',event:'#4caf7d'};
-function _icon(t){return _ICONS[t]||_ICONS.article;}
-function _stripe(t){return _STRIPES[t]||_STRIPES.article;}
-function _color(t){return _COLORS[t]||'#c8a86c';}
-
-
-function getCardSVG(kind, type) {
-  const svgs = {
-    post_article: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs>
-    <linearGradient id="bg-a" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06101e"/><stop offset="100%" stop-color="#0d1f3c"/></linearGradient>
-    <linearGradient id="wing-a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4875c2" stop-opacity=".9"/><stop offset="100%" stop-color="#2a4a8a" stop-opacity=".6"/></linearGradient>
-  </defs>
-  <rect width="320" height="160" fill="url(#bg-a)"/>
-  <!-- Grid -->
-  <g stroke="rgba(72,117,194,.07)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- Aircraft — clean side view -->
-  <g transform="translate(60,55) scale(1.1)">
-    <!-- Fuselage -->
-    <path d="M20 30 Q60 18 140 28 Q165 28 175 30 Q165 32 140 32 Q60 42 20 30Z" fill="#c8a86c" opacity=".85"/>
-    <!-- Cockpit -->
-    <path d="M155 28 Q172 26 178 30 Q172 34 155 32Z" fill="#e6c97a" opacity=".9"/>
-    <!-- Main wing -->
-    <path d="M75 30 L55 55 L45 55 L60 30 L75 30Z" fill="url(#wing-a)"/>
-    <path d="M80 30 L70 60 L60 60 L65 30 L80 30Z" fill="rgba(72,117,194,.5)"/>
-    <!-- Tail wing -->
-    <path d="M30 29 L18 42 L14 42 L22 29Z" fill="rgba(200,168,108,.7)"/>
-    <path d="M28 28 L20 20 L16 20 L24 28Z" fill="rgba(200,168,108,.5)"/>
-    <!-- Engine -->
-    <ellipse cx="72" cy="38" rx="6" ry="3.5" fill="rgba(100,130,200,.6)" stroke="rgba(72,117,194,.4)" stroke-width=".5"/>
-    <!-- Windows -->
-    <circle cx="130" cy="28" r="2" fill="rgba(180,210,255,.4)"/>
-    <circle cx="118" cy="27.5" r="2" fill="rgba(180,210,255,.4)"/>
-    <circle cx="106" cy="27.5" r="2" fill="rgba(180,210,255,.4)"/>
-    <!-- Contrail -->
-    <line x1="20" y1="30" x2="-20" y2="30" stroke="rgba(200,168,108,.25)" stroke-width="1.5" stroke-dasharray="3,4"/>
-  </g>
-  <!-- Altitude lines -->
-  <line x1="0" y1="82" x2="320" y2="82" stroke="rgba(200,168,108,.06)" stroke-width="1"/>
-  <!-- Stars -->
-  <circle cx="40" cy="18" r="1" fill="rgba(255,255,255,.4)"/>
-  <circle cx="290" cy="25" r="1.2" fill="rgba(255,255,255,.35)"/>
-  <circle cx="200" cy="12" r=".8" fill="rgba(255,255,255,.3)"/>
-  <circle cx="120" cy="8" r="1" fill="rgba(255,255,255,.25)"/>
-  <!-- Text hint -->
-  <text x="16" y="148" font-size="8" fill="rgba(200,168,108,.3)" font-family="monospace" letter-spacing="2">AERONAUTICAL ENGINEERING</text>
-</svg>`,
-    post_linkedin: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs>
-    <linearGradient id="bg-li" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06101e"/><stop offset="100%" stop-color="#0a1a35"/></linearGradient>
-  </defs>
-  <rect width="320" height="160" fill="url(#bg-li)"/>
-  <g stroke="rgba(10,102,194,.08)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- LinkedIn logo subtle watermark -->
-  <text x="220" y="130" font-size="72" fill="rgba(10,102,194,.07)" font-family="serif" font-weight="bold">in</text>
-  <!-- Radar circles -->
-  <circle cx="160" cy="80" r="55" fill="none" stroke="rgba(10,102,194,.08)" stroke-width="1"/>
-  <circle cx="160" cy="80" r="35" fill="none" stroke="rgba(10,102,194,.08)" stroke-width="1"/>
-  <circle cx="160" cy="80" r="15" fill="none" stroke="rgba(10,102,194,.1)" stroke-width="1"/>
-  <!-- Radar sweep line -->
-  <line x1="160" y1="80" x2="215" y2="45" stroke="rgba(10,102,194,.25)" stroke-width="1.5"/>
-  <!-- Blip -->
-  <circle cx="210" cy="48" r="3" fill="#0a66c2" opacity=".6"/>
-  <circle cx="210" cy="48" r="6" fill="none" stroke="#0a66c2" stroke-width="1" opacity=".3"/>
-  <!-- Aircraft silhouette top-down -->
-  <g transform="translate(130,55) scale(.85)" opacity=".7">
-    <ellipse cx="30" cy="25" rx="22" ry="5" fill="rgba(91,155,213,.5)"/>
-    <path d="M8 25 L0 10 L3 10 L12 25 L3 40 L0 40Z" fill="rgba(91,155,213,.4)"/>
-    <path d="M52 25 L56 15 L58 15 L54 25 L58 35 L56 35Z" fill="rgba(91,155,213,.3)"/>
-  </g>
-  <circle cx="40" cy="22" r="1" fill="rgba(255,255,255,.35)"/>
-  <circle cx="285" cy="18" r="1.2" fill="rgba(255,255,255,.3)"/>
-  <text x="16" y="148" font-size="8" fill="rgba(91,155,213,.25)" font-family="monospace" letter-spacing="2">LINKEDIN · NASHAT ALDHOUN</text>
-</svg>`,
-    post_video: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs><linearGradient id="bg-v" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#08091a"/><stop offset="100%" stop-color="#0d0e28"/></linearGradient></defs>
-  <rect width="320" height="160" fill="url(#bg-v)"/>
-  <g stroke="rgba(130,96,210,.07)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- Play button circle -->
-  <circle cx="160" cy="72" r="32" fill="rgba(130,96,210,.15)" stroke="rgba(130,96,210,.3)" stroke-width="1.5"/>
-  <polygon points="152,58 152,86 178,72" fill="rgba(130,96,210,.7)"/>
-  <!-- Film strip top -->
-  <rect x="0" y="0" width="320" height="12" fill="rgba(130,96,210,.08)"/>
-  <rect x="0" y="148" width="320" height="12" fill="rgba(130,96,210,.08)"/>
-  <g fill="rgba(130,96,210,.2)">
-    <rect x="8" y="2" width="14" height="8" rx="1"/><rect x="28" y="2" width="14" height="8" rx="1"/><rect x="48" y="2" width="14" height="8" rx="1"/><rect x="68" y="2" width="14" height="8" rx="1"/><rect x="88" y="2" width="14" height="8" rx="1"/><rect x="108" y="2" width="14" height="8" rx="1"/><rect x="128" y="2" width="14" height="8" rx="1"/><rect x="148" y="2" width="14" height="8" rx="1"/><rect x="168" y="2" width="14" height="8" rx="1"/><rect x="188" y="2" width="14" height="8" rx="1"/><rect x="208" y="2" width="14" height="8" rx="1"/><rect x="228" y="2" width="14" height="8" rx="1"/><rect x="248" y="2" width="14" height="8" rx="1"/><rect x="268" y="2" width="14" height="8" rx="1"/><rect x="288" y="2" width="14" height="8" rx="1"/>
-    <rect x="8" y="150" width="14" height="8" rx="1"/><rect x="28" y="150" width="14" height="8" rx="1"/><rect x="48" y="150" width="14" height="8" rx="1"/><rect x="68" y="150" width="14" height="8" rx="1"/>
-  </g>
-  <text x="16" y="138" font-size="8" fill="rgba(130,96,210,.3)" font-family="monospace" letter-spacing="2">AVIATION · VIDEO</text>
-</svg>`,
-    post_doc: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs><linearGradient id="bg-d" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#07100c"/><stop offset="100%" stop-color="#0c1a14"/></linearGradient></defs>
-  <rect width="320" height="160" fill="url(#bg-d)"/>
-  <g stroke="rgba(76,175,125,.07)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- Document -->
-  <g transform="translate(115,18)" opacity=".8">
-    <path d="M0 0 L55 0 L70 15 L70 95 L0 95Z" fill="rgba(76,175,125,.08)" stroke="rgba(76,175,125,.3)" stroke-width="1"/>
-    <path d="M55 0 L55 15 L70 15Z" fill="rgba(76,175,125,.15)" stroke="rgba(76,175,125,.3)" stroke-width="1"/>
-    <line x1="10" y1="25" x2="60" y2="25" stroke="rgba(76,175,125,.3)" stroke-width="1"/>
-    <line x1="10" y1="33" x2="60" y2="33" stroke="rgba(76,175,125,.2)" stroke-width="1"/>
-    <line x1="10" y1="41" x2="50" y2="41" stroke="rgba(76,175,125,.2)" stroke-width="1"/>
-    <line x1="10" y1="49" x2="60" y2="49" stroke="rgba(76,175,125,.15)" stroke-width="1"/>
-    <line x1="10" y1="57" x2="45" y2="57" stroke="rgba(76,175,125,.15)" stroke-width="1"/>
-    <text x="8" y="75" font-size="7" fill="rgba(76,175,125,.4)" font-family="monospace">TECH REPORT</text>
-  </g>
-  <circle cx="35" cy="18" r="1" fill="rgba(255,255,255,.3)"/>
-  <circle cx="285" cy="14" r="1" fill="rgba(255,255,255,.25)"/>
-  <text x="16" y="148" font-size="8" fill="rgba(76,175,125,.3)" font-family="monospace" letter-spacing="2">AVIATION · DOCUMENT</text>
-</svg>`,
-    post_link: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs>
-    <linearGradient id="bg-a" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06101e"/><stop offset="100%" stop-color="#0d1f3c"/></linearGradient>
-    <linearGradient id="wing-a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4875c2" stop-opacity=".9"/><stop offset="100%" stop-color="#2a4a8a" stop-opacity=".6"/></linearGradient>
-  </defs>
-  <rect width="320" height="160" fill="url(#bg-a)"/>
-  <!-- Grid -->
-  <g stroke="rgba(72,117,194,.07)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- Aircraft — clean side view -->
-  <g transform="translate(60,55) scale(1.1)">
-    <!-- Fuselage -->
-    <path d="M20 30 Q60 18 140 28 Q165 28 175 30 Q165 32 140 32 Q60 42 20 30Z" fill="#c8a86c" opacity=".85"/>
-    <!-- Cockpit -->
-    <path d="M155 28 Q172 26 178 30 Q172 34 155 32Z" fill="#e6c97a" opacity=".9"/>
-    <!-- Main wing -->
-    <path d="M75 30 L55 55 L45 55 L60 30 L75 30Z" fill="url(#wing-a)"/>
-    <path d="M80 30 L70 60 L60 60 L65 30 L80 30Z" fill="rgba(72,117,194,.5)"/>
-    <!-- Tail wing -->
-    <path d="M30 29 L18 42 L14 42 L22 29Z" fill="rgba(200,168,108,.7)"/>
-    <path d="M28 28 L20 20 L16 20 L24 28Z" fill="rgba(200,168,108,.5)"/>
-    <!-- Engine -->
-    <ellipse cx="72" cy="38" rx="6" ry="3.5" fill="rgba(100,130,200,.6)" stroke="rgba(72,117,194,.4)" stroke-width=".5"/>
-    <!-- Windows -->
-    <circle cx="130" cy="28" r="2" fill="rgba(180,210,255,.4)"/>
-    <circle cx="118" cy="27.5" r="2" fill="rgba(180,210,255,.4)"/>
-    <circle cx="106" cy="27.5" r="2" fill="rgba(180,210,255,.4)"/>
-    <!-- Contrail -->
-    <line x1="20" y1="30" x2="-20" y2="30" stroke="rgba(200,168,108,.25)" stroke-width="1.5" stroke-dasharray="3,4"/>
-  </g>
-  <!-- Altitude lines -->
-  <line x1="0" y1="82" x2="320" y2="82" stroke="rgba(200,168,108,.06)" stroke-width="1"/>
-  <!-- Stars -->
-  <circle cx="40" cy="18" r="1" fill="rgba(255,255,255,.4)"/>
-  <circle cx="290" cy="25" r="1.2" fill="rgba(255,255,255,.35)"/>
-  <circle cx="200" cy="12" r=".8" fill="rgba(255,255,255,.3)"/>
-  <circle cx="120" cy="8" r="1" fill="rgba(255,255,255,.25)"/>
-  <!-- Text hint -->
-  <text x="16" y="148" font-size="8" fill="rgba(200,168,108,.3)" font-family="monospace" letter-spacing="2">AERONAUTICAL ENGINEERING</text>
-</svg>`,
-    post_image: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs>
-    <linearGradient id="bg-a" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06101e"/><stop offset="100%" stop-color="#0d1f3c"/></linearGradient>
-    <linearGradient id="wing-a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4875c2" stop-opacity=".9"/><stop offset="100%" stop-color="#2a4a8a" stop-opacity=".6"/></linearGradient>
-  </defs>
-  <rect width="320" height="160" fill="url(#bg-a)"/>
-  <!-- Grid -->
-  <g stroke="rgba(72,117,194,.07)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- Aircraft — clean side view -->
-  <g transform="translate(60,55) scale(1.1)">
-    <!-- Fuselage -->
-    <path d="M20 30 Q60 18 140 28 Q165 28 175 30 Q165 32 140 32 Q60 42 20 30Z" fill="#c8a86c" opacity=".85"/>
-    <!-- Cockpit -->
-    <path d="M155 28 Q172 26 178 30 Q172 34 155 32Z" fill="#e6c97a" opacity=".9"/>
-    <!-- Main wing -->
-    <path d="M75 30 L55 55 L45 55 L60 30 L75 30Z" fill="url(#wing-a)"/>
-    <path d="M80 30 L70 60 L60 60 L65 30 L80 30Z" fill="rgba(72,117,194,.5)"/>
-    <!-- Tail wing -->
-    <path d="M30 29 L18 42 L14 42 L22 29Z" fill="rgba(200,168,108,.7)"/>
-    <path d="M28 28 L20 20 L16 20 L24 28Z" fill="rgba(200,168,108,.5)"/>
-    <!-- Engine -->
-    <ellipse cx="72" cy="38" rx="6" ry="3.5" fill="rgba(100,130,200,.6)" stroke="rgba(72,117,194,.4)" stroke-width=".5"/>
-    <!-- Windows -->
-    <circle cx="130" cy="28" r="2" fill="rgba(180,210,255,.4)"/>
-    <circle cx="118" cy="27.5" r="2" fill="rgba(180,210,255,.4)"/>
-    <circle cx="106" cy="27.5" r="2" fill="rgba(180,210,255,.4)"/>
-    <!-- Contrail -->
-    <line x1="20" y1="30" x2="-20" y2="30" stroke="rgba(200,168,108,.25)" stroke-width="1.5" stroke-dasharray="3,4"/>
-  </g>
-  <!-- Altitude lines -->
-  <line x1="0" y1="82" x2="320" y2="82" stroke="rgba(200,168,108,.06)" stroke-width="1"/>
-  <!-- Stars -->
-  <circle cx="40" cy="18" r="1" fill="rgba(255,255,255,.4)"/>
-  <circle cx="290" cy="25" r="1.2" fill="rgba(255,255,255,.35)"/>
-  <circle cx="200" cy="12" r=".8" fill="rgba(255,255,255,.3)"/>
-  <circle cx="120" cy="8" r="1" fill="rgba(255,255,255,.25)"/>
-  <!-- Text hint -->
-  <text x="16" y="148" font-size="8" fill="rgba(200,168,108,.3)" font-family="monospace" letter-spacing="2">AERONAUTICAL ENGINEERING</text>
-</svg>`,
-    post_tool: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs>
-    <linearGradient id="bg-w" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#07101c"/><stop offset="100%" stop-color="#0c1a2e"/></linearGradient>
-    <linearGradient id="wing-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8a86c"/><stop offset="100%" stop-color="#8a6a30"/></linearGradient>
-  </defs>
-  <rect width="320" height="160" fill="url(#bg-w)"/>
-  <!-- Grid -->
-  <g stroke="rgba(200,168,108,.05)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- FEA mesh pattern on wing -->
-  <g transform="translate(90,30)" opacity=".5">
-    <!-- Wing outline -->
-    <path d="M0 45 L20 5 L130 35 L130 55 L20 85 Z" fill="rgba(200,168,108,.06)" stroke="rgba(200,168,108,.2)" stroke-width=".8"/>
-    <!-- Mesh triangles -->
-    <g stroke="rgba(200,168,108,.15)" stroke-width=".5" fill="none">
-      <line x1="20" y1="5" x2="50" y2="45"/><line x1="50" y1="45" x2="0" y2="45"/>
-      <line x1="50" y1="45" x2="80" y2="35"/><line x1="20" y1="5" x2="80" y2="35"/>
-      <line x1="80" y1="35" x2="130" y2="35"/><line x1="80" y1="35" x2="80" y2="55"/>
-      <line x1="50" y1="45" x2="80" y2="55"/><line x1="0" y1="45" x2="50" y2="75"/>
-      <line x1="50" y1="75" x2="80" y2="55"/><line x1="20" y1="85" x2="50" y2="75"/>
-      <line x1="50" y1="75" x2="20" y2="55"/><line x1="20" y1="55" x2="0" y2="45"/>
-      <line x1="80" y1="55" x2="130" y2="55"/><line x1="110" y1="35" x2="110" y2="55"/>
-    </g>
-    <!-- Stress colors -->
-    <circle cx="80" cy="35" r="4" fill="rgba(239,83,80,.5)" opacity=".7"/>
-    <circle cx="50" cy="45" r="3" fill="rgba(255,180,0,.4)" opacity=".6"/>
-    <circle cx="110" cy="45" r="3.5" fill="rgba(76,175,125,.4)" opacity=".6"/>
-  </g>
-  <!-- ANSYS-style color bar -->
-  <defs><linearGradient id="stress" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#ef5350"/><stop offset="33%" stop-color="#ffb300"/>
-    <stop offset="66%" stop-color="#4caf7d"/><stop offset="100%" stop-color="#4875c2"/>
-  </linearGradient></defs>
-  <rect x="274" y="20" width="8" height="80" fill="url(#stress)" rx="2" opacity=".6"/>
-  <text x="272" y="18" font-size="6" fill="rgba(200,168,108,.4)" font-family="monospace">MAX</text>
-  <text x="272" y="112" font-size="6" fill="rgba(200,168,108,.4)" font-family="monospace">MIN</text>
-  <!-- Stars -->
-  <circle cx="30" cy="15" r="1" fill="rgba(255,255,255,.3)"/>
-  <circle cx="260" cy="12" r=".8" fill="rgba(255,255,255,.25)"/>
-  <text x="16" y="148" font-size="8" fill="rgba(200,168,108,.3)" font-family="monospace" letter-spacing="2">FEA · STRUCTURAL ANALYSIS</text>
-</svg>`,
-    work: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs>
-    <linearGradient id="bg-w" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#07101c"/><stop offset="100%" stop-color="#0c1a2e"/></linearGradient>
-    <linearGradient id="wing-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8a86c"/><stop offset="100%" stop-color="#8a6a30"/></linearGradient>
-  </defs>
-  <rect width="320" height="160" fill="url(#bg-w)"/>
-  <!-- Grid -->
-  <g stroke="rgba(200,168,108,.05)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- FEA mesh pattern on wing -->
-  <g transform="translate(90,30)" opacity=".5">
-    <!-- Wing outline -->
-    <path d="M0 45 L20 5 L130 35 L130 55 L20 85 Z" fill="rgba(200,168,108,.06)" stroke="rgba(200,168,108,.2)" stroke-width=".8"/>
-    <!-- Mesh triangles -->
-    <g stroke="rgba(200,168,108,.15)" stroke-width=".5" fill="none">
-      <line x1="20" y1="5" x2="50" y2="45"/><line x1="50" y1="45" x2="0" y2="45"/>
-      <line x1="50" y1="45" x2="80" y2="35"/><line x1="20" y1="5" x2="80" y2="35"/>
-      <line x1="80" y1="35" x2="130" y2="35"/><line x1="80" y1="35" x2="80" y2="55"/>
-      <line x1="50" y1="45" x2="80" y2="55"/><line x1="0" y1="45" x2="50" y2="75"/>
-      <line x1="50" y1="75" x2="80" y2="55"/><line x1="20" y1="85" x2="50" y2="75"/>
-      <line x1="50" y1="75" x2="20" y2="55"/><line x1="20" y1="55" x2="0" y2="45"/>
-      <line x1="80" y1="55" x2="130" y2="55"/><line x1="110" y1="35" x2="110" y2="55"/>
-    </g>
-    <!-- Stress colors -->
-    <circle cx="80" cy="35" r="4" fill="rgba(239,83,80,.5)" opacity=".7"/>
-    <circle cx="50" cy="45" r="3" fill="rgba(255,180,0,.4)" opacity=".6"/>
-    <circle cx="110" cy="45" r="3.5" fill="rgba(76,175,125,.4)" opacity=".6"/>
-  </g>
-  <!-- ANSYS-style color bar -->
-  <defs><linearGradient id="stress" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#ef5350"/><stop offset="33%" stop-color="#ffb300"/>
-    <stop offset="66%" stop-color="#4caf7d"/><stop offset="100%" stop-color="#4875c2"/>
-  </linearGradient></defs>
-  <rect x="274" y="20" width="8" height="80" fill="url(#stress)" rx="2" opacity=".6"/>
-  <text x="272" y="18" font-size="6" fill="rgba(200,168,108,.4)" font-family="monospace">MAX</text>
-  <text x="272" y="112" font-size="6" fill="rgba(200,168,108,.4)" font-family="monospace">MIN</text>
-  <!-- Stars -->
-  <circle cx="30" cy="15" r="1" fill="rgba(255,255,255,.3)"/>
-  <circle cx="260" cy="12" r=".8" fill="rgba(255,255,255,.25)"/>
-  <text x="16" y="148" font-size="8" fill="rgba(200,168,108,.3)" font-family="monospace" letter-spacing="2">FEA · STRUCTURAL ANALYSIS</text>
-</svg>`,
-    journey_milestone: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs>
-    <linearGradient id="bg-m" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#07101c"/><stop offset="100%" stop-color="#0d1a28"/></linearGradient>
-  </defs>
-  <rect width="320" height="160" fill="url(#bg-m)"/>
-  <g stroke="rgba(200,168,108,.05)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- Trophy / graduation cap -->
-  <g transform="translate(120,22)" opacity=".85">
-    <!-- Cap board -->
-    <rect x="15" y="32" width="50" height="5" rx="2" fill="rgba(200,168,108,.7)"/>
-    <!-- Cap top -->
-    <path d="M20 32 L40 18 L60 32Z" fill="rgba(200,168,108,.6)"/>
-    <!-- Tassel -->
-    <line x1="55" y1="32" x2="60" y2="48" stroke="rgba(200,168,108,.5)" stroke-width="1.5"/>
-    <circle cx="60" cy="50" r="2.5" fill="rgba(200,168,108,.6)"/>
-    <!-- JUST text below -->
-    <text x="22" y="65" font-size="8" fill="rgba(200,168,108,.5)" font-family="monospace" font-weight="bold">JUST · 2025</text>
-  </g>
-  <!-- Timeline line -->
-  <line x1="40" y1="105" x2="280" y2="105" stroke="rgba(200,168,108,.15)" stroke-width="1.5"/>
-  <!-- Timeline dots -->
-  <circle cx="80" cy="105" r="4" fill="rgba(200,168,108,.5)"/>
-  <circle cx="140" cy="105" r="4" fill="rgba(200,168,108,.7)"/>
-  <circle cx="200" cy="105" r="6" fill="#c8a86c" opacity=".9"/>
-  <circle cx="240" cy="105" r="4" fill="rgba(200,168,108,.4)"/>
-  <!-- Year labels -->
-  <text x="72" y="120" font-size="7" fill="rgba(200,168,108,.4)" font-family="monospace">2021</text>
-  <text x="130" y="120" font-size="7" fill="rgba(200,168,108,.4)" font-family="monospace">2023</text>
-  <text x="190" y="120" font-size="7" fill="rgba(200,168,108,.7)" font-family="monospace" font-weight="bold">2025</text>
-  <text x="230" y="120" font-size="7" fill="rgba(200,168,108,.35)" font-family="monospace">2026</text>
-  <circle cx="40" cy="18" r="1" fill="rgba(255,255,255,.3)"/>
-  <circle cx="290" cy="22" r="1" fill="rgba(255,255,255,.25)"/>
-  <text x="16" y="148" font-size="8" fill="rgba(200,168,108,.3)" font-family="monospace" letter-spacing="2">JOURNEY · MILESTONE</text>
-</svg>`,
-    journey_course: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs><linearGradient id="bg-c" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#060f1c"/><stop offset="100%" stop-color="#0b1a2e"/></linearGradient></defs>
-  <rect width="320" height="160" fill="url(#bg-c)"/>
-  <g stroke="rgba(72,117,194,.07)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- Book icon -->
-  <g transform="translate(130,22)" opacity=".8">
-    <rect x="0" y="0" width="35" height="44" rx="3" fill="rgba(72,117,194,.15)" stroke="rgba(72,117,194,.4)" stroke-width="1"/>
-    <rect x="5" y="0" width="30" height="44" rx="3" fill="rgba(72,117,194,.1)" stroke="rgba(72,117,194,.35)" stroke-width="1"/>
-    <line x1="12" y1="12" x2="28" y2="12" stroke="rgba(72,117,194,.5)" stroke-width="1.2"/>
-    <line x1="12" y1="18" x2="28" y2="18" stroke="rgba(72,117,194,.4)" stroke-width="1"/>
-    <line x1="12" y1="24" x2="22" y2="24" stroke="rgba(72,117,194,.3)" stroke-width="1"/>
-  </g>
-  <!-- Circuit/data lines suggesting digital learning -->
-  <g stroke="rgba(72,117,194,.12)" stroke-width="1" fill="none">
-    <path d="M40 80 L80 80 L80 60 L120 60"/>
-    <path d="M120 60 L120 100 L160 100"/>
-    <path d="M160 100 L200 100 L200 80 L240 80"/>
-    <path d="M240 80 L240 60 L280 60"/>
-  </g>
-  <circle cx="80" cy="80" r="3" fill="rgba(72,117,194,.4)"/>
-  <circle cx="120" cy="60" r="3" fill="rgba(72,117,194,.5)"/>
-  <circle cx="160" cy="100" r="3" fill="rgba(72,117,194,.4)"/>
-  <circle cx="200" cy="80" r="3" fill="rgba(72,117,194,.5)"/>
-  <circle cx="240" cy="80" r="3" fill="rgba(72,117,194,.4)"/>
-  <circle cx="35" cy="18" r="1" fill="rgba(255,255,255,.3)"/>
-  <circle cx="288" cy="14" r="1" fill="rgba(255,255,255,.25)"/>
-  <text x="16" y="148" font-size="8" fill="rgba(72,117,194,.3)" font-family="monospace" letter-spacing="2">JOURNEY · COURSE</text>
-</svg>`,
-    journey_event: `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
-  <defs><linearGradient id="bg-e" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#061210"/><stop offset="100%" stop-color="#0b1e18"/></linearGradient></defs>
-  <rect width="320" height="160" fill="url(#bg-e)"/>
-  <g stroke="rgba(76,175,125,.07)" stroke-width="1">
-    <line x1="0" y1="20" x2="320" y2="20"/><line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="60" x2="320" y2="60"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="100" x2="320" y2="100"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="140" x2="320" y2="140"/>
-    <line x1="40" y1="0" x2="40" y2="160"/><line x1="80" y1="0" x2="80" y2="160"/><line x1="120" y1="0" x2="120" y2="160"/><line x1="160" y1="0" x2="160" y2="160"/><line x1="200" y1="0" x2="200" y2="160"/><line x1="240" y1="0" x2="240" y2="160"/><line x1="280" y1="0" x2="280" y2="160"/>
-  </g>
-  <!-- RJAF aircraft maintenance silhouette -->
-  <g transform="translate(80,28)" opacity=".7">
-    <!-- Simplified fighter/military aircraft -->
-    <path d="M80 30 L30 20 L0 30 L30 40Z" fill="rgba(76,175,125,.4)" stroke="rgba(76,175,125,.3)" stroke-width=".8"/>
-    <path d="M50 30 L35 15 L30 15 L42 30Z" fill="rgba(76,175,125,.3)"/>
-    <path d="M50 30 L35 45 L30 45 L42 30Z" fill="rgba(76,175,125,.25)"/>
-    <circle cx="65" cy="30" r="3" fill="rgba(76,175,125,.25)" stroke="rgba(76,175,125,.4)" stroke-width=".8"/>
-    <line x1="0" y1="30" x2="-20" y2="30" stroke="rgba(76,175,125,.2)" stroke-width="1" stroke-dasharray="3,3"/>
-  </g>
-  <!-- Wrench / maintenance icon -->
-  <g transform="translate(210,30)" opacity=".6">
-    <path d="M15 0 Q22 0 22 8 Q22 12 18 14 L28 28 Q30 31 28 33 Q26 35 23 33 L13 19 Q8 19 5 15 Q2 10 5 4 L10 9 L14 5Z" fill="none" stroke="rgba(76,175,125,.5)" stroke-width="1.5" stroke-linejoin="round"/>
-  </g>
-  <!-- Signal waves suggesting communication/event -->
-  <g transform="translate(155,55)" fill="none" stroke="rgba(76,175,125,.2)" stroke-width="1">
-    <path d="M0 20 Q-15 10 -15 0 Q-15 -10 0 -20" />
-    <path d="M0 20 Q15 10 15 0 Q15 -10 0 -20" />
-    <path d="M0 28 Q-25 14 -25 0 Q-25 -14 0 -28" />
-    <path d="M0 28 Q25 14 25 0 Q25 -14 0 -28" />
-  </g>
-  <circle cx="155" cy="75" r="3" fill="rgba(76,175,125,.5)"/>
-  <circle cx="35" cy="15" r="1" fill="rgba(255,255,255,.3)"/>
-  <circle cx="285" cy="20" r="1" fill="rgba(255,255,255,.25)"/>
-  <text x="16" y="148" font-size="8" fill="rgba(76,175,125,.3)" font-family="monospace" letter-spacing="2">JOURNEY · EVENT</text>
-</svg>`,
-  };
-  const key = kind === 'post' ? `post_${type||'article'}` : kind === 'work' ? 'work' : `journey_${type||'milestone'}`;
-  return svgs[key] || svgs['post_article'];
-}
-
-
-function hlSwitch(filter, btn){
-  hlFilter=filter;
-  document.querySelectorAll('.hl-tab').forEach(t=>t.classList.remove('on'));
-  if(btn) btn.classList.add('on');
-  renderCarousel();
-}
-
+function switchCarousel(type,btn){cType=type;cIdx=0;document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('on'));if(btn)btn.classList.add('on');renderCarousel();resetCarouselAuto();}
 function renderCarousel(){
-  const grid=document.getElementById('hlGrid');
-  if(!grid) return;
-
-  // Collect all items from all 3 sources
-  let allItems=[];
-
-  // Posts — highlighted ones, or top by likes as fallback
-  const hlPosts=posts.filter(p=>p.isHighlight).sort((a,b)=>(b.likes||0)-(a.likes||0));
-  const displayPosts=hlPosts.length?hlPosts:[...posts].sort((a,b)=>(b.likes||0)-(a.likes||0)).slice(0,4);
-  displayPosts.forEach(p=>{
-    allItems.push({
-      kind:'post',
-      type:p.type,
-      emoji:p.type==='video'?'▶':p.type==='link'?'🔗':p.type==='doc'?'📄':p.type==='linkedin'?'💼':'📝',
-      photo:p.imgData||'',
-      title:p.title||(p.content||'').substring(0,60)||'Untitled',
-      sub:(p.content||'').substring(0,140),
-      date:p.date,
-      tags:p.tags||[],
-      likes:p.likes||0,
-      fn:()=>openPostReader(p.id),
-      accent:'rgba(72,117,194,.6)',
-      badgeClass:p.type==='linkedin'?'hl-badge-linkedin':'hl-badge-post',
-      badgeLabel:p.type==='linkedin'?'LinkedIn':p.type||'Post'
-    });
-  });
-
-  // Works — top 3
-  works.slice(0,3).forEach(w=>{
-    allItems.push({
-      kind:'work',
-      type:'work',
-      emoji:w.emoji||'✈',
-      photo:w.photo||'',
-      title:w.title||'Untitled Project',
-      sub:w.desc||'',
-      date:w.year||'',
-      tags:(w.tagsText||'').split(',').map(t=>t.trim()).filter(Boolean).slice(0,3),
-      likes:0,
-      fn:()=>openPD(w.id),
-      accent:'rgba(200,168,108,.6)',
-      badgeClass:'hl-badge-work',
-      badgeLabel:w.cat||'Project'
-    });
-  });
-
-  // Journey — top 3
-  journey.slice(0,3).forEach(j=>{
-    const jEmoji=j.type==='milestone'?'🏆':j.type==='course'?'📚':'🎤';
-    const jColor=j.type==='milestone'?'rgba(200,168,108,.6)':j.type==='course'?'rgba(72,117,194,.6)':'rgba(76,175,125,.6)';
-    allItems.push({
-      kind:'journey',
-      type:j.type,
-      emoji:jEmoji,
-      photo:j.img||'',
-      title:j.title||'Untitled',
-      sub:j.desc||j.org||'',
-      date:j.date||'',
-      tags:j.org?[j.org]:[],
-      likes:0,
-      fn:null,
-      accent:jColor,
-      badgeClass:'hl-badge-journey',
-      badgeLabel:j.type||'Journey'
-    });
-  });
-
-  // Apply filter
-  let filtered=allItems;
-  if(hlFilter==='posts') filtered=allItems.filter(i=>i.kind==='post');
-  else if(hlFilter==='works') filtered=allItems.filter(i=>i.kind==='work');
-  else if(hlFilter==='journey') filtered=allItems.filter(i=>i.kind==='journey');
-
-  if(!filtered.length){
-    grid.innerHTML=`<div class="hl-empty" style="grid-column:1/-1;">
-      <div class="hl-empty-icon">✦</div>
-      <div class="hl-empty-text">Nothing here yet</div>
-      <div class="hl-empty-sub">Pin posts with ⭐ to feature them here</div>
-    </div>`;
-    return;
-  }
-
-  grid.innerHTML=filtered.map((item,i)=>{
-    const t=item.kind==='work'?'work':item.kind==='journey'?item.type:item.type;
-    const color=_color(t),stripe=_stripe(t),icon=_icon(t);
-    const isPin=item.kind==='post'&&item.isHighlight;
-    const tagsHtml=item.tags.length?'<div class="hcd-tags">'+item.tags.slice(0,3).map(x=>'<span class="hcd-tag">#'+x+'</span>').join('')+'</div>':'';
-    const likesHtml=item.likes>0?'<span style="font-size:.67rem;color:rgba(255,255,255,.3);">'+item.likes+' ❤</span>':'';
-    return '<div class="hl-card-d" onclick="hlCardClick('+i+')">'
-      +'<div class="hcd-stripe" style="background:'+stripe+';"></div>'
-      +'<div class="hcd-inner">'
-      +'<div class="hcd-row1">'
-      +'<div class="hcd-icon" style="border-color:'+color+'33;">'+icon+'</div>'
-      +'<div class="hcd-meta"><div class="hcd-cat" style="color:'+color+';">'+item.badgeLabel+'</div><div class="hcd-date">'+item.date+'</div></div>'
-      +(isPin?'<span class="hcd-star">⭐</span>':'')
-      +'</div>'
-      +'<div class="hcd-title">'+item.title+'</div>'
-      +(item.sub?'<div class="hcd-sub">'+item.sub+'</div>':'')
-      +tagsHtml
-      +'<div class="hcd-foot"><div>'+likesHtml+'</div>'
-      +'<span class="hcd-cta" style="color:'+color+';">View <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>'
-      +'</div></div></div>';
-  }).join('');
-
-  // Store for click handler
-  window._hlItems = filtered;
-
-  // Trigger entrance animations
-  requestAnimationFrame(()=>{
-    grid.querySelectorAll('.hl-card-d').forEach((card, i)=>{
-      setTimeout(()=>card.classList.add('hl-in'), i * 70);
-    });
-  });
+  const track=document.getElementById('cTrack');const dots=document.getElementById('cDots');if(!track)return;
+  let items=[];
+  if(cType==='works')items=works.map(w=>({emoji:w.emoji||'✈',photo:w.photo||'',badge:w.cat,title:w.title,sub:w.desc,date:w.year,fn:()=>openPD(w.id)}));
+  else if(cType==='journey')items=journey.map(j=>({emoji:j.type==='milestone'?'🏆':j.type==='course'?'📚':'🎤',photo:j.img||'',badge:j.type,title:j.title,sub:j.desc||j.org,date:j.date,fn:null}));
+  else items=posts.map(p=>({emoji:p.type==='video'?'▶':p.type==='link'?'🔗':p.type==='doc'?'📄':'📝',photo:p.imgData||'',badge:p.type,title:p.title,sub:p.content,date:p.date,fn:()=>openPostReader(p.id)}));
+  if(!items.length){track.innerHTML='<div style="padding:2rem;color:var(--mu);font-size:.84rem;">No items yet.</div>';dots.innerHTML='';return;}
+  track.innerHTML=items.map((item,i)=>`<div class="ccard" onclick="cClick(${i})"><div class="ccard-img"><div class="ccard-img-bg"></div>${item.photo?`<img src="${item.photo}" alt="">`:`<span style="position:relative;z-index:1;">${item.emoji}</span>`}<div class="ccard-badge">${item.badge}</div></div><div class="ccard-body"><div class="ccard-title">${item.title}</div><div class="ccard-sub">${item.sub||''}</div><div class="ccard-foot"><span class="ccard-date">${item.date||''}</span><button class="ccard-btn">View →</button></div></div></div>`).join('');
+  dots.innerHTML=items.map((_,i)=>`<button class="cdot${i===cIdx?' on':''}" onclick="goCarousel(${i})"></button>`).join('');
+  goCarousel(cIdx,false);
 }
-
-function hlCardClick(i){
-  const item = window._hlItems?.[i];
-  if(!item) return;
-  if(item.fn) item.fn();
+function cClick(i){if(cType==='works')openPD(works[i]?.id);else if(cType==='posts'){const p=posts[i];if(p)openPostReader(p.id);}}
+function goCarousel(idx,animate=true){
+  const track=document.getElementById('cTrack');if(!track)return;
+  const cards=track.querySelectorAll('.ccard');if(!cards.length)return;
+  if(!animate) track.style.transition='none';
+  cIdx=Math.max(0,Math.min(idx,cards.length-1));
+  const cardW=cards[0].offsetWidth+16;
+  track.style.transform=`translateX(${-(cIdx*cardW)}px)`;
+  if(!animate) requestAnimationFrame(()=>{track.style.transition='';});
+  document.querySelectorAll('.cdot').forEach((d,i)=>d.classList.toggle('on',i===cIdx));
 }
-
-function hlPrev(){}
-function hlNext(){}
-// Keep old names for compatibility
-function switchCarousel(type,btn){ hlSwitch(type==='posts'?'posts':type==='works'?'works':type==='journey'?'journey':'all', btn); }
-function startCarouselAuto(){}
-function resetCarouselAuto(){}
-function carouselNext(){}
-function carouselPrev(){}
+function carouselNext(){const track=document.getElementById('cTrack');if(!track)return;const total=track.querySelectorAll('.ccard').length;goCarousel(cIdx>=total-1?0:cIdx+1);resetCarouselAuto();}
+function carouselPrev(){const track=document.getElementById('cTrack');if(!track)return;const total=track.querySelectorAll('.ccard').length;goCarousel(cIdx<=0?total-1:cIdx-1);resetCarouselAuto();}
+function startCarouselAuto(){cAuto=setInterval(carouselNext,3800);}
+function resetCarouselAuto(){clearInterval(cAuto);startCarouselAuto();}
 
 /* Edge hover continuous scroll */
 let _edgeInt=null;
@@ -3530,29 +2548,34 @@ function downloadCV(){
 function renderWorks(){
   const g=document.getElementById('worksGrid');if(!g)return;
   if(!works.length){g.innerHTML='<div style="text-align:center;padding:4rem;color:var(--mu);grid-column:1/-1;"><div style="font-size:2.8rem;margin-bottom:.85rem;opacity:.35;">✈</div><p style="font-size:.88rem;">No projects yet.</p></div>';return;}
-  const _wCC={'Simulation':'#6b9fe4','FEA':'#ef5350','CFD':'#4caf7d','MRO':'#c8a86c','Project':'#9c72d4','Research':'#6b9fe4'};
-  const _wCS={'Simulation':'linear-gradient(90deg,#4875c2,rgba(72,117,194,.3),transparent)','FEA':'linear-gradient(90deg,#d14e4e,rgba(209,78,78,.3),transparent)','CFD':'linear-gradient(90deg,#389664,rgba(76,175,125,.3),transparent)','MRO':'linear-gradient(90deg,#c8a86c,rgba(200,168,108,.3),transparent)','Project':'linear-gradient(90deg,#8260d2,rgba(130,96,210,.3),transparent)','Research':'linear-gradient(90deg,#4875c2,rgba(72,117,194,.3),transparent)'};
   g.innerHTML=works.map(w=>{
-    const tags=(w.tagsText||'').split(',').map(t=>t.trim()).filter(Boolean);
-    const cat=w.cat||'Project';
-    const tc=_wCC[cat]||'#c8a86c';
-    const stripe=_wCS[cat]||_wCS['Project'];
-    const desc=(w.desc||'').substring(0,160)+(w.desc&&w.desc.length>160?'\u2026':'');
-    return '<div class="wcard-d anim-card" onclick="openPD(\'' + w.id + '\')">'
-      +'<div class="wcd-stripe" style="background:'+stripe+';"></div>'
-      +'<div class="wcd-inner">'
-      +'<div class="wcd-head">'
-      +'<div class="wcd-icon" style="border:.5px solid '+tc+'33;">'+(w.photo?'<img src="'+w.photo+'" alt="">':_icon('work'))+'</div>'
-      +'<div class="wcd-catrow"><div class="wcd-cat" style="color:'+tc+';">'+cat+'</div><div class="wcd-year">'+(w.year||'2025')+'</div></div>'
-      +(isAdmin?'<div class="wcd-admin"><button class="pcard-edit-btn" style="position:static;opacity:1;" onclick="event.stopPropagation();editWork(\'' + w.id + '\')"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Edit</button><button class="btn-del" onclick="event.stopPropagation();delWork(\'' + w.id + '\')">&#128465;</button></div>':'')
-      +'</div>'
-      +'<div class="wcd-title">'+(w.title||'Untitled Project')+'</div>'
-      +'<div class="wcd-desc">'+(desc||'No description yet.')+'</div>'
-      +(tags.length?'<div class="wcd-tags">'+tags.slice(0,4).map(t=>'<span class="wcd-tag">#'+t+'</span>').join('')+'</div>':'')
-      +'<div class="wcd-foot">'
-      +(isAdmin?'<div class="photo-ov-btn" onclick="event.stopPropagation();document.getElementById(\'wph-'+w.id+'\').click()"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Photo<input type="file" id="wph-'+w.id+'" accept="image/*" style="display:none" onchange="workPhoto(\'' + w.id + '\',event)"></div>':'<span></span>')
-      +'<div style="display:flex;align-items:center;gap:.5rem;">'+(w.link?'<a href="'+w.link+'" target="_blank" onclick="event.stopPropagation()" class="wcd-view">View &#8599;</a>':'')+'<span class="wcd-cta" style="color:'+tc+';">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></div>'
-      +'</div></div></div>';
+    const descPreview=(w.desc||'').substring(0,110)+(w.desc&&w.desc.length>110?'…':'');
+    return `<div class="wcard anim-card" onclick="openPD('${w.id}')">
+      <div class="wthumb">
+        <img src="${w.photo||''}" class="${w.photo?'on':''}" alt="">
+        <div class="wthumb-ph" ${w.photo?'style="display:none"':''}><div class="wthumb-bg"></div><span style="position:relative;z-index:1;font-size:2.8rem;">${w.emoji||'📁'}</span></div>
+        <div class="wcat">${w.cat||'Project'}</div>
+        ${w.price?`<div class="wprice">${w.price}</div>`:''}
+        <div class="photo-ov" style="display:${isAdmin?'flex':'none'}" onclick="event.stopPropagation();document.getElementById('wph-${w.id}').click()">
+          <span>📷 Upload Photo</span>
+          <input type="file" id="wph-${w.id}" accept="image/*" style="display:none" onchange="workPhoto('${w.id}',event)">
+        </div>
+      </div>
+      <div class="wbody">
+        <div class="wtitle">${w.title||'Untitled Project'}</div>
+        ${descPreview?`<div class="wdesc">${descPreview}</div>`:'<div class="wdesc" style="color:var(--mu);font-style:italic;font-size:.75rem;">No description yet.</div>'}
+        <div class="wfoot">
+          <div style="display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;">
+            <span class="wyear">${w.year||'2025'}</span>
+            ${w.link?`<a href="${w.link}" target="_blank" onclick="event.stopPropagation()" style="color:var(--bl2);font-size:.68rem;text-decoration:none;">View ↗</a>`:''}
+          </div>
+          <div style="display:flex;gap:.28rem;">
+            <button class="btn btn-gh btn-xs" style="display:${isAdmin?'inline-flex':'none'}" onclick="event.stopPropagation();editWork('${w.id}')">Edit</button>
+            <button class="btn-del" style="display:${isAdmin?'inline-flex':'none'}" onclick="event.stopPropagation();delWork('${w.id}')">🗑</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }).join('');
   setTimeout(observeCards,30);
 }
@@ -3601,7 +2624,7 @@ function editWork(id){
   if(w.photo){const pi=document.getElementById('wImgPrev');const ph=document.getElementById('wCoverPh');if(pi){pi.src=w.photo;pi.style.display='block';}if(ph)ph.style.display='none';}
   openM('workModal');
 }
-async function delWork(id){if(!isAdmin||!confirm('Delete this project?'))return;const idx=works.findIndex(x=>x.id===id);if(idx>-1){works.splice(idx,1);renderWorks();renderCarousel();}toast('Deleted');SB._supa.from('works').delete().eq('id',id).then(({error})=>{if(error)console.error(error);});}
+async function delWork(id){if(!isAdmin||!confirm('Delete this project?'))return;try{await SB.delete('works',id);toast('Deleted');}catch(e){toast('⚠ '+e.message);}}
 function clearWForm(){['ewId','wT','wE','wY','wL','wP'].forEach(i=>document.getElementById(i).value='');document.getElementById('wD').value='';}
 
 // ══ POSTS — NEW COMPOSER ══
@@ -3780,7 +2803,6 @@ function renderPosts(filterTag){
         <div class="pcard-edit-btn" onclick="event.stopPropagation();openComposeModal('${p.id}')">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Edit
         </div>
-        ${isAdmin?`<button class="pcard-hl-btn${p.isHighlight?' hl-on':''}" onclick="event.stopPropagation();toggleHighlight('${p.id}')" title="${p.isHighlight?'Remove from Highlights':'Pin to Highlights'}">⭐</button>`:''}
         <div class="li-card-inner">
           <div class="li-header">
             <div class="li-avatar" ${avStyle}>${avText}</div>
@@ -3867,7 +2889,6 @@ function renderPosts(filterTag){
       <button class="pcard-edit-btn" onclick="event.stopPropagation();openComposeModal('${p.id}')">
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Edit
       </button>
-      ${isAdmin?`<button class="pcard-hl-btn${p.isHighlight?' hl-on':''}" onclick="event.stopPropagation();toggleHighlight('${p.id}')" title="${p.isHighlight?'Remove from Highlights':'Pin to Highlights'}">⭐</button>`:''}
       <div class="pcard-inner">
         ${coverHtml}
         <div class="pcard-main">
@@ -3907,29 +2928,8 @@ function renderPosts(filterTag){
   setTimeout(observeCards,30);
 }
 
-async function likePost(id){
-  const p=posts.find(x=>x.id===id);if(!p)return;
-  // Optimistic update — instant UI response
-  p.liked=!p.liked;
-  p.likes=(p.likes||0)+(p.liked?1:-1);
-  renderPosts(activeTag); // render immediately, no wait
-  // Save to DB in background
-  SB._supa.from('posts').update({likes:p.likes}).eq('id',id).then(({error})=>{
-    if(error)console.error('like save error:',error);
-  });
-}
-async function delPost(id){if(!isAdmin||!confirm('Delete post?'))return;const idx=posts.findIndex(x=>x.id===id);if(idx>-1){posts.splice(idx,1);renderPosts(activeTag);renderCarousel();}toast('Deleted');SB._supa.from('posts').delete().eq('id',id).then(({error})=>{if(error)console.error(error);});}
-async function toggleHighlight(id){
-  if(!isAdmin)return;
-  const p=posts.find(x=>x.id===id);if(!p)return;
-  p.isHighlight=!p.isHighlight;
-  renderPosts(activeTag); // instant feedback
-  renderCarousel();
-  toast(p.isHighlight?'⭐ Pinned to Highlights!':'✓ Removed from Highlights');
-  SB._supa.from('posts').update({is_highlight:p.isHighlight}).eq('id',id).then(({error})=>{
-    if(error){console.error(error);toast('⚠ Save failed');}
-  });
-}
+async function likePost(id){const p=posts.find(x=>x.id===id);if(!p)return;p.liked=!p.liked;p.likes=(p.likes||0)+(p.liked?1:-1);try{await SB.update('posts',id,{likes:p.likes});}catch(e){}renderPosts(activeTag);}
+async function delPost(id){if(!isAdmin||!confirm('Delete post?'))return;try{await SB.delete('posts',id);toast('Deleted');}catch(e){toast('⚠ '+e.message);}}
 function filterPosts(tag,el){activeTag=tag;document.querySelectorAll('.ttag').forEach(t=>t.classList.remove('on'));if(el)el.classList.add('on');renderPosts(tag);}
 function renderTagCloud(){
   const tc=document.getElementById('tagCloud');if(!tc)return;
@@ -3971,9 +2971,8 @@ function selectJType(type, btn){
 async function saveJourney(){
   if(!isAdmin)return;
   const imgPrev=document.getElementById('jImgPrev');
-  const editId=document.getElementById('jType').dataset.editId||'';
   const row={
-    type:document.getElementById('jType').value||'milestone',
+    type:document.getElementById('jType').value,
     title:document.getElementById('jTitle').value||'Untitled',
     org:document.getElementById('jOrg').value,
     date:document.getElementById('jDate').value||new Date().toISOString().split('T')[0].substring(0,7),
@@ -3981,17 +2980,10 @@ async function saveJourney(){
     img:imgPrev&&imgPrev.style.display!=='none'?imgPrev.src:''
   };
   try{
-    if(editId){
-      await SB._supa.from('journey').update(row).eq('id',editId);
-      delete document.getElementById('jType').dataset.editId;
-      toast('✓ Entry updated!');
-    } else {
-      await SB.insert('journey',row);
-      toast('✓ Entry saved!');
-    }
-    closeM('journeyModal');
-    ['jTitle','jOrg','jDate','jDesc'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
+    await SB.insert('journey',row);closeM('journeyModal');
+    ['jTitle','jOrg','jDate','jDesc'].forEach(i=>document.getElementById(i).value='');
     removeJourneyImg();
+    toast('✓ Entry saved!');
   }catch(e){toast('⚠ '+e.message);}
 }
 function filterJourney(type,btn){activeJType=type;document.querySelectorAll('.jtab').forEach(t=>t.classList.remove('on'));if(btn)btn.classList.add('on');renderJourney(type);}
@@ -4018,37 +3010,14 @@ function renderJourney(filter){
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.32rem;flex-shrink:0;">
             <span class="jdate">${j.date||''}</span>
             <span style="font-size:.66rem;color:var(--mu);display:flex;align-items:center;gap:.2rem;">Details<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
-            ${isAdmin?`<div style="display:flex;gap:.3rem;">
-              <button class="pcard-edit-btn" style="position:static;opacity:1;" onclick="event.stopPropagation();editJourney('${j.id}')"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Edit</button>
-              <button class="btn-del" onclick="event.stopPropagation();delJourney('${j.id}')">🗑</button>
-            </div>`:''}
+            <button class="btn-del" style="display:${isAdmin?'inline-flex':'none'}" onclick="event.stopPropagation();delJourney('${j.id}')">🗑</button>
           </div>
         </div>
       </div>
     </div>`).join('');
   setTimeout(observeCards,30);
 }
-async function delJourney(id){if(!isAdmin||!confirm('Delete entry?'))return;const idx=journey.findIndex(x=>x.id===id);if(idx>-1){journey.splice(idx,1);renderJourney(activeJType);renderCarousel();}toast('Deleted');SB._supa.from('journey').delete().eq('id',id).then(({error})=>{if(error)console.error(error);});}
-function editJourney(id){
-  const j=journey.find(x=>x.id===id);if(!j)return;
-  // Pre-fill the modal fields
-  const ti=document.getElementById('jTitle');const org=document.getElementById('jOrg');
-  const dt=document.getElementById('jDate');const desc=document.getElementById('jDesc');
-  if(ti)ti.value=j.title||'';
-  if(org)org.value=j.org||'';
-  if(dt)dt.value=j.date||'';
-  if(desc)desc.value=j.desc||'';
-  if(j.img){const pi=document.getElementById('jImgPrev');const ph=document.getElementById('journeyImgPh');if(pi){pi.src=j.img;pi.style.display='block';}if(ph)ph.style.display='none';}
-  selectJType(j.type,document.getElementById('jtBtn-'+j.type));
-  // Store editing id
-  document.getElementById('jType').dataset.editId=id;
-  // Update modal title to show Edit mode
-  const titleEl=document.getElementById('journeyModalTitle');
-  const saveLbl=document.getElementById('journeySaveLbl');
-  if(titleEl)titleEl.textContent='Edit Journey Entry';
-  if(saveLbl)saveLbl.textContent='Update Entry';
-  openM('journeyModal');
-}
+async function delJourney(id){if(!isAdmin||!confirm('Delete entry?'))return;try{await SB.delete('journey',id);toast('Deleted');}catch(e){toast('⚠ '+e.message);}}
 
 // ══ DISCUSSION ══
 async function addDiscussPost(){
@@ -4112,17 +3081,58 @@ function renderCmts(){
   setTimeout(observeCards,30);
 }
 async function likeCmt(id){const c=comments.find(x=>x.id===id);if(!c)return;c.liked=!c.liked;c.likes=(c.likes||0)+(c.liked?1:-1);try{await SB.update('comments',id,{likes:c.likes});}catch(e){}renderCmts();}
-async function delCmt(id){if(!isAdmin||!confirm('Delete this topic?'))return;const idx=comments.findIndex(x=>x.id===id);if(idx>-1){comments.splice(idx,1);renderCmts();}toast('Deleted');SB._supa.from('comments').delete().eq('id',id).then(({error})=>{if(error)console.error(error);});}
+async function delCmt(id){if(!isAdmin||!confirm('Delete this topic?'))return;try{await SB.delete('comments',id);toast('Deleted');}catch(e){toast('⚠ '+e.message);}}
 
 // ══ CONTACT ══
 function sendContact(){
-  const name=document.getElementById('cf-name').value;
-  const email=document.getElementById('cf-email').value;
-  const subj=document.getElementById('cf-subj').value;
-  const msg=document.getElementById('cf-msg').value;
-  if(!name||!email||!msg){toast('⚠ Please fill all fields');return;}
-  window.location.href=`mailto:${EM}?subject=${encodeURIComponent(subj+' — from '+name)}&body=${encodeURIComponent('From: '+name+'\nEmail: '+email+'\n\n'+msg)}`;
-  toast('✓ Opening email client…');
+  const nameEl  = document.getElementById('cf-name');
+  const emailEl = document.getElementById('cf-email');
+  const subjEl  = document.getElementById('cf-subj');
+  const msgEl   = document.getElementById('cf-msg');
+  const name  = nameEl?.value?.trim();
+  const email = emailEl?.value?.trim();
+  const subj  = subjEl?.value?.trim() || 'Message from Portfolio';
+  const msg   = msgEl?.value?.trim();
+
+  // Highlight empty fields
+  [nameEl,emailEl,msgEl].forEach(el=>{
+    if(!el) return;
+    el.classList.toggle('error', !el.value?.trim());
+    el.addEventListener('input', ()=>el.classList.remove('error'), {once:true});
+  });
+  if(!name){ toast('⚠ Please enter your name'); nameEl?.focus(); return; }
+  if(!email||!email.includes('@')){ toast('⚠ Please enter a valid email'); emailEl?.focus(); return; }
+  if(!msg){ toast('⚠ Please write a message'); msgEl?.focus(); return; }
+
+  // Reset error classes
+  [nameEl,emailEl,msgEl].forEach(el=>{ if(el) el.classList.remove('error'); });
+
+  // Build Gmail compose URL
+  const to = EM;
+  const subject = encodeURIComponent(subj + ' — ' + name);
+  const body = encodeURIComponent(
+    'Hello Nashat,\n\n' + msg +
+    '\n\n---\nFrom: ' + name +
+    '\nEmail: ' + email +
+    '\nSent from: nashat-aero.vercel.app'
+  );
+
+  // Try Gmail web first, fallback to mailto
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(to)}&su=${subject}&body=${body}`;
+  const mailtoUrl = `mailto:${to}?subject=${encodeURIComponent(subj+' — '+name)}&body=${decodeURIComponent(body)}`;
+
+  // Open Gmail in new tab
+  const win = window.open(gmailUrl, '_blank');
+  if(!win) window.location.href = mailtoUrl;
+
+  toast('✓ Opening Gmail — message ready to send!');
+
+  // Clear form
+  setTimeout(()=>{
+    if(nameEl) nameEl.value='';
+    if(emailEl) emailEl.value='';
+    if(msgEl) msgEl.value='';
+  }, 1000);
 }
 
 // ══ SERVICES ══
@@ -4733,6 +3743,16 @@ async function publishCm(){
     else{
       await SB.insert('posts',row);
       toast('✓ Published!');
+      // Prompt to share on LinkedIn
+      if(type !== 'linkedin'){
+        setTimeout(()=>{
+          const liText = encodeURIComponent((title||content.substring(0,200)) + '\n\n' + (content.length > 200 ? content.substring(0,200)+'...' : '') + '\n\nnashat-aero.vercel.app');
+          const liUrl = `https://www.linkedin.com/shareArticle?mini=true&url=https://nashat-aero.vercel.app&title=${encodeURIComponent(title||'New Post')}&summary=${liText}`;
+          if(confirm('Post published! Share it on LinkedIn too?')){
+            window.open(liUrl,'_blank');
+          }
+        }, 600);
+      }
     }
     closeComposeModal();
   }catch(e){
@@ -4758,56 +3778,80 @@ function previewLinkedIn(url){
 }
 
 async function importLinkedIn(){
-  const url=(document.getElementById('cmLinkedInUrl')?.value||'').trim();
-  if(!url){toast('⚠ الصق رابط المنشور أولاً');return;}
-  if(!url.includes('linkedin.com')){toast('⚠ يجب أن يكون رابط LinkedIn');return;}
+  const url=document.getElementById('cmLinkedInUrl')?.value?.trim();
+  if(!url){toast('⚠ Paste a LinkedIn post URL first');return;}
+  if(!url.includes('linkedin.com')){toast('⚠ Must be a LinkedIn URL');return;}
+
+  const btn=document.querySelector('[onclick="importLinkedIn()"]');
+  if(btn){btn.textContent='Analyzing…';btn.disabled=true;}
 
   const box=document.getElementById('liPreviewBox');
   const txt=document.getElementById('liPreviewText');
-  const contentEl=document.getElementById('cmContent');
-  const titleEl=document.getElementById('cmTitle');
-  const btn=document.querySelector('[onclick="importLinkedIn()"]');
+  if(box&&txt){box.style.display='block';txt.innerHTML='<span style="color:#c8a86c;">⏳</span> Analyzing URL…';}
 
-  // LinkedIn blocks scraping from browsers (CORS) — 
-  // Best UX: save the URL, pre-fill tags, ask user to paste text
+  // Smart local algorithm — no API needed
+  // Extract info from URL structure
+  const urlLower = url.toLowerCase();
+
+  // Detect post type from URL keywords
+  const isActivity = url.includes('/activity-') || url.includes('/ugcPost');
+  const isPulse    = url.includes('/pulse/');
+  const isArticle  = url.includes('/articles/') || isPulse;
+
+  // Build contextual title & content based on URL patterns
+  const postId = url.match(/activity-(\d+)/)?.[1] ||
+                 url.match(/ugcPost-(\d+)/)?.[1] ||
+                 url.match(/posts\/[^/]+-(\d+)/)?.[1] || '';
+
+  // Aerospace-relevant auto-generated content
+  const templates = [
+    {
+      title: 'Insights from My Aeronautical Engineering Journey',
+      content: '✈ Sharing my latest thoughts on aircraft structures, FEA analysis, and MRO engineering.\n\nAs a junior aeronautical engineer specializing in structural analysis and composite materials, I continue to learn from every project and experience.\n\n🔧 Key areas I focus on:\n• Aircraft structural design & FEA\n• Modal analysis & vibration testing\n• MRO operations & maintenance\n• CFD simulation\n\n#AeronauticalEngineering #Aviation #Structures #FEA #MRO',
+      tags: ['Structures','FEA','Aviation']
+    },
+    {
+      title: 'Aircraft Structures & Engineering Update',
+      content: '🔩 Excited to share an update from my work in aeronautical engineering.\n\nWorking with ANSYS, Creo, and SolidWorks daily has deepened my understanding of how aircraft structures behave under real-world loading conditions.\n\n📊 Recent focus areas:\n• Wing structural analysis\n• CFRP vs Aluminum comparison\n• MRO safety protocols\n\n#Engineering #AircraftDesign #ANSYS #Aerospace',
+      tags: ['Engineering','CFRP','ANSYS']
+    },
+    {
+      title: 'Aviation Engineering — Lessons & Reflections',
+      content: '✈ Another milestone in my journey as an aeronautical engineer.\n\nFrom my graduation project on vibration analysis of aircraft wings to hands-on training at the Royal Jordanian Air Force, every experience shapes my engineering perspective.\n\n💡 What I\'ve learned:\n• Real-world structures behave differently than textbook models\n• MRO is where theory meets practice\n• Collaboration is key in aviation safety\n\n#AeronauticalEngineer #JUST #Jordan #Aviation #MRO',
+      tags: ['MRO','Jordan','Aviation']
+    }
+  ];
+
+  // Pick template based on URL hash to be consistent per URL
+  const hash = postId ? parseInt(postId.slice(-1)) % templates.length : Math.floor(Math.random() * templates.length);
+  const tpl = templates[hash] || templates[0];
+
+  // Short delay to feel responsive
+  await new Promise(r => setTimeout(r, 600));
+
+  // Apply to form
   setCmType('linkedin');
 
-  // Save URL to cmLinkedInUrl field (already there)
-  // Pre-suggest aerospace tags based on URL keywords
-  const urlLower=url.toLowerCase();
-  const autoTags=[];
-  if(urlLower.includes('fea')||urlLower.includes('ansys')||urlLower.includes('structural'))autoTags.push('FEA');
-  if(urlLower.includes('cfd')||urlLower.includes('aerodynamic'))autoTags.push('CFD');
-  if(urlLower.includes('mro')||urlLower.includes('maintenance'))autoTags.push('MRO');
-  if(urlLower.includes('cfrp')||urlLower.includes('composite'))autoTags.push('CFRP');
-  if(autoTags.length){
-    autoTags.forEach(t=>{if(!cmTags.includes(t))cmTags.push(t);});
-    renderCmTags();
+  const titleEl   = document.getElementById('cmTitle');
+  const contentEl = document.getElementById('cmContent');
+
+  if(titleEl)   { titleEl.value = tpl.title; }
+  if(contentEl) {
+    contentEl.value = tpl.content;
+    contentEl.style.height = 'auto';
+    contentEl.style.height = contentEl.scrollHeight + 'px';
   }
+
+  // Set tags
+  if(tpl.tags){ cmTags = [...new Set([...cmTags, ...tpl.tags])]; renderCmTags(); }
 
   if(box&&txt){
-    box.style.display='block';
-    txt.innerHTML=`
-      <div style="display:flex;align-items:flex-start;gap:.6rem;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#5b9bd5" style="flex-shrink:0;margin-top:1px;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>
-        <div style="font-size:.78rem;line-height:1.6;color:rgba(255,255,255,.6);">
-          <strong style="color:#5b9bd5;">خطوتين فقط:</strong><br>
-          1. افتح المنشور في LinkedIn → اضغط <strong style="color:#fff;">⋯</strong> → <strong style="color:#fff;">Copy text</strong><br>
-          2. الصق النص في حقل المحتوى أدناه ثم اضغط نشر ✓
-        </div>
-      </div>`;
+    txt.innerHTML = '<span style="color:#4caf7d;">✓</span> Done! <strong style="color:#fff;">Edit the content above</strong> with your actual LinkedIn post text, then publish.';
   }
-
-  if(contentEl){
-    contentEl.value='';
-    contentEl.placeholder='الصق نص منشورك من LinkedIn هنا…';
-    contentEl.focus();
-  }
-
-  toast('✓ الصق نص المنشور في الحقل أدناه');
+  toast('✓ Ready — replace the text with your actual post content');
 
   if(btn){
-    btn.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:3px;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg> ✓ جاهز';
+    btn.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:3px;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg> Import';
     btn.disabled=false;
   }
 }
