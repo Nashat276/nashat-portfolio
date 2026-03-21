@@ -2629,7 +2629,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
   <div class="ft-copy">Irbid, Jordan · <span id="footerEmail" style="cursor:pointer;color:var(--go);transition:color .2s;" onclick="copyEmail()" onmouseenter="this.style.color='var(--go2)'" onmouseleave="this.style.color='var(--go)'"></span></div>
 </footer>
 <div class="ov" id="jobModal"><div class="modal" style="max-width:520px;"><div class="mhd"><div class="mt">Add Job Listing</div><button class="mx" onclick="closeM('jobModal')">x</button></div><div class="frow"><div><label class="flabel">Company *</label><input class="field" id="jmCompany" placeholder="Emirates Engineering" style="margin-bottom:0;"></div><div><label class="flabel">Logo</label><input class="field" id="jmLogo" placeholder="EK" maxlength="4" style="margin-bottom:0;text-align:center;"></div></div><br><label class="flabel">Job Title *</label><input class="field" id="jmTitle" placeholder="Structures Engineer"><div class="frow"><div><label class="flabel">Location</label><input class="field" id="jmLocation" placeholder="Dubai, UAE" style="margin-bottom:0;"></div><div><label class="flabel">Type</label><select class="field" id="jmType" style="margin-bottom:0;"><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Graduate</option><option>Internship</option></select></div></div><br><label class="flabel">Description</label><textarea class="field" id="jmDesc" style="min-height:70px;"></textarea><label class="flabel">Tags (comma separated)</label><input class="field" id="jmTags" placeholder="FEA, ANSYS, Structures"><label class="flabel">Apply URL</label><input class="field" id="jmUrl" placeholder="https://linkedin.com/jobs/..."><div class="frow"><div><label class="flabel">Accent Color</label><input class="field" id="jmAccent" placeholder="#c8a86c" style="margin-bottom:0;"></div><div><label class="flabel">Posted Date</label><input class="field" id="jmPosted" type="date" style="margin-bottom:0;"></div></div><div class="macts"><button class="btn btn-gh btn-sm" onclick="closeM('jobModal')">Cancel</button><button class="btn btn-go btn-sm" onclick="saveJob()">Add Job</button></div></div></div>
-<div class="ov" id="jobModal"><div class="modal" style="max-width:520px;"><div class="mhd"><div class="mt">Add Job Listing</div><button class="mx" onclick="closeM('jobModal')">x</button></div><div class="frow"><div><label class="flabel">Company *</label><input class="field" id="jmCompany" placeholder="Emirates Engineering" style="margin-bottom:0;"></div><div><label class="flabel">Logo</label><input class="field" id="jmLogo" placeholder="EK" maxlength="4" style="margin-bottom:0;text-align:center;"></div></div><br><label class="flabel">Job Title *</label><input class="field" id="jmTitle" placeholder="Structures Engineer"><div class="frow"><div><label class="flabel">Location</label><input class="field" id="jmLocation" placeholder="Dubai, UAE" style="margin-bottom:0;"></div><div><label class="flabel">Type</label><select class="field" id="jmType" style="margin-bottom:0;"><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Graduate</option><option>Internship</option></select></div></div><br><label class="flabel">Description</label><textarea class="field" id="jmDesc" style="min-height:70px;"></textarea><label class="flabel">Tags (comma separated)</label><input class="field" id="jmTags" placeholder="FEA, ANSYS, Structures"><label class="flabel">Apply URL</label><input class="field" id="jmUrl" placeholder="https://linkedin.com/jobs/..."><div class="frow"><div><label class="flabel">Accent Color</label><input class="field" id="jmAccent" placeholder="#c8a86c" style="margin-bottom:0;"></div><div><label class="flabel">Posted Date</label><input class="field" id="jmPosted" type="date" style="margin-bottom:0;"></div></div><div class="macts"><button class="btn btn-gh btn-sm" onclick="closeM('jobModal')">Cancel</button><button class="btn btn-go btn-sm" onclick="saveJob()">Add Job</button></div></div></div>
+
 
 <script>
 // ══ STATE ══
@@ -4728,60 +4728,7 @@ async function importLinkedIn(){
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 </body>
   
-<script>
-/* saveJob — pure REST fetch, no Supabase client */
-async function saveJob(){
-  if(!isAdmin) return;
-  var co = (document.getElementById('jmCompany').value||'').trim();
-  var ti = (document.getElementById('jmTitle').value||'').trim();
-  if(!co||!ti){ toast('\u26a0 Company and title required'); return; }
-  var tRaw = (document.getElementById('jmTags').value||'').split(',').map(function(s){return s.trim();}).filter(Boolean);
-  var tC = ['#c8a86c','#ef5350','#4caf7d','#6b9fe4','#9c72d4'];
-  var tB = ['rgba(200,168,108,.12)','rgba(209,78,78,.1)','rgba(76,175,125,.1)','rgba(72,117,194,.1)','rgba(130,96,210,.1)'];
-  var tags = tRaw.map(function(t,i){ return{t:t, c:tB[i%tB.length], tc:tC[i%tC.length]}; });
-  var ac = document.getElementById('jmAccent').value || '#c8a86c';
-  var row = {
-    company:     co,
-    logo:        document.getElementById('jmLogo').value || co.substring(0,2).toUpperCase(),
-    accent:      ac,
-    logo_bg:     '#fff',
-    logo_border: 'rgba(200,168,108,.25)',
-    logo_text:   ac,
-    title:       ti,
-    location:    document.getElementById('jmLocation').value || 'Jordan',
-    job_type:    document.getElementById('jmType').value || 'Full-time',
-    description: document.getElementById('jmDesc').value || '',
-    tags:        tags,
-    posted:      document.getElementById('jmPosted').value || new Date().toISOString().split('T')[0],
-    url:         document.getElementById('jmUrl').value || '',
-    is_active:   true
-  };
-  try{
-    var res = await fetch('https://soxvbtenfnpokhrtlqmq.supabase.co/rest/v1/jobs', {
-      method:  'POST',
-      headers: {
-        'apikey':        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw',
-        'Content-Type':  'application/json',
-        'Prefer':        'return=representation'
-      },
-      body: JSON.stringify(row)
-    });
-    if(!res.ok) throw new Error('HTTP '+res.status+' '+await res.text());
-    var data = await res.json();
-    var item = Array.isArray(data) ? data[0] : data;
-    if(item){
-      jobs.unshift(window._mapJob(item));
-      window.renderJobsFromDB();
-    }
-    closeM('jobModal');
-    toast('\u2713 Job added!');
-    ['jmCompany','jmLogo','jmTitle','jmLocation','jmTags','jmUrl','jmAccent','jmDesc'].forEach(function(id){
-      var el=document.getElementById(id); if(el) el.value='';
-    });
-  }catch(e){ toast('\u26a0 '+e.message); }
-}
-</script>
+
 
 <script>
 async function saveJob(){
@@ -4860,7 +4807,7 @@ async function saveJob(){
   grid.position.y=-3.5; scene.add(grid);
 
   var aircraft = new THREE.Group(); scene.add(aircraft);
-  var meshMap = {}; var allMeshes = [];
+  var meshMap = {}; var allMeshes = []; window._allMeshes = allMeshes; window._meshMap = meshMap;
   var selectedPart = null; var currentMode = 'normal';
 
   // Load GLB
@@ -4901,6 +4848,22 @@ async function saveJob(){
         });
       });
       aircraft.add(model);
+      window._allMeshes = allMeshes; window._meshMap = meshMap;
+
+      // Debug: log all mesh names and their detected partId
+      console.log('=== A220 Mesh Names ===');
+      var partSummary = {};
+      allMeshes.forEach(function(m){
+        var pid = m.userData.partId;
+        if(!partSummary[pid]) partSummary[pid] = [];
+        partSummary[pid].push(m.name);
+      });
+      Object.keys(partSummary).forEach(function(k){
+        console.log(k+':', partSummary[k].join(', '));
+      });
+      console.log('Total meshes:', allMeshes.length);
+      console.log('======================');
+
       hideLoading();
     },
     function(xhr){ if(xhr.total) document.querySelector('#aex-loading div:nth-child(2)').textContent = 'Loading '+Math.round(xhr.loaded/xhr.total*100)+'%...'; },
