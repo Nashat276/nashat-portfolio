@@ -1755,11 +1755,11 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
       <div class="idc-new-top">
         <div class="idc-new-av-wrap">
           <div class="idc-new-av-ring"></div>
-          <div id="avatarEl" style="position:absolute;inset:4px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,var(--bl),var(--go));display:flex;align-items:center;justify-content:center;font-family:"DM Serif Display",serif;font-size:1.2rem;color:#07090d;z-index:2;"><span id="avatarInitials" style="position:relative;z-index:1;">NA</span><img id="avatarImg" src="" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:none;z-index:2;"></div>
+          <div id="avatarEl" style="position:absolute;inset:4px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,var(--bl),var(--go));display:flex;align-items:center;justify-content:center;font-family:"DM Serif Display",serif;font-size:1.2rem;color:#07090d;z-index:2;"><span id="avatarInitials" style="position:relative;z-index:1;">NA</span><img id="avatarImg" src="" alt="" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:none;z-index:2;image-rendering:-webkit-optimize-contrast;"></div>
           <div class="idc-new-status"></div>
         </div>
         <div class="idc-new-info">
-          <div class="idc-new-name">Nashat Omar Aldhoun</div><div style="display:inline-flex;align-items:center;gap:.35rem;margin-top:.28rem;background:linear-gradient(135deg,rgba(200,168,108,.14),rgba(200,168,108,.07));border:1.5px solid rgba(200,168,108,.42);color:#e6c97a;font-size:.62rem;font-weight:800;padding:.22rem .72rem;border-radius:20px;letter-spacing:1.2px;text-transform:uppercase;animation:otw 3s ease-in-out infinite;"><span style="width:5px;height:5px;background:#4caf7d;border-radius:50%;animation:pulse 1.8s infinite;flex-shrink:0;"></span>Open to Work</div><div style="display:inline-flex;align-items:center;gap:.35rem;margin-top:.28rem;background:linear-gradient(135deg,rgba(200,168,108,.14),rgba(200,168,108,.07));border:1.5px solid rgba(200,168,108,.42);color:#e6c97a;font-size:.62rem;font-weight:800;padding:.22rem .72rem;border-radius:20px;letter-spacing:1.2px;text-transform:uppercase;animation:otw 3s ease-in-out infinite;"><span style="width:5px;height:5px;background:#4caf7d;border-radius:50%;animation:pulse 1.8s infinite;flex-shrink:0;"></span>Open to Work</div>
+          <div class="idc-new-name">Nashat Omar Aldhoun</div><div style="display:inline-flex;align-items:center;gap:.35rem;margin-top:.28rem;background:linear-gradient(135deg,rgba(200,168,108,.14),rgba(200,168,108,.07));border:1.5px solid rgba(200,168,108,.42);color:#e6c97a;font-size:.62rem;font-weight:800;padding:.22rem .72rem;border-radius:20px;letter-spacing:1.2px;text-transform:uppercase;animation:otw 3s ease-in-out infinite;"><span style="width:5px;height:5px;background:#4caf7d;border-radius:50%;animation:pulse 1.8s infinite;flex-shrink:0;"></span>Open to Work</div>
           <div class="idc-new-role">✈ Aeronautical Engineer</div>
           <div class="idc-new-loc">📍 Irbid, Jordan</div>
         </div>
@@ -2799,7 +2799,7 @@ function handleProfilePhoto(e){
 function applyProfilePhoto(src){
   localStorage.setItem('pp',src);
   var img=document.getElementById('avatarImg'),ini=document.getElementById('avatarInitials');
-  if(img){img.src=src;img.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:block;z-index:2;';}
+  if(img){img.src=src;img.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:block;z-index:2;image-rendering:-webkit-optimize-contrast;filter:contrast(1.05) saturate(1.1);';}
   if(ini)ini.style.display='none';
   ['discComposeAv','cmAvatar','composeTriggerAv'].forEach(function(id){
     var el=document.getElementById(id);if(!el)return;
@@ -2825,7 +2825,7 @@ async function loadProfilePhoto(){
   function _pp(){
     var src=localStorage.getItem('pp');if(!src)return;
     var img=document.getElementById('avatarImg'),ini=document.getElementById('avatarInitials');
-    if(img){img.src=src;img.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:block;z-index:2;';}
+    if(img){img.src=src;img.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:block;z-index:2;image-rendering:-webkit-optimize-contrast;filter:contrast(1.05) saturate(1.1);';}
     if(ini)ini.style.display='none';
     applyProfilePhoto(src);
   }
@@ -4925,8 +4925,10 @@ async function saveJob(){
   key.position.set(10,15,8); key.castShadow=true;
   key.shadow.mapSize.width=2048; key.shadow.mapSize.height=2048;
   scene.add(key);
-  scene.add(Object.assign(new THREE.DirectionalLight(0xfff0e8,0.5),{position:new THREE.Vector3(-8,5,-6)}));
-  scene.add(Object.assign(new THREE.DirectionalLight(0x4488cc,0.6),{position:new THREE.Vector3(0,-6,-8)}));
+  var fill2=new THREE.DirectionalLight(0xfff0e8,0.5);
+  fill2.position.set(-8,5,-6); scene.add(fill2);
+  var rim2=new THREE.DirectionalLight(0x4488cc,0.6);
+  rim2.position.set(0,-6,-8); scene.add(rim2);
   var engGlow=new THREE.PointLight(0xff6600,0.7,15);
   engGlow.position.set(-5,-1,0); scene.add(engGlow);
 
@@ -5173,4 +5175,4 @@ async function saveJob(){
   });
 })();
 </script>
-  </html>
+                                      </html>
