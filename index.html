@@ -5237,7 +5237,7 @@ if('serviceWorker' in navigator){
     border:1px solid rgba(0,229,255,.2);border-radius:16px;
     padding:2rem;max-width:420px;width:90%;text-align:center;
     font-family:'DM Sans',system-ui,sans-serif;position:relative;">
-    <button onclick="document.getElementById('atc-modal').style.display='none';stopATC();"
+    <button onclick="document.getElementById('atc-modal').style.display='none';window.stopATC();"
       style="position:absolute;top:1rem;right:1rem;background:none;border:none;
       color:rgba(255,255,255,.3);cursor:pointer;font-size:1.2rem;">✕</button>
     <div style="font-size:2.5rem;margin-bottom:1rem;">🎙️</div>
@@ -5952,9 +5952,56 @@ async function saveJob(){
   var atcInterval = null;
   var atcBars = null;
 
+  var audioCtx = null;
+  var staticNode = null;
+  var gainNode = null;
+
+  function startRadioStatic(){
+    try{
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      // White noise buffer
+      var bufferSize = audioCtx.sampleRate * 2;
+      var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      var data = buffer.getChannelData(0);
+      for(var i=0;i<bufferSize;i++) data[i]=(Math.random()*2-1)*0.15;
+      staticNode = audioCtx.createBufferSource();
+      staticNode.buffer = buffer;
+      staticNode.loop = true;
+      // BandPass filter for radio effect
+      var filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1800;
+      filter.Q.value = 0.5;
+      // Gain
+      gainNode = audioCtx.createGain();
+      gainNode.gain.value = 0.4;
+      staticNode.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      staticNode.start();
+      // Fade in
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime+0.3);
+    }catch(e){}
+  }
+
+  function stopRadioStatic(){
+    try{
+      if(gainNode && audioCtx){
+        gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime+0.3);
+        setTimeout(function(){
+          if(staticNode) staticNode.stop();
+          if(audioCtx) audioCtx.close();
+          audioCtx=null; staticNode=null; gainNode=null;
+        },350);
+      }
+    }catch(e){}
+  }
+
   window.stopATC = function(){
     if(atcInterval) clearInterval(atcInterval);
     if(atcBars) clearInterval(atcBars);
+    stopRadioStatic();
   };
 
   document.addEventListener('keydown', function(e){
@@ -5966,6 +6013,7 @@ async function saveJob(){
       modal.style.display='flex';
       textEl.textContent = atcLines[atcIdx % atcLines.length];
       atcIdx++;
+      startRadioStatic();
 
       // Animate bars
       var bars = document.querySelectorAll('.atc-bar');
@@ -6034,4 +6082,4 @@ async function saveJob(){
 })();
 </script>
 
-  </html>
+      </html>
