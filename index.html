@@ -4944,26 +4944,38 @@ async function saveJob(){
       var mats=Array.isArray(m.material)?m.material:[m.material];
       mats.forEach(function(mat){
         if(!mat) return;
+
         if(selectedPart && pid!==selectedPart){
-          // Fade non-selected
-          mat.opacity=0.15; mat.transparent=true;
-          if(mat.emissive) mat.emissive.setHex(0x000000);
-          mat.emissiveIntensity=0;
+          // Fade non-selected parts
+          mat.transparent=true;
+          mat.opacity=0.12;
+          mat.depthWrite=false;
+          if(mat.emissive) mat.emissive.set(0,0,0);
+          if(mat.emissiveIntensity!==undefined) mat.emissiveIntensity=0;
+
         } else if(pid===selectedPart){
-          // Selected — cyan glow
-          mat.opacity=1; mat.transparent=false;
-          if(mat.emissive) mat.emissive.setHex(0x003344);
-          mat.emissiveIntensity=0.5;
+          // Selected — bright cyan tint
+          mat.transparent=false;
+          mat.opacity=1;
+          mat.depthWrite=true;
+          if(mat.emissive) mat.emissive.set(0,0.2,0.3);
+          if(mat.emissiveIntensity!==undefined) mat.emissiveIntensity=0.6;
+
         } else if(pid===hovered && !selectedPart){
-          // Hover — subtle glow
-          mat.opacity=1; mat.transparent=false;
-          if(mat.emissive) mat.emissive.setHex(0x001a22);
-          mat.emissiveIntensity=0.3;
+          // Hover — subtle tint
+          mat.transparent=false;
+          mat.opacity=1;
+          mat.depthWrite=true;
+          if(mat.emissive) mat.emissive.set(0,0.08,0.12);
+          if(mat.emissiveIntensity!==undefined) mat.emissiveIntensity=0.4;
+
         } else {
-          // Normal
-          mat.opacity=1; mat.transparent=false;
-          if(mat.emissive) mat.emissive.setHex(0x000000);
-          mat.emissiveIntensity=0;
+          // Normal — restore
+          mat.transparent=false;
+          mat.opacity=1;
+          mat.depthWrite=true;
+          if(mat.emissive) mat.emissive.set(0,0,0);
+          if(mat.emissiveIntensity!==undefined) mat.emissiveIntensity=0;
         }
         mat.needsUpdate=true;
       });
