@@ -1453,7 +1453,234 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 }
 </style>
 
+
+<style>
+/* ══════════════════════════════════════
+   1. CUSTOM AIRPLANE CURSOR
+══════════════════════════════════════ */
+*{cursor:none!important;}
+#plane-cursor{
+  position:fixed;pointer-events:none;z-index:99999;
+  width:32px;height:32px;
+  transform:translate(-50%,-50%) rotate(45deg);
+  transition:transform .15s ease;
+  filter:drop-shadow(0 0 6px rgba(200,168,108,.6));
+}
+#plane-cursor svg{width:100%;height:100%;}
+#cursor-ring{
+  position:fixed;pointer-events:none;z-index:99998;
+  width:40px;height:40px;
+  border:1.5px solid rgba(200,168,108,.35);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,border-color .2s,opacity .2s;
+}
+body:has(a:hover) #cursor-ring,
+body:has(button:hover) #cursor-ring{
+  width:56px;height:56px;
+  border-color:rgba(200,168,108,.7);
+}
+
+/* ══════════════════════════════════════
+   2. PARTICLE CANVAS
+══════════════════════════════════════ */
+#hero-particles{
+  position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.55;
+}
+
+/* ══════════════════════════════════════
+   3. GLASSMORPHISM CARDS
+══════════════════════════════════════ */
+.wcard-d{
+  background:rgba(13,24,40,.55)!important;
+  backdrop-filter:blur(14px)!important;
+  -webkit-backdrop-filter:blur(14px)!important;
+  border:1px solid rgba(200,168,108,.18)!important;
+  transition:transform .28s,box-shadow .28s,border-color .28s!important;
+}
+.wcard-d:hover{
+  border-color:rgba(200,168,108,.42)!important;
+  box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 20px rgba(200,168,108,.08)!important;
+  transform:translateY(-4px)!important;
+}
+.idc-new{
+  background:rgba(13,24,40,.6)!important;
+  backdrop-filter:blur(16px)!important;
+  -webkit-backdrop-filter:blur(16px)!important;
+}
+
+/* ══════════════════════════════════════
+   4. ANIMATED COUNTERS — already exist, enhance visually
+══════════════════════════════════════ */
+.hm{
+  background:rgba(13,24,40,.5)!important;
+  backdrop-filter:blur(10px)!important;
+  -webkit-backdrop-filter:blur(10px)!important;
+  transition:background .25s,transform .25s!important;
+}
+.hm:hover{
+  background:rgba(13,24,40,.8)!important;
+  transform:scale(1.04)!important;
+}
+.hm-n{
+  font-size:2rem!important;
+  background:linear-gradient(135deg,#c8a86c,#e6c97a);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  transition:transform .3s!important;
+}
+.hm:hover .hm-n{transform:scale(1.1)!important;}
+
+/* ══════════════════════════════════════
+   5. TIMELINE ENHANCEMENTS
+══════════════════════════════════════ */
+.jitem{
+  position:relative;padding-left:1.35rem;margin-bottom:1.8rem;
+  opacity:0;transform:translateX(-16px);
+  transition:opacity .5s,transform .5s;
+}
+.jitem.visible{opacity:1!important;transform:translateX(0)!important;}
+.jdot{
+  transition:box-shadow .3s,background .3s!important;
+}
+.jitem:hover .jdot{
+  box-shadow:0 0 12px rgba(200,168,108,.6)!important;
+  background:var(--go)!important;
+}
+.jitem:hover{
+  background:rgba(200,168,108,.03);
+  border-radius:8px;
+  padding-right:.5rem;
+}
+
+/* ══════════════════════════════════════
+   6. MAGNETIC BUTTON STYLE
+══════════════════════════════════════ */
+.btn-go,.btn-gh,.hire-btn{
+  transition:transform .2s cubic-bezier(.25,.46,.45,.94),box-shadow .2s!important;
+}
+.btn-go:hover{
+  box-shadow:0 4px 20px rgba(200,168,108,.3)!important;
+}
+</style>
+
+
+<style>
+/* ══ CUSTOM AIRPLANE CURSOR ══ */
+*{cursor:none!important;}
+#custom-cursor{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:99999;
+  transition:transform .15s ease,opacity .2s;
+  transform-origin:center;
+  will-change:transform;
+}
+#custom-cursor svg{
+  filter:drop-shadow(0 0 6px rgba(200,168,108,.6));
+  transition:transform .2s ease;
+}
+#cursor-trail{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:99998;
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(200,168,108,.4);
+  transition:transform .35s ease,opacity .3s;
+  transform:translate(-50%,-50%);
+  will-change:transform;
+}
+
+/* ══ PARTICLE CANVAS ══ */
+#hero-particles{
+  position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.55;
+}
+
+/* ══ GLASSMORPHISM CARDS ══ */
+.hl-card,.work-card,.cert-card,.svc-card{
+  background:rgba(7,16,30,.55)!important;
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+  border:1px solid rgba(200,168,108,.12)!important;
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94),
+             box-shadow .3s ease,
+             border-color .3s ease!important;
+}
+.hl-card:hover,.work-card:hover,.cert-card:hover,.svc-card:hover{
+  transform:translateY(-4px)!important;
+  box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 30px rgba(200,168,108,.08)!important;
+  border-color:rgba(200,168,108,.25)!important;
+}
+/* Glass shine effect */
+.hl-card::before,.work-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(255,255,255,.04) 0%,transparent 50%);
+  pointer-events:none;z-index:0;
+}
+
+/* ══ ANIMATED COUNTERS ══ */
+.stat-num{
+  display:inline-block;
+  transition:transform .3s ease;
+}
+.hm-n{position:relative;}
+.hm-n::after{
+  content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);
+  width:0;height:1px;background:var(--go);
+  transition:width .6s ease;
+}
+.hm:hover .hm-n::after{width:60%;}
+
+/* ══ MAGNETIC BUTTON EFFECT ══ */
+.btn{transition:transform .2s cubic-bezier(.25,.46,.45,.94),
+     box-shadow .2s ease!important;}
+.btn:hover{box-shadow:0 8px 30px rgba(200,168,108,.2)!important;}
+
+/* ══ HERO GLOW ══ */
+.hero-title-wrap{position:relative;z-index:1;}
+.hero h1{text-shadow:0 0 60px rgba(200,168,108,.08);}
+
+/* ══ TIMELINE ENHANCED ══ */
+.jl-dot{
+  transition:transform .3s ease,box-shadow .3s ease!important;
+}
+.jl-item:hover .jl-dot{
+  transform:scale(1.4)!important;
+  box-shadow:0 0 20px rgba(200,168,108,.5)!important;
+}
+.jl-item{
+  transition:transform .2s ease!important;
+}
+.jl-item:hover{transform:translateX(4px)!important;}
+
+/* ══ SCROLL REVEAL ══ */
+.reveal{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══ SECTION DIVIDER ══ */
+.aero-divider{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(200,168,108,.2),transparent);
+  margin:0;
+}
+
+/* ══ idc card glass ══ */
+.idc-new{
+  background:rgba(7,16,30,.65)!important;
+  backdrop-filter:blur(16px)!important;
+  -webkit-backdrop-filter:blur(16px)!important;
+}
+</style>
+
 </head>
+
+<div id="plane-cursor">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 13 2a1.5 1.5 0 0 0-1.5 1.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z" fill="#c8a86c"/>
+  </svg>
+</div>
+<div id="cursor-ring"></div>
+
 <body>
 <div id="cur-outer"></div>
 <div id="cur-dot"></div>
@@ -1698,6 +1925,8 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 <!-- ══ HOME ══ -->
 <div id="page-home" class="page active">
 <div class="hero">
+    <canvas id="hero-particles"></canvas>
+  <canvas id="hero-particles" style="position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.5;"></canvas>
   <div class="hbg">
     <canvas id="particleCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
     <div class="hgrid"></div>
@@ -4772,6 +5001,15 @@ async function importLinkedIn(){
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+<!-- ══ CUSTOM AIRPLANE CURSOR ══ -->
+<div id="custom-cursor">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#c8a86c"/>
+  </svg>
+</div>
+<div id="cursor-trail"></div>
+
 </body>
   
 <script>
@@ -5175,4 +5413,369 @@ async function saveJob(){
   });
 })();
 </script>
-                                      </html>
+
+<script>
+/* ══ CUSTOM AIRPLANE CURSOR ══ */
+(function(){
+  var plane = document.getElementById('plane-cursor');
+  var ring  = document.getElementById('cursor-ring');
+  if(!plane || !ring) return;
+
+  var mx=0,my=0,rx=0,ry=0;
+  var px=0,py=0; // smooth ring position
+
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    plane.style.left = mx + 'px';
+    plane.style.top  = my + 'px';
+  });
+
+  // Smooth ring follow
+  (function animRing(){
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  // Magnetic effect on interactive elements
+  document.querySelectorAll('button,.btn-go,.btn-gh,a.btn,#hire-btn,.hire-btn').forEach(function(el){
+    el.addEventListener('mouseenter', function(){
+      plane.style.transform = 'translate(-50%,-50%) rotate(45deg) scale(1.4)';
+      ring.style.borderColor = 'rgba(200,168,108,.8)';
+    });
+    el.addEventListener('mouseleave', function(){
+      plane.style.transform = 'translate(-50%,-50%) rotate(45deg) scale(1)';
+      ring.style.borderColor = 'rgba(200,168,108,.35)';
+    });
+    el.addEventListener('mousemove', function(e){
+      var r = el.getBoundingClientRect();
+      var cx = r.left + r.width/2;
+      var cy = r.top  + r.height/2;
+      var dx = (e.clientX - cx) * 0.22;
+      var dy = (e.clientY - cy) * 0.22;
+      el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+    });
+    el.addEventListener('mouseleave', function(){
+      el.style.transform = '';
+    });
+  });
+})();
+
+/* ══ PARTICLE SYSTEM ══ */
+(function(){
+  var canvas = document.getElementById('hero-particles');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, particles = [];
+
+  function resize(){
+    var hero = canvas.parentElement;
+    W = canvas.width  = hero ? hero.offsetWidth  : window.innerWidth;
+    H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Create particles
+  for(var i=0; i<55; i++){
+    particles.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      vx: (Math.random()-.5) * .4,
+      vy: (Math.random()-.5) * .25 - .1,
+      r: Math.random()*1.5 + .4,
+      op: Math.random()*.5 + .15,
+      type: Math.random() > .85 ? 'plane' : 'dot'
+    });
+  }
+
+  function drawPlane(ctx, x, y, size, op){
+    ctx.save();
+    ctx.globalAlpha = op;
+    ctx.fillStyle = '#c8a86c';
+    ctx.translate(x, y);
+    ctx.rotate(-Math.PI/4);
+    ctx.scale(size, size);
+    ctx.beginPath();
+    ctx.moveTo(0,-4); ctx.lineTo(1,-1.5); ctx.lineTo(3,-.5);
+    ctx.lineTo(3,.2); ctx.lineTo(1,-.3); ctx.lineTo(.8,2);
+    ctx.lineTo(1.5,2.5); ctx.lineTo(1.5,3); ctx.lineTo(0,2.5);
+    ctx.lineTo(-1.5,3); ctx.lineTo(-1.5,2.5); ctx.lineTo(-.8,2);
+    ctx.lineTo(-1,-.3); ctx.lineTo(-3,.2); ctx.lineTo(-3,-.5);
+    ctx.lineTo(-1,-1.5); ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(function(p){
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < -20) p.x = W+20;
+      if(p.x > W+20) p.x = -20;
+      if(p.y < -20) p.y = H+20;
+      if(p.y > H+20) p.y = -20;
+
+      if(p.type === 'plane'){
+        drawPlane(ctx, p.x, p.y, p.r * 1.2, p.op * .7);
+      } else {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(200,168,108,' + p.op + ')';
+        ctx.fill();
+      }
+    });
+    // Draw connecting lines between close particles
+    for(var i=0;i<particles.length;i++){
+      for(var j=i+1;j<particles.length;j++){
+        var dx=particles[i].x-particles[j].x;
+        var dy=particles[i].y-particles[j].y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<100){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='rgba(200,168,108,'+(0.06*(1-dist/100))+')';
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ══ COUNTER ANIMATION — ENHANCE EXISTING ══ */
+(function(){
+  var nums = document.querySelectorAll('.stat-num[data-target]');
+  nums.forEach(function(el){
+    el.style.display='inline-block';
+    el.style.transition='transform .3s';
+  });
+})();
+
+/* ══ TIMELINE SCROLL REVEAL ══ */
+(function(){
+  var items = document.querySelectorAll('.jitem');
+  if(!items.length) return;
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e,i){
+      if(e.isIntersecting){
+        setTimeout(function(){ e.target.classList.add('visible'); }, i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  items.forEach(function(el){ obs.observe(el); });
+})();
+
+/* ══ GLASSMORPHISM — add class to work cards dynamically ══ */
+(function(){
+  // Already handled by CSS — just ensure backdrop-filter support
+  if(!CSS.supports('backdrop-filter','blur(1px)')){
+    document.querySelectorAll('.wcard-d,.idc-new,.hm').forEach(function(el){
+      el.style.background='rgba(13,24,40,.92)';
+    });
+  }
+})();
+</script>
+
+
+<script>
+(function(){
+'use strict';
+
+/* ══ 1. CUSTOM AIRPLANE CURSOR ══ */
+var cursor = document.getElementById('custom-cursor');
+var trail  = document.getElementById('cursor-trail');
+var mx=0,my=0,tx=0,ty=0;
+
+document.addEventListener('mousemove',function(e){
+  mx=e.clientX; my=e.clientY;
+  if(cursor) cursor.style.transform='translate('+(mx-14)+'px,'+(my-14)+'px)';
+  // Trail with delay
+  setTimeout(function(){
+    if(trail) trail.style.transform='translate('+(mx-4)+'px,'+(my-4)+'px)';
+  },80);
+});
+
+// Hover state on interactive elements
+document.querySelectorAll('button,a,.btn,.hl-card,.work-card,[onclick]').forEach(function(el){
+  el.addEventListener('mouseenter',function(){
+    if(cursor) cursor.querySelector('svg').style.transform='scale(1.4) rotate(-15deg)';
+    if(trail)  trail.style.transform='scale(2.5) translate(-50%,-50%)';
+  });
+  el.addEventListener('mouseleave',function(){
+    if(cursor) cursor.querySelector('svg').style.transform='scale(1) rotate(0deg)';
+    if(trail)  trail.style.transform='scale(1) translate(-50%,-50%)';
+  });
+});
+
+/* ══ 2. MAGNETIC BUTTONS ══ */
+document.querySelectorAll('.btn-go,.btn-gh,.hire-btn').forEach(function(btn){
+  btn.addEventListener('mousemove',function(e){
+    var r=btn.getBoundingClientRect();
+    var dx=(e.clientX-r.left-r.width/2)*0.25;
+    var dy=(e.clientY-r.top-r.height/2)*0.25;
+    btn.style.transform='translate('+dx+'px,'+dy+'px)';
+  });
+  btn.addEventListener('mouseleave',function(){
+    btn.style.transform='translate(0,0)';
+    btn.style.transition='transform .4s cubic-bezier(.25,.46,.45,.94)';
+  });
+  btn.addEventListener('mouseenter',function(){
+    btn.style.transition='transform .1s ease';
+  });
+});
+
+/* ══ 3. ANIMATED COUNTERS ══ */
+function animateCounter(el,target,duration){
+  var start=0,startTime=null;
+  function step(ts){
+    if(!startTime) startTime=ts;
+    var progress=Math.min((ts-startTime)/duration,1);
+    var ease=1-Math.pow(1-progress,3);
+    el.textContent=Math.floor(ease*target);
+    if(progress<1) requestAnimationFrame(step);
+    else el.textContent=target;
+  }
+  requestAnimationFrame(step);
+}
+
+var countersStarted=false;
+function startCounters(){
+  if(countersStarted)return;
+  var els=document.querySelectorAll('.stat-num');
+  if(!els.length)return;
+  var statsEl=document.getElementById('statsRow');
+  if(!statsEl)return;
+  var rect=statsEl.getBoundingClientRect();
+  if(rect.top<window.innerHeight){
+    countersStarted=true;
+    els.forEach(function(el){
+      var target=parseInt(el.getAttribute('data-target')||el.textContent)||0;
+      el.textContent='0';
+      animateCounter(el,target,1800);
+    });
+  }
+}
+window.addEventListener('scroll',startCounters,{passive:true});
+setTimeout(startCounters,1000);
+
+/* ══ 4. SCROLL REVEAL ══ */
+var revealObserver=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+
+document.querySelectorAll('.reveal,.hl-card,.work-card,.cert-card,.svc-card,.jl-item,.hm').forEach(function(el){
+  el.classList.add('reveal');
+  revealObserver.observe(el);
+});
+
+/* ══ 5. PARTICLE SYSTEM ══ */
+var pCanvas=document.getElementById('hero-particles');
+if(pCanvas){
+  var pCtx=pCanvas.getContext('2d');
+  var particles=[];
+  var PW,PH;
+
+  function resizeParticles(){
+    PW=pCanvas.width=pCanvas.offsetWidth;
+    PH=pCanvas.height=pCanvas.offsetHeight;
+  }
+  resizeParticles();
+  window.addEventListener('resize',resizeParticles,{passive:true});
+
+  // Create particles
+  for(var i=0;i<70;i++){
+    particles.push({
+      x:Math.random()*PW,
+      y:Math.random()*PH,
+      vx:(Math.random()-.5)*.35,
+      vy:(Math.random()-.5)*.18,
+      size:Math.random()*2+.5,
+      alpha:Math.random()*.5+.1,
+      type:Math.random()>.85?'plane':'dot'
+    });
+  }
+
+  function drawPlane(ctx,x,y,size,alpha){
+    ctx.save();
+    ctx.globalAlpha=alpha;
+    ctx.fillStyle='#c8a86c';
+    ctx.translate(x,y);
+    ctx.rotate(Math.PI/6);
+    ctx.scale(size*.4,size*.4);
+    ctx.beginPath();
+    ctx.moveTo(0,-6);
+    ctx.lineTo(2,0);
+    ctx.lineTo(6,1);
+    ctx.lineTo(2,2);
+    ctx.lineTo(1,6);
+    ctx.lineTo(0,4);
+    ctx.lineTo(-1,6);
+    ctx.lineTo(-2,2);
+    ctx.lineTo(-6,1);
+    ctx.lineTo(-2,0);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function animParticles(){
+    if(!pCtx)return;
+    pCtx.clearRect(0,0,PW,PH);
+    particles.forEach(function(p){
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<-10)p.x=PW+10;
+      if(p.x>PW+10)p.x=-10;
+      if(p.y<-10)p.y=PH+10;
+      if(p.y>PH+10)p.y=-10;
+      if(p.type==='plane'){
+        drawPlane(pCtx,p.x,p.y,p.size*3,p.alpha*.7);
+      } else {
+        pCtx.beginPath();
+        pCtx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        pCtx.fillStyle='rgba(200,168,108,'+p.alpha+')';
+        pCtx.fill();
+      }
+      // Connect nearby particles
+      particles.forEach(function(p2){
+        var dx=p.x-p2.x,dy=p.y-p2.y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<90&&dist>0){
+          pCtx.beginPath();
+          pCtx.moveTo(p.x,p.y);
+          pCtx.lineTo(p2.x,p2.y);
+          pCtx.strokeStyle='rgba(200,168,108,'+(0.06*(1-dist/90))+')';
+          pCtx.lineWidth=.5;
+          pCtx.stroke();
+        }
+      });
+    });
+    requestAnimationFrame(animParticles);
+  }
+  animParticles();
+}
+
+/* ══ 6. HERO PARALLAX ══ */
+window.addEventListener('scroll',function(){
+  var scrolled=window.pageYOffset;
+  var hero=document.querySelector('.hero');
+  if(hero&&scrolled<window.innerHeight){
+    hero.style.transform='translateY('+(scrolled*.12)+'px)';
+  }
+},{passive:true});
+
+})();
+</script>
+
+  </html>
