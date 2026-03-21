@@ -2298,6 +2298,200 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 @media(max-width:768px){#aircraft-explorer [style*="grid-template-columns:1fr 280px"]{grid-template-columns:1fr!important;}#aex-canvas{height:320px!important;}}
 </style>
 
+
+<!-- ══ FLIGHT PLAN GENERATOR ══ -->
+<div id="flightplan-section" style="background:linear-gradient(180deg,#07090d 0%,#060b18 50%,#07090d 100%);border-top:1px solid rgba(200,168,108,.08);padding:4rem 0;position:relative;overflow:hidden;">
+  <!-- Grid bg -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(200,168,108,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(200,168,108,.018) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;"></div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:0 2rem;position:relative;z-index:1;">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(200,168,108,.07);border:1px solid rgba(200,168,108,.18);color:#c8a86c;font-size:.58rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:.32rem .9rem;border-radius:20px;margin-bottom:.9rem;">
+        <span style="width:6px;height:6px;background:#c8a86c;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;"></span>
+        Flight Plan Generator
+      </div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);color:#f0ede6;margin-bottom:.4rem;">Plan Your Flight <span style="color:#c8a86c;">to Amman</span></h2>
+      <p style="color:#616878;font-size:.88rem;max-width:480px;margin:0 auto;">Enter any city and get a real great-circle flight route to Queen Alia International Airport (OJAM).</p>
+    </div>
+
+    <!-- Input -->
+    <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;">
+      <div style="position:relative;">
+        <input id="fp-city" type="text" placeholder="e.g. Dubai, London, New York..."
+          style="background:rgba(255,255,255,.04);border:1px solid rgba(200,168,108,.25);color:#f0ede6;
+          font-family:'DM Sans',sans-serif;font-size:.85rem;padding:.6rem 1rem .6rem 2.2rem;
+          border-radius:8px;width:280px;outline:none;transition:border-color .2s;"
+          onkeydown="if(event.key==='Enter')generateFlightPlan()"
+          onfocus="this.style.borderColor='rgba(200,168,108,.6)'"
+          onblur="this.style.borderColor='rgba(200,168,108,.25)'">
+        <span style="position:absolute;left:.7rem;top:50%;transform:translateY(-50%);font-size:.85rem;pointer-events:none;">✈</span>
+      </div>
+      <button onclick="generateFlightPlan()"
+        style="background:linear-gradient(135deg,rgba(200,168,108,.18),rgba(200,168,108,.08));
+        border:1px solid rgba(200,168,108,.4);color:#c8a86c;font-family:'DM Sans',sans-serif;
+        font-size:.82rem;font-weight:700;padding:.6rem 1.4rem;border-radius:8px;
+        cursor:pointer;transition:all .2s;letter-spacing:.5px;"
+        onmouseover="this.style.background='rgba(200,168,108,.25)'"
+        onmouseout="this.style.background='linear-gradient(135deg,rgba(200,168,108,.18),rgba(200,168,108,.08))'">
+        Generate Route ↗
+      </button>
+    </div>
+
+    <!-- Quick city buttons -->
+    <div style="display:flex;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-bottom:2rem;" id="fp-presets">
+      <span style="font-size:.62rem;color:rgba(255,255,255,.2);letter-spacing:1px;text-transform:uppercase;align-self:center;margin-right:.3rem;">Quick:</span>
+    </div>
+
+    <!-- Main layout: Map + Info panel -->
+    <div style="display:grid;grid-template-columns:1fr 280px;gap:1.5rem;align-items:start;">
+
+      <!-- SVG World Map -->
+      <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(200,168,108,.12);background:#040810;">
+        <div style="position:absolute;top:10px;left:10px;width:16px;height:16px;border-top:1.5px solid rgba(200,168,108,.3);border-left:1.5px solid rgba(200,168,108,.3);pointer-events:none;z-index:2;"></div>
+        <div style="position:absolute;top:10px;right:10px;width:16px;height:16px;border-top:1.5px solid rgba(200,168,108,.3);border-right:1.5px solid rgba(200,168,108,.3);pointer-events:none;z-index:2;"></div>
+        <div style="position:absolute;bottom:10px;left:10px;width:16px;height:16px;border-bottom:1.5px solid rgba(200,168,108,.3);border-left:1.5px solid rgba(200,168,108,.3);pointer-events:none;z-index:2;"></div>
+        <div style="position:absolute;bottom:10px;right:10px;width:16px;height:16px;border-bottom:1.5px solid rgba(200,168,108,.3);border-right:1.5px solid rgba(200,168,108,.3);pointer-events:none;z-index:2;"></div>
+
+        <svg id="fp-map" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg"
+          style="display:block;width:100%;background:#040810;">
+
+          <!-- Grid lines -->
+          <g stroke="rgba(200,168,108,.06)" stroke-width=".5">
+            <line x1="0" y1="105" x2="800" y2="105"/>
+            <line x1="0" y1="210" x2="800" y2="210"/>
+            <line x1="0" y1="315" x2="800" y2="315"/>
+            <line x1="200" y1="0" x2="200" y2="420"/>
+            <line x1="400" y1="0" x2="400" y2="420"/>
+            <line x1="600" y1="0" x2="600" y2="420"/>
+          </g>
+
+          <!-- Equator + Prime Meridian -->
+          <line x1="0" y1="210" x2="800" y2="210" stroke="rgba(200,168,108,.12)" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="400" y1="0" x2="400" y2="420" stroke="rgba(200,168,108,.12)" stroke-width="1" stroke-dasharray="4,4"/>
+
+          <!-- Simplified world landmasses -->
+          <!-- North America -->
+          <path d="M95,68 L165,62 L190,78 L195,95 L185,115 L175,130 L165,150 L155,160 L140,155 L120,148 L105,135 L92,118 L85,100 L88,82 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- Central America -->
+          <path d="M140,155 L155,160 L158,172 L150,178 L142,170 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- South America -->
+          <path d="M148,178 L168,175 L185,188 L192,210 L188,240 L178,265 L162,278 L148,270 L138,250 L135,225 L140,200 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- Greenland -->
+          <path d="M210,42 L240,38 L255,50 L248,65 L230,70 L215,62 Z" fill="rgba(200,168,108,.06)" stroke="rgba(200,168,108,.15)" stroke-width="1"/>
+          <!-- Europe -->
+          <path d="M368,72 L392,68 L408,75 L415,88 L410,98 L400,105 L385,108 L372,102 L364,90 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- Scandinavia -->
+          <path d="M375,55 L390,50 L398,58 L392,68 L380,70 L372,62 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- UK -->
+          <path d="M355,72 L365,68 L368,78 L360,82 L352,78 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- Africa -->
+          <path d="M378,115 L408,112 L425,125 L432,148 L428,175 L415,198 L400,215 L385,218 L370,205 L360,182 L358,155 L362,130 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- Middle East / Arabian Peninsula -->
+          <path d="M430,108 L455,105 L468,115 L470,130 L462,142 L448,148 L435,140 L428,125 Z" fill="rgba(200,168,108,.1)" stroke="rgba(200,168,108,.25)" stroke-width="1"/>
+          <!-- Asia -->
+          <path d="M455,62 L520,55 L570,60 L600,72 L610,88 L600,105 L575,115 L545,118 L515,112 L488,105 L465,95 L450,80 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- India -->
+          <path d="M488,118 L508,115 L518,128 L515,148 L505,162 L492,155 L482,138 L482,122 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- Southeast Asia -->
+          <path d="M560,118 L585,115 L598,125 L595,138 L578,142 L562,135 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- Australia -->
+          <path d="M585,245 L628,238 L650,252 L652,275 L638,292 L615,298 L592,285 L578,265 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.2)" stroke-width="1"/>
+          <!-- Japan -->
+          <path d="M620,88 L632,82 L638,92 L630,100 L620,96 Z" fill="rgba(200,168,108,.08)" stroke="rgba(200,168,108,.15)" stroke-width="1"/>
+
+          <!-- Lat/Lon labels -->
+          <text x="402" y="207" font-size="7" fill="rgba(200,168,108,.2)" font-family="monospace">0°</text>
+          <text x="4" y="213" font-size="7" fill="rgba(200,168,100,.2)" font-family="monospace">EQ</text>
+
+          <!-- Amman marker (fixed) -->
+          <circle id="fp-amman" cx="447" cy="118" r="5" fill="#c8a86c" opacity=".9"/>
+          <circle cx="447" cy="118" r="9" fill="none" stroke="#c8a86c" stroke-width="1" opacity=".4">
+            <animate attributeName="r" values="7;14;7" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".4;0;.4" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+          <text x="452" y="115" font-size="9" fill="#c8a86c" font-family="sans-serif" font-weight="bold">OJAM</text>
+
+          <!-- Route path (updated by JS) -->
+          <path id="fp-route" d="" fill="none" stroke="#c8a86c" stroke-width="2"
+            stroke-dasharray="6,4" opacity="0">
+            <animate id="fp-route-anim" attributeName="stroke-dashoffset" from="1000" to="0" dur="2s" fill="freeze"/>
+          </path>
+
+          <!-- Origin marker (updated by JS) -->
+          <g id="fp-origin" opacity="0">
+            <circle id="fp-origin-dot" cx="0" cy="0" r="5" fill="#00e5ff"/>
+            <circle id="fp-origin-ring" cx="0" cy="0" r="9" fill="none" stroke="#00e5ff" stroke-width="1" opacity=".5"/>
+            <text id="fp-origin-label" x="0" y="0" font-size="9" fill="#00e5ff" font-family="sans-serif" font-weight="bold"></text>
+          </g>
+
+          <!-- Plane on route (updated by JS) -->
+          <text id="fp-plane-icon" x="0" y="0" font-size="14" text-anchor="middle" dominant-baseline="middle" opacity="0">✈</text>
+        </svg>
+      </div>
+
+      <!-- Info Panel -->
+      <div id="fp-panel" style="border-radius:14px;border:1px solid rgba(200,168,108,.12);
+        background:linear-gradient(145deg,#080d1a,#0a1020);padding:1.3rem;min-height:380px;
+        display:flex;flex-direction:column;gap:.8rem;">
+
+        <!-- Default state -->
+        <div id="fp-default" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.8rem;">
+          <div style="font-size:2.5rem;opacity:.15;">🗺</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.2);line-height:1.75;">Enter a city above<br>to calculate the<br>flight route to Amman</div>
+        </div>
+
+        <!-- Results -->
+        <div id="fp-results" style="display:none;flex-direction:column;gap:.7rem;">
+          <div style="font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(200,168,108,.5);">Flight Plan</div>
+          <div id="fp-route-name" style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#f0ede6;line-height:1.3;"></div>
+
+          <div style="height:1px;background:rgba(200,168,108,.1);"></div>
+
+          <!-- Stats grid -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+            <div style="background:rgba(0,0,0,.3);border-radius:7px;padding:.55rem .7rem;">
+              <div style="font-size:.58rem;color:rgba(255,255,255,.25);margin-bottom:.2rem;">Distance</div>
+              <div id="fp-distance" style="font-size:.9rem;color:#c8a86c;font-weight:700;"></div>
+            </div>
+            <div style="background:rgba(0,0,0,.3);border-radius:7px;padding:.55rem .7rem;">
+              <div style="font-size:.58rem;color:rgba(255,255,255,.25);margin-bottom:.2rem;">Flight Time</div>
+              <div id="fp-time" style="font-size:.9rem;color:#c8a86c;font-weight:700;"></div>
+            </div>
+            <div style="background:rgba(0,0,0,.3);border-radius:7px;padding:.55rem .7rem;">
+              <div style="font-size:.58rem;color:rgba(255,255,255,.25);margin-bottom:.2rem;">Cruise Alt</div>
+              <div id="fp-alt" style="font-size:.9rem;color:#f0ede6;font-weight:600;"></div>
+            </div>
+            <div style="background:rgba(0,0,0,.3);border-radius:7px;padding:.55rem .7rem;">
+              <div style="font-size:.58rem;color:rgba(255,255,255,.25);margin-bottom:.2rem;">Direction</div>
+              <div id="fp-bearing" style="font-size:.9rem;color:#f0ede6;font-weight:600;"></div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:rgba(200,168,108,.1);"></div>
+
+          <!-- Aircraft type recommendation -->
+          <div>
+            <div style="font-size:.58rem;color:rgba(255,255,255,.25);margin-bottom:.4rem;letter-spacing:1px;text-transform:uppercase;">Suitable Aircraft</div>
+            <div id="fp-aircraft" style="font-size:.72rem;color:rgba(255,255,255,.55);line-height:1.7;"></div>
+          </div>
+
+          <!-- Waypoints -->
+          <div>
+            <div style="font-size:.58rem;color:rgba(255,255,255,.25);margin-bottom:.4rem;letter-spacing:1px;text-transform:uppercase;">Route Waypoints</div>
+            <div id="fp-waypoints" style="font-size:.68rem;color:rgba(200,168,108,.7);font-family:monospace;line-height:1.8;"></div>
+          </div>
+
+          <div style="background:rgba(200,168,108,.05);border:1px solid rgba(200,168,108,.12);border-radius:7px;padding:.5rem .7rem;">
+            <div style="font-size:.6rem;color:rgba(200,168,108,.5);font-family:monospace;" id="fp-icao-route"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ HIGHLIGHTS SECTION ══ -->
 <div class="hl-section" id="hlSection">
   <!-- Animated background elements -->
@@ -3762,45 +3956,12 @@ function stopCEdge(){clearInterval(_edgeInt);_edgeInt=null;}
 function downloadCV(){
   toast('✓ Generating PDF...');
   var EM2=typeof EM!=='undefined'?EM:'nashataldhoun@yahoo.com';
-  var sty='body{font-family:Arial,sans-serif;margin:0;padding:2cm;font-size:10pt;color:#111;line-height:1.5;}'
-    +'h1{font-size:22pt;margin:0 0 4px;color:#0d1b2a;}'
-    +'.role{font-size:10pt;color:#4875c2;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}'
-    +'.contact{font-size:8.5pt;color:#555;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #c8a86c;}'
-    +'h2{font-size:11pt;color:#0d1b2a;margin:14px 0 5px;padding-left:8px;border-left:3px solid #c8a86c;}'
-    +'.it{font-weight:700;font-size:10pt;}.io{color:#4875c2;font-size:9pt;}'
-    +'.dt{font-size:8.5pt;color:#888;}'
-    +'.id{font-size:9pt;color:#555;margin-top:3px;}'
-    +'ul{padding-left:14px;margin:4px 0;}li{font-size:9pt;color:#555;margin-bottom:2px;}'
-    +'.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}'
-    +'.sb{background:#f8f9fa;border-radius:5px;padding:6px 8px;border-left:2px solid #c8a86c;}'
-    +'.sk{font-size:7.5pt;font-weight:700;color:#4875c2;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}'
-    +'.sv{font-size:9pt;color:#333;}'
-    +'.ft{margin-top:20px;text-align:center;font-size:7.5pt;color:#aaa;border-top:1px solid #eee;padding-top:8px;}';
-  var bod='<h1>Nashat Omar Aldhoun</h1>'
-    +'<div class="role">Junior Aeronautical Engineer</div>'
-    +'<div class="contact">Irbid, Jordan | +962 776 763 628 | '+EM2+' | linkedin.com/in/nashat-al-dhoun</div>'
-    +'<h2>Summary</h2>'
-    +'<p style="font-size:9pt;color:#555;">Motivated Junior Aeronautical Engineer, JUST 2025. Aircraft Structures, FEA, MRO. RJAF trained. ANSYS, SolidWorks, Creo, MATLAB.</p>'
-    +'<h2>Experience</h2>'
-    +'<div style="display:flex;justify-content:space-between;"><div><div class="it">Aircraft Maintenance Trainee</div><div class="io">Royal Jordanian Air Force - Overhaul Dept.</div></div><div class="dt">Sep-Oct 2025</div></div>'
-    +'<ul><li>8-week intensive MRO training</li><li>Hydraulic systems inspection under licensed engineers</li><li>Aviation safety and MRO documentation</li></ul>'
-    +'<h2>Education</h2>'
-    +'<div style="display:flex;justify-content:space-between;"><div><div class="it">B.Sc. Aeronautical Engineering</div><div class="io">Jordan University of Science & Technology</div></div><div class="dt">2021-2025</div></div>'
-    +'<div class="id">Graduation: Vibration Analysis on Aircraft Wing (ANSYS, Creo, CFD)</div>'
-    +'<h2>Skills</h2>'
-    +'<div class="sg">'
-    +'<div class="sb"><div class="sk">CAD & Simulation</div><div class="sv">Creo | ANSYS | SolidWorks</div></div>'
-    +'<div class="sb"><div class="sk">Analysis</div><div class="sv">FEA | CFD | MATLAB | Power BI</div></div>'
-    +'<div class="sb"><div class="sk">Domain</div><div class="sv">Structures | MRO | Airworthiness</div></div>'
-    +'<div class="sb"><div class="sk">Languages</div><div class="sv">Arabic (Native) | English (B2)</div></div>'
-    +'</div>'
-    +'<h2>Certifications</h2>'
-    +'<ul><li>Power BI Data Analysis, Microsoft (2026)</li><li>Aircraft Maintenance Training, RJAF (2025)</li><li>Employment Skills Training 5hrs (2024)</li></ul>'
-    +'<div class="ft">Nashat Omar Aldhoun | '+EM2+' | +962 776 763 628 | Irbid, Jordan</div>';
+  var sty='body{font-family:Arial,sans-serif;margin:0;padding:2cm;font-size:10pt;color:#111;line-height:1.5;}h1{font-size:22pt;margin:0 0 4px;color:#0d1b2a;}.role{font-size:10pt;color:#4875c2;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}.contact{font-size:8.5pt;color:#555;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #c8a86c;}h2{font-size:11pt;color:#0d1b2a;margin:14px 0 5px;padding-left:8px;border-left:3px solid #c8a86c;}.it{font-weight:700;font-size:10pt;}.io{color:#4875c2;font-size:9pt;}.dt{font-size:8.5pt;color:#888;}.id{font-size:9pt;color:#555;margin-top:3px;}ul{padding-left:14px;margin:4px 0;}li{font-size:9pt;color:#555;margin-bottom:2px;}.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}.sb{background:#f8f9fa;border-radius:5px;padding:6px 8px;border-left:2px solid #c8a86c;}.sk{font-size:7.5pt;font-weight:700;color:#4875c2;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}.sv{font-size:9pt;color:#333;}.ft{margin-top:20px;text-align:center;font-size:7.5pt;color:#aaa;border-top:1px solid #eee;padding-top:8px;}';
+  var bod='<h1>Nashat Omar Aldhoun</h1><div class="role">Junior Aeronautical Engineer</div><div class="contact">Irbid, Jordan | +962 776 763 628 | '+EM2+' | linkedin.com/in/nashat-al-dhoun</div><h2>Summary</h2><p style="font-size:9pt;color:#555;">Motivated Junior Aeronautical Engineer, JUST 2025. Aircraft Structures, FEA, MRO. RJAF trained. ANSYS, SolidWorks, Creo, MATLAB.</p><h2>Experience</h2><div style="display:flex;justify-content:space-between;"><div><div class="it">Aircraft Maintenance Trainee</div><div class="io">Royal Jordanian Air Force - Overhaul Dept.</div></div><div class="dt">Sep-Oct 2025</div></div><ul><li>8-week intensive MRO training</li><li>Hydraulic systems inspection under licensed engineers</li><li>Aviation safety and MRO documentation</li></ul><h2>Education</h2><div style="display:flex;justify-content:space-between;"><div><div class="it">B.Sc. Aeronautical Engineering</div><div class="io">Jordan University of Science & Technology</div></div><div class="dt">2021-2025</div></div><div class="id">Graduation: Vibration Analysis on Aircraft Wing (ANSYS, Creo, CFD)</div><h2>Skills</h2><div class="sg"><div class="sb"><div class="sk">CAD & Simulation</div><div class="sv">Creo | ANSYS | SolidWorks</div></div><div class="sb"><div class="sk">Analysis</div><div class="sv">FEA | CFD | MATLAB | Power BI</div></div><div class="sb"><div class="sk">Domain</div><div class="sv">Structures | MRO | Airworthiness</div></div><div class="sb"><div class="sk">Languages</div><div class="sv">Arabic (Native) | English (B2)</div></div></div><h2>Certifications</h2><ul><li>Power BI Data Analysis, Microsoft (2026)</li><li>Aircraft Maintenance Training, RJAF (2025)</li><li>Employment Skills Training 5hrs (2024)</li></ul><div class="ft">Nashat Omar Aldhoun | '+EM2+' | +962 776 763 628 | Irbid, Jordan</div>';
   var win=window.open('','_blank','width=900,height=700');
   if(!win){toast('⚠ Allow popups first');return;}
   var sc='window.onload=function(){setTimeout(function(){window.print();},600);};';
-  win.document.write('<'+'!DOCTYPE html><html><head><meta charset="UTF-8"><title>Nashat CV</title><style>'+sty+'</style><'+'script>'+sc+'<'+'/script></head><body>'+bod+'</body></html>');
+  win.document.write('<'+'!DOCTYPE html><html><head><meta charset="UTF-8"><title>Nashat CV</title><style>'+sty+'<'+'/style><'+'script>'+sc+'<'+'/script></head><body>'+bod+'</body></html>');
   win.document.close();
   toast('✓ CV ready - choose Save as PDF');
 }
@@ -5998,10 +6159,33 @@ async function saveJob(){
     }catch(e){}
   }
 
+  var synth = window.speechSynthesis;
+  // Pre-load voices
+  if(synth && synth.getVoices().length===0){
+    synth.addEventListener('voiceschanged', function(){});
+  }
+
+  function speakATC(text){
+    if(!synth) return;
+    synth.cancel();
+    var utt = new SpeechSynthesisUtterance(text);
+    utt.rate  = 0.88;
+    utt.pitch = 0.75;
+    utt.volume= 0.9;
+    // Pick a deep male voice if available
+    var voices = synth.getVoices();
+    var male = voices.find(function(v){
+      return v.lang.startsWith('en') && (v.name.toLowerCase().includes('male')||v.name.toLowerCase().includes('david')||v.name.toLowerCase().includes('mark')||v.name.toLowerCase().includes('daniel')||v.name.toLowerCase().includes('george'));
+    }) || voices.find(function(v){ return v.lang.startsWith('en'); });
+    if(male) utt.voice = male;
+    synth.speak(utt);
+  }
+
   window.stopATC = function(){
     if(atcInterval) clearInterval(atcInterval);
     if(atcBars) clearInterval(atcBars);
     stopRadioStatic();
+    if(synth) synth.cancel();
   };
 
   document.addEventListener('keydown', function(e){
@@ -6011,9 +6195,11 @@ async function saveJob(){
       var textEl = document.getElementById('atc-text');
       if(!modal||!textEl) return;
       modal.style.display='flex';
-      textEl.textContent = atcLines[atcIdx % atcLines.length];
+      var line = atcLines[atcIdx % atcLines.length];
+      textEl.textContent = line;
       atcIdx++;
       startRadioStatic();
+      speakATC(line);
 
       // Animate bars
       var bars = document.querySelectorAll('.atc-bar');
@@ -6029,11 +6215,13 @@ async function saveJob(){
       atcInterval = setInterval(function(){
         textEl.style.opacity='0';
         setTimeout(function(){
-          textEl.textContent = atcLines[atcIdx % atcLines.length];
+          var next = atcLines[atcIdx % atcLines.length];
+          textEl.textContent = next;
           textEl.style.opacity='1';
           atcIdx++;
+          speakATC(next);
         },300);
-      }, 4000);
+      }, 7000);
     }
     if(e.key==='Escape'){
       document.getElementById('atc-modal').style.display='none';
@@ -6082,4 +6270,250 @@ async function saveJob(){
 })();
 </script>
 
-      </html>
+
+<script>
+(function initFlightPlanGenerator(){
+
+  // Major cities database with coordinates
+  var CITIES = {
+    'dubai':       {name:'Dubai',      iata:'DXB', lat:25.2528, lon:55.3644},
+    'abu dhabi':   {name:'Abu Dhabi',  iata:'AUH', lat:24.4330, lon:54.6511},
+    'london':      {name:'London',     iata:'LHR', lat:51.4700, lon:-0.4543},
+    'paris':       {name:'Paris',      iata:'CDG', lat:49.0097, lon:2.5479},
+    'frankfurt':   {name:'Frankfurt',  iata:'FRA', lat:50.0333, lon:8.5706},
+    'istanbul':    {name:'Istanbul',   iata:'IST', lat:41.2753, lon:28.7519},
+    'cairo':       {name:'Cairo',      iata:'CAI', lat:30.1219, lon:31.4056},
+    'riyadh':      {name:'Riyadh',     iata:'RUH', lat:24.9578, lon:46.6989},
+    'jeddah':      {name:'Jeddah',     iata:'JED', lat:21.6796, lon:39.1565},
+    'doha':        {name:'Doha',       iata:'DOH', lat:25.2609, lon:51.6138},
+    'kuwait':      {name:'Kuwait',     iata:'KWI', lat:29.2267, lon:47.9689},
+    'beirut':      {name:'Beirut',     iata:'BEY', lat:33.8208, lon:35.4884},
+    'new york':    {name:'New York',   iata:'JFK', lat:40.6413, lon:-73.7781},
+    'los angeles': {name:'Los Angeles',iata:'LAX', lat:33.9425, lon:-118.4081},
+    'toronto':     {name:'Toronto',    iata:'YYZ', lat:43.6777, lon:-79.6248},
+    'amsterdam':   {name:'Amsterdam',  iata:'AMS', lat:52.3086, lon:4.7639},
+    'madrid':      {name:'Madrid',     iata:'MAD', lat:40.4983, lon:-3.5676},
+    'rome':        {name:'Rome',       iata:'FCO', lat:41.8003, lon:12.2389},
+    'athens':      {name:'Athens',     iata:'ATH', lat:37.9364, lon:23.9445},
+    'mumbai':      {name:'Mumbai',     iata:'BOM', lat:19.0896, lon:72.8656},
+    'delhi':       {name:'Delhi',      iata:'DEL', lat:28.5562, lon:77.1000},
+    'singapore':   {name:'Singapore',  iata:'SIN', lat:1.3644,  lon:103.9915},
+    'bangkok':     {name:'Bangkok',    iata:'BKK', lat:13.6811, lon:100.7472},
+    'tokyo':       {name:'Tokyo',      iata:'NRT', lat:35.7720, lon:140.3929},
+    'beijing':     {name:'Beijing',    iata:'PEK', lat:40.0799, lon:116.6031},
+    'sydney':      {name:'Sydney',     iata:'SYD', lat:-33.9399, lon:151.1753},
+    'johannesburg':{name:'Johannesburg',iata:'JNB',lat:-26.1367,lon:28.2411},
+    'nairobi':     {name:'Nairobi',    iata:'NBO', lat:-1.3192,  lon:36.9275},
+    'casablanca':  {name:'Casablanca', iata:'CMN', lat:33.3675,  lon:-7.5898},
+    'moscow':      {name:'Moscow',     iata:'SVO', lat:55.9726,  lon:37.4146},
+    'chicago':     {name:'Chicago',    iata:'ORD', lat:41.9742,  lon:-87.9073},
+    'miami':       {name:'Miami',      iata:'MIA', lat:25.7959,  lon:-80.2870},
+    'barcelona':   {name:'Barcelona',  iata:'BCN', lat:41.2971,  lon:2.0785},
+    'zurich':      {name:'Zurich',     iata:'ZRH', lat:47.4647,  lon:8.5492},
+    'vienna':      {name:'Vienna',     iata:'VIE', lat:48.1103,  lon:16.5697},
+    'brussels':    {name:'Brussels',   iata:'BRU', lat:50.9010,  lon:4.4844},
+    'copenhagen':  {name:'Copenhagen', iata:'CPH', lat:55.6180,  lon:12.6508},
+    'stockholm':   {name:'Stockholm',  iata:'ARN', lat:59.6519,  lon:17.9186},
+    'milan':       {name:'Milan',      iata:'MXP', lat:45.6306,  lon:8.7281},
+    'muscat':      {name:'Muscat',     iata:'MCT', lat:23.5933,  lon:58.2844},
+    'bahrain':     {name:'Bahrain',    iata:'BAH', lat:26.2708,  lon:50.6336},
+    'amman':       {name:'Amman',      iata:'AMM', lat:31.7222,  lon:35.9934},
+  };
+
+  var AMMAN = {name:'Amman', iata:'AMM', lat:31.7222, lon:35.9934};
+
+  // Preset cities for quick buttons
+  var PRESETS = ['Dubai','Istanbul','London','Cairo','Doha','Frankfurt','Mumbai','Singapore'];
+
+  // Build preset buttons
+  var presetsDiv = document.getElementById('fp-presets');
+  if(presetsDiv){
+    PRESETS.forEach(function(city){
+      var btn = document.createElement('button');
+      btn.textContent = city;
+      btn.style.cssText = 'background:rgba(200,168,108,.06);border:1px solid rgba(200,168,108,.18);color:rgba(200,168,108,.7);font-size:.65rem;font-family:"DM Sans",sans-serif;padding:.25rem .65rem;border-radius:20px;cursor:pointer;transition:all .2s;';
+      btn.onmouseover = function(){ this.style.background='rgba(200,168,108,.15)'; };
+      btn.onmouseout  = function(){ this.style.background='rgba(200,168,108,.06)'; };
+      btn.onclick = function(){
+        var inp = document.getElementById('fp-city');
+        if(inp){ inp.value = city; generateFlightPlan(); }
+      };
+      presetsDiv.appendChild(btn);
+    });
+  }
+
+  // Haversine distance
+  function haversine(lat1,lon1,lat2,lon2){
+    var R=6371, dLat=(lat2-lat1)*Math.PI/180, dLon=(lon2-lon1)*Math.PI/180;
+    var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+    return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+  }
+
+  // Initial bearing
+  function bearing(lat1,lon1,lat2,lon2){
+    var dLon=(lon2-lon1)*Math.PI/180;
+    var y=Math.sin(dLon)*Math.cos(lat2*Math.PI/180);
+    var x=Math.cos(lat1*Math.PI/180)*Math.sin(lat2*Math.PI/180)-Math.sin(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.cos(dLon);
+    var brng=Math.atan2(y,x)*180/Math.PI;
+    return (brng+360)%360;
+  }
+
+  // Bearing to compass direction
+  function compassDir(deg){
+    var dirs=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+    return dirs[Math.round(deg/22.5)%16];
+  }
+
+  // Convert lat/lon to SVG coordinates (800x420 viewBox)
+  function toSVG(lat,lon){
+    var x = (lon+180)/360*800;
+    var y = (90-lat)/180*420;
+    return {x:Math.round(x*10)/10, y:Math.round(y*10)/10};
+  }
+
+  // Great circle intermediate points
+  function gcPoints(lat1,lon1,lat2,lon2,n){
+    var pts=[];
+    for(var i=0;i<=n;i++){
+      var f=i/n;
+      var d=haversine(lat1,lon1,lat2,lon2);
+      var dR=d/6371;
+      var A=Math.sin((1-f)*dR)/Math.sin(dR);
+      var B=Math.sin(f*dR)/Math.sin(dR);
+      var x=A*Math.cos(lat1*Math.PI/180)*Math.cos(lon1*Math.PI/180)+B*Math.cos(lat2*Math.PI/180)*Math.cos(lon2*Math.PI/180);
+      var y=A*Math.cos(lat1*Math.PI/180)*Math.sin(lon1*Math.PI/180)+B*Math.cos(lat2*Math.PI/180)*Math.sin(lon2*Math.PI/180);
+      var z=A*Math.sin(lat1*Math.PI/180)+B*Math.sin(lat2*Math.PI/180);
+      var lat=Math.atan2(z,Math.sqrt(x*x+y*y))*180/Math.PI;
+      var lon=Math.atan2(y,x)*180/Math.PI;
+      pts.push(toSVG(lat,lon));
+    }
+    return pts;
+  }
+
+  // Aircraft recommendation
+  function getAircraft(dist){
+    if(dist<800)  return 'Embraer E195-E2 / Airbus A220-300';
+    if(dist<2500) return 'Airbus A320neo / Boeing 737 MAX';
+    if(dist<6000) return 'Airbus A321XLR / Boeing 787-8';
+    if(dist<9000) return 'Airbus A330-900 / Boeing 787-9';
+    return 'Airbus A350-900 / Boeing 777-300ER';
+  }
+
+  // Altitude based on distance
+  function getCruiseAlt(dist){
+    if(dist<500)  return 'FL250 – FL310';
+    if(dist<1500) return 'FL330 – FL370';
+    return 'FL370 – FL410';
+  }
+
+  // Generate intermediate waypoints names
+  function getWaypoints(city, dist){
+    var wp = [];
+    if(dist > 500)  wp.push(city.iata || city.name.substring(0,3).toUpperCase());
+    if(dist > 2000) wp.push('ENR'+Math.floor(dist/3).toString().slice(-3));
+    if(dist > 4000) wp.push('MID'+Math.floor(dist/2).toString().slice(-3));
+    wp.push('OJAM');
+    return wp.join(' → ');
+  }
+
+  // Animate plane along route
+  var planeAnim = null;
+  function animatePlane(pts){
+    var icon = document.getElementById('fp-plane-icon');
+    if(!icon || pts.length<2) return;
+    icon.style.opacity='1';
+    var i=0;
+    if(planeAnim) clearInterval(planeAnim);
+    planeAnim = setInterval(function(){
+      if(i>=pts.length-1){ i=0; return; }
+      var p=pts[i], pn=pts[i+1];
+      var angle=Math.atan2(pn.y-p.y, pn.x-p.x)*180/Math.PI;
+      icon.setAttribute('x', p.x);
+      icon.setAttribute('y', p.y);
+      icon.setAttribute('transform','rotate('+angle+','+p.x+','+p.y+')');
+      i++;
+    }, 80);
+  }
+
+  // Main function
+  window.generateFlightPlan = function(){
+    var input = (document.getElementById('fp-city').value||'').trim().toLowerCase();
+    if(!input){ toast('⚠ Enter a city name'); return; }
+
+    // Find city
+    var city = CITIES[input];
+    if(!city){
+      // Partial match
+      var keys = Object.keys(CITIES);
+      for(var k=0;k<keys.length;k++){
+        if(keys[k].includes(input)||input.includes(keys[k])){
+          city=CITIES[keys[k]]; break;
+        }
+      }
+    }
+    if(!city){ toast('⚠ City not found. Try: Dubai, London, Paris...'); return; }
+    if(city.iata==='AMM'){ toast('✔ Already in Amman!'); return; }
+
+    // Calculate
+    var dist   = Math.round(haversine(city.lat,city.lon,AMMAN.lat,AMMAN.lon));
+    var speed  = 900; // km/h cruise
+    var hours  = dist/speed;
+    var hh     = Math.floor(hours);
+    var mm     = Math.round((hours-hh)*60);
+    var brng   = Math.round(bearing(city.lat,city.lon,AMMAN.lat,AMMAN.lon));
+
+    // Update SVG
+    var originSVG = toSVG(city.lat,city.lon);
+    var ammanSVG  = toSVG(AMMAN.lat,AMMAN.lon);
+    var pts = gcPoints(city.lat,city.lon,AMMAN.lat,AMMAN.lon,40);
+
+    // Build path
+    var d = 'M '+pts[0].x+' '+pts[0].y;
+    for(var pi=1;pi<pts.length;pi++) d+=' L '+pts[pi].x+' '+pts[pi].y;
+
+    var route = document.getElementById('fp-route');
+    var origin = document.getElementById('fp-origin');
+    var origDot = document.getElementById('fp-origin-dot');
+    var origRing = document.getElementById('fp-origin-ring');
+    var origLabel = document.getElementById('fp-origin-label');
+
+    if(route){ route.setAttribute('d',d); route.style.opacity='1'; }
+    if(origDot){ origDot.setAttribute('cx',originSVG.x); origDot.setAttribute('cy',originSVG.y); }
+    if(origRing){ origRing.setAttribute('cx',originSVG.x); origRing.setAttribute('cy',originSVG.y); }
+    if(origLabel){
+      origLabel.setAttribute('x',originSVG.x+7);
+      origLabel.setAttribute('y',originSVG.y-4);
+      origLabel.textContent=city.iata||city.name.substring(0,3).toUpperCase();
+    }
+    if(origin) origin.style.opacity='1';
+
+    animatePlane(pts);
+
+    // Update panel
+    document.getElementById('fp-default').style.display='none';
+    var results = document.getElementById('fp-results');
+    results.style.display='flex';
+
+    document.getElementById('fp-route-name').textContent = city.name+' → Amman (OJAM)';
+    document.getElementById('fp-distance').textContent = dist.toLocaleString()+' km';
+    document.getElementById('fp-time').textContent = hh+'h '+mm+'m';
+    document.getElementById('fp-alt').textContent = getCruiseAlt(dist);
+    document.getElementById('fp-bearing').textContent = brng+'° '+compassDir(brng);
+    document.getElementById('fp-aircraft').textContent = getAircraft(dist);
+    document.getElementById('fp-waypoints').textContent = getWaypoints(city,dist);
+    document.getElementById('fp-icao-route').textContent =
+      (city.iata||'XXXX')+'/-- DCT '+getWaypoints(city,dist).replace(/ → /g,' DCT ');
+
+    toast('✓ Route calculated: '+city.name+' → Amman');
+  };
+
+  // Trigger on load with default
+  setTimeout(function(){
+    var inp=document.getElementById('fp-city');
+    if(inp){ inp.value='Dubai'; generateFlightPlan(); }
+  },1200);
+
+})();
+</script>
+
+  </html>
