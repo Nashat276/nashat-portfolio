@@ -1664,6 +1664,18 @@ body:has(a:hover)
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<style>
+.atc-bar{transition:height .1s, opacity .1s;}
+#atc-text{transition:opacity .3s;}
+#metar-widget:hover{border-color:rgba(0,229,255,.35);box-shadow:0 12px 40px rgba(0,0,0,.5);}
+#flight-tracker{animation:none;}
+@media(max-width:600px){
+  #metar-widget{bottom:.5rem;left:.5rem;min-width:180px;}
+  #flight-tracker{display:none;}
+}
+</style>
+
 </head>
 
 
@@ -3768,35 +3780,27 @@ function downloadCV(){
     +'<div class="role">Junior Aeronautical Engineer</div>'
     +'<div class="contact">Irbid, Jordan | +962 776 763 628 | '+EM2+' | linkedin.com/in/nashat-al-dhoun</div>'
     +'<h2>Summary</h2>'
-    +'<p style="font-size:9pt;color:#555;">Motivated Junior Aeronautical Engineer, JUST 2025. Specialized in Aircraft Structures, FEA and MRO. RJAF trained. Proficient in ANSYS, SolidWorks, Creo, MATLAB.</p>'
+    +'<p style="font-size:9pt;color:#555;">Motivated Junior Aeronautical Engineer, JUST 2025. Aircraft Structures, FEA, MRO. RJAF trained. ANSYS, SolidWorks, Creo, MATLAB.</p>'
     +'<h2>Experience</h2>'
     +'<div style="display:flex;justify-content:space-between;"><div><div class="it">Aircraft Maintenance Trainee</div><div class="io">Royal Jordanian Air Force - Overhaul Dept.</div></div><div class="dt">Sep-Oct 2025</div></div>'
-    +'<ul><li>8-week intensive training in aircraft maintenance and overhaul</li>'
-    +'<li>Hydraulic systems inspection under licensed engineers</li>'
-    +'<li>Applied aviation safety and MRO documentation standards</li></ul>'
+    +'<ul><li>8-week intensive MRO training</li><li>Hydraulic systems inspection under licensed engineers</li><li>Aviation safety and MRO documentation</li></ul>'
     +'<h2>Education</h2>'
-    +'<div style="display:flex;justify-content:space-between;"><div><div class="it">B.Sc. Aeronautical Engineering</div><div class="io">Jordan University of Science & Technology (JUST)</div></div><div class="dt">2021-2025</div></div>'
-    +'<div class="id">Graduation Project: Vibration Analysis on Aircraft Wing - Modal analysis (Al vs CFRP), CFD, notch-filter mitigation</div>'
+    +'<div style="display:flex;justify-content:space-between;"><div><div class="it">B.Sc. Aeronautical Engineering</div><div class="io">Jordan University of Science & Technology</div></div><div class="dt">2021-2025</div></div>'
+    +'<div class="id">Graduation: Vibration Analysis on Aircraft Wing (ANSYS, Creo, CFD)</div>'
     +'<h2>Skills</h2>'
     +'<div class="sg">'
-    +'<div class="sb"><div class="sk">CAD & Simulation</div><div class="sv">Creo | ANSYS FEA/CFD | SolidWorks</div></div>'
-    +'<div class="sb"><div class="sk">Analysis</div><div class="sv">FEA | Modal | CFD | MATLAB | Power BI</div></div>'
-    +'<div class="sb"><div class="sk">Competencies</div><div class="sv">Structures | MRO | Airworthiness</div></div>'
+    +'<div class="sb"><div class="sk">CAD & Simulation</div><div class="sv">Creo | ANSYS | SolidWorks</div></div>'
+    +'<div class="sb"><div class="sk">Analysis</div><div class="sv">FEA | CFD | MATLAB | Power BI</div></div>'
+    +'<div class="sb"><div class="sk">Domain</div><div class="sv">Structures | MRO | Airworthiness</div></div>'
     +'<div class="sb"><div class="sk">Languages</div><div class="sv">Arabic (Native) | English (B2)</div></div>'
     +'</div>'
     +'<h2>Certifications</h2>'
-    +'<ul><li>Power BI Data Analysis, Microsoft (2026)</li>'
-    +'<li>Aircraft Maintenance Training, RJAF (Sep-Oct 2025)</li>'
-    +'<li>Employment Skills Training - 5hrs (2024)</li></ul>'
+    +'<ul><li>Power BI Data Analysis, Microsoft (2026)</li><li>Aircraft Maintenance Training, RJAF (2025)</li><li>Employment Skills Training 5hrs (2024)</li></ul>'
     +'<div class="ft">Nashat Omar Aldhoun | '+EM2+' | +962 776 763 628 | Irbid, Jordan</div>';
-
   var win=window.open('','_blank','width=900,height=700');
   if(!win){toast('⚠ Allow popups first');return;}
-  var doc='<'+'!DOCTYPE html><html><head><meta charset="UTF-8"><title>Nashat CV</title>'
-    +'<style>'+sty+'</style>'
-    +'<'+'script>window.onload=function(){setTimeout(function(){window.print();},600);};<'+'/script>'
-    +'</head><body>'+bod+'</body></html>';
-  win.document.write(doc);
+  var sc='window.onload=function(){setTimeout(function(){window.print();},600);};';
+  win.document.write('<'+'!DOCTYPE html><html><head><meta charset="UTF-8"><title>Nashat CV</title><style>'+sty+'</style><'+'script>'+sc+'<'+'/script></head><body>'+bod+'</body></html>');
   win.document.close();
   toast('✓ CV ready - choose Save as PDF');
 }
@@ -5107,6 +5111,183 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
+
+<!-- ══ METAR WEATHER WIDGET ══ -->
+<div id="metar-widget" style="position:fixed;bottom:1.2rem;left:1.2rem;z-index:900;
+  background:rgba(7,9,13,.92);border:1px solid rgba(0,229,255,.18);
+  border-radius:12px;padding:.7rem 1rem;min-width:220px;max-width:280px;
+  backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,.4);
+  font-family:'DM Sans',system-ui,sans-serif;cursor:pointer;
+  transition:all .3s;user-select:none;"
+  onclick="toggleMetar()" title="METAR - Queen Alia International Airport">
+
+  <!-- Header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;">
+    <div style="display:flex;align-items:center;gap:.4rem;">
+      <div style="width:6px;height:6px;border-radius:50%;background:#4caf7d;animation:pulse 2s infinite;"></div>
+      <span style="font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(0,229,255,.6);">METAR · OJAM</span>
+    </div>
+    <span id="metar-time" style="font-size:.55rem;color:rgba(255,255,255,.25);letter-spacing:1px;"></span>
+  </div>
+
+  <!-- Main display -->
+  <div id="metar-main" style="display:flex;align-items:center;gap:.8rem;">
+    <div id="metar-icon" style="font-size:1.8rem;line-height:1;flex-shrink:0;">🌤</div>
+    <div>
+      <div style="display:flex;align-items:baseline;gap:.25rem;">
+        <span id="metar-temp" style="font-size:1.4rem;font-weight:700;color:#f0ede6;line-height:1;">--</span>
+        <span style="font-size:.75rem;color:rgba(255,255,255,.4);">°C</span>
+      </div>
+      <div id="metar-desc" style="font-size:.65rem;color:rgba(0,229,255,.7);margin-top:.05rem;">Loading...</div>
+    </div>
+    <div style="margin-left:auto;text-align:right;">
+      <div style="font-size:.62rem;color:rgba(255,255,255,.3);">Wind</div>
+      <div id="metar-wind" style="font-size:.7rem;font-weight:600;color:#f0ede6;">-- kt</div>
+    </div>
+  </div>
+
+  <!-- Expanded details -->
+  <div id="metar-details" style="display:none;margin-top:.6rem;padding-top:.6rem;
+    border-top:1px solid rgba(0,229,255,.1);">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem;text-align:center;">
+      <div>
+        <div style="font-size:.55rem;color:rgba(255,255,255,.25);margin-bottom:.1rem;">HUMIDITY</div>
+        <div id="metar-hum" style="font-size:.72rem;color:#f0ede6;font-weight:600;">--%</div>
+      </div>
+      <div>
+        <div style="font-size:.55rem;color:rgba(255,255,255,.25);margin-bottom:.1rem;">VISIBILITY</div>
+        <div id="metar-vis" style="font-size:.72rem;color:#f0ede6;font-weight:600;">-- km</div>
+      </div>
+      <div>
+        <div style="font-size:.55rem;color:rgba(255,255,255,.25);margin-bottom:.1rem;">PRESSURE</div>
+        <div id="metar-pres" style="font-size:.72rem;color:#f0ede6;font-weight:600;">-- hPa</div>
+      </div>
+    </div>
+    <div id="metar-raw" style="margin-top:.5rem;font-size:.55rem;color:rgba(0,229,255,.3);
+      font-family:monospace;word-break:break-all;line-height:1.5;"></div>
+  </div>
+
+  <!-- Airport name -->
+  <div style="margin-top:.4rem;font-size:.55rem;color:rgba(255,255,255,.2);letter-spacing:.5px;">
+    Queen Alia International · Amman, Jordan
+  </div>
+</div>
+
+<!-- ══ FLIGHT TRACKER MINI ══ -->
+<div id="flight-tracker" style="position:fixed;bottom:1.2rem;right:1.2rem;z-index:900;
+  background:rgba(7,9,13,.92);border:1px solid rgba(200,168,108,.18);
+  border-radius:12px;padding:.7rem;width:200px;
+  backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,.4);
+  font-family:'DM Sans',system-ui,sans-serif;"
+  title="Live flights over Jordan">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+    <div style="display:flex;align-items:center;gap:.35rem;">
+      <div style="width:6px;height:6px;border-radius:50%;background:#c8a86c;animation:pulse 1.5s infinite;"></div>
+      <span style="font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(200,168,108,.7);">Airspace · OJAC</span>
+    </div>
+  </div>
+
+  <!-- Mini Jordan map -->
+  <div style="position:relative;width:100%;height:100px;
+    background:linear-gradient(135deg,#060c18,#080f1e);
+    border:1px solid rgba(200,168,108,.1);border-radius:8px;overflow:hidden;">
+
+    <!-- Grid lines -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.15" viewBox="0 0 180 100">
+      <line x1="0" y1="33" x2="180" y2="33" stroke="#c8a86c" stroke-width=".5"/>
+      <line x1="0" y1="66" x2="180" y2="66" stroke="#c8a86c" stroke-width=".5"/>
+      <line x1="60" y1="0" x2="60" y2="100" stroke="#c8a86c" stroke-width=".5"/>
+      <line x1="120" y1="0" x2="120" y2="100" stroke="#c8a86c" stroke-width=".5"/>
+    </svg>
+
+    <!-- Jordan outline (simplified) -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 180 100">
+      <path d="M60,10 L90,8 L115,12 L130,25 L140,45 L135,60 L120,75 L100,88 L80,90 L65,80 L55,65 L48,45 L50,25 Z"
+        fill="rgba(200,168,108,.06)" stroke="rgba(200,168,108,.25)" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- Amman marker -->
+      <circle cx="90" cy="42" r="3" fill="#c8a86c" opacity=".8"/>
+      <text x="95" y="46" font-size="7" fill="rgba(200,168,108,.6)" font-family="sans-serif">AMM</text>
+      <!-- OJAM airport -->
+      <circle cx="88" cy="50" r="2" fill="#4caf7d" opacity=".9"/>
+    </svg>
+
+    <!-- Animated plane -->
+    <div id="ft-plane" style="position:absolute;font-size:12px;transition:all 3s linear;
+      filter:drop-shadow(0 0 4px rgba(0,229,255,.6));">✈</div>
+  </div>
+
+  <div style="margin-top:.5rem;display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-size:.55rem;color:rgba(255,255,255,.25);">Active Flights</div>
+      <div id="ft-count" style="font-size:.85rem;font-weight:700;color:#c8a86c;">--</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:.55rem;color:rgba(255,255,255,.25);">Alt Range</div>
+      <div style="font-size:.68rem;color:rgba(255,255,255,.5);">FL100-FL390</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ATC EASTER EGG MODAL ══ -->
+<div id="atc-modal" style="display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.9);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;">
+  <div style="background:linear-gradient(145deg,#07090d,#0a1020);
+    border:1px solid rgba(0,229,255,.2);border-radius:16px;
+    padding:2rem;max-width:420px;width:90%;text-align:center;
+    font-family:'DM Sans',system-ui,sans-serif;position:relative;">
+    <button onclick="document.getElementById('atc-modal').style.display='none';stopATC();"
+      style="position:absolute;top:1rem;right:1rem;background:none;border:none;
+      color:rgba(255,255,255,.3);cursor:pointer;font-size:1.2rem;">✕</button>
+    <div style="font-size:2.5rem;margin-bottom:1rem;">🎙️</div>
+    <div style="font-size:.6rem;color:rgba(0,229,255,.6);letter-spacing:3px;
+      text-transform:uppercase;margin-bottom:.5rem;">ATC Communication — Amman Control</div>
+    <div style="font-size:.9rem;color:#f0ede6;line-height:1.7;margin-bottom:1.5rem;
+      font-style:italic;min-height:80px;" id="atc-text"></div>
+    <!-- Radio static visualization -->
+    <div style="display:flex;justify-content:center;gap:3px;height:30px;
+      align-items:center;margin-bottom:1rem;">
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+      <div class="atc-bar" style="width:3px;border-radius:2px;background:#00e5ff;"></div>
+    </div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.2);">Press Ctrl+Alt+T to activate · Click anywhere to dismiss</div>
+  </div>
+</div>
+
+<!-- ══ MORSE CODE EASTER EGG ══ -->
+<div id="morse-modal" style="display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.95);align-items:center;justify-content:center;">
+  <div style="text-align:center;font-family:'DM Sans',system-ui,sans-serif;max-width:500px;padding:2rem;">
+    <div id="morse-flash" style="width:80px;height:80px;border-radius:50%;
+      background:rgba(255,107,0,.2);border:2px solid #ff6b00;
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 1.5rem;font-size:2rem;
+      transition:background .1s;">🆘</div>
+    <div style="font-size:1.2rem;color:#ff6b00;font-weight:700;margin-bottom:.5rem;">MAYDAY · MAYDAY · MAYDAY</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:1rem;">
+      Amman Control, this is Nashat Aldhoun,<br>
+      Junior Aeronautical Engineer,<br>
+      <span style="color:#c8a86c;">requesting immediate hire clearance.</span>
+    </div>
+    <div style="font-size:1.4rem;letter-spacing:8px;color:#ff6b00;margin-bottom:.5rem;font-family:monospace;">
+      ···&nbsp;−−−&nbsp;···
+    </div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.2);margin-bottom:1.5rem;">S · O · S</div>
+    <button onclick="document.getElementById('morse-modal').style.display='none';"
+      style="background:rgba(255,107,0,.15);border:1px solid rgba(255,107,0,.3);
+      color:#ff6b00;padding:.5rem 1.5rem;border-radius:8px;cursor:pointer;
+      font-family:inherit;font-size:.8rem;">Roger that — Out</button>
+  </div>
+</div>
+
 </body>
   
 <script>
@@ -5636,5 +5817,221 @@ async function saveJob(){
 
 
 
+
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// 1. METAR WEATHER — Open-Meteo (free, no API key needed)
+// ═══════════════════════════════════════════════════════════════
+(function initMETAR(){
+  var AMMAN_LAT = 31.7222, AMMAN_LON = 35.9934;
+  var icons = {
+    0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',
+    51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌨',
+    71:'❄️',73:'❄️',75:'❄️',80:'🌦',81:'🌧',82:'⛈️',
+    95:'⛈️',96:'⛈️',99:'⛈️'
+  };
+  var descs = {
+    0:'Clear skies',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',
+    45:'Fog',48:'Freezing fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',
+    61:'Light rain',63:'Moderate rain',65:'Heavy rain',71:'Light snow',
+    73:'Moderate snow',75:'Heavy snow',80:'Rain showers',81:'Moderate showers',
+    82:'Heavy showers',95:'Thunderstorm',96:'Thunderstorm+hail',99:'Severe TS'
+  };
+
+  function updateTime(){
+    var now = new Date();
+    var utc = now.toUTCString().slice(17,22);
+    var el = document.getElementById('metar-time');
+    if(el) el.textContent = utc + 'Z';
+  }
+  updateTime(); setInterval(updateTime,30000);
+
+  fetch('https://api.open-meteo.com/v1/forecast?latitude='+AMMAN_LAT+'&longitude='+AMMAN_LON
+    +'&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m,weather_code,surface_pressure,visibility'
+    +'&wind_speed_unit=kn&temperature_unit=celsius')
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var c = d.current;
+    var code = c.weather_code||0;
+    document.getElementById('metar-temp').textContent = Math.round(c.temperature_2m||0);
+    document.getElementById('metar-desc').textContent = descs[code]||'Clear';
+    document.getElementById('metar-icon').textContent = icons[code]||'🌤';
+    document.getElementById('metar-wind').textContent = Math.round(c.wind_speed_10m||0)+' kt';
+    document.getElementById('metar-hum').textContent = Math.round(c.relative_humidity_2m||0)+'%';
+    document.getElementById('metar-vis').textContent = Math.round((c.visibility||10000)/1000)+' km';
+    document.getElementById('metar-pres').textContent = Math.round(c.surface_pressure||1013)+' hPa';
+    // Fake METAR string
+    var wdir = Math.round((c.wind_direction_10m||0)/10)*10;
+    var wspd = Math.round(c.wind_speed_10m||0);
+    var metar = 'OJAM '+new Date().toUTCString().slice(5,7)+new Date().getUTCHours().toString().padStart(2,'0')
+      +new Date().getUTCMinutes().toString().padStart(2,'0')+'Z '
+      +wdir.toString().padStart(3,'0')+wspd.toString().padStart(2,'0')+'KT '
+      +Math.round((c.visibility||9999)/1000)*1000+'M '
+      +(descs[code]||'FEW030')
+      +' '+Math.round(c.temperature_2m||20)+'/'+Math.round((c.temperature_2m||20)-4)
+      +' Q'+Math.round(c.surface_pressure||1013);
+    document.getElementById('metar-raw').textContent = metar;
+  })
+  .catch(function(){
+    document.getElementById('metar-desc').textContent = 'OJAM — Amman';
+    document.getElementById('metar-temp').textContent = '22';
+    document.getElementById('metar-wind').textContent = '12 kt';
+  });
+
+  window.toggleMetar = function(){
+    var d = document.getElementById('metar-details');
+    if(d) d.style.display = d.style.display==='none'?'block':'none';
+  };
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// 2. FLIGHT TRACKER — Animated plane over Jordan map
+// ═══════════════════════════════════════════════════════════════
+(function initFlightTracker(){
+  var plane = document.getElementById('ft-plane');
+  var count = document.getElementById('ft-count');
+  if(!plane) return;
+
+  // Routes over Jordan (simplified as % of map div)
+  var routes = [
+    {x1:10,y1:5,x2:85,y2:80,color:'#00e5ff'},   // N→S
+    {x1:90,y1:10,x2:15,y2:70,color:'#c8a86c'},   // NE→SW
+    {x1:5,y1:50,x2:95,y2:40,color:'#4caf7d'},    // W→E
+    {x1:50,y1:5,x2:60,y2:90,color:'#9c72d4'},    // N→S center
+    {x1:85,y1:80,x2:10,y2:10,color:'#ef5350'},   // S→N
+  ];
+
+  var currentRoute = 0;
+  var progress = 0;
+
+  // Fake flight count
+  var baseCount = 47 + Math.floor(Math.random()*30);
+  if(count) count.textContent = baseCount;
+  setInterval(function(){
+    var delta = Math.random()>0.5?1:-1;
+    baseCount = Math.max(20, Math.min(120, baseCount+delta));
+    if(count) count.textContent = baseCount;
+  }, 8000);
+
+  function animatePlane(){
+    var route = routes[currentRoute];
+    var x = route.x1 + (route.x2-route.x1)*progress;
+    var y = route.y1 + (route.y2-route.y1)*progress;
+    var angle = Math.atan2(route.y2-route.y1, route.x2-route.x1)*180/Math.PI;
+
+    if(plane){
+      plane.style.left = x+'%';
+      plane.style.top  = y+'%';
+      plane.style.transform = 'translate(-50%,-50%) rotate('+angle+'deg)';
+      plane.style.color = route.color;
+    }
+
+    progress += 0.004;
+    if(progress >= 1){
+      progress = 0;
+      currentRoute = (currentRoute+1) % routes.length;
+    }
+    requestAnimationFrame(animatePlane);
+  }
+  animatePlane();
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// 3. ATC AUDIO EASTER EGG — Ctrl+Alt+T
+// ═══════════════════════════════════════════════════════════════
+(function initATC(){
+  var atcLines = [
+    "Amman Control: N-A-S-H-A-T, radar contact. You are cleared for career approach, runway Two-Seven Left.",
+    "N-A-S-H-A-T, wind zero-niner-zero at twelve knots, altimeter two-niner-niner-two. Hire Me button is on final.",
+    "Traffic alert: hiring manager on your six, twelve miles, converging. Recommend immediate contact.",
+    "N-A-S-H-A-T, you are cleared to land. Aeronautical Engineer with FEA, Creo, ANSYS — runway is yours.",
+    "Amman Control to all stations: Junior engineer available, highly qualified, contact on 121.5."
+  ];
+  var atcIdx = 0;
+  var atcInterval = null;
+  var atcBars = null;
+
+  window.stopATC = function(){
+    if(atcInterval) clearInterval(atcInterval);
+    if(atcBars) clearInterval(atcBars);
+  };
+
+  document.addEventListener('keydown', function(e){
+    if(e.ctrlKey && e.altKey && e.key==='t'){
+      e.preventDefault();
+      var modal = document.getElementById('atc-modal');
+      var textEl = document.getElementById('atc-text');
+      if(!modal||!textEl) return;
+      modal.style.display='flex';
+      textEl.textContent = atcLines[atcIdx % atcLines.length];
+      atcIdx++;
+
+      // Animate bars
+      var bars = document.querySelectorAll('.atc-bar');
+      atcBars = setInterval(function(){
+        bars.forEach(function(b){
+          var h = Math.random()*28+2;
+          b.style.height = h+'px';
+          b.style.opacity = Math.random()*0.5+0.5;
+        });
+      }, 80);
+
+      // Auto cycle lines
+      atcInterval = setInterval(function(){
+        textEl.style.opacity='0';
+        setTimeout(function(){
+          textEl.textContent = atcLines[atcIdx % atcLines.length];
+          textEl.style.opacity='1';
+          atcIdx++;
+        },300);
+      }, 4000);
+    }
+    if(e.key==='Escape'){
+      document.getElementById('atc-modal').style.display='none';
+      window.stopATC();
+    }
+  });
+
+  document.getElementById('atc-modal').addEventListener('click', function(e){
+    if(e.target===this){this.style.display='none';window.stopATC();}
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// 4. MORSE CODE SOS EASTER EGG
+// ═══════════════════════════════════════════════════════════════
+(function initMorse(){
+  var typed = '';
+  var modal = document.getElementById('morse-modal');
+  if(!modal) return;
+
+  document.addEventListener('keypress', function(e){
+    if(document.activeElement.tagName==='INPUT'||document.activeElement.tagName==='TEXTAREA') return;
+    typed += e.key.toLowerCase();
+    if(typed.length > 10) typed = typed.slice(-10);
+    if(typed.includes('sos')){
+      typed = '';
+      modal.style.display='flex';
+      // Flash SOS
+      var flash = document.getElementById('morse-flash');
+      var pattern = [1,0,1,0,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,1,0,1];
+      var i=0;
+      var t = setInterval(function(){
+        if(i>=pattern.length){clearInterval(t);return;}
+        if(flash){
+          flash.style.background=pattern[i]?'rgba(255,107,0,.8)':'rgba(255,107,0,.1)';
+          flash.style.boxShadow=pattern[i]?'0 0 20px rgba(255,107,0,.6)':'none';
+        }
+        i++;
+      },200);
+    }
+  });
+
+  modal.addEventListener('click', function(e){
+    if(e.target===this) this.style.display='none';
+  });
+})();
+</script>
 
   </html>
