@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#07090d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nashat Aldhoun">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1630985347465768" crossorigin="anonymous"></script>
@@ -240,8 +247,7 @@ body{animation:bodyFadeIn .5s ease both;}
 @keyframes bodyFadeIn{from{opacity:0;}to{opacity:1;}}
 /* Button press effect */
 button:active:not(.hl-tab):not(.hl-arrow){transform:scale(.95)!important;transition:transform .08s!important;}
-/* Nav link magnetic hover */
-.nav-links a{transition:color .2s, letter-spacing .2s;}
+/* Nav link }
 .nav-links a:hover{letter-spacing:.3px;}
 /* Hero metrics count-up glow */
 .hm-n{transition:color .3s;}
@@ -332,8 +338,8 @@ select.field option{background:var(--pan);}
 .hero h1 .sub{display:block;color:var(--tx);font-size:.66em;font-style:normal;margin-top:.1rem;opacity:.75;-webkit-text-fill-color:var(--tx);}
 
 .hero-d{font-size:.94rem;color:var(--mu);line-height:1.85;margin-bottom:1.8rem;max-width:500px;}
-#typewriterText{padding-right:2px;}
-@keyframes twPlane{0%{transform:translateX(-3px) rotate(-8deg);}100%{transform:translateX(3px) rotate(8deg);}}
+#typewriterText{border-right:3px solid #c8a86c;padding-right:3px;animation:blink-cursor .75s step-end infinite;}
+@keyframes blink-cursor{0%,100%{border-color:#c8a86c;}50%{border-color:transparent;}}
 .hero-d strong{color:var(--tx);font-weight:600;}
 
 .hero-email{display:inline-flex;align-items:center;gap:.62rem;background:var(--pan);border:1px solid var(--b);border-radius:9px;padding:.52rem .95rem;margin-bottom:1.8rem;transition:border-color .2s;}
@@ -636,10 +642,10 @@ select.field option{background:var(--pan);}
 .cv-box{background:var(--pan);border:1px solid rgba(200,168,108,.18);border-radius:var(--r);padding:1.15rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:1.8rem;}
 .skill-bars-wrap{margin-top:1.8rem;}
 /* ── CUSTOM CURSOR ── */
-*{cursor:none!important;}
+
 #cur-outer{display:none;}
 #cur-dot{display:none;}
-@media(hover:none){*{cursor:auto!important;}}
+@media(hover:none){}
 /* ── TILT ── */
 .wcard{transform-style:preserve-3d;transition:transform .15s ease,box-shadow .15s ease!important;}
 .wcard:hover{box-shadow:0 12px 40px rgba(0,0,0,0.35)!important;}
@@ -1230,16 +1236,31 @@ select.field option{background:var(--pan);}
 .sup-card h3{font-family:"DM Serif Display",serif;font-size:1.3rem;color:var(--wh);margin-bottom:.38rem;}
 .sup-card p{color:var(--mu);font-size:.83rem;margin-bottom:1.15rem;line-height:1.82;}
 
-/* ══ CERTIFICATIONS ══ */
-.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1.5rem;}
-.cert-card{background:var(--pan);border:1px solid var(--b);border-radius:var(--r);padding:1rem 1.15rem;display:flex;gap:.85rem;align-items:flex-start;transition:all .25s;cursor:default;}
-.cert-card:hover{border-color:rgba(200,168,108,.25);transform:translateY(-2px);}
-.cert-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
-.cert-name{font-weight:600;color:var(--wh);font-size:.84rem;margin-bottom:.16rem;}
-.cert-org{font-size:.72rem;color:var(--go);margin-bottom:.1rem;}
-.cert-year{font-size:.66rem;color:var(--mu);}
 
-/* ══ MODALS ══ */
+/* ══ ENHANCED CERT BADGES ══ */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-top:1.5rem;}
+.cert-badge{
+  background:var(--pan);border:1px solid var(--b);border-radius:14px;
+  padding:1.1rem;display:flex;flex-direction:column;gap:.6rem;
+  transition:all .3s;cursor:default;position:relative;overflow:hidden;
+}
+.cert-badge::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--cert-color,#c8a86c);opacity:.7;
+  transition:opacity .3s;
+}
+.cert-badge:hover{border-color:var(--cert-color,rgba(200,168,108,.4));transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.2);}
+.cert-badge:hover::before{opacity:1;}
+.cert-badge-top{display:flex;align-items:center;justify-content:space-between;}
+.cert-badge-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);}
+.cert-badge-tick{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cert-badge-name{font-weight:700;color:var(--wh);font-size:.84rem;line-height:1.35;}
+.cert-badge-org{font-size:.7rem;color:var(--go);font-weight:500;margin-top:.08rem;}
+.cert-badge-meta{display:flex;align-items:center;justify-content:space-between;margin-top:.2rem;}
+.cert-badge-date{font-size:.64rem;color:var(--mu);display:flex;align-items:center;gap:.3rem;}
+.cert-badge-category{font-size:.6rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:.15rem .5rem;border-radius:20px;border:1px solid;opacity:.8;}
+
+/* ══ MODALS ══ *//* ══ MODALS ══ */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:600;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
 .ov.open{display:flex;}
 .modal{background:var(--sur);border:1px solid var(--b2);border-radius:15px;padding:1.75rem;width:100%;max-width:475px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh);}
@@ -1458,28 +1479,11 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
 /* ══════════════════════════════════════
    1. CUSTOM AIRPLANE CURSOR
 ══════════════════════════════════════ */
-*{cursor:none!important;}
-#plane-cursor{
-  position:fixed;pointer-events:none;z-index:99999;
-  width:32px;height:32px;
-  transform:translate(-50%,-50%) rotate(45deg);
-  transition:transform .15s ease;
-  filter:drop-shadow(0 0 6px rgba(200,168,108,.6));
-}
-#plane-cursor svg{width:100%;height:100%;}
-#cursor-ring{
-  position:fixed;pointer-events:none;z-index:99998;
-  width:40px;height:40px;
-  border:1.5px solid rgba(200,168,108,.35);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  transition:width .2s,height .2s,border-color .2s,opacity .2s;
-}
-body:has(a:hover) #cursor-ring,
-body:has(button:hover) #cursor-ring{
-  width:56px;height:56px;
-  border-color:rgba(200,168,108,.7);
-}
+
+
+
+
+body:has(a:hover) 
 
 /* ══════════════════════════════════════
    2. PARTICLE CANVAS
@@ -1555,10 +1559,7 @@ body:has(button:hover) #cursor-ring{
 }
 
 /* ══════════════════════════════════════
-   6. MAGNETIC BUTTON STYLE
-══════════════════════════════════════ */
-.btn-go,.btn-gh,.hire-btn{
-  transition:transform .2s cubic-bezier(.25,.46,.45,.94),box-shadow .2s!important;
+   6. 
 }
 .btn-go:hover{
   box-shadow:0 4px 20px rgba(200,168,108,.3)!important;
@@ -1568,17 +1569,9 @@ body:has(button:hover) #cursor-ring{
 
 <style>
 /* ══ CUSTOM AIRPLANE CURSOR ══ */
-*{cursor:none!important;}
-#custom-cursor{
-  position:fixed;top:0;left:0;pointer-events:none;z-index:99999;
-  transition:transform .15s ease,opacity .2s;
-  transform-origin:center;
-  will-change:transform;
-}
-#custom-cursor svg{
-  filter:drop-shadow(0 0 6px rgba(200,168,108,.6));
-  transition:transform .2s ease;
-}
+
+
+
 #cursor-trail{
   position:fixed;top:0;left:0;pointer-events:none;z-index:99998;
   width:8px;height:8px;border-radius:50%;
@@ -1628,9 +1621,7 @@ body:has(button:hover) #cursor-ring{
 }
 .hm:hover .hm-n::after{width:60%;}
 
-/* ══ MAGNETIC BUTTON EFFECT ══ */
-.btn{transition:transform .2s cubic-bezier(.25,.46,.45,.94),
-     box-shadow .2s ease!important;}
+/* ══ }
 .btn:hover{box-shadow:0 8px 30px rgba(200,168,108,.2)!important;}
 
 /* ══ HERO GLOW ══ */
@@ -1672,13 +1663,10 @@ body:has(button:hover) #cursor-ring{
 }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 
-<div id="plane-cursor">
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 13 2a1.5 1.5 0 0 0-1.5 1.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z" fill="#c8a86c"/>
-  </svg>
-</div>
+
 <div id="cursor-ring"></div>
 
 <body>
@@ -1949,7 +1937,7 @@ body:has(button:hover) #cursor-ring{
   </div>
   <div class="hero-l rev">
     
-    <h1>I engineer<br><em id="typewriterText"></em><span id="tw-plane" style="display:inline-block;margin-left:4px;animation:twPlane .7s ease-in-out infinite alternate;font-size:.8em;vertical-align:middle;">✈</span><span class="sub">& simulate flight.</span></h1>
+    <h1>I engineer<br><em id="typewriterText"></em><span class="sub">& simulate flight.</span></h1>
     <p class="hero-d rev d1"><strong>Nashat Omar Aldhoun</strong> — Junior Aeronautical Engineer from JUST. Specialized in Aircraft Structures, FEA, Modal Analysis & MRO. Trained at the Royal Jordanian Air Force.</p>
 
     <div class="hero-ctas rev d2">
@@ -2411,11 +2399,112 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
     <h3 style="font-family:"DM Serif Display",serif;font-size:1.35rem;color:var(--wh);margin-bottom:.3rem;letter-spacing:-.2px;">Certifications & Training</h3>
     <p style="font-size:.84rem;color:var(--mu);margin-bottom:0;">Official credentials and professional development.</p>
     <div class="cert-grid">
-      <div class="cert-card" data-sr="zoom" style="--sr-delay:0s"><div class="cert-icon" style="background:rgba(72,117,194,.12);color:#4875c2;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><div><div class="cert-name">B.Sc. Aeronautical Engineering</div><div class="cert-org">Jordan University of Science & Technology</div><div class="cert-year">2021 – 2025 · Irbid, Jordan</div></div></div>
-      <div class="cert-card" data-sr="zoom" style="--sr-delay:0.1s"><div class="cert-icon" style="background:rgba(56,150,100,.1);color:#4caf7d;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div><div><div class="cert-name">Aircraft Maintenance Training</div><div class="cert-org">Royal Jordanian Air Force — Overhaul Dept.</div><div class="cert-year">Sep – Oct 2025 · 8 Weeks Intensive</div></div></div>
-      <div class="cert-card" data-sr="zoom" style="--sr-delay:0.2s"><div class="cert-icon" style="background:rgba(200,168,108,.1);color:#c8a86c;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div><div class="cert-name">Power BI — Data Analysis & Visualization</div><div class="cert-org">Microsoft Power BI</div><div class="cert-year">2026 · 3 Hours</div></div></div>
-      <div class="cert-card" data-sr="zoom" style="--sr-delay:0.3s"><div class="cert-icon" style="background:rgba(130,96,210,.1);color:#8260d2;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="cert-name">We Are Community Leaders</div><div class="cert-org">University Leadership Program</div><div class="cert-year">2019</div></div></div>
-      <div class="cert-card" data-sr="zoom" style="--sr-delay:0.4s"><div class="cert-icon" style="background:rgba(56,150,100,.1);color:#4caf7d;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12"/></svg></div><div><div class="cert-name">Employment Skills Training</div><div class="cert-org">Professional Development</div><div class="cert-year">2024 · 5 Hours</div></div></div>
+
+      <!-- B.Sc. Aeronautical Engineering -->
+      <div class="cert-badge" style="--cert-color:#4875c2;" data-sr="zoom" style="--sr-delay:0s">
+        <div class="cert-badge-top">
+          <div class="cert-badge-icon">🎓</div>
+          <div class="cert-badge-tick" style="background:rgba(72,117,194,.15);border:1px solid rgba(72,117,194,.3);">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4875c2" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="cert-badge-name">B.Sc. Aeronautical Engineering</div>
+          <div class="cert-badge-org">Jordan University of Science & Technology</div>
+        </div>
+        <div class="cert-badge-meta">
+          <div class="cert-badge-date">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2021 – 2025
+          </div>
+          <div class="cert-badge-category" style="color:#4875c2;border-color:rgba(72,117,194,.3);background:rgba(72,117,194,.08);">Degree</div>
+        </div>
+      </div>
+
+      <!-- Aircraft Maintenance Training -->
+      <div class="cert-badge" style="--cert-color:#4caf7d;" data-sr="zoom">
+        <div class="cert-badge-top">
+          <div class="cert-badge-icon">✈️</div>
+          <div class="cert-badge-tick" style="background:rgba(76,175,125,.15);border:1px solid rgba(76,175,125,.3);">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="cert-badge-name">Aircraft Maintenance Training</div>
+          <div class="cert-badge-org">Royal Jordanian Air Force — Overhaul Dept.</div>
+        </div>
+        <div class="cert-badge-meta">
+          <div class="cert-badge-date">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Sep – Oct 2025
+          </div>
+          <div class="cert-badge-category" style="color:#4caf7d;border-color:rgba(76,175,125,.3);background:rgba(76,175,125,.08);">Training</div>
+        </div>
+      </div>
+
+      <!-- Power BI -->
+      <div class="cert-badge" style="--cert-color:#c8a86c;" data-sr="zoom">
+        <div class="cert-badge-top">
+          <div class="cert-badge-icon">📊</div>
+          <div class="cert-badge-tick" style="background:rgba(200,168,108,.15);border:1px solid rgba(200,168,108,.3);">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#c8a86c" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="cert-badge-name">Power BI — Data Analysis & Visualization</div>
+          <div class="cert-badge-org">Microsoft</div>
+        </div>
+        <div class="cert-badge-meta">
+          <div class="cert-badge-date">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026
+          </div>
+          <div class="cert-badge-category" style="color:#c8a86c;border-color:rgba(200,168,108,.3);background:rgba(200,168,108,.08);">Certificate</div>
+        </div>
+      </div>
+
+      <!-- Employment Skills -->
+      <div class="cert-badge" style="--cert-color:#9c72d4;" data-sr="zoom">
+        <div class="cert-badge-top">
+          <div class="cert-badge-icon">💼</div>
+          <div class="cert-badge-tick" style="background:rgba(130,96,210,.15);border:1px solid rgba(130,96,210,.3);">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9c72d4" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="cert-badge-name">Employment Skills Training</div>
+          <div class="cert-badge-org">Professional Development Program</div>
+        </div>
+        <div class="cert-badge-meta">
+          <div class="cert-badge-date">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2024 · 5 hrs
+          </div>
+          <div class="cert-badge-category" style="color:#9c72d4;border-color:rgba(130,96,210,.3);background:rgba(130,96,210,.08);">Training</div>
+        </div>
+      </div>
+
+      <!-- ANSYS FEA -->
+      <div class="cert-badge" style="--cert-color:#ef5350;" data-sr="zoom">
+        <div class="cert-badge-top">
+          <div class="cert-badge-icon">⚙️</div>
+          <div class="cert-badge-tick" style="background:rgba(209,78,78,.15);border:1px solid rgba(209,78,78,.3);">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ef5350" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="cert-badge-name">Structural FEA — ANSYS Workbench</div>
+          <div class="cert-badge-org">JUST — Graduation Project</div>
+        </div>
+        <div class="cert-badge-meta">
+          <div class="cert-badge-date">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2025
+          </div>
+          <div class="cert-badge-category" style="color:#ef5350;border-color:rgba(209,78,78,.3);background:rgba(209,78,78,.08);">Technical</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -2539,7 +2628,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
       <select class="field" id="cf-subj"><option>Job Opportunity</option><option>Project Collaboration</option><option>Service Inquiry</option><option>Academic Discussion</option><option>Other</option></select>
       <label class="flabel">Message</label>
       <textarea class="field" id="cf-msg" style="min-height:108px;" placeholder="Write your message…"></textarea>
-      <button class="btn btn-go" style="width:100%;" onclick="sendContact()">Send Message →</button>
+      <button class="btn btn-go" style="width:100%;" id="cf-send-btn" onclick="sendContact()">Send Message →</button>
     </div>
   </div>
 </div>
@@ -2597,7 +2686,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
   <label class="flabel">Cover Image</label>
   <div id="wCoverArea" onclick="document.getElementById('wImgFile').click()" style="height:140px;border-radius:10px;border:1.5px dashed rgba(72,117,194,.3);background:linear-gradient(135deg,#08162a,#0f2240);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;margin-bottom:.85rem;transition:border-color .2s;">
     <div id="wCoverPh" style="text-align:center;color:var(--mu);"><div style="font-size:1.8rem;margin-bottom:.3rem;">📷</div><div style="font-size:.75rem;">Click to upload cover image</div></div>
-    <img id="wImgPrev" src="" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;">
+    <img loading="lazy" id="wImgPrev" src="" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;">
   </div>
   <input type="file" id="wImgFile" accept="image/*" style="display:none" onchange="prevWorkImg(event)">
   <div class="mfr">
@@ -2628,7 +2717,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
   <div class="mhd"><div class="mt" id="pd-t"></div><button class="mx" onclick="closeM('pdModal')">×</button></div>
   <div style="height:165px;background:linear-gradient(135deg,#08162a,#0f2240);border-radius:10px;margin-bottom:1.05rem;display:flex;align-items:center;justify-content:center;font-size:3.8rem;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.07) 1px,transparent 1px);background-size:16px 16px;"></div>
-    <img id="pd-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" src="" alt="">
+    <img loading="lazy" id="pd-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;" src="" alt="">
     <span id="pd-em" style="position:relative;z-index:1;"></span>
   </div>
   <div id="pd-meta" style="display:flex;gap:.42rem;flex-wrap:wrap;margin-bottom:.82rem;"></div>
@@ -2679,7 +2768,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
         <div class="img-upload-ph-icon">📷</div>
         <div class="img-upload-ph-text">Click to upload an image</div>
       </div>
-      <img id="mPImgPrev" class="img-upload-preview" src="" alt="" style="display:none;">
+      <img loading="lazy" id="mPImgPrev" class="img-upload-preview" src="" alt="" style="display:none;">
       <div class="img-overlay-btns">
         <button class="img-ov-btn change" title="Change" onclick="event.stopPropagation();document.getElementById('mPImgFile').click()">✎</button>
         <button class="img-ov-btn remove" title="Remove" onclick="event.stopPropagation();removeModalImg()">✕</button>
@@ -2783,7 +2872,7 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,108,.4)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
           <div class="img-upload-ph-text" style="color:rgba(255,255,255,.35);font-size:.78rem;">Click to add a photo</div>
         </div>
-        <img id="jImgPrev" class="img-upload-preview" src="" alt="" style="display:none;max-height:100px;max-width:100%;border-radius:6px;object-fit:cover;">
+        <img loading="lazy" id="jImgPrev" class="img-upload-preview" src="" alt="" style="display:none;max-height:100px;max-width:100%;border-radius:6px;object-fit:cover;">
         <div class="img-overlay-btns">
           <button class="img-ov-btn change" title="Change" onclick="event.stopPropagation();document.getElementById('jImgFile').click()">✎</button>
           <button class="img-ov-btn remove" title="Remove" onclick="event.stopPropagation();removeJourneyImg()">✕</button>
@@ -3659,53 +3748,57 @@ function stopCEdge(){clearInterval(_edgeInt);_edgeInt=null;}
 
 // ══ CV ══
 function downloadCV(){
-  var lines = [
-    'NASHAT OMAR ALDHOUN',
-    'Junior Aeronautical Engineer',
-    'Irbid, Jordan  |  +962 776 763 628  |  ' + EM + '  |  linkedin.com/in/nashat-al-dhoun',
-    '',
-    '== SUMMARY ==',
-    'JUST 2025 graduate. Aircraft Structures, FEA, MRO. RJAF trained.',
-    'Proficient in ANSYS, SolidWorks, Creo, MATLAB, Power BI.',
-    '',
-    '== EXPERIENCE ==',
-    'Aircraft Maintenance Trainee  |  Royal Jordanian Air Force  |  Sep-Oct 2025',
-    '  - 8-week intensive training in aircraft maintenance and overhaul',
-    '  - Hydraulic systems inspection and functional testing',
-    '  - Aviation safety protocols under licensed engineers',
-    '',
-    '== EDUCATION ==',
-    'B.Sc. Aeronautical Engineering  |  JUST, Jordan  |  2021-2025',
-    '  Graduation Project: Vibration Analysis on Aircraft Wing',
-    '  (ANSYS, Creo, CFD, Modal Analysis, CFRP vs Aluminum)',
-    '',
-    '== PROJECTS ==',
-    'Vibration Analysis on Aircraft Wing  |  JUST 2025',
-    '  - 3D modeling in Creo Parametric',
-    '  - Modal analysis comparing Aluminum vs CFRP in ANSYS',
-    '  - CFD simulation for aerodynamic stability',
-    '  - Notch-filter vibration mitigation system',
-    '',
-    '== SKILLS ==',
-    'Software  : ANSYS FEA/CFD  |  SolidWorks  |  Creo  |  MATLAB  |  Power BI',
-    'Technical : FEA  |  Modal Analysis  |  CFD  |  MRO  |  Structural Analysis',
-    'Languages : Arabic (Native)  |  English (B2)',
-    '',
-    '== CERTIFICATIONS ==',
-    'Power BI - Data Analysis & Visualization (2026)',
-    'Employment Skills Training, 5 hrs (2024)',
-    ''
-  ];
-  var txt = lines.join('\n');
-  var blob = new Blob([txt], {type: 'text/plain;charset=utf-8'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = 'Nashat_Aldhoun_CV.txt';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
-  toast('✓ CV downloaded!');
+  toast('✓ Generating PDF...');
+  var EM2=typeof EM!=='undefined'?EM:'nashataldhoun@yahoo.com';
+  var sty='body{font-family:Arial,sans-serif;margin:0;padding:2cm;font-size:10pt;color:#111;line-height:1.5;}'
+    +'h1{font-size:22pt;margin:0 0 4px;color:#0d1b2a;}'
+    +'.role{font-size:10pt;color:#4875c2;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}'
+    +'.contact{font-size:8.5pt;color:#555;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #c8a86c;}'
+    +'h2{font-size:11pt;color:#0d1b2a;margin:14px 0 5px;padding-left:8px;border-left:3px solid #c8a86c;}'
+    +'.it{font-weight:700;font-size:10pt;}.io{color:#4875c2;font-size:9pt;}'
+    +'.dt{font-size:8.5pt;color:#888;}'
+    +'.id{font-size:9pt;color:#555;margin-top:3px;}'
+    +'ul{padding-left:14px;margin:4px 0;}li{font-size:9pt;color:#555;margin-bottom:2px;}'
+    +'.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}'
+    +'.sb{background:#f8f9fa;border-radius:5px;padding:6px 8px;border-left:2px solid #c8a86c;}'
+    +'.sk{font-size:7.5pt;font-weight:700;color:#4875c2;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}'
+    +'.sv{font-size:9pt;color:#333;}'
+    +'.ft{margin-top:20px;text-align:center;font-size:7.5pt;color:#aaa;border-top:1px solid #eee;padding-top:8px;}';
+  var bod='<h1>Nashat Omar Aldhoun</h1>'
+    +'<div class="role">Junior Aeronautical Engineer</div>'
+    +'<div class="contact">Irbid, Jordan | +962 776 763 628 | '+EM2+' | linkedin.com/in/nashat-al-dhoun</div>'
+    +'<h2>Summary</h2>'
+    +'<p style="font-size:9pt;color:#555;">Motivated Junior Aeronautical Engineer, JUST 2025. Specialized in Aircraft Structures, FEA and MRO. RJAF trained. Proficient in ANSYS, SolidWorks, Creo, MATLAB.</p>'
+    +'<h2>Experience</h2>'
+    +'<div style="display:flex;justify-content:space-between;"><div><div class="it">Aircraft Maintenance Trainee</div><div class="io">Royal Jordanian Air Force - Overhaul Dept.</div></div><div class="dt">Sep-Oct 2025</div></div>'
+    +'<ul><li>8-week intensive training in aircraft maintenance and overhaul</li>'
+    +'<li>Hydraulic systems inspection under licensed engineers</li>'
+    +'<li>Applied aviation safety and MRO documentation standards</li></ul>'
+    +'<h2>Education</h2>'
+    +'<div style="display:flex;justify-content:space-between;"><div><div class="it">B.Sc. Aeronautical Engineering</div><div class="io">Jordan University of Science & Technology (JUST)</div></div><div class="dt">2021-2025</div></div>'
+    +'<div class="id">Graduation Project: Vibration Analysis on Aircraft Wing - Modal analysis (Al vs CFRP), CFD, notch-filter mitigation</div>'
+    +'<h2>Skills</h2>'
+    +'<div class="sg">'
+    +'<div class="sb"><div class="sk">CAD & Simulation</div><div class="sv">Creo | ANSYS FEA/CFD | SolidWorks</div></div>'
+    +'<div class="sb"><div class="sk">Analysis</div><div class="sv">FEA | Modal | CFD | MATLAB | Power BI</div></div>'
+    +'<div class="sb"><div class="sk">Competencies</div><div class="sv">Structures | MRO | Airworthiness</div></div>'
+    +'<div class="sb"><div class="sk">Languages</div><div class="sv">Arabic (Native) | English (B2)</div></div>'
+    +'</div>'
+    +'<h2>Certifications</h2>'
+    +'<ul><li>Power BI Data Analysis, Microsoft (2026)</li>'
+    +'<li>Aircraft Maintenance Training, RJAF (Sep-Oct 2025)</li>'
+    +'<li>Employment Skills Training - 5hrs (2024)</li></ul>'
+    +'<div class="ft">Nashat Omar Aldhoun | '+EM2+' | +962 776 763 628 | Irbid, Jordan</div>';
+
+  var win=window.open('','_blank','width=900,height=700');
+  if(!win){toast('⚠ Allow popups first');return;}
+  var doc='<'+'!DOCTYPE html><html><head><meta charset="UTF-8"><title>Nashat CV</title>'
+    +'<style>'+sty+'</style>'
+    +'<'+'script>window.onload=function(){setTimeout(function(){window.print();},600);};<'+'/script>'
+    +'</head><body>'+bod+'</body></html>';
+  win.document.write(doc);
+  win.document.close();
+  toast('✓ CV ready - choose Save as PDF');
 }
 
 // ══ WORKS ══
@@ -3724,7 +3817,7 @@ function renderWorks(){
       +'<div class="wcd-stripe" style="background:'+stripe+';"></div>'
       +'<div class="wcd-inner">'
       +'<div class="wcd-head">'
-      +'<div class="wcd-icon" style="border:.5px solid '+tc+'33;">'+(w.photo?'<img src="'+w.photo+'" alt="">':_icon('work'))+'</div>'
+      +'<div class="wcd-icon" style="border:.5px solid '+tc+'33;">'+(w.photo?'<img loading="lazy" src="'+w.photo+'" alt="">':_icon('work'))+'</div>'
       +'<div class="wcd-catrow"><div class="wcd-cat" style="color:'+tc+';">'+cat+'</div><div class="wcd-year">'+(w.year||'2025')+'</div></div>'
       +(isAdmin?'<div class="wcd-admin"><button class="pcard-edit-btn" style="position:static;opacity:1;" onclick="event.stopPropagation();editWork(\'' + w.id + '\')"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Edit</button><button class="btn-del" onclick="event.stopPropagation();delWork(\'' + w.id + '\')">&#128465;</button></div>':'')
       +'</div>'
@@ -4031,7 +4124,7 @@ function renderPosts(filterTag){
     const hasCover=!!(p.imgData||(p.type==='video'&&p.videoId));
     let coverHtml='';
     if(p.imgData){
-      coverHtml=`<div class="pcard-cover"><img src="${p.imgData}" alt=""><div class="pcard-cover-type">${tn[p.type]||p.type}</div></div>`;
+      coverHtml=`<div class="pcard-cover"><img loading="lazy" src="${p.imgData}" alt=""><div class="pcard-cover-type">${tn[p.type]||p.type}</div></div>`;
     }else if(p.type==='video'&&p.videoId){
       coverHtml=`<div class="pcard-cover"><div class="pcard-cover-ph"><div class="pcard-cover-ph-bg"></div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.5" style="position:relative;z-index:1;"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="pcard-cover-type">Video</div></div>`;
     }
@@ -4195,7 +4288,7 @@ function renderJourney(filter){
             </div>
             <div class="jtitle">${j.title}</div>
             ${j.desc?`<div class="jdesc" style="margin-top:.25rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${j.desc}</div>`:''}
-            ${j.img?`<img class="jimg on" src="${j.img}" alt="" style="margin-top:.55rem;">`:''}
+            ${j.img?`<img loading="lazy" class="jimg on" src="${j.img}" alt="" style="margin-top:.55rem;">`:''}
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.32rem;flex-shrink:0;">
             <span class="jdate">${j.date||''}</span>
@@ -4342,7 +4435,7 @@ function openPostReader(id,scrollToCmts=false){
   const avatarText=pp?'':'NA';
   const rt=readTime(p.content);
   let cover='';
-  if(p.imgData)cover=`<img class="reader-cover" src="${p.imgData}" alt="">`;
+  if(p.imgData)cover=`<img loading="lazy" class="reader-cover" src="${p.imgData}" alt="">`;
   else if(p.type==='tool')cover=`<div class="reader-cover-placeholder"><span style="position:relative;z-index:1;font-size:3.2rem;">${p.toolIcon||'⚙'}</span></div>`;
   else cover=`<div class="reader-cover-placeholder"><span style="position:relative;z-index:1;font-size:3.8rem;">${p.type==='video'?'▶':p.type==='link'?'🔗':p.type==='doc'?'📄':'📝'}</span></div>`;
   const paras=(p.content||'').split('\n').filter(Boolean);
@@ -4366,7 +4459,7 @@ function openJourneyReader(id){
   const paras=(j.desc||'').split('\n').filter(Boolean);
   let bodyHtml=paras.map((par,i)=>`<p class="${i===0?'first-para':''}">${par}</p>`).join('')||`<p style="color:var(--mu);font-style:italic;">No description added yet.</p>`;
   document.getElementById('readerNavTitle').textContent=j.title.substring(0,38)+(j.title.length>38?'…':'');
-  document.getElementById('readerContent').innerHTML=`${j.img?`<img class="reader-cover" src="${j.img}" alt="">`:`<div class="reader-cover-placeholder"><span style="position:relative;z-index:1;font-size:3.8rem;">${j.type==='milestone'?'🏆':j.type==='course'?'📚':'🎤'}</span></div>`}<div style="background:linear-gradient(135deg,#08162a,#0f2240);padding:2rem 3.5rem 1.5rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06);"><div style="position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.07) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;"></div><span class="jtype-badge ${tb[j.type]||''}" style="position:relative;z-index:1;display:inline-flex;margin-bottom:.65rem;">${tn[j.type]||j.type}</span><h1 class="reader-title" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:.3rem;position:relative;z-index:1;">${j.title}</h1>${j.org?`<div style="font-size:.88rem;color:var(--go);font-weight:500;position:relative;z-index:1;">${j.org}</div>`:''}${j.date?`<div style="font-size:.75rem;color:var(--mu);margin-top:.22rem;position:relative;z-index:1;">${j.date}</div>`:''}</div><div class="reader-body"><div class="reader-content">${bodyHtml}</div><div class="reader-divider"><span></span><span></span><span></span></div></div>`;
+  document.getElementById('readerContent').innerHTML=`${j.img?`<img loading="lazy" class="reader-cover" src="${j.img}" alt="">`:`<div class="reader-cover-placeholder"><span style="position:relative;z-index:1;font-size:3.8rem;">${j.type==='milestone'?'🏆':j.type==='course'?'📚':'🎤'}</span></div>`}<div style="background:linear-gradient(135deg,#08162a,#0f2240);padding:2rem 3.5rem 1.5rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06);"><div style="position:absolute;inset:0;background-image:linear-gradient(rgba(72,117,194,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(72,117,194,.07) 1px,transparent 1px);background-size:20px 20px;pointer-events:none;"></div><span class="jtype-badge ${tb[j.type]||''}" style="position:relative;z-index:1;display:inline-flex;margin-bottom:.65rem;">${tn[j.type]||j.type}</span><h1 class="reader-title" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:.3rem;position:relative;z-index:1;">${j.title}</h1>${j.org?`<div style="font-size:.88rem;color:var(--go);font-weight:500;position:relative;z-index:1;">${j.org}</div>`:''}${j.date?`<div style="font-size:.75rem;color:var(--mu);margin-top:.22rem;position:relative;z-index:1;">${j.date}</div>`:''}</div><div class="reader-body"><div class="reader-content">${bodyHtml}</div><div class="reader-divider"><span></span><span></span><span></span></div></div>`;
   document.getElementById('readerActionBar').innerHTML=`<button class="reader-act" onclick="closeReader()">← Back to Journey</button>${isAdmin?`<button class="btn-del" onclick="closeReader();delJourney('${j.id}')">🗑 Delete</button>`:''}<button class="reader-share" style="margin-left:auto;" onclick="copyReaderLink()">Share ↗</button>`;
   openReaderOv();
 }
@@ -4751,7 +4844,7 @@ document.querySelectorAll && document.addEventListener('mouseout', e => {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
               <p>Click to upload</p>
             </div>
-            <img id="cmImgPrev" class="cm-img-preview" src="" alt="">
+            <img loading="lazy" id="cmImgPrev" class="cm-img-preview" src="" alt="">
             <div class="cm-img-overlay">
               <button class="img-ov-btn change" onclick="event.stopPropagation();document.getElementById('cmImgFile').click()">✎</button>
               <button class="img-ov-btn remove" onclick="event.stopPropagation();removeCmImg()">✕</button>
@@ -5003,13 +5096,17 @@ async function importLinkedIn(){
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
 <!-- ══ CUSTOM AIRPLANE CURSOR ══ -->
-<div id="custom-cursor">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#c8a86c"/>
-  </svg>
-</div>
+
 <div id="cursor-trail"></div>
 
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+}
+</script>
 </body>
   
 <script>
@@ -5415,53 +5512,7 @@ async function saveJob(){
 </script>
 
 <script>
-/* ══ CUSTOM AIRPLANE CURSOR ══ */
-(function(){
-  var plane = document.getElementById('plane-cursor');
-  var ring  = document.getElementById('cursor-ring');
-  if(!plane || !ring) return;
 
-  var mx=0,my=0,rx=0,ry=0;
-  var px=0,py=0; // smooth ring position
-
-  document.addEventListener('mousemove', function(e){
-    mx = e.clientX; my = e.clientY;
-    plane.style.left = mx + 'px';
-    plane.style.top  = my + 'px';
-  });
-
-  // Smooth ring follow
-  (function animRing(){
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  })();
-
-  // Magnetic effect on interactive elements
-  document.querySelectorAll('button,.btn-go,.btn-gh,a.btn,#hire-btn,.hire-btn').forEach(function(el){
-    el.addEventListener('mouseenter', function(){
-      plane.style.transform = 'translate(-50%,-50%) rotate(45deg) scale(1.4)';
-      ring.style.borderColor = 'rgba(200,168,108,.8)';
-    });
-    el.addEventListener('mouseleave', function(){
-      plane.style.transform = 'translate(-50%,-50%) rotate(45deg) scale(1)';
-      ring.style.borderColor = 'rgba(200,168,108,.35)';
-    });
-    el.addEventListener('mousemove', function(e){
-      var r = el.getBoundingClientRect();
-      var cx = r.left + r.width/2;
-      var cy = r.top  + r.height/2;
-      var dx = (e.clientX - cx) * 0.22;
-      var dy = (e.clientY - cy) * 0.22;
-      el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
-    });
-    el.addEventListener('mouseleave', function(){
-      el.style.transform = '';
-    });
-  });
-})();
 
 /* ══ PARTICLE SYSTEM ══ */
 (function(){
@@ -5584,198 +5635,6 @@ async function saveJob(){
 </script>
 
 
-<script>
-(function(){
-'use strict';
 
-/* ══ 1. CUSTOM AIRPLANE CURSOR ══ */
-var cursor = document.getElementById('custom-cursor');
-var trail  = document.getElementById('cursor-trail');
-var mx=0,my=0,tx=0,ty=0;
-
-document.addEventListener('mousemove',function(e){
-  mx=e.clientX; my=e.clientY;
-  if(cursor) cursor.style.transform='translate('+(mx-14)+'px,'+(my-14)+'px)';
-  // Trail with delay
-  setTimeout(function(){
-    if(trail) trail.style.transform='translate('+(mx-4)+'px,'+(my-4)+'px)';
-  },80);
-});
-
-// Hover state on interactive elements
-document.querySelectorAll('button,a,.btn,.hl-card,.work-card,[onclick]').forEach(function(el){
-  el.addEventListener('mouseenter',function(){
-    if(cursor) cursor.querySelector('svg').style.transform='scale(1.4) rotate(-15deg)';
-    if(trail)  trail.style.transform='scale(2.5) translate(-50%,-50%)';
-  });
-  el.addEventListener('mouseleave',function(){
-    if(cursor) cursor.querySelector('svg').style.transform='scale(1) rotate(0deg)';
-    if(trail)  trail.style.transform='scale(1) translate(-50%,-50%)';
-  });
-});
-
-/* ══ 2. MAGNETIC BUTTONS ══ */
-document.querySelectorAll('.btn-go,.btn-gh,.hire-btn').forEach(function(btn){
-  btn.addEventListener('mousemove',function(e){
-    var r=btn.getBoundingClientRect();
-    var dx=(e.clientX-r.left-r.width/2)*0.25;
-    var dy=(e.clientY-r.top-r.height/2)*0.25;
-    btn.style.transform='translate('+dx+'px,'+dy+'px)';
-  });
-  btn.addEventListener('mouseleave',function(){
-    btn.style.transform='translate(0,0)';
-    btn.style.transition='transform .4s cubic-bezier(.25,.46,.45,.94)';
-  });
-  btn.addEventListener('mouseenter',function(){
-    btn.style.transition='transform .1s ease';
-  });
-});
-
-/* ══ 3. ANIMATED COUNTERS ══ */
-function animateCounter(el,target,duration){
-  var start=0,startTime=null;
-  function step(ts){
-    if(!startTime) startTime=ts;
-    var progress=Math.min((ts-startTime)/duration,1);
-    var ease=1-Math.pow(1-progress,3);
-    el.textContent=Math.floor(ease*target);
-    if(progress<1) requestAnimationFrame(step);
-    else el.textContent=target;
-  }
-  requestAnimationFrame(step);
-}
-
-var countersStarted=false;
-function startCounters(){
-  if(countersStarted)return;
-  var els=document.querySelectorAll('.stat-num');
-  if(!els.length)return;
-  var statsEl=document.getElementById('statsRow');
-  if(!statsEl)return;
-  var rect=statsEl.getBoundingClientRect();
-  if(rect.top<window.innerHeight){
-    countersStarted=true;
-    els.forEach(function(el){
-      var target=parseInt(el.getAttribute('data-target')||el.textContent)||0;
-      el.textContent='0';
-      animateCounter(el,target,1800);
-    });
-  }
-}
-window.addEventListener('scroll',startCounters,{passive:true});
-setTimeout(startCounters,1000);
-
-/* ══ 4. SCROLL REVEAL ══ */
-var revealObserver=new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-
-document.querySelectorAll('.reveal,.hl-card,.work-card,.cert-card,.svc-card,.jl-item,.hm').forEach(function(el){
-  el.classList.add('reveal');
-  revealObserver.observe(el);
-});
-
-/* ══ 5. PARTICLE SYSTEM ══ */
-var pCanvas=document.getElementById('hero-particles');
-if(pCanvas){
-  var pCtx=pCanvas.getContext('2d');
-  var particles=[];
-  var PW,PH;
-
-  function resizeParticles(){
-    PW=pCanvas.width=pCanvas.offsetWidth;
-    PH=pCanvas.height=pCanvas.offsetHeight;
-  }
-  resizeParticles();
-  window.addEventListener('resize',resizeParticles,{passive:true});
-
-  // Create particles
-  for(var i=0;i<70;i++){
-    particles.push({
-      x:Math.random()*PW,
-      y:Math.random()*PH,
-      vx:(Math.random()-.5)*.35,
-      vy:(Math.random()-.5)*.18,
-      size:Math.random()*2+.5,
-      alpha:Math.random()*.5+.1,
-      type:Math.random()>.85?'plane':'dot'
-    });
-  }
-
-  function drawPlane(ctx,x,y,size,alpha){
-    ctx.save();
-    ctx.globalAlpha=alpha;
-    ctx.fillStyle='#c8a86c';
-    ctx.translate(x,y);
-    ctx.rotate(Math.PI/6);
-    ctx.scale(size*.4,size*.4);
-    ctx.beginPath();
-    ctx.moveTo(0,-6);
-    ctx.lineTo(2,0);
-    ctx.lineTo(6,1);
-    ctx.lineTo(2,2);
-    ctx.lineTo(1,6);
-    ctx.lineTo(0,4);
-    ctx.lineTo(-1,6);
-    ctx.lineTo(-2,2);
-    ctx.lineTo(-6,1);
-    ctx.lineTo(-2,0);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function animParticles(){
-    if(!pCtx)return;
-    pCtx.clearRect(0,0,PW,PH);
-    particles.forEach(function(p){
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<-10)p.x=PW+10;
-      if(p.x>PW+10)p.x=-10;
-      if(p.y<-10)p.y=PH+10;
-      if(p.y>PH+10)p.y=-10;
-      if(p.type==='plane'){
-        drawPlane(pCtx,p.x,p.y,p.size*3,p.alpha*.7);
-      } else {
-        pCtx.beginPath();
-        pCtx.arc(p.x,p.y,p.size,0,Math.PI*2);
-        pCtx.fillStyle='rgba(200,168,108,'+p.alpha+')';
-        pCtx.fill();
-      }
-      // Connect nearby particles
-      particles.forEach(function(p2){
-        var dx=p.x-p2.x,dy=p.y-p2.y;
-        var dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<90&&dist>0){
-          pCtx.beginPath();
-          pCtx.moveTo(p.x,p.y);
-          pCtx.lineTo(p2.x,p2.y);
-          pCtx.strokeStyle='rgba(200,168,108,'+(0.06*(1-dist/90))+')';
-          pCtx.lineWidth=.5;
-          pCtx.stroke();
-        }
-      });
-    });
-    requestAnimationFrame(animParticles);
-  }
-  animParticles();
-}
-
-/* ══ 6. HERO PARALLAX ══ */
-window.addEventListener('scroll',function(){
-  var scrolled=window.pageYOffset;
-  var hero=document.querySelector('.hero');
-  if(hero&&scrolled<window.innerHeight){
-    hero.style.transform='translateY('+(scrolled*.12)+'px)';
-  }
-},{passive:true});
-
-})();
-</script>
 
   </html>
