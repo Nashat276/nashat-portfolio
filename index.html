@@ -24,9 +24,7 @@ window.startJobAuto=window.stopJobAuto=window.startJEdge=window.stopJEdge=window
 <script>
 const SUPA_URL = 'https://soxvbtenfnpokhrtlqmq.supabase.co';
 window.SUPA_URL=SUPA_URL;
-window.SUPA_URL=SUPA_URL;
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw';
-window.SUPA_KEY=SUPA_KEY;
 window.SUPA_KEY=SUPA_KEY;
 const EM = ['n','a','s','h','a','t','a','l','d','h','o','u','n','@','y','a','h','o','o','.','c','o','m'].join('');
 const _supa = supabase.createClient(SUPA_URL, SUPA_KEY);
@@ -324,7 +322,7 @@ select.field option{background:var(--pan);}
 .hero-l{position:relative;z-index:1;}
 .status-pill{display:inline-flex;align-items:center;gap:.42rem;background:rgba(56,150,100,.08);border:1px solid rgba(56,150,100,.18);color:#4caf7d;font-size:.69rem;font-weight:600;padding:.24rem .82rem;border-radius:20px;margin-bottom:1.3rem;letter-spacing:.3px;}
 .sdot{width:5.5px;height:5.5px;border-radius:50%;background:#4caf7d;animation:pulse 2.2s infinite;}
-@keyframes twPlane{0%{transform:translateX(-2px) rotate(-5deg);}100%{transform:translateX(2px) rotate(5deg);}}
+@keyframes otw{0%,100%{box-shadow:0 0 8px rgba(200,168,108,.15);}50%{box-shadow:0 0 20px rgba(200,168,108,.35);}}
 @keyframes otw{0%,100%{box-shadow:0 0 8px rgba(200,168,108,.15);}50%{box-shadow:0 0 20px rgba(200,168,108,.35);}}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(56,150,100,.4);}60%{box-shadow:0 0 0 5px rgba(56,150,100,0);}}
 
@@ -335,7 +333,7 @@ select.field option{background:var(--pan);}
 
 .hero-d{font-size:.94rem;color:var(--mu);line-height:1.85;margin-bottom:1.8rem;max-width:500px;}
 #typewriterText{padding-right:2px;}
-
+@keyframes twPlane{0%{transform:translateX(-3px) rotate(-8deg);}100%{transform:translateX(3px) rotate(8deg);}}
 .hero-d strong{color:var(--tx);font-weight:600;}
 
 .hero-email{display:inline-flex;align-items:center;gap:.62rem;background:var(--pan);border:1px solid var(--b);border-radius:9px;padding:.52rem .95rem;margin-bottom:1.8rem;transition:border-color .2s;}
@@ -394,8 +392,8 @@ select.field option{background:var(--pan);}
 /* Profile top */
 .idc-new-top{display:flex;align-items:center;gap:1rem;padding:1.4rem 1.3rem 1rem;position:relative;}
 .idc-new-av-wrap{position:relative;flex-shrink:0;width:80px;height:80px;}
-.idc-new-av-ring{position:absolute;inset:-3px;border-radius:50%;border:2.5px solid rgba(200,168,108,.9);background:transparent;box-shadow:0 0 20px rgba(200,168,108,.35),0 0 8px rgba(200,168,108,.15);z-index:4;pointer-events:none;animation:ringGlow 2.5s ease-in-out infinite;}
-@keyframes ringGlow{0%,100%{border-color:rgba(200,168,108,.7);box-shadow:0 0 14px rgba(200,168,108,.25);}50%{border-color:rgba(230,201,122,1);box-shadow:0 0 28px rgba(200,168,108,.55);}}
+.idc-new-av-ring{position:absolute;inset:-3px;border-radius:50%;border:2.5px solid rgba(200,168,108,.9);background:transparent;box-shadow:0 0 20px rgba(200,168,108,.35);z-index:4;pointer-events:none;animation:ringGlow 2.5s ease-in-out infinite;}
+@keyframes ringGlow{0%,100%{border-color:rgba(200,168,108,.7);}50%{border-color:rgba(230,201,122,1);box-shadow:0 0 28px rgba(200,168,108,.55);}}
 @keyframes ringGlow{0%,100%{border-color:rgba(200,168,108,.7);box-shadow:0 0 14px rgba(200,168,108,.25);}50%{border-color:rgba(230,201,122,1);box-shadow:0 0 28px rgba(200,168,108,.55);}}
 .idc-new-av{
   position:absolute!important;
@@ -611,7 +609,7 @@ select.field option{background:var(--pan);}
   .hl-grid{grid-template-columns:1fr;}
 }
 
-/* Keep old cdots for jobs section */
+
 .cdots{display:flex;justify-content:center;gap:.35rem;margin-top:1rem;}
 .cdot{width:5px;height:5px;border-radius:50%;background:var(--b2);border:none;cursor:pointer;transition:all .3s;}
 .cdot.on{width:18px;border-radius:3px;background:var(--go);}
@@ -1367,13 +1365,94 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
    .hmetrics{grid-template-columns:1fr 1fr;}
    .hm:last-child{grid-column:1/-1;}
    .idc-new{max-width:100%;}
-   .jobs-track .job-card{min-width:268px;max-width:268px;}
+   .jobs-track 
   .hire-hero{padding:2rem 1.2rem;}
   .ctabs{flex-wrap:wrap;}
   .ptabs{gap:.1rem;}
   .ptab{font-size:.69rem;padding:.32rem .58rem;}
 }
 </style>
+
+<style>
+/* ── HUD SYSTEM ── */
+#aex-hud-bar{
+  position:absolute;top:52px;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;height:36px;
+  background:rgba(4,8,16,.82);
+  border-bottom:1px solid rgba(0,229,255,.14);
+  backdrop-filter:blur(6px);
+  z-index:5;pointer-events:none;
+  font-family:'DM Sans',system-ui,sans-serif;
+}
+.hud-cell{display:flex;align-items:center;gap:7px;}
+.hud-label{font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(0,229,255,.38);}
+.hud-val{font-size:.7rem;font-weight:600;color:#00e5ff;letter-spacing:.5px;transition:all .3s;}
+.hud-sep{width:1px;height:18px;background:rgba(0,229,255,.15);}
+.hud-dot{width:6px;height:6px;border-radius:50%;background:#4caf7d;animation:pulse 2s infinite;flex-shrink:0;}
+.hud-dot.orange{background:#ff6b00;}
+.hud-dot.cyan{background:#00e5ff;}
+
+/* ── HUD CORNER RINGS ── */
+.hud-ring{
+  position:absolute;pointer-events:none;z-index:3;
+  border-radius:50%;
+  animation:ringPulse 4s ease-in-out infinite;
+}
+@keyframes ringPulse{0%,100%{opacity:.18;}50%{opacity:.38;}}
+
+/* ── CROSSHAIR CENTER ── */
+#aex-crosshair{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:40px;height:40px;
+  pointer-events:none;z-index:3;
+  opacity:0;transition:opacity .3s;
+}
+#aex-crosshair.active{opacity:1;}
+#aex-crosshair::before,#aex-crosshair::after{
+  content:'';position:absolute;background:#00e5ff;
+}
+#aex-crosshair::before{width:1px;height:100%;left:50%;transform:translateX(-50%);}
+#aex-crosshair::after{height:1px;width:100%;top:50%;transform:translateY(-50%);}
+
+/* ── SCAN LINE ── */
+@keyframes scanLine{0%{transform:translateY(-100%);}100%{transform:translateY(500px);}}
+#aex-scan{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,.3),transparent);
+  animation:scanLine 4s linear infinite;pointer-events:none;z-index:2;
+  top:52px;
+}
+
+/* ── BOTTOM HUD STATUS BAR ── */
+#aex-status-bar{
+  position:absolute;bottom:0;left:0;right:0;height:28px;
+  background:rgba(4,8,16,.82);border-top:1px solid rgba(0,229,255,.1);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 14px;z-index:5;pointer-events:none;
+  font-family:'DM Sans',system-ui,sans-serif;
+}
+.hud-status-item{font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(0,229,255,.3);}
+.hud-status-item.active{color:rgba(0,229,255,.7);}
+
+/* ── PANEL HUD STYLE ── */
+#aex-panel{
+  border:1px solid rgba(0,229,255,.14)!important;
+  position:relative;
+}
+#aex-panel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#00e5ff,transparent);
+  opacity:.5;
+}
+
+/* ── OVERRIDE explorer section bg ── */
+#aircraft-explorer{
+  background:linear-gradient(180deg,#050a14 0%,#060c1a 50%,#050a14 100%)!important;
+}
+</style>
+
 </head>
 <body>
 <div id="cur-outer"></div>
@@ -1641,7 +1720,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
   </div>
   <div class="hero-l rev">
     
-    <h1>I engineer<br><em id="typewriterText"></em><span id="tw-plane" style="display:inline-block;margin-left:4px;animation:twPlane .7s ease-in-out infinite alternate;font-size:.8em;line-height:1;vertical-align:middle;">✈</span><span class="sub">& simulate flight.</span></h1>
+    <h1>I engineer<br><em id="typewriterText"></em><span id="tw-plane" style="display:inline-block;margin-left:4px;animation:twPlane .7s ease-in-out infinite alternate;font-size:.8em;vertical-align:middle;">✈</span><span class="sub">& simulate flight.</span></h1>
     <p class="hero-d rev d1"><strong>Nashat Omar Aldhoun</strong> — Junior Aeronautical Engineer from JUST. Specialized in Aircraft Structures, FEA, Modal Analysis & MRO. Trained at the Royal Jordanian Air Force.</p>
 
     <div class="hero-ctas rev d2">
@@ -1680,8 +1759,7 @@ footer{border-top:1px solid var(--b);padding:1.5rem 2rem;display:flex;justify-co
           <div class="idc-new-status"></div>
         </div>
         <div class="idc-new-info">
-          <div class="idc-new-name">Nashat Omar Aldhoun</div>
-          <div style="display:inline-flex;align-items:center;gap:.35rem;margin-bottom:.4rem;background:linear-gradient(135deg,rgba(200,168,108,.14),rgba(200,168,108,.07));border:1.5px solid rgba(200,168,108,.42);color:#e6c97a;font-size:.62rem;font-weight:800;padding:.22rem .72rem;border-radius:20px;letter-spacing:1.2px;text-transform:uppercase;animation:otw 3s ease-in-out infinite;"><span style="width:5px;height:5px;background:#4caf7d;border-radius:50%;animation:pulse 1.8s infinite;flex-shrink:0;"></span>Open to Work</div>
+          <div class="idc-new-name">Nashat Omar Aldhoun</div><div style="display:inline-flex;align-items:center;gap:.35rem;margin-top:.28rem;background:linear-gradient(135deg,rgba(200,168,108,.14),rgba(200,168,108,.07));border:1.5px solid rgba(200,168,108,.42);color:#e6c97a;font-size:.62rem;font-weight:800;padding:.22rem .72rem;border-radius:20px;letter-spacing:1.2px;text-transform:uppercase;animation:otw 3s ease-in-out infinite;"><span style="width:5px;height:5px;background:#4caf7d;border-radius:50%;animation:pulse 1.8s infinite;flex-shrink:0;"></span>Open to Work</div><div style="display:inline-flex;align-items:center;gap:.35rem;margin-top:.28rem;background:linear-gradient(135deg,rgba(200,168,108,.14),rgba(200,168,108,.07));border:1.5px solid rgba(200,168,108,.42);color:#e6c97a;font-size:.62rem;font-weight:800;padding:.22rem .72rem;border-radius:20px;letter-spacing:1.2px;text-transform:uppercase;animation:otw 3s ease-in-out infinite;"><span style="width:5px;height:5px;background:#4caf7d;border-radius:50%;animation:pulse 1.8s infinite;flex-shrink:0;"></span>Open to Work</div>
           <div class="idc-new-role">✈ Aeronautical Engineer</div>
           <div class="idc-new-loc">📍 Irbid, Jordan</div>
         </div>
@@ -1872,54 +1950,18 @@ const _origToggleTheme=window.toggleTheme;
 window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(updateAeroChart,100);};
 </script>
 
-<!-- JOBS SECTION -->
-<div class="jobs-section" id="jobsSection">
-  <div class="jobs-inner">
-    <div class="jobs-header" data-sr="fade-up">
-      <div class="jobs-tag">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-        Aerospace Hiring — Middle East & Jordan
-      </div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:1rem;"><h2 class="jobs-title">Open Positions</h2><button class="btn btn-go btn-sm admin-only" onclick="openM('jobModal')" style="font-size:.7rem;padding:.25rem .75rem;">+ Add Job</button></div>
-      <p class="jobs-sub">Live opportunities from leading aviation companies in the region</p>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:.65rem;margin-top:1.1rem;">
-        <div style="display:inline-flex;align-items:center;gap:.65rem;background:linear-gradient(135deg,rgba(200,168,108,.1),rgba(200,168,108,.05));border:1px solid rgba(200,168,108,.28);border-radius:12px;padding:.5rem 1.3rem;">
-          <span id="jobsCountBadge" style="font-family:"DM Serif Display",serif;font-size:2rem;font-weight:700;background:linear-gradient(135deg,#c8a86c,#e6c97a,#c8a86c);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite;line-height:1;">...</span>
-          <div><div style="font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(200,168,108,.65);">Open</div><div style="font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(200,168,108,.65);">Positions</div></div>
-          <span style="width:7px;height:7px;background:#4caf7d;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;"></span>
-        </div>
-        <div style="display:inline-flex;align-items:center;gap:.45rem;background:rgba(72,117,194,.07);border:1px solid rgba(72,117,194,.18);border-radius:30px;padding:.35rem 1rem;"><span style="width:5px;height:5px;background:#4caf7d;border-radius:50%;animation:pulse 1.8s infinite;flex-shrink:0;"></span><span style="font-size:.71rem;font-weight:600;color:var(--bl2);">Available for hire &mdash; Junior Aeronautical Engineer &bull; Structures &middot; FEA &middot; MRO</span></div>
-      </div>
-    </div>
-    <div class="jobs-stage" id="jobsStage" onmouseenter="window.stopJobAuto()" onmouseleave="window.startJobAuto()">
-      <button class="nav-arrow-btn nav-arrow-left" onclick="jNavClick(-1)" aria-label="Previous">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button class="nav-arrow-btn nav-arrow-right" onclick="jNavClick(1)" aria-label="Next">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-      <div class="jobs-slider"><div class="jobs-track" id="jobsGrid"></div></div>
-    </div>
-    <div class="cdots" id="jobsDots"></div>
-    <div class="jobs-footer" data-sr="fade-up" style="--sr-delay:0.2s">
-      <a href="https://www.linkedin.com/jobs/search/?keywords=aeronautical+engineer&location=Middle+East" target="_blank" rel="noopener" class="jobs-more-btn">
-        View All Jobs on LinkedIn
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-  </div>
-</div>
+
 
 <style>
-.jobs-section{background:var(--bg);padding:4rem 2rem;position:relative;overflow:hidden;}
+
 .jobs-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,168,108,.2),transparent);}
-.jobs-inner{max-width:1100px;margin:0 auto;}
-.jobs-header{text-align:center;margin-bottom:2.5rem;}
-.jobs-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(76,175,125,.08);border:1px solid rgba(76,175,125,.2);color:#4caf7d;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1rem;}
-.jobs-title{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:700;color:var(--tx);margin-bottom:.5rem;}
-.jobs-sub{color:var(--mu);font-size:.9rem;}
-/* Jobs carousel */
-.jobs-stage{position:relative;}
+
+
+
+
+
+
+
 .jobs-stage .c-edge-left{background:linear-gradient(90deg,var(--bg),transparent);}
 .jobs-stage .c-edge-right{background:linear-gradient(270deg,var(--bg),transparent);}
 .jobs-stage:hover .c-edge{opacity:0!important;}
@@ -1929,144 +1971,102 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
 .nav-arrow-btn:active{transform:translateY(-50%) scale(.94);}
 .nav-arrow-left{left:-20px;}
 .nav-arrow-right{right:-20px;}
-.jobs-slider{overflow:hidden;}
-.jobs-track{
-  display:flex;gap:1rem;
-  transition:transform .65s cubic-bezier(.25,.46,.45,.94);
-  will-change:transform;padding-bottom:.5rem;
-}
-.job-card{
-  min-width:300px;max-width:300px;
-  background:linear-gradient(145deg,rgba(13,20,32,0.95),rgba(8,12,22,0.98));
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:18px;padding:1.3rem 1.4rem;cursor:pointer;
-  transition:border-color .28s,box-shadow .28s;
-  flex-shrink:0;
-  position:relative;overflow:hidden;text-decoration:none;display:block;
-  animation:cardReveal .4s ease both;
-}
+
+
+
 .job-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent-color,#4caf7d),transparent);}
 .job-card:hover{border-color:rgba(200,168,108,.25);box-shadow:0 16px 48px rgba(0,0,0,.5);}
-.job-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;margin-bottom:.85rem;}
-.job-logo{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0;letter-spacing:-.3px;overflow:hidden;}
+
+
 .job-logo img{width:100%;height:100%;object-fit:contain;padding:4px;}
-.job-company{font-size:.68rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.3rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.job-title{font-size:.96rem;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.45rem;}
-.job-desc{font-size:.74rem;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:.7rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.job-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.8rem;}
-.job-tag{font-size:.64rem;font-weight:600;padding:.18rem .55rem;border-radius:20px;}
-.job-footer{display:flex;align-items:center;justify-content:space-between;padding-top:.7rem;border-top:1px solid rgba(255,255,255,.06);}
-.job-type{font-size:.64rem;font-weight:700;padding:.2rem .6rem;border-radius:20px;letter-spacing:.3px;}
-.job-apply{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;color:#c8a86c;font-weight:700;opacity:.6;transition:opacity .18s;}
-.job-card:hover .job-apply{opacity:1;}
-.job-fresh-badge{font-size:.6rem;font-weight:700;padding:.18rem .55rem;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+
+
+
+
+
+
+
+
+.job-card:hover 
+
 .job-fresh-badge.hot{background:rgba(239,83,80,.12);border:1px solid rgba(239,83,80,.25);color:#ef5350;}
 .job-fresh-badge.new{background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.25);color:#4caf7d;letter-spacing:.5px;text-transform:uppercase;}
-.job-skeleton{min-width:300px;max-width:300px;flex-shrink:0;background:rgba(13,20,32,.8);border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:1.3rem 1.4rem;}
+
 .skel-line{background:rgba(255,255,255,.06);border-radius:4px;animation:skel-pulse 1.5s ease-in-out infinite;}
 @keyframes skel-pulse{0%,100%{opacity:.3;}50%{opacity:.7;}}
-.jobs-footer{text-align:center;margin-top:2rem;}
-.jobs-more-btn{display:inline-flex;align-items:center;gap:.5rem;background:rgba(200,168,108,.06);border:1px solid rgba(200,168,108,.25);color:#c8a86c;font-size:.82rem;font-weight:600;padding:.65rem 1.5rem;border-radius:22px;text-decoration:none;transition:all .2s;}
+
+
 .jobs-more-btn:hover{background:rgba(200,168,108,.12);border-color:rgba(200,168,108,.45);transform:translateY(-1px);}
 </style>
 
 <script>
-(function renderJobs(){
-  function daysAgo(d){return Math.floor((Date.now()-new Date(d))/(1000*60*60*24));}
-  function timeLabel(d){var n=daysAgo(d);if(n===0)return'Today';if(n===1)return'Yesterday';if(n<7)return n+'d ago';return null;}
-  var LI='<svg viewBox="0 0 24 24" width="22" height="22" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>';
-  var grid=document.getElementById('jobsGrid');
-  var dots=document.getElementById('jobsDots');
-  var jIdx=0;window._jAuto=null;
-  window._mapJob=function(r){var t=r.tags;if(typeof t==='string'){try{t=JSON.parse(t);}catch(e){t=[];}}if(!Array.isArray(t))t=[];return{id:r.id,company:r.company||'',logo:r.logo||'CO',accent:r.accent||'#c8a86c',logoBg:r.logo_bg||'#fff',logoBorder:r.logo_border||'rgba(200,168,108,.25)',logoText:r.logo_text||'#c8a86c',title:r.title||'',location:r.location||'',type:r.job_type||'Full-time',desc:r.description||'',tags:t,posted:r.posted||new Date().toISOString().split('T')[0],url:r.url||'',isLinkedIn:true};};
-  function showSkeleton(){if(!grid)return;grid.innerHTML=Array(4).fill(0).map(function(){return'<div class="job-skeleton"><div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;"><div class="skel-line" style="width:44px;height:44px;border-radius:12px;flex-shrink:0;"></div><div style="flex:1;"><div class="skel-line" style="width:70%;height:11px;margin-bottom:.4rem;"></div><div class="skel-line" style="width:45%;height:9px;"></div></div></div><div class="skel-line" style="width:88%;height:14px;margin-bottom:.4rem;"></div></div>';}).join('');}
-  function loadFallback(){var D=function(n){var dt=new Date();dt.setDate(dt.getDate()-n);return dt.toISOString().split('T')[0];};jobs=[{id:'f1',company:'Royal Jordanian Airlines',logo:'RJ',accent:'#c8a86c',logoBg:'#fff',logoBorder:'rgba(200,168,108,.25)',logoText:'#c8a86c',title:'Aircraft Structures Engineer',location:'Amman, Jordan',type:'Full-time',desc:'Structural analysis and airworthiness compliance for RJ fleet.',tags:[{t:'Structures',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'}],posted:D(1),url:'https://www.linkedin.com/jobs/search/?keywords=aeronautical+engineer+structures&location=Jordan&f_TPR=r2592000',isLinkedIn:true},{id:'f2',company:'Emirates Engineering',logo:'EK',accent:'#ef5350',logoBg:'#fff',logoBorder:'rgba(209,78,78,.25)',logoText:'#ef5350',title:'Senior FEA Analysis Engineer',location:'Dubai, UAE',type:'Full-time',desc:'Lead FEA validation for wide-body composite structures.',tags:[{t:'FEA',c:'rgba(209,78,78,.1)',tc:'#ef5350'},{t:'ANSYS',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],posted:D(1),url:'https://www.linkedin.com/jobs/search/?keywords=FEA+analysis+engineer+aerospace&location=Dubai&f_TPR=r2592000',isLinkedIn:true},{id:'f3',company:'Etihad Engineering',logo:'EY',accent:'#6b9fe4',logoBg:'#fff',logoBorder:'rgba(72,117,194,.25)',logoText:'#6b9fe4',title:'Composite Repair Engineer',location:'Abu Dhabi, UAE',type:'Full-time',desc:'Composite damage assessment and repair for next-gen aircraft.',tags:[{t:'CFRP',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'},{t:'B787',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],posted:D(3),url:'https://www.linkedin.com/jobs/search/?keywords=composite+repair+engineer+aviation&location=Abu+Dhabi&f_TPR=r2592000',isLinkedIn:true},{id:'f4',company:'Qatar Airways Engineering',logo:'QR',accent:'#9c72d4',logoBg:'#fff',logoBorder:'rgba(130,96,210,.25)',logoText:'#9c72d4',title:'Aerospace Structures Engineer',location:'Doha, Qatar',type:'Full-time',desc:'Structural integrity analysis for wide-body mixed fleet.',tags:[{t:'Structures',c:'rgba(200,168,108,.12)',tc:'#c8a86c'},{t:'A350',c:'rgba(72,117,194,.1)',tc:'#6b9fe4'}],posted:D(2),url:'https://www.linkedin.com/jobs/search/?keywords=aerospace+structures+engineer&location=Qatar&f_TPR=r2592000',isLinkedIn:true},{id:'f5',company:'Saudia Technic',logo:'SV',accent:'#4caf7d',logoBg:'#fff',logoBorder:'rgba(76,175,125,.25)',logoText:'#4caf7d',title:'Aircraft Maintenance Engineer',location:'Jeddah, Saudi Arabia',type:'Full-time',desc:'Licensed B1 maintenance engineer for narrow-body fleet.',tags:[{t:'MRO',c:'rgba(76,175,125,.1)',tc:'#4caf7d'},{t:'A320',c:'rgba(200,168,108,.1)',tc:'#c8a86c'}],posted:D(4),url:'https://www.linkedin.com/jobs/search/?keywords=aircraft+maintenance+engineer+MRO&location=Saudi+Arabia&f_TPR=r2592000',isLinkedIn:true}];window.renderJobsFromDB();}
-  window.renderJobsFromDB=function(){if(!jobs||!jobs.length){loadFallback();return;}if(!grid)return;grid.innerHTML='';jobs.forEach(function(j){var n=daysAgo(j.posted),tl=timeLabel(j.posted),fresh=n<=1?'hot':n<=3?'new':'';var a=document.createElement('a');a.className='job-card';a.href=j.url||'#';a.target='_blank';a.rel='noopener';a.style.setProperty('--accent-color',j.accent);var fH=fresh==='hot'?'<span class="job-fresh-badge hot">Hot</span>':fresh==='new'?'<span class="job-fresh-badge new">New</span>':'';var tH=j.tags.map(function(t){return'<span class="job-tag" style="background:'+t.c+';color:'+t.tc+';border:1px solid '+t.tc+'28;">'+t.t+'</span>';}).join('');a.innerHTML='<div class="job-card-top"><div style="display:flex;align-items:center;gap:.65rem;flex:1;min-width:0;"><div class="job-logo" style="background:'+j.logoBg+';border:1.5px solid '+j.logoBorder+';overflow:hidden;"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;">'+LI+'</div></div><div style="min-width:0;"><div class="job-company">'+j.company+'</div><div style="font-size:.65rem;color:rgba(255,255,255,.35);margin-top:.1rem;">'+j.location+'</div></div></div>'+fH+'</div><div class="job-title">'+j.title+'</div><div class="job-desc">'+j.desc+'</div><div class="job-tags">'+tH+'</div><div class="job-footer"><div style="display:flex;align-items:center;gap:.35rem;"><svg viewBox="0 0 24 24" width="10" height="10" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg><span style="font-size:.68rem;color:#5b9bd5;">Search on LinkedIn</span><span style="font-size:.68rem;color:rgba(255,255,255,.25);">·</span><span style="font-size:.68rem;color:rgba(255,255,255,.3);">'+(tl||j.posted)+'</span></div><span class="job-apply">Apply ↗</span></div>';grid.appendChild(a);});grid.style.transition='transform .65s cubic-bezier(.25,.46,.45,.94)';renderJobDots();startJobAuto();var b=document.getElementById('jobsCountBadge');if(b)b.textContent=jobs.length;};
-  function renderJobDots(){if(!dots)return;dots.innerHTML=jobs.map(function(_,i){return'<button class="cdot'+(i===jIdx?' on':'')+'" onclick="goJobCarousel('+i+')"></button>';}).join('');}
-  window.goJobCarousel=function(idx){jIdx=Math.max(0,Math.min(idx,jobs.length-1));if(grid)grid.style.transform='translateX('+(-(jIdx*316))+'px)';renderJobDots();};
-  window.jNavClick=function(dir){window.stopJobAuto();if(dir===1){jIdx=jIdx>=jobs.length-1?0:jIdx+1;}else{jIdx=jIdx<=0?jobs.length-1:jIdx-1;}window.goJobCarousel(jIdx);window.startJobAuto();};
-  window.startJobAuto=function(){window._jAuto=setInterval(function(){jIdx=jIdx>=jobs.length-1?0:jIdx+1;window.goJobCarousel(jIdx);},12000);};
-  window.stopJobAuto=function(){clearInterval(window._jAuto);window._jAuto=null;};
-  window.startJEdge=function(){};window.stopJEdge=function(){};
-  window.delJob=async function(id){if(!isAdmin||!confirm('Delete this job?'))return;var idx=jobs.findIndex(function(x){return x.id===id;});if(idx>-1){jobs.splice(idx,1);window.renderJobsFromDB();}toast('✓ Deleted');try{await fetch('https://soxvbtenfnpokhrtlqmq.supabase.co/rest/v1/jobs?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw'}});}catch(e){}};
-  showSkeleton();
-  setTimeout(function(){
-    fetch('https://soxvbtenfnpokhrtlqmq.supabase.co/rest/v1/jobs?select=*&is_active=eq.true&order=posted.desc',
-      {headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw','Accept':'application/json'}})
-    .then(function(res){if(!res.ok)throw new Error('HTTP '+res.status);return res.json();})
-    .then(function(data){if(data&&data.length){jobs=data.map(window._mapJob);window.renderJobsFromDB();}else{loadFallback();}})
-    .catch(function(e){console.warn('Jobs fetch failed, using fallback:',e.message);loadFallback();});
-  },600);
-})();
+
 </script>
 
 
 <!-- ══ 3D AIRCRAFT EXPLORER ══ -->
-<div id="aircraft-explorer" style="background:linear-gradient(180deg,#07090d 0%,#070d1a 50%,#07090d 100%);border-top:1px solid rgba(0,229,255,.07);border-bottom:1px solid rgba(0,229,255,.07);padding:4rem 0;position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;"></div>
-  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(0,229,255,.035) 0%,transparent 68%);pointer-events:none;"></div>
+<div id="aircraft-explorer" style="background:linear-gradient(180deg,#07090d 0%,#070d1a 60%,#07090d 100%);border-top:1px solid rgba(0,229,255,.07);border-bottom:1px solid rgba(0,229,255,.07);padding:4.5rem 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.022) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;"></div>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(0,229,255,.03) 0%,transparent 68%);pointer-events:none;"></div>
   <div style="max-width:1200px;margin:0 auto;padding:0 2rem;position:relative;z-index:1;">
-    <div style="text-align:center;margin-bottom:2.2rem;">
-      <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.18);color:#00e5ff;font-size:.58rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:.32rem .9rem;border-radius:20px;margin-bottom:.9rem;">
-        <span style="width:6px;height:6px;background:#00e5ff;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0;"></span>Interactive 3D Explorer
-      </div>
-      <h2 style="font-family:"DM Serif Display",serif;font-size:clamp(1.8rem,3.5vw,2.7rem);color:#f0ede6;letter-spacing:-.3px;margin-bottom:.45rem;">Airbus A220-300 <span style="color:#00e5ff;">Systems</span></h2>
-      <p style="color:#616878;font-size:.88rem;max-width:460px;margin:0 auto;">Click any part to explore its engineering function and specifications.</p>
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.18);color:#00e5ff;font-size:.58rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:.32rem .9rem;border-radius:20px;margin-bottom:.9rem;"><span style="width:6px;height:6px;background:#00e5ff;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0;"></span>Interactive 3D Explorer</div>
+      <h2 style="font-family:"DM Serif Display",serif;font-size:clamp(1.8rem,3.5vw,2.7rem);color:#f0ede6;margin-bottom:.4rem;">Airbus A220-300 <span style="color:#00e5ff;">Systems</span></h2>
+      <p style="color:#616878;font-size:.88rem;max-width:460px;margin:0 auto;">Rotate, zoom and click any component to explore its engineering details.</p>
     </div>
-    <div style="display:flex;justify-content:center;gap:.55rem;flex-wrap:wrap;margin-bottom:1.6rem;">
-      <div style="display:flex;justify-content:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.8rem;">
-      <span style="font-size:.58rem;color:rgba(0,229,255,.4);letter-spacing:2px;text-transform:uppercase;align-self:center;">CAMERA:</span>
-      <button onclick="aexCam('front')" style="background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.2);color:rgba(0,229,255,.6);font-size:.62rem;padding:.28rem .7rem;border-radius:5px;cursor:pointer;font-family:inherit;transition:all .2s;">Front</button>
-      <button onclick="aexCam('top')" style="background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.2);color:rgba(0,229,255,.6);font-size:.62rem;padding:.28rem .7rem;border-radius:5px;cursor:pointer;font-family:inherit;transition:all .2s;">Top</button>
-      <button onclick="aexCam('side')" style="background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.2);color:rgba(0,229,255,.6);font-size:.62rem;padding:.28rem .7rem;border-radius:5px;cursor:pointer;font-family:inherit;transition:all .2s;">Side</button>
-      <button onclick="aexCam('engine')" style="background:rgba(255,107,0,.07);border:1px solid rgba(255,107,0,.2);color:rgba(255,107,0,.6);font-size:.62rem;padding:.28rem .7rem;border-radius:5px;cursor:pointer;font-family:inherit;transition:all .2s;">Engine</button>
+    <div style="display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+      <button onclick="aexMode('normal')" style="background:rgba(0,229,255,.12);border:1px solid rgba(0,229,255,.35);color:#00e5ff;font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.5px;transition:all .2s;">✈ Normal</button>
+      <button onclick="aexMode('explode')" style="background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.28);color:#ff6b00;font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.5px;transition:all .2s;">💥 Exploded</button>
+      <button onclick="aexMode('systems')" style="background:rgba(130,96,210,.08);border:1px solid rgba(130,96,210,.28);color:#9c72d4;font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.5px;transition:all .2s;">⚡ Systems</button>
+      <button onclick="aexCam('front')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;">Front</button>
+      <button onclick="aexCam('top')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;">Top</button>
+      <button onclick="aexCam('side')" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;">Side</button>
+      <button onclick="aexReset()" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);font-size:.7rem;padding:.38rem .8rem;border-radius:6px;cursor:pointer;transition:all .2s;">↺</button>
     </div>
-    <div style="display:flex;justify-content:center;gap:.55rem;flex-wrap:wrap;margin-bottom:1.6rem;">
-      <button id="aex-btn-normal" onclick="aexMode('normal')" style="background:rgba(0,229,255,.14);border:1px solid rgba(0,229,255,.38);color:#00e5ff;font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.5px;transition:all .2s;">✈ Normal View</button>
-      <button id="aex-btn-explode" onclick="aexMode('explode')" style="background:rgba(255,107,0,.09);border:1px solid rgba(255,107,0,.28);color:#ff6b00;font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.5px;transition:all .2s;">💥 Exploded View</button>
-      <button id="aex-btn-systems" onclick="aexMode('systems')" style="background:rgba(130,96,210,.09);border:1px solid rgba(130,96,210,.28);color:#9c72d4;font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.5px;transition:all .2s;">⚡ Systems Mode</button>
-      <button onclick="aexReset()" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.45);font-size:.7rem;font-weight:700;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.5px;transition:all .2s;">↺ Reset</button>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 290px;gap:1.4rem;align-items:start;">
-      <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(0,229,255,.14);background:#040810;">
-        <div id="aex-loading" style="position:absolute;inset:0;background:#040810;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;gap:14px;">
-          <div style="font-size:1.3rem;color:#00e5ff;">✈</div>
-          <div style="font-size:.68rem;color:#00e5ff;letter-spacing:3px;text-transform:uppercase;font-family:'DM Sans',sans-serif;">Loading A220-300...</div>
+    <div style="display:grid;grid-template-columns:1fr 280px;gap:1.4rem;align-items:start;">
+      <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(0,229,255,.13);background:#040810;">
+        <div id="aex-loading" style="position:absolute;inset:0;background:#040810;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;gap:14px;transition:opacity .6s;">
+          <div style="font-size:1.4rem;color:#00e5ff;animation:twPlane .7s ease-in-out infinite alternate;">✈</div>
+          <div style="font-size:.68rem;color:#00e5ff;letter-spacing:3px;text-transform:uppercase;">Loading A220-300...</div>
           <div style="width:180px;height:2px;background:rgba(0,229,255,.1);border-radius:1px;overflow:hidden;"><div style="height:100%;background:#00e5ff;animation:aexLd 3s ease forwards;"></div></div>
         </div>
-        <div style="position:absolute;top:8px;left:8px;width:18px;height:18px;border-top:1.5px solid rgba(0,229,255,.35);border-left:1.5px solid rgba(0,229,255,.35);pointer-events:none;z-index:2;"></div>
-        <div style="position:absolute;top:8px;right:8px;width:18px;height:18px;border-top:1.5px solid rgba(0,229,255,.35);border-right:1.5px solid rgba(0,229,255,.35);pointer-events:none;z-index:2;"></div>
-        <div style="position:absolute;bottom:8px;left:8px;width:18px;height:18px;border-bottom:1.5px solid rgba(0,229,255,.35);border-left:1.5px solid rgba(0,229,255,.35);pointer-events:none;z-index:2;"></div>
-        <div style="position:absolute;bottom:8px;right:8px;width:18px;height:18px;border-bottom:1.5px solid rgba(0,229,255,.35);border-right:1.5px solid rgba(0,229,255,.35);pointer-events:none;z-index:2;"></div>
-        <div id="aex-part-label" style="position:absolute;top:13px;left:50%;transform:translateX(-50%);font-size:.6rem;color:rgba(0,229,255,.45);letter-spacing:2px;text-transform:uppercase;font-family:'DM Sans',sans-serif;pointer-events:none;z-index:2;white-space:nowrap;">DRAG TO ROTATE &nbsp;·&nbsp; SCROLL TO ZOOM</div>
-        <canvas id="aex-canvas" style="display:block;width:100%;height:500px;cursor:grab;"></canvas>
+        <div style="position:absolute;top:8px;left:8px;width:16px;height:16px;border-top:1.5px solid rgba(0,229,255,.3);border-left:1.5px solid rgba(0,229,255,.3);pointer-events:none;z-index:2;"></div>
+        <div style="position:absolute;top:8px;right:8px;width:16px;height:16px;border-top:1.5px solid rgba(0,229,255,.3);border-right:1.5px solid rgba(0,229,255,.3);pointer-events:none;z-index:2;"></div>
+        <div style="position:absolute;bottom:8px;left:8px;width:16px;height:16px;border-bottom:1.5px solid rgba(0,229,255,.3);border-left:1.5px solid rgba(0,229,255,.3);pointer-events:none;z-index:2;"></div>
+        <div style="position:absolute;bottom:8px;right:8px;width:16px;height:16px;border-bottom:1.5px solid rgba(0,229,255,.3);border-right:1.5px solid rgba(0,229,255,.3);pointer-events:none;z-index:2;"></div>
+        <div id="aex-hint" style="position:absolute;top:12px;left:50%;transform:translateX(-50%);font-size:.6rem;color:rgba(0,229,255,.35);letter-spacing:2px;text-transform:uppercase;pointer-events:none;z-index:2;white-space:nowrap;transition:all .3s;">DRAG · SCROLL · CLICK</div>
+        <canvas id="aex-canvas" style="display:block;width:100%;height:500px;cursor:grab;margin-top:36px;"></canvas>
       </div>
-      <div id="aex-panel" style="border-radius:14px;border:1px solid rgba(0,229,255,.12);background:linear-gradient(145deg,#080d1a,#0a1020);padding:1.3rem;min-height:500px;display:flex;flex-direction:column;">
-        <div id="aex-panel-default" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.9rem;">
-          <div style="font-size:2.2rem;opacity:.15;">✈</div>
-          <div style="font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.75;font-family:'DM Sans',sans-serif;">Click any component<br>to inspect its<br>engineering details</div>
-          <div style="display:flex;flex-direction:column;gap:.35rem;width:100%;margin-top:.4rem;">
-            <div onclick="aexClick('fuselage')" style="background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.1);border-radius:7px;padding:.45rem .7rem;font-size:.63rem;color:rgba(0,229,255,.38);text-align:left;cursor:pointer;">🔵 Fuselage — Main structure</div>
-            <div onclick="aexClick('wing_l')" style="background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.1);border-radius:7px;padding:.45rem .7rem;font-size:.63rem;color:rgba(0,229,255,.38);text-align:left;cursor:pointer;">🟣 Wings — Lift generation</div>
-            <div onclick="aexClick('engine_l')" style="background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.1);border-radius:7px;padding:.45rem .7rem;font-size:.63rem;color:rgba(0,229,255,.38);text-align:left;cursor:pointer;">🟠 Engines — Propulsion</div>
-            <div onclick="aexClick('vtail')" style="background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.1);border-radius:7px;padding:.45rem .7rem;font-size:.63rem;color:rgba(0,229,255,.38);text-align:left;cursor:pointer;">🔴 Tail — Stability</div>
+      <div id="aex-panel" style="border-radius:14px;border:1px solid rgba(0,229,255,.12);background:linear-gradient(145deg,#080d1a,#0a1020);min-height:500px;display:flex;flex-direction:column;overflow:hidden;">
+        <div style="padding:8px 12px;border-bottom:1px solid rgba(0,229,255,.1);display:flex;align-items:center;justify-content:space-between;background:rgba(0,229,255,.03);">
+          <span style="font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:rgba(0,229,255,.4);">Component Inspector</span>
+          <div style="display:flex;gap:4px;"><div style="width:6px;height:6px;border-radius:50%;background:rgba(0,229,255,.2);"></div><div style="width:6px;height:6px;border-radius:50%;background:rgba(0,229,255,.35);"></div><div style="width:6px;height:6px;border-radius:50%;background:#00e5ff;animation:pulse 2s infinite;"></div></div>
+        </div>
+        <div id="aex-default" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center;gap:.8rem;">
+          <div style="font-size:2rem;opacity:.12;">✈</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.2);line-height:1.75;">Click any part<br>to inspect its<br>engineering details</div>
+          <div style="width:100%;display:flex;flex-direction:column;gap:.3rem;margin-top:.5rem;">
+            <div onclick="window.aexClick&&aexClick('fuselage')" style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.15);border-radius:7px;padding:.4rem .7rem;font-size:.63rem;color:rgba(239,83,80,.6);text-align:left;cursor:pointer;transition:background .15s;">⬤ Fuselage</div>
+            <div onclick="window.aexClick&&aexClick('wing_l')" style="background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.12);border-radius:7px;padding:.4rem .7rem;font-size:.63rem;color:rgba(0,229,255,.5);text-align:left;cursor:pointer;transition:background .15s;">⬤ Wings</div>
+            <div onclick="window.aexClick&&aexClick('engine_l')" style="background:rgba(255,107,0,.07);border:1px solid rgba(255,107,0,.15);border-radius:7px;padding:.4rem .7rem;font-size:.63rem;color:rgba(255,107,0,.6);text-align:left;cursor:pointer;transition:background .15s;">⬤ Engines</div>
+            <div onclick="window.aexClick&&aexClick('vtail')" style="background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.12);border-radius:7px;padding:.4rem .7rem;font-size:.63rem;color:rgba(0,229,255,.5);text-align:left;cursor:pointer;transition:background .15s;">⬤ Tail</div>
+            <div onclick="window.aexClick&&aexClick('htail')" style="background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.12);border-radius:7px;padding:.4rem .7rem;font-size:.63rem;color:rgba(0,229,255,.5);text-align:left;cursor:pointer;transition:background .15s;">⬤ Stabilizer</div>
           </div>
         </div>
-        <div id="aex-panel-info" style="display:none;flex-direction:column;gap:.8rem;overflow-y:auto;flex:1;"></div>
+        <div id="aex-info" style="display:none;flex-direction:column;flex:1;overflow-y:auto;"></div>
+        <div id="aex-legend" style="display:none;padding:.8rem 1rem;border-top:1px solid rgba(255,255,255,.05);flex-wrap:wrap;gap:.5rem;">
+          <span style="font-size:.6rem;color:rgba(255,255,255,.3);width:100%;letter-spacing:1px;text-transform:uppercase;margin-bottom:.2rem;">Systems</span>
+          <div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:rgba(255,255,255,.4);"><span style="width:8px;height:8px;border-radius:2px;background:#ef5350;"></span>Structure</div>
+          <div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:rgba(255,255,255,.4);"><span style="width:8px;height:8px;border-radius:2px;background:#00e5ff;"></span>Aero</div>
+          <div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:rgba(255,255,255,.4);"><span style="width:8px;height:8px;border-radius:2px;background:#ff6b00;"></span>Propulsion</div>
+        </div>
       </div>
-    </div>
-    <div id="aex-legend" style="display:none;justify-content:center;gap:1.2rem;flex-wrap:wrap;margin-top:1rem;padding:.7rem;background:rgba(0,0,0,.25);border-radius:8px;border:1px solid rgba(255,255,255,.05);">
-      <div style="display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:rgba(255,255,255,.4);"><span style="width:9px;height:9px;border-radius:2px;background:#00e5ff;flex-shrink:0;"></span>Aerodynamics</div>
-      <div style="display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:rgba(255,255,255,.4);"><span style="width:9px;height:9px;border-radius:2px;background:#ef5350;flex-shrink:0;"></span>Structure</div>
-      <div style="display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:rgba(255,255,255,.4);"><span style="width:9px;height:9px;border-radius:2px;background:#ff6b00;flex-shrink:0;"></span>Propulsion</div>
-      <div style="display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:rgba(255,255,255,.4);"><span style="width:9px;height:9px;border-radius:2px;background:#4caf7d;flex-shrink:0;"></span>Electrical</div>
     </div>
   </div>
 </div>
-<style>
-@keyframes aexLd{0%{width:0}100%{width:100%}}
-#aircraft-explorer button:hover{filter:brightness(1.25);transform:translateY(-1px);}
-@media(max-width:768px){#aircraft-explorer [style*="grid-template-columns:1fr 290px"]{grid-template-columns:1fr!important;}#aex-canvas{height:320px!important;}}
+<style>@keyframes aexLd{0%{width:0}100%{width:100%}}
+#aircraft-explorer button:hover{filter:brightness(1.3);transform:translateY(-1px);}
+@media(max-width:768px){#aircraft-explorer [style*="grid-template-columns:1fr 280px"]{grid-template-columns:1fr!important;}#aex-canvas{height:320px!important;}}
 </style>
 
 <!-- ══ HIGHLIGHTS SECTION ══ -->
@@ -2636,13 +2636,12 @@ window.toggleTheme=function(){if(_origToggleTheme)_origToggleTheme();setTimeout(
   <div class="ft-brand"><span>N.</span>Aldhoun — Aeronautical Engineer</div>
   <div class="ft-copy">Irbid, Jordan · <span id="footerEmail" style="cursor:pointer;color:var(--go);transition:color .2s;" onclick="copyEmail()" onmouseenter="this.style.color='var(--go2)'" onmouseleave="this.style.color='var(--go)'"></span></div>
 </footer>
-<div class="ov" id="jobModal"><div class="modal" style="max-width:520px;"><div class="mhd"><div class="mt">Add Job Listing</div><button class="mx" onclick="closeM('jobModal')">x</button></div><div class="frow"><div><label class="flabel">Company *</label><input class="field" id="jmCompany" placeholder="Emirates Engineering" style="margin-bottom:0;"></div><div><label class="flabel">Logo</label><input class="field" id="jmLogo" placeholder="EK" maxlength="4" style="margin-bottom:0;text-align:center;"></div></div><br><label class="flabel">Job Title *</label><input class="field" id="jmTitle" placeholder="Structures Engineer"><div class="frow"><div><label class="flabel">Location</label><input class="field" id="jmLocation" placeholder="Dubai, UAE" style="margin-bottom:0;"></div><div><label class="flabel">Type</label><select class="field" id="jmType" style="margin-bottom:0;"><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Graduate</option><option>Internship</option></select></div></div><br><label class="flabel">Description</label><textarea class="field" id="jmDesc" style="min-height:70px;"></textarea><label class="flabel">Tags (comma separated)</label><input class="field" id="jmTags" placeholder="FEA, ANSYS, Structures"><label class="flabel">Apply URL</label><input class="field" id="jmUrl" placeholder="https://linkedin.com/jobs/..."><div class="frow"><div><label class="flabel">Accent Color</label><input class="field" id="jmAccent" placeholder="#c8a86c" style="margin-bottom:0;"></div><div><label class="flabel">Posted Date</label><input class="field" id="jmPosted" type="date" style="margin-bottom:0;"></div></div><div class="macts"><button class="btn btn-gh btn-sm" onclick="closeM('jobModal')">Cancel</button><button class="btn btn-go btn-sm" onclick="saveJob()">Add Job</button></div></div></div>
 
 
 <script>
 // ══ STATE ══
 let isAdmin=false;
-let works=[],posts=[],journey=[],comments=[],customSvcs=[],jobs=[];
+let works=[],posts=[],journey=[],comments=[],customSvcs=[];
 let activeTag='',activeJType='all';
 let cType='posts',cIdx=0,cAuto;
 let composeTags=[];
@@ -2722,11 +2721,6 @@ function startListeners(){
   SB.listen('works',data=>{works=data.map(r=>({id:r.id,title:r.title||'',emoji:r.emoji||'📁',cat:r.cat||'',desc:r.description||'',year:r.year||'',link:r.link||'',price:r.price||'',photo:r.photo||'',tagsText:r.tags_text||''}));renderWorks();renderCarousel();updateStats();});
   SB.listen('posts',data=>{posts=data.map(r=>({id:r.id,type:r.type||'article',title:r.title||'',content:r.content||'',tags:Array.isArray(r.tags)?r.tags:[],date:r.date||'',likes:r.likes||0,liked:false,comments:Array.isArray(r.comments)?r.comments:[],url:r.url||'',linkTitle:r.link_title||'',linkIcon:r.link_icon||'🌐',videoId:r.video_id||'',docName:r.doc_name||'',docUrl:r.doc_url||'',imgData:r.img_data||'',toolUrl:r.tool_url||'',toolStack:r.tool_stack||'',toolIcon:r.tool_icon||'⚙',isHighlight:r.is_highlight||false}));renderPosts(activeTag);renderCarousel();updateStats();});
   SB.listen('journey',data=>{journey=data.map(r=>({id:r.id,type:r.type||'milestone',title:r.title||'',org:r.org||'',date:r.date||'',desc:r.description||'',img:r.img||''})).reverse();renderJourney(activeJType);renderCarousel();});
-  SB.listen('jobs',function(data){
-    jobs=(data||[]).filter(function(r){return r.is_active;}).map(window._mapJob||function(r){return r;});
-    if(window.renderJobsFromDB)window.renderJobsFromDB();
-  });
-  SB.listen('jobs',function(data){jobs=(data||[]).filter(function(r){return r.is_active;}).map(window._mapJob||function(r){return r;});if(window.renderJobsFromDB)window.renderJobsFromDB();});
   SB.listen('comments',data=>{comments=data.map(r=>({id:r.id,isAdminPost:r.is_admin_post,name:r.name||'Visitor',title:r.title||'',text:r.body||r.text||'',time:r.time||'',date:r.date||'',likes:r.likes||0,liked:false,replies:Array.isArray(r.replies)?r.replies:[],showReps:false}));renderCmts();updateDiscStats();});
 }
 
@@ -3436,9 +3430,53 @@ function stopCEdge(){clearInterval(_edgeInt);_edgeInt=null;}
 
 // ══ CV ══
 function downloadCV(){
-  var lines=['NASHAT OMAR ALDHOUN','Junior Aeronautical Engineer','Irbid, Jordan  |  +962 776 763 628  |  '+EM+'  |  linkedin.com/in/nashat-al-dhoun','','== SUMMARY ==','JUST 2025 graduate. Aircraft Structures, FEA, MRO. RJAF trained.','Proficient in ANSYS, SolidWorks, Creo, MATLAB, Power BI.','','== EXPERIENCE ==','Aircraft Maintenance Trainee  |  Royal Jordanian Air Force  |  Sep-Oct 2025','  - 8-week intensive training in aircraft maintenance and overhaul','  - Hydraulic systems inspection and functional testing','','== EDUCATION ==','B.Sc. Aeronautical Engineering  |  JUST, Jordan  |  2021-2025','  Graduation Project: Vibration Analysis on Aircraft Wing (ANSYS, Creo, CFD)','','== SKILLS ==','Software  : ANSYS FEA/CFD  |  SolidWorks  |  Creo  |  MATLAB  |  Power BI','Technical : FEA  |  Modal Analysis  |  CFD  |  MRO  |  Structural Analysis','Languages : Arabic (Native)  |  English (B2)','','== CERTIFICATIONS ==','Power BI Data Analysis (2026)','Employment Skills Training 5hrs (2024)'];
-  var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
-  var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='Nashat_Aldhoun_CV.txt';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},100);toast('✓ CV downloaded!');
+  var lines = [
+    'NASHAT OMAR ALDHOUN',
+    'Junior Aeronautical Engineer',
+    'Irbid, Jordan  |  +962 776 763 628  |  ' + EM + '  |  linkedin.com/in/nashat-al-dhoun',
+    '',
+    '== SUMMARY ==',
+    'JUST 2025 graduate. Aircraft Structures, FEA, MRO. RJAF trained.',
+    'Proficient in ANSYS, SolidWorks, Creo, MATLAB, Power BI.',
+    '',
+    '== EXPERIENCE ==',
+    'Aircraft Maintenance Trainee  |  Royal Jordanian Air Force  |  Sep-Oct 2025',
+    '  - 8-week intensive training in aircraft maintenance and overhaul',
+    '  - Hydraulic systems inspection and functional testing',
+    '  - Aviation safety protocols under licensed engineers',
+    '',
+    '== EDUCATION ==',
+    'B.Sc. Aeronautical Engineering  |  JUST, Jordan  |  2021-2025',
+    '  Graduation Project: Vibration Analysis on Aircraft Wing',
+    '  (ANSYS, Creo, CFD, Modal Analysis, CFRP vs Aluminum)',
+    '',
+    '== PROJECTS ==',
+    'Vibration Analysis on Aircraft Wing  |  JUST 2025',
+    '  - 3D modeling in Creo Parametric',
+    '  - Modal analysis comparing Aluminum vs CFRP in ANSYS',
+    '  - CFD simulation for aerodynamic stability',
+    '  - Notch-filter vibration mitigation system',
+    '',
+    '== SKILLS ==',
+    'Software  : ANSYS FEA/CFD  |  SolidWorks  |  Creo  |  MATLAB  |  Power BI',
+    'Technical : FEA  |  Modal Analysis  |  CFD  |  MRO  |  Structural Analysis',
+    'Languages : Arabic (Native)  |  English (B2)',
+    '',
+    '== CERTIFICATIONS ==',
+    'Power BI - Data Analysis & Visualization (2026)',
+    'Employment Skills Training, 5 hrs (2024)',
+    ''
+  ];
+  var txt = lines.join('\n');
+  var blob = new Blob([txt], {type: 'text/plain;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'Nashat_Aldhoun_CV.txt';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+  toast('✓ CV downloaded!');
 }
 
 // ══ WORKS ══
@@ -4736,213 +4774,254 @@ async function importLinkedIn(){
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 </body>
   
-
-
 <script>
+
 async function saveJob(){
-  if(!isAdmin)return;
-  var co=(document.getElementById('jmCompany').value||'').trim(),ti=(document.getElementById('jmTitle').value||'').trim();
-  if(!co||!ti){toast('⚠ Company and title required');return;}
-  var tRaw=(document.getElementById('jmTags').value||'').split(',').map(function(t){return t.trim();}).filter(Boolean);
-  var tC=['#c8a86c','#ef5350','#4caf7d','#6b9fe4','#9c72d4'],tB=['rgba(200,168,108,.12)','rgba(209,78,78,.1)','rgba(76,175,125,.1)','rgba(72,117,194,.1)','rgba(130,96,210,.1)'];
-  var tags=tRaw.map(function(t,i){return{t:t,c:tB[i%tB.length],tc:tC[i%tC.length]};});
-  var ac=document.getElementById('jmAccent').value||'#c8a86c';
-  var row={company:co,logo:document.getElementById('jmLogo').value||co.substring(0,2).toUpperCase(),accent:ac,logo_bg:'#fff',logo_border:'rgba(200,168,108,.25)',logo_text:ac,title:ti,location:document.getElementById('jmLocation').value||'Jordan',job_type:document.getElementById('jmType').value||'Full-time',description:document.getElementById('jmDesc').value||'',tags:tags,posted:document.getElementById('jmPosted').value||new Date().toISOString().split('T')[0],url:document.getElementById('jmUrl').value||'',is_active:true};
+  if(!isAdmin) return;
+  var co = (document.getElementById('jmCompany').value||'').trim();
+  var ti = (document.getElementById('jmTitle').value||'').trim();
+  if(!co||!ti){ toast('\u26a0 Company and title required'); return; }
+  var tRaw = (document.getElementById('jmTags').value||'').split(',').map(function(s){return s.trim();}).filter(Boolean);
+  var tC = ['#c8a86c','#ef5350','#4caf7d','#6b9fe4','#9c72d4'];
+  var tB = ['rgba(200,168,108,.12)','rgba(209,78,78,.1)','rgba(76,175,125,.1)','rgba(72,117,194,.1)','rgba(130,96,210,.1)'];
+  var tags = tRaw.map(function(t,i){ return{t:t, c:tB[i%tB.length], tc:tC[i%tC.length]}; });
+  var ac = document.getElementById('jmAccent').value || '#c8a86c';
+  var row = {
+    company:     co,
+    logo:        document.getElementById('jmLogo').value || co.substring(0,2).toUpperCase(),
+    accent:      ac,
+    logo_bg:     '#fff',
+    logo_border: 'rgba(200,168,108,.25)',
+    logo_text:   ac,
+    title:       ti,
+    location:    document.getElementById('jmLocation').value || 'Jordan',
+    job_type:    document.getElementById('jmType').value || 'Full-time',
+    description: document.getElementById('jmDesc').value || '',
+    tags:        tags,
+    posted:      document.getElementById('jmPosted').value || new Date().toISOString().split('T')[0],
+    url:         document.getElementById('jmUrl').value || '',
+    is_active:   true
+  };
   try{
-    var res=await fetch('https://soxvbtenfnpokhrtlqmq.supabase.co/rest/v1/jobs',{method:'POST',headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw','Content-Type':'application/json','Prefer':'return=representation'},body:JSON.stringify(row)});
-    if(!res.ok)throw new Error('HTTP '+res.status);
-    var d=await res.json();var item=Array.isArray(d)?d[0]:d;
-    if(item){jobs.unshift(window._mapJob(item));window.renderJobsFromDB();}
-    closeM('jobModal');toast('✓ Job added!');
-    ['jmCompany','jmLogo','jmTitle','jmLocation','jmTags','jmUrl','jmAccent','jmDesc'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-  }catch(e){toast('⚠ '+e.message);}
+    var res = await fetch('https://soxvbtenfnpokhrtlqmq.supabase.co/rest/v1/jobs', {
+      method:  'POST',
+      headers: {
+        'apikey':        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNveHZidGVuZm5wb2tocnRscW1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Nzg3ODIsImV4cCI6MjA4OTM1NDc4Mn0.uHzbpngTq3TVASlFP359VHkLcSQ8fN0aE03Z0Ux1Xjw',
+        'Content-Type':  'application/json',
+        'Prefer':        'return=representation'
+      },
+      body: JSON.stringify(row)
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status+' '+await res.text());
+    var data = await res.json();
+    var item = Array.isArray(data) ? data[0] : data;
+    if(item){
+      jobs.unshift(window._mapJob(item));
+      window.renderJobsFromDB();
+    }
+    closeM('jobModal');
+    toast('\u2713 Job added!');
+    ['jmCompany','jmLogo','jmTitle','jmLocation','jmTags','jmUrl','jmAccent','jmDesc'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.value='';
+    });
+  }catch(e){ toast('\u26a0 '+e.message); }
 }
 </script>
 
+
 <script>
 (function(){
-  var PARTS = {
-  fuselage:{name:'Fuselage',system:'structure',color:'#ef5350',func:'Primary structural backbone housing passengers, crew and all aircraft systems.',comps:['Frames & Bulkheads','Stringers & Longerons','CFRP Skin Panels','Pressure Vessel','Floor Beams'],desc:'Semi-monocoque structure withstanding bending, torsion and pressurization. A220 uses ~46% composites by weight.',specs:{Material:'CFRP + Al-2024','Design Life':'90,000 cycles','Fuselage Width':'2.87 m',Standard:'CS-25'}},
-  wing_l:{name:'Main Wing (Left)',system:'aero',color:'#00e5ff',func:'Primary lift generation via supercritical airfoil — 100% of aircraft lift.',comps:['Front & Rear Spars','Ribs (26 bays)','CFRP Wing Skin','Aileron & Flaps','Integral Fuel Tanks'],desc:'A220 wing uses supercritical airfoil with 22.5° sweep. Advanced HLDs (High Lift Devices) enable low approach speeds.',specs:{Span:'35.1 m','Aspect Ratio':'11.5:1','Wing Area':'112.3 m²','Sweep':'22.5°'}},
-  wing_r:{name:'Main Wing (Right)',system:'aero',color:'#00e5ff',func:'Primary lift generation via supercritical airfoil — 100% of aircraft lift.',comps:['Front & Rear Spars','Ribs (26 bays)','CFRP Wing Skin','Aileron & Flaps','Integral Fuel Tanks'],desc:'A220 wing uses supercritical airfoil with 22.5° sweep. Advanced HLDs enable low approach speeds.',specs:{Span:'35.1 m','Aspect Ratio':'11.5:1','Wing Area':'112.3 m²','Sweep':'22.5°'}},
-  engine_l:{name:'PW1500G Engine (L)',system:'propulsion',color:'#ff6b00',func:'Pratt & Whitney GTF — geared turbofan generating 19,000–23,300 lbf thrust.',comps:['Gear Reduction System','Fan (18 blades)','3-stage LP Compressor','8-stage HP Compressor','2-stage HP Turbine'],desc:'GTF gear system reduces fan speed by 3:1, enabling larger fan diameter (1.98m) and 12:1 bypass ratio — 20% lower fuel burn vs V2500.',specs:{'Bypass Ratio':'12:1','Thrust':'21,000 lbf','Fan Diameter':'1.98 m','Fuel Saving':'20% vs prior gen'}},
-  engine_r:{name:'PW1500G Engine (R)',system:'propulsion',color:'#ff6b00',func:'Pratt & Whitney GTF — geared turbofan generating 19,000–23,300 lbf thrust.',comps:['Gear Reduction System','Fan (18 blades)','3-stage LP Compressor','8-stage HP Compressor','2-stage HP Turbine'],desc:'GTF gear system reduces fan speed by 3:1, enabling larger fan diameter and 12:1 bypass ratio — 20% lower fuel burn.',specs:{'Bypass Ratio':'12:1','Thrust':'21,000 lbf','Fan Diameter':'1.98 m','Fuel Saving':'20% vs prior gen'}},
-  vtail:{name:'Vertical Stabilizer',system:'aero',color:'#00e5ff',func:'Yaw stability and directional control via full-height composite rudder.',comps:['CFRP Fin Box','Full-Height Rudder','Actuator Fittings','Torque Box'],desc:'Sized for engine-out at V1. A220 uses fly-by-wire rudder with active load alleviation for reduced structural weight.',specs:{Material:'CFRP',Height:'5.8 m',Sweep:'44°',Control:'FBW Rudder'}},
-  htail:{name:'Horizontal Stabilizer',system:'aero',color:'#00e5ff',func:'Pitch stability and longitudinal trim — trimmable horizontal stabilizer (THS).',comps:['CFRP Fin Box','Elevators (L/R)','THS Actuator','Attach Fittings'],desc:'A220 uses all-composite THS with FBW elevators. Active load alleviation reduces gust loads and structural fatigue.',specs:{Material:'CFRP',Span:'12.8 m','Incidence':'±3.5°',Control:'FBW Elevator'}},
-  nose:{name:'Nose / Cockpit',system:'structure',color:'#ef5350',func:'Houses flight deck, avionics bay and weather radar with carbon fiber nose cone.',comps:['Carbon Fiber Radome','Primus Epic Avionics','5-screen LCD Flight Deck','Windshield (7-ply)'],desc:'A220 features fully integrated Primus Epic avionics with 5 large LCD screens. Radome withstands 4 lb bird strike at Vd.',specs:{Avionics:'Primus Epic','Radar':'Honeywell RDR','Windshield':'7-ply heated',Visibility:'±120°'}}
+  var PARTS={
+  fuselage:{name:'Fuselage',sys:'structure',col:'#ef5350',func:'Primary structural backbone housing passengers, crew and all aircraft systems.',comps:['Frames & Bulkheads','Stringers & Longerons','CFRP Skin Panels','Pressure Vessel','Floor Beams'],desc:'Semi-monocoque CFRP structure withstanding bending, torsion and pressurization. A220 uses ~46% composites.',specs:{Material:'CFRP + Al-2024','Design Life':'90,000 cycles','Width':'2.87 m',Standard:'CS-25'}},
+  wing_l:{name:'Wing (Left)',sys:'aero',col:'#00e5ff',func:'Primary lift generation via supercritical airfoil with 22.5° sweep.',comps:['Front & Rear Spars','26 Wing Ribs','CFRP Skin','Ailerons & Flaps','Integral Fuel Tank'],desc:'Supercritical airfoil reduces wave drag at cruise. High-lift devices enable low approach speeds. FEA validated for 2.5g+safety factor.',specs:{Span:'35.1 m','Aspect Ratio':'11.5:1','Wing Area':'112.3 m²','Sweep':'22.5°'}},
+  wing_r:{name:'Wing (Right)',sys:'aero',col:'#00e5ff',func:'Primary lift generation via supercritical airfoil with 22.5° sweep.',comps:['Front & Rear Spars','26 Wing Ribs','CFRP Skin','Ailerons & Flaps','Integral Fuel Tank'],desc:'Supercritical airfoil reduces wave drag at cruise. High-lift devices enable low approach speeds.',specs:{Span:'35.1 m','Aspect Ratio':'11.5:1','Wing Area':'112.3 m²','Sweep':'22.5°'}},
+  engine_l:{name:'PW1500G Engine (L)',sys:'propulsion',col:'#ff6b00',func:'Pratt & Whitney geared turbofan — 20% lower fuel burn vs prior generation.',comps:['Gear Reduction (3:1)','18-blade Fan','3-stage LPC','8-stage HPC','2-stage HPT'],desc:'GTF gear system allows fan to run at optimal speed independently. Bypass ratio 12:1 dramatically reduces noise and fuel consumption.',specs:{'Bypass Ratio':'12:1','Thrust':'21,000 lbf','Fan Dia':'1.98 m','Saving':'20% fuel'}},
+  engine_r:{name:'PW1500G Engine (R)',sys:'propulsion',col:'#ff6b00',func:'Pratt & Whitney geared turbofan — 20% lower fuel burn vs prior generation.',comps:['Gear Reduction (3:1)','18-blade Fan','3-stage LPC','8-stage HPC','2-stage HPT'],desc:'GTF gear system allows fan to run at optimal speed independently. Bypass ratio 12:1 dramatically reduces noise and fuel consumption.',specs:{'Bypass Ratio':'12:1','Thrust':'21,000 lbf','Fan Dia':'1.98 m','Saving':'20% fuel'}},
+  vtail:{name:'Vertical Stabilizer',sys:'aero',col:'#00e5ff',func:'Provides yaw stability and directional control via full-height composite rudder.',comps:['CFRP Fin Box','Full-Height Rudder','FBW Actuator','Torque Box'],desc:'Sized for engine-out at V1. Fly-by-wire rudder with active load alleviation reduces structural weight.',specs:{Material:'CFRP',Height:'5.8 m',Sweep:'44°',Control:'FBW'}},
+  htail:{name:'Horizontal Stabilizer',sys:'aero',col:'#00e5ff',func:'Pitch stability and longitudinal trim — trimmable horizontal stabilizer (THS).',comps:['CFRP Fin Box','L/R Elevators','THS Actuator','Attach Fittings'],desc:'All-composite THS with FBW elevators. Active load alleviation reduces gust loads and structural fatigue cycles.',specs:{Material:'CFRP',Span:'12.8 m','Incidence':'±3.5°',Control:'FBW'}},
+  nose:{name:'Nose / Cockpit',sys:'structure',col:'#ef5350',func:'Houses flight deck, avionics bay and weather radar with optimized nose cone.',comps:['Carbon Fiber Radome','Primus Epic Avionics','5 LCD Screens','7-ply Windshield'],desc:'Primus Epic integrated avionics with 5 large LCD screens. Radome withstands 4 lb bird strike at Vd.',specs:{Avionics:'Primus Epic','Radar':'Honeywell RDR','Windshield':'7-ply heated','Visibility':'±120°'}}
 };
-  var SYS_COLORS = {aero:0x00e5ff,structure:0xef5350,propulsion:0xff6b00,electrical:0x4caf7d};
+  var SYS={aero:0x00e5ff,structure:0xef5350,propulsion:0xff6b00,electrical:0x4caf7d};
+  var EMAP={
+  'a220_Fuselage0051Mtl_0':'fuselage','a220001_Reversethrustpart1Mtl_0':'engine_l',
+  'a220002_Knob1Mtl_0':'nose','a220002_Knob1Mtl_0_1':'nose','a220002_Knob1Mtl_0_2':'nose',
+  'a220002_Knob1Mtl_0_3':'nose','a220002_Knob1Mtl_0_4':'nose','a220002_Knob1Mtl_0_5':'nose',
+  'a220003_Spotlightmeshpart1Mtl_0':'nose','a220004_Engine0131Mtl_0':'engine_l',
+  'a220005_Nosmoke11Mtl_0':'engine_l','a220006_Engine0011Mtl_0':'engine_r',
+  'a220007_Gear2Mtl_0':'wing_l','a220008_Plane0231Mtl_0':'fuselage',
+  'a220009_Fuselage0871Mtl_0':'fuselage','a220010_Wingparts6Mtl_0':'wing_l',
+  'a220011_Cylinder0501Mtl_0':'fuselage','a220012_Fuselage0191Mtl_0':'fuselage',
+  'a220013_Movingwheel1Mtl_0':'wing_l','a220014_Schiebnwischer20011Mtl_0':'fuselage',
+  'a220015_Plane0341Mtl_0':'fuselage','a220016_Mainweld1Mtl_0':'wing_l',
+  'a220017_Shaderfix100Wingbox0021Mtl_0':'wing_r','a220018_Spoilerlever1Mtl_0':'wing_l',
+  'a220019_Highresuv3Mtl_0':'fuselage','a220020_Nosmoke21Mtl_0':'engine_r',
+  'a220021_V1Mtl_0':'fuselage','a220022_Meshpart4Mtl_0':'fuselage',
+  'a220023_Cylinder0481Mtl_0':'fuselage','a220024_Fuselage0521Mtl_0':'fuselage',
+  'a220025_Main1Mtl_0':'fuselage','a220026_Meshpart5Mtl_0':'fuselage',
+  'a220027_Cylinder0371Mtl_0':'fuselage','a220028_Meshpart10Mtl_0':'fuselage',
+  'a220029_Elevator11Mtl_0':'htail','a220030_Cube0101Mtl_0':'fuselage',
+  'a220031_Plane0091Mtl_0':'fuselage','a220032_Cube0641Mtl_0':'fuselage',
+  'a220033_Fuselage0831Mtl_0':'fuselage','a220034_Fuselage0312Mtl_0':'fuselage',
+  'a220035_Engine0051Mtl_0':'engine_l','a220036_Enignework0041Mtl_0':'engine_l',
+  'a220037_Highresuv2Mtl_0':'fuselage','a220038_Plane0031Mtl_0':'fuselage',
+  'a220039_Galleyobj0281Mtl_0':'fuselage','a220040_Engine0041Mtl_0':'engine_r',
+  'a220041_Galleyobj0411Mtl_0':'fuselage','a220042_Highresuv1Mtl_0':'fuselage',
+  'a220043_Fuselage0041Mtl_0':'fuselage','a220044_Part0251Mtl_0':'fuselage',
+  'a220045_Fuselage0791Mtl_0':'fuselage','a220046_Gearparts0021Mtl_0':'wing_r',
+  'a220047_Cylinder0221Mtl_0':'fuselage','a220048_Gear1Mtl_0':'wing_r',
+  'a220049_Fuselage0631Mtl_0':'fuselage','a220050_Fuselage0401Mtl_0':'fuselage',
+  'a220051_Doordecal2Mtl_0':'fuselage','a220052_Elevator21Mtl_0':'htail',
+  'a220053_Flap2mainweld1Mtl_0':'wing_l','a220054_Shaderfix100Wingbox0011Mtl_0':'wing_l',
+  'a220055_Gear21Mtl_0':'wing_l','a220056_Lever1Mtl_0':'nose',
+  'a220057_Spoiler21Mtl_0':'wing_r','a220058_Fuselage0031Mtl_0':'fuselage',
+  'a220059_Cylinder0861Mtl_0':'fuselage','a220060_Enignework0011Mtl_0':'engine_r',
+  'a220061_Mainlightled1Mtl_0':'fuselage','a220062_Flap2fairing1Mtl_0':'wing_l',
+  'a220063_Top11Mtl_0':'vtail','a220064_Knob2Mtl_0':'nose',
+  'a220065_Doordecal1Mtl_0':'fuselage','a220066_Fuselage0311Mtl_0':'fuselage',
+  'a220067_Gearlever1Mtl_0':'wing_l','a220068_Rightsidestick1Mtl_0':'nose',
+  'a220069_Meshpart8Mtl_0':'fuselage','a220070_Fuselage0461Mtl_0':'fuselage',
+  'a220071_Cube0551Mtl_0':'fuselage','a220072_Rssleftright1Mtl_0':'nose',
+  'a220073_A220fg0011Mtl_0':'fuselage','a220074_Fuselage0252Mtl_0':'fuselage',
+  'a220075_Cylinder0131Mtl_0':'fuselage','a220076_Leftwingmainweld1Mtl_0':'wing_l',
+  'a220077_Wingparts3Mtl_0':'wing_l','a220078_Fuselage0061Mtl_0':'fuselage',
+  'a220079_Fuselage0531Mtl_0':'fuselage','a220080_Meshpart9Mtl_0':'fuselage',
+  'a220081_0000000041Mtl_0':'fuselage','a220082_Enignework0051Mtl_0':'engine_l',
+  'a220083_Nosegeartexture1Mtl_0':'nose','a220084_Plane0042Mtl_0':'fuselage',
+  'a220085_Screens1Mtl_0':'nose','a220086_Fuselage0291Mtl_0':'fuselage',
+  'a220087_Shaderfix100Wingbox0031Mtl_0':'wing_r','a220088_Cube0771Mtl_0':'fuselage',
+  'a220089_Fuselage0361Mtl_0':'fuselage','a220090_Fuselage0231Mtl_0':'fuselage',
+  'a220091_Aileron11Mtl_0':'wing_l','a220092_Wingparts5Mtl_0':'wing_r',
+  'a220093_Wingparts2Mtl_0':'wing_r','a220094_Fuselage0391Mtl_0':'fuselage',
+  'a220095_Part1Mtl_0':'fuselage','a220096_Shaderfix100Wingbox0032Mtl_0':'wing_r',
+  'a220097_Landinglight1Mtl_0':'wing_l','a220098_Fuselage0491Mtl_0':'fuselage',
+  'a220099_Frame1Mtl_0':'fuselage'
+};
 
-  var canvas = document.getElementById('aex-canvas');
-  if(!canvas) return;
-  var W = canvas.clientWidth || 800, H = 500;
-  canvas.width = W * devicePixelRatio; canvas.height = H * devicePixelRatio;
+  var canvas=document.getElementById('aex-canvas');
+  if(!canvas)return;
+  var W=canvas.clientWidth||800,H=500;
+  canvas.width=W*devicePixelRatio; canvas.height=H*devicePixelRatio;
 
-  var renderer = new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false});
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
   renderer.setPixelRatio(devicePixelRatio); renderer.setSize(W,H);
-  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.1;
 
-  var scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x040810);
-  scene.fog = new THREE.FogExp2(0x040810,0.012);
+  var scene=new THREE.Scene(); scene.background=new THREE.Color(0x040810);
+  scene.fog=new THREE.FogExp2(0x040810,0.012);
 
-  var camera = new THREE.PerspectiveCamera(42, W/H, 0.1, 200);
+  var camera=new THREE.PerspectiveCamera(42,W/H,0.1,200);
   camera.position.set(10,4,12);
 
-  var controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true; controls.dampingFactor = 0.07;
-  controls.minDistance = 3; controls.maxDistance = 40;
-  controls.maxPolarAngle = Math.PI*0.82;
-  controls.autoRotate = true; controls.autoRotateSpeed = 0.5;
+  var controls=new THREE.OrbitControls(camera,renderer.domElement);
+  controls.enableDamping=true; controls.dampingFactor=0.07;
+  controls.minDistance=3; controls.maxDistance=40;
+  controls.autoRotate=true; controls.autoRotateSpeed=0.4;
 
   // Lighting
   scene.add(new THREE.AmbientLight(0x1a2a44,2.2));
-  var key = new THREE.DirectionalLight(0xd0e4ff,1.5);
+  var key=new THREE.DirectionalLight(0xd0e4ff,1.5);
   key.position.set(10,15,8); key.castShadow=true;
   key.shadow.mapSize.width=2048; key.shadow.mapSize.height=2048;
   scene.add(key);
-  var fill = new THREE.DirectionalLight(0xfff0e8,0.6);
-  fill.position.set(-8,5,-6); scene.add(fill);
-  var rim = new THREE.DirectionalLight(0x4488cc,0.7);
-  rim.position.set(0,-6,-8); scene.add(rim);
-  var engGlow = new THREE.PointLight(0xff6600,0.7,15);
+  scene.add(Object.assign(new THREE.DirectionalLight(0xfff0e8,0.5),{position:new THREE.Vector3(-8,5,-6)}));
+  scene.add(Object.assign(new THREE.DirectionalLight(0x4488cc,0.6),{position:new THREE.Vector3(0,-6,-8)}));
+  var engGlow=new THREE.PointLight(0xff6600,0.7,15);
   engGlow.position.set(-5,-1,0); scene.add(engGlow);
 
-  // Grid
-  var grid = new THREE.GridHelper(60,60,0x00e5ff,0x0a1525);
-  grid.material.opacity=0.1; grid.material.transparent=true;
+  var grid=new THREE.GridHelper(60,60,0x00e5ff,0x0a1525);
+  grid.material.opacity=0.09; grid.material.transparent=true;
   grid.position.y=-3.5; scene.add(grid);
 
-  var aircraft = new THREE.Group(); scene.add(aircraft);
-  var meshMap = {}; var allMeshes = []; window._allMeshes = allMeshes; window._meshMap = meshMap;
-  var selectedPart = null; var currentMode = 'normal';
+  var aircraft=new THREE.Group(); scene.add(aircraft);
+  var meshMap={}; var allMeshes=[]; var partGroups={};
+  var sel=null,hov=null,mode='normal';
+
+  // Camera presets
+  window.aexCam=function(preset){
+    controls.autoRotate=false;
+    var targets={
+      front:{pos:[0,1,16],look:[0,0,0]},
+      top:{pos:[0,18,2],look:[0,0,0]},
+      side:{pos:[16,2,0],look:[0,0,0]},
+      engine:{pos:[4,-1,8],look:[2,-1,3]}
+    };
+    var t=targets[preset]; if(!t)return;
+    animCam(t.pos,t.look);
+  };
+
+  function animCam(toPos,toLook){
+    var sp=camera.position.clone();
+    var ep=new THREE.Vector3(toPos[0],toPos[1],toPos[2]);
+    var t=0;
+    (function step(){
+      t+=0.04; if(t>=1){camera.position.copy(ep);controls.target.set(toLook[0],toLook[1],toLook[2]);return;}
+      var k=1-Math.pow(1-t,3);
+      camera.position.lerpVectors(sp,ep,k);
+      requestAnimationFrame(step);
+    })();
+  }
 
   // Load GLB
-  var loader = new THREE.GLTFLoader();
-
+  var loader=new THREE.GLTFLoader();
   loader.load('https://soxvbtenfnpokhrtlqmq.supabase.co/storage/v1/object/public/models/airbus_a220-300.glb',
     function(gltf){
-      var model = gltf.scene;
-      // Scale & center
-      var box = new THREE.Box3().setFromObject(model);
-      var size = box.getSize(new THREE.Vector3());
-      var center = box.getCenter(new THREE.Vector3());
-      var scale = 12 / Math.max(size.x,size.y,size.z);
+      var model=gltf.scene;
+      var box=new THREE.Box3().setFromObject(model);
+      var size=box.getSize(new THREE.Vector3());
+      var center=box.getCenter(new THREE.Vector3());
+      var scale=12/Math.max(size.x,size.y,size.z);
       model.scale.setScalar(scale);
       model.position.sub(center.multiplyScalar(scale));
-      model.position.y += 0.5;
-
+      model.position.y+=0.5;
       model.traverse(function(child){
-        if(!child.isMesh) return;
-        child.castShadow = true; child.receiveShadow = true;
-        var n = (child.name||'').toLowerCase();
-        var pid = 'fuselage';
-        if(/wing|aileron|flap|slat/.test(n)) pid = /right|_r/.test(n)?'wing_r':'wing_l';
-        else if(/engine|nacelle|fan|pylon|pw|cfm|inlet/.test(n)) pid = /right|_r/.test(n)?'engine_r':'engine_l';
-        else if(/vertical|vtail|rudder|fin/.test(n)) pid = 'vtail';
-        else if(/horiz|htail|elevator|stab/.test(n)) pid = 'htail';
-        else if(/nose|cockpit|radome|windshield/.test(n)) pid = 'nose';
-        else if(/gear|wheel|landing|strut/.test(n)) pid = /nose|front/.test(n)?'nose':'wing_l';
-        child.userData.partId = pid;
-        if(!meshMap[pid]) meshMap[pid]=[];
+        if(!child.isMesh)return;
+        child.castShadow=true; child.receiveShadow=true;
+        var pid=EMAP[child.name]||'fuselage';
+        child.userData.partId=pid;
+        if(!meshMap[pid])meshMap[pid]=[];
         meshMap[pid].push(child); allMeshes.push(child);
-        // Enhance material
-        var mats = Array.isArray(child.material)?child.material:[child.material];
-        mats.forEach(function(m){
-          if(!m) return;
-          if(m.metalness !== undefined) m.metalness = Math.max(m.metalness,0.35);
-          if(m.roughness !== undefined) m.roughness = Math.min(m.roughness,0.65);
-        });
       });
       aircraft.add(model);
-      window._allMeshes = allMeshes; window._meshMap = meshMap;
-
-      // Debug: log all mesh names and their detected partId
-      console.log('=== A220 Mesh Names ===');
-      var partSummary = {};
-      allMeshes.forEach(function(m){
-        var pid = m.userData.partId;
-        if(!partSummary[pid]) partSummary[pid] = [];
-        partSummary[pid].push(m.name);
+      window._allMeshes=allMeshes; window._meshMap=meshMap;
+      // Create movable groups per part for explode
+      Object.keys(meshMap).forEach(function(pid){
+        var g=new THREE.Group();
+        g.name='partGroup_'+pid;
+        aircraft.add(g);
+        partGroups[pid]=g;
       });
-      Object.keys(partSummary).forEach(function(k){
-        console.log(k+':', partSummary[k].join(', '));
-      });
-      console.log('Total meshes:', allMeshes.length);
-      console.log('======================');
-
-      hideLoading();
+      var l=document.getElementById('aex-loading');
+      if(l){l.style.opacity='0';setTimeout(function(){l.style.display='none';},650);}
     },
-    function(xhr){ if(xhr.total) document.querySelector('#aex-loading div:nth-child(2)').textContent = 'Loading '+Math.round(xhr.loaded/xhr.total*100)+'%...'; },
-    function(err){ console.warn('GLB load error:',err); buildFallback(); hideLoading(); }
+    null,
+    function(e){console.warn('GLB error:',e);var l=document.getElementById('aex-loading');if(l){l.style.opacity='0';setTimeout(function(){l.style.display='none';},400);}}
   );
 
-  function hideLoading(){
-    var l=document.getElementById('aex-loading');
-    if(l){l.style.transition='opacity .6s';l.style.opacity='0';setTimeout(function(){l.style.display='none';},650);}
-  }
-
-  // ── Fallback procedural ──
-  function buildFallback(){
-    function m(color){return new THREE.MeshStandardMaterial({color:color,metalness:.6,roughness:.3});}
-    // Fuselage
-    var fPts=[]; var fR=[0,.07,.17,.27,.35,.40,.43,.43,.43,.43,.42,.40,.37,.32,.24,.14,.04,0];
-    for(var i=0;i<fR.length;i++) fPts.push(new THREE.Vector2(fR[i],i/(fR.length-1)*9.5-4.75));
-    var fGeo=new THREE.LatheGeometry(fPts,32); fGeo.rotateZ(Math.PI/2);
-    add(fGeo,m(0x2a3f6e),'fuselage');
-    // Wings
-    function wing(side){
-      var pid=side>0?'wing_l':'wing_r';
-      for(var s=0;s<8;s++){var t=s/8,t1=(s+1)/8,tp=1-t*.6;var g=new THREE.BoxGeometry(.9*tp,.09*tp,Math.abs(t1-t)*3.9+.02);var mesh=add(g,m(0x1e3560),pid);mesh.position.set(-t*.85-.45*tp,.08*t,(t+t1)/2*side*3.9);}
-      var wl=add(new THREE.BoxGeometry(.18,.35,.06),m(0x1a3060),pid);
-      wl.position.set(-.68,.19,side*3.92);wl.rotation.z=side*.3;
-    }
-    wing(1);wing(-1);
-    // Engines
-    function eng(z){var pid=z>0?'engine_l':'engine_r';var nPts=[],nR=[.18,.225,.248,.258,.262,.258,.248,.235,.22,.205,.19,.17,.15,.13];for(var i=0;i<nR.length;i++)nPts.push(new THREE.Vector2(nR[i],(i/(nR.length-1))*1.6-.88));var nG=new THREE.LatheGeometry(nPts,22);nG.rotateZ(Math.PI/2);var em=add(nG,m(0x252525),pid);em.position.set(.45,-.45,z);var hG=new THREE.CylinderGeometry(.11,.13,.18,14);hG.rotateZ(Math.PI/2);var hm=add(hG,new THREE.MeshStandardMaterial({color:0xff4400,emissive:0xff2200,emissiveIntensity:.9}),pid);hm.position.set(-.25,-.45,z);}
-    eng(1.65);eng(-1.65);
-    // Tail
-    var vtS=new THREE.Shape();vtS.moveTo(0,0);vtS.lineTo(.07,0);vtS.bezierCurveTo(.05,.42,-.12,1.05,-.48,1.62);vtS.bezierCurveTo(-.58,1.76,-.7,1.74,-.72,1.62);vtS.bezierCurveTo(-.66,1.38,-.44,.88,-.58,.44);vtS.bezierCurveTo(-.68,.18,-.76,.04,-.72,0);vtS.lineTo(0,0);
-    var vtG=new THREE.ExtrudeGeometry(vtS,{depth:.072,bevelEnabled:false});vtG.rotateX(Math.PI/2);
-    var vtm=add(vtG,m(0x1a3a5c),'vtail');vtm.position.set(-3.2,.43,-.036);
-    for(var hs=0;hs<4;hs++){var t=hs/4,t1=(hs+1)/4,tp=1-t*.55,sw=t*.32,dh=t*.06;var hg=new THREE.BoxGeometry(.48*tp,.058*tp,Math.abs(t1-t)*1.62+.015);['wing_l','wing_r'].forEach(function(p,si){var hm2=add(hg.clone(),m(0x1a3a5c),'htail');hm2.position.set(-3.4-sw-.24*tp,.24+dh,(t+t1)/2*(si===0?1:-1)*1.62);});}
-    // Nose
-    var nPts=[],nR2=[0,.02,.08,.15,.22,.28,.33,.37,.40,.42];for(var i=0;i<nR2.length;i++)nPts.push(new THREE.Vector2(nR2[i],i*.24));var nG2=new THREE.LatheGeometry(nPts,24);nG2.rotateZ(-Math.PI/2);var nm=add(nG2,m(0x1a2d52),'nose');nm.position.set(4.3,0,0);
-  }
-
-  function add(geo,mat,pid){
-    var mesh=new THREE.Mesh(geo,mat);mesh.castShadow=true;mesh.userData.partId=pid;
-    aircraft.add(mesh);allMeshes.push(mesh);
-    if(!meshMap[pid])meshMap[pid]=[];meshMap[pid].push(mesh);return mesh;
-  }
-
-  // ── Interaction ──
-  var raycaster=new THREE.Raycaster();var mouse=new THREE.Vector2();var hovered=null;
-
+  // Raycaster
+  var ray=new THREE.Raycaster(); var mouse=new THREE.Vector2();
   canvas.addEventListener('mousemove',function(e){
     var r=canvas.getBoundingClientRect();
     mouse.x=((e.clientX-r.left)/r.width)*2-1;
     mouse.y=-((e.clientY-r.top)/r.height)*2+1;
-    raycaster.setFromCamera(mouse,camera);
-    var hits=raycaster.intersectObjects(allMeshes,true);
+    ray.setFromCamera(mouse,camera);
+    var hits=ray.intersectObjects(allMeshes,true);
     var pid=hits.length>0?hits[0].object.userData.partId:null;
-    if(pid!==hovered){
-      hovered=pid;canvas.style.cursor=pid?'pointer':'grab';
-      var lbl=document.getElementById('aex-part-label');
-      if(pid&&PARTS[pid]){lbl.textContent=PARTS[pid].name;lbl.style.color='rgba(0,229,255,.9)';}
-      else{lbl.textContent='DRAG TO ROTATE · SCROLL TO ZOOM';lbl.style.color='rgba(0,229,255,.35)';}
+    if(pid!==hov){
+      hov=pid; canvas.style.cursor=pid?'pointer':'grab';
+      var hint=document.getElementById('aex-hint');
+      if(hint) hint.textContent=pid&&PARTS[pid]?PARTS[pid].name:'DRAG · SCROLL · CLICK';
       updateHL();
     }
   });
-
   canvas.addEventListener('click',function(e){
     var r=canvas.getBoundingClientRect();
     mouse.x=((e.clientX-r.left)/r.width)*2-1;
     mouse.y=-((e.clientY-r.top)/r.height)*2+1;
-    raycaster.setFromCamera(mouse,camera);
-    var hits=raycaster.intersectObjects(allMeshes,true);
-    if(hits.length>0){controls.autoRotate=false;aexClick(hits[0].object.userData.partId);}
+    ray.setFromCamera(mouse,camera);
+    var hits=ray.intersectObjects(allMeshes,true);
+    if(hits.length>0){controls.autoRotate=false;window.aexClick(hits[0].object.userData.partId);}
   });
 
   function updateHL(){
@@ -4951,39 +5030,23 @@ async function saveJob(){
       var pid=m.userData.partId;
       var mats=Array.isArray(m.material)?m.material:[m.material];
       mats.forEach(function(mat){
-        if(!mat) return;
-
-        if(selectedPart && pid!==selectedPart){
-          // Fade non-selected parts
-          mat.transparent=true;
-          mat.opacity=0.12;
-          mat.depthWrite=false;
-          if(mat.emissive) mat.emissive.set(0,0,0);
-          if(mat.emissiveIntensity!==undefined) mat.emissiveIntensity=0;
-
-        } else if(pid===selectedPart){
-          // Selected — bright cyan tint
-          mat.transparent=false;
-          mat.opacity=1;
-          mat.depthWrite=true;
-          if(mat.emissive) mat.emissive.set(0,0.2,0.3);
-          if(mat.emissiveIntensity!==undefined) mat.emissiveIntensity=0.6;
-
-        } else if(pid===hovered && !selectedPart){
-          // Hover — subtle tint
-          mat.transparent=false;
-          mat.opacity=1;
-          mat.depthWrite=true;
-          if(mat.emissive) mat.emissive.set(0,0.08,0.12);
-          if(mat.emissiveIntensity!==undefined) mat.emissiveIntensity=0.4;
-
-        } else {
-          // Normal — restore
-          mat.transparent=false;
-          mat.opacity=1;
-          mat.depthWrite=true;
-          if(mat.emissive) mat.emissive.set(0,0,0);
-          if(mat.emissiveIntensity!==undefined) mat.emissiveIntensity=0;
+        if(!mat)return;
+        if(sel&&pid!==sel){
+          mat.transparent=true; mat.opacity=0.1; mat.depthWrite=false;
+          if(mat.emissive)mat.emissive.set(0,0,0);
+          if(mat.emissiveIntensity!==undefined)mat.emissiveIntensity=0;
+        }else if(pid===sel){
+          mat.transparent=false; mat.opacity=1; mat.depthWrite=true;
+          if(mat.emissive)mat.emissive.set(0,0.2,0.3);
+          if(mat.emissiveIntensity!==undefined)mat.emissiveIntensity=0.55;
+        }else if(pid===hov&&!sel){
+          mat.transparent=false; mat.opacity=1; mat.depthWrite=true;
+          if(mat.emissive)mat.emissive.set(0,0.07,0.1);
+          if(mat.emissiveIntensity!==undefined)mat.emissiveIntensity=0.35;
+        }else{
+          mat.transparent=false; mat.opacity=1; mat.depthWrite=true;
+          if(mat.emissive)mat.emissive.set(0,0,0);
+          if(mat.emissiveIntensity!==undefined)mat.emissiveIntensity=0;
         }
         mat.needsUpdate=true;
       });
@@ -4992,117 +5055,111 @@ async function saveJob(){
 
   window.aexClick=function(pid){
     if(!PARTS[pid])return;
-    selectedPart=pid;updateHL();
-    var def=document.getElementById('aex-panel-default');
-    var info=document.getElementById('aex-panel-info');
-    if(def)def.style.display='none';
-    if(!info)return;
-    info.style.display='flex';
+    sel=pid; updateHL();
+    // Update HUD
+    var hp=document.getElementById('hud-part');
+    var hd=document.getElementById('hud-status-dot');
+    if(hp) hp.textContent=PARTS[pid].name;
+    if(hd){hd.className='hud-dot orange';}
+    var ch=document.getElementById('aex-crosshair');
+    if(ch){ch.classList.add('active');setTimeout(function(){ch.classList.remove('active');},800);}
     var d=PARTS[pid];
-    info.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;">'
-      +'<span style="font-size:.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:.2rem .55rem;border-radius:3px;background:'+d.color+'22;color:'+d.color+';border:1px solid '+d.color+'44;">'+d.system.toUpperCase()+'</span>'
-      +'<button onclick="aexReset()" style="background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:.75rem;">✕</button>'
+    document.getElementById('aex-default').style.display='none';
+    var info=document.getElementById('aex-info');
+    info.style.display='flex';
+    info.innerHTML=
+      '<div style="padding:1.1rem 1.1rem .5rem;display:flex;justify-content:space-between;align-items:center;">'
+      +'<span style="font-size:.58rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:.2rem .55rem;border-radius:3px;background:'+d.col+'22;color:'+d.col+';border:1px solid '+d.col+'44;">'+d.sys.toUpperCase()+'</span>'
+      +'<button onclick="aexReset()" style="background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:.9rem;line-height:1;">✕</button>'
       +'</div>'
-      +'<div style="font-family:"DM Serif Display",serif;font-size:1.3rem;color:#f0ede6;line-height:1.2;margin-bottom:.3rem;">'+d.name+'</div>'
-      +'<div style="font-size:.75rem;color:'+d.color+';font-style:italic;line-height:1.6;margin-bottom:.6rem;padding-bottom:.6rem;border-bottom:1px solid rgba(0,229,255,.08);">'+d.func+'</div>'
-      +'<div style="font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.4rem;">Key Components</div>'
-      +d.comps.map(function(c){return'<div style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:rgba(255,255,255,.5);padding:.22rem 0;border-bottom:1px solid rgba(255,255,255,.04);"><span style="width:4px;height:4px;border-radius:50%;background:'+d.color+';flex-shrink:0;"></span>'+c+'</div>';}).join('')
-      +'<div style="font-size:.72rem;color:rgba(255,255,255,.38);line-height:1.75;margin:.7rem 0;">'+d.desc+'</div>'
-      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;">'
-      +Object.entries(d.specs).map(function(kv){return'<div style="background:rgba(0,0,0,.3);border-radius:5px;padding:.45rem .6rem;"><div style="font-size:.58rem;color:rgba(255,255,255,.22);margin-bottom:.15rem;">'+kv[0]+'</div><div style="font-size:.7rem;color:rgba(255,255,255,.65);font-weight:600;">'+kv[1]+'</div></div>';}).join('')
+      +'<div style="padding:0 1.1rem;font-family:"DM Serif Display",serif;font-size:1.25rem;color:#f0ede6;line-height:1.2;margin-bottom:.3rem;">'+d.name+'</div>'
+      +'<div style="padding:0 1.1rem .8rem;font-size:.72rem;color:'+d.col+';font-style:italic;line-height:1.6;border-bottom:1px solid rgba(255,255,255,.06);">'+d.func+'</div>'
+      +'<div style="padding:.8rem 1.1rem 0;">'
+      +'<div style="font-size:.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:.5rem;">Components</div>'
+      +d.comps.map(function(c){return'<div style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:rgba(255,255,255,.5);padding:.2rem 0;border-bottom:1px solid rgba(255,255,255,.04);"><span style="width:4px;height:4px;border-radius:50%;background:'+d.col+';flex-shrink:0;"></span>'+c+'</div>';}).join('')
+      +'</div>'
+      +'<div style="padding:.7rem 1.1rem;font-size:.7rem;color:rgba(255,255,255,.35);line-height:1.75;border-bottom:1px solid rgba(255,255,255,.06);">'+d.desc+'</div>'
+      +'<div style="padding:.7rem 1.1rem;display:grid;grid-template-columns:1fr 1fr;gap:.4rem;">'
+      +Object.entries(d.specs).map(function(kv){return'<div style="background:rgba(0,0,0,.35);border-radius:5px;padding:.45rem .6rem;"><div style="font-size:.58rem;color:rgba(255,255,255,.2);margin-bottom:.15rem;">'+kv[0]+'</div><div style="font-size:.68rem;color:rgba(255,255,255,.65);font-weight:600;">'+kv[1]+'</div></div>';}).join('')
       +'</div>';
   };
 
-  // ── Modes ──
-  window.aexMode=function(mode){
-    currentMode=mode;
-    document.getElementById('aex-legend').style.display=mode==='systems'?'flex':'none';
-    if(mode==='systems'){
-      allMeshes.forEach(function(m){
-        var pid=m.userData.partId; var d=PARTS[pid];
-        var sc=d?SYS_COLORS[d.system]:0x4caf7d;
-        var mats=Array.isArray(m.material)?m.material:[m.material];
-        mats.forEach(function(mat){
-          if(!mat)return;
-          mat.color.setHex(sc);
-          if(mat.emissive) mat.emissive.setHex(sc);
-          mat.emissiveIntensity=0.25;
-          mat.opacity=1; mat.transparent=false;
-          mat.needsUpdate=true;
-        });
-      });
-    } else if(mode==='normal'){
-      // Restore original materials
-      allMeshes.forEach(function(m){
-        var orig=m.userData.origMat;
-        if(orig){
-          m.material=Array.isArray(orig)
-            ? orig.map(function(om){return om?om.clone():om;})
-            : (orig?orig.clone():m.material);
-        } else {
-          var mats=Array.isArray(m.material)?m.material:[m.material];
-          mats.forEach(function(mat){
-            if(!mat)return;
-            mat.opacity=1; mat.transparent=false;
-            if(mat.emissive) mat.emissive.setHex(0x000000);
-            mat.emissiveIntensity=0;
-            mat.needsUpdate=true;
-          });
-        }
-      });
-    }
-    if(mode==='explode'){
-      explodeGroup('wing_l',{z:7});explodeGroup('wing_r',{z:-7});
-      explodeGroup('engine_l',{x:2,y:-2.5,z:4});explodeGroup('engine_r',{x:2,y:-2.5,z:-4});
-      explodeGroup('vtail',{y:4});explodeGroup('htail',{x:-6,y:3});
-      explodeGroup('nose',{x:8});
-    } else {
-      resetAllGroups();
-    }
-  };
-
-  function explodeGroup(pid,offset){
-    if(!meshMap[pid])return;
-    meshMap[pid].forEach(function(m){
-      var op=m.userData.origPos||(m.userData.origPos=m.position.clone());
-      animTo(m,{x:op.x+(offset.x||0),y:op.y+(offset.y||0),z:op.z+(offset.z||0)});
-    });
-  }
-  function resetAllGroups(){
-    allMeshes.forEach(function(m){
-      if(m.userData.origPos) animTo(m,m.userData.origPos);
-    });
-  }
-  function animTo(obj,tgt){
-    var s={x:obj.position.x,y:obj.position.y,z:obj.position.z};
-    var e={x:tgt.x,y:tgt.y,z:tgt.z};var t=0;
-    (function step(){t+=0.04;if(t>=1){obj.position.set(e.x,e.y,e.z);return;}
-    var k=1-Math.pow(1-t,3);obj.position.set(s.x+(e.x-s.x)*k,s.y+(e.y-s.y)*k,s.z+(e.z-s.z)*k);
-    requestAnimationFrame(step);})();
-  }
-
   window.aexReset=function(){
-    selectedPart=null; hovered=null; controls.autoRotate=true;
-    var def=document.getElementById('aex-panel-default');
-    var info=document.getElementById('aex-panel-info');
-    if(def)def.style.display='flex'; if(info)info.style.display='none';
+    sel=null; hov=null; controls.autoRotate=true;
+    var hp=document.getElementById('hud-part');var hd=document.getElementById('hud-status-dot');
+    if(hp)hp.textContent='—';if(hd)hd.className='hud-dot cyan';
+    document.getElementById('aex-default').style.display='flex';
+    document.getElementById('aex-info').style.display='none';
+    document.getElementById('aex-legend').style.display='none';
     allMeshes.forEach(function(m){
       var mats=Array.isArray(m.material)?m.material:[m.material];
-      mats.forEach(function(mat){
-        if(!mat) return;
-        mat.opacity=1; mat.transparent=false;
-        if(mat.emissive) mat.emissive.setHex(0x000000);
-        mat.emissiveIntensity=0;
-        mat.needsUpdate=true;
-      });
+      mats.forEach(function(mat){if(!mat)return;mat.transparent=false;mat.opacity=1;mat.depthWrite=true;if(mat.emissive)mat.emissive.set(0,0,0);if(mat.emissiveIntensity!==undefined)mat.emissiveIntensity=0;mat.needsUpdate=true;});
     });
     aexMode('normal');
   };
 
-  // ── Animate ──
-  var clock=new THREE.Clock();
-  (function animate(){
-    requestAnimationFrame(animate);controls.update();
+  window.aexMode=function(m){
+    mode=m;
+    var hm=document.getElementById('hud-mode');
+    var modes={'normal':'EXPLORER','systems':'SYSTEMS','explode':'EXPLODED'};
+    if(hm) hm.textContent=modes[m]||m.toUpperCase();
+    var leg=document.getElementById('aex-legend');
+    if(leg)leg.style.display=m==='systems'?'flex':'none';
+    if(m==='systems'){
+      allMeshes.forEach(function(mesh){
+        var pid=mesh.userData.partId; var d=PARTS[pid];
+        var sc=d?SYS[d.sys]:0x4caf7d;
+        var mats=Array.isArray(mesh.material)?mesh.material:[mesh.material];
+        mats.forEach(function(mat){if(!mat)return;mat.color.setHex(sc);if(mat.emissive)mat.emissive.set(0,0,0);mat.emissiveIntensity=0;mat.transparent=false;mat.opacity=1;mat.needsUpdate=true;});
+      });
+    }else if(m==='normal'){
+      updateHL();
+    }else if(m==='explode'){
+      // Move part groups, not individual meshes
+      function ex(pid,offset){
+        var g=partGroups[pid];if(!g)return;
+        var op=g.userData.op||(g.userData.op=g.position.clone());
+        animTo(g,{x:op.x+(offset.x||0),y:op.y+(offset.y||0),z:op.z+(offset.z||0)});
+      }
+      ex('wing_l',{z:7}); ex('wing_r',{z:-7});
+      ex('engine_l',{x:2,y:-2.5,z:4}); ex('engine_r',{x:2,y:-2.5,z:-4});
+      ex('vtail',{y:4}); ex('htail',{x:-6,y:3}); ex('nose',{x:8});
+    }else if(m==='normal'){
+      Object.keys(partGroups).forEach(function(pid){
+        var g=partGroups[pid];
+        if(g&&g.userData.op) animTo(g,g.userData.op);
+      });
+    }
+  };
+
+  function animTo(obj,tgt){
+    if(!obj||!obj.position)return;
+    try{
+      var s={x:obj.position.x,y:obj.position.y,z:obj.position.z};
+      var e={x:tgt.x!==undefined?tgt.x:s.x,y:tgt.y!==undefined?tgt.y:s.y,z:tgt.z!==undefined?tgt.z:s.z};
+      var t=0;
+      (function step(){
+        t+=0.04;
+        if(t>=1){try{obj.position.set(e.x,e.y,e.z);}catch(ex){}return;}
+        var k=1-Math.pow(1-t,3);
+        try{obj.position.set(s.x+(e.x-s.x)*k,s.y+(e.y-s.y)*k,s.z+(e.z-s.z)*k);}catch(ex){return;}
+        requestAnimationFrame(step);
+      })();
+    }catch(ex){console.warn('animTo error:',ex.message);}
+  }
+
+  var clock=new THREE.Clock(); var frameCount=0;
+  (function animate(){requestAnimationFrame(animate);controls.update();frameCount++;
+    // Update HUD coords every 30 frames
+    if(frameCount%30===0){
+      var coords=document.getElementById('hud-coords');
+      if(coords){
+        var dist=camera.position.distanceTo(controls.target);
+        var zoom=Math.round((20/dist)*10)/10;
+        var rot=Math.round(controls.getAzimuthalAngle()*(180/Math.PI));
+        coords.textContent='ROT:'+rot+'° · ZOOM:'+zoom+'x';
+      }
+    }
     var t=clock.getElapsedTime();
     aircraft.position.y=Math.sin(t*.45)*.07;
     aircraft.rotation.z=Math.sin(t*.35)*.007;
@@ -5110,31 +5167,9 @@ async function saveJob(){
     renderer.render(scene,camera);
   })();
 
-  // ── Camera Presets ──
-  window.aexCam = function(preset){
-    controls.autoRotate = false;
-    var pos, target = new THREE.Vector3(0,0,0);
-    if(preset==='front')     pos = new THREE.Vector3(0, 1, 18);
-    else if(preset==='top')  pos = new THREE.Vector3(0, 20, 0.1);
-    else if(preset==='side') pos = new THREE.Vector3(18, 2, 0);
-    else if(preset==='engine') pos = new THREE.Vector3(4, -1, 8);
-    else pos = new THREE.Vector3(10,4,12);
-    // Smooth tween
-    var startPos = camera.position.clone();
-    var t = 0;
-    var tween = setInterval(function(){
-      t += 0.06;
-      if(t >= 1){ t = 1; clearInterval(tween); }
-      var e = 1 - Math.pow(1-t, 3);
-      camera.position.lerpVectors(startPos, pos, e);
-      controls.target.lerp(target, e);
-      controls.update();
-    }, 16);
-  };
-
   window.addEventListener('resize',function(){
-    W=canvas.clientWidth;camera.aspect=W/H;
-    camera.updateProjectionMatrix();renderer.setSize(W,H);
+    W=canvas.clientWidth; camera.aspect=W/H;
+    camera.updateProjectionMatrix(); renderer.setSize(W,H);
   });
 })();
 </script>
