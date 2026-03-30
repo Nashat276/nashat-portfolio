@@ -8,6 +8,28 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nashat Aldhoun">
+<script>
+// ── Service Worker: unregister stale SWs, clear old caches, register fresh ──
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+
+  // Step 1 — wipe every old SW and cache entry
+  navigator.serviceWorker.getRegistrations().then(function (regs) {
+    regs.forEach(function (r) { r.unregister(); });
+  });
+  if (window.caches) {
+    caches.keys().then(function (keys) {
+      keys.forEach(function (k) { caches.delete(k); });
+    });
+  }
+
+  // Step 2 — register the real sw.js file (must exist at root of your site)
+  navigator.serviceWorker.register('/sw.js', { scope: '/' })
+    .catch(function (err) {
+      console.warn('SW registration skipped:', err.message);
+    });
+})();
+</script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Google AdSense -->
@@ -5643,6 +5665,76 @@ async function saveJob(){
   }
 
   // Load GLB
+  // ── Procedural fallback: builds a low-poly A220-style aircraft from primitives ──
+  function buildProceduralAircraft() {
+    var MAT = {
+      fuselage : new THREE.MeshStandardMaterial({color:0xdce8f5,metalness:.6,roughness:.35}),
+      wing     : new THREE.MeshStandardMaterial({color:0xc8d8ea,metalness:.5,roughness:.4}),
+      engine   : new THREE.MeshStandardMaterial({color:0x8898aa,metalness:.8,roughness:.25}),
+      vtail    : new THREE.MeshStandardMaterial({color:0xdce8f5,metalness:.5,roughness:.4}),
+      htail    : new THREE.MeshStandardMaterial({color:0xdce8f5,metalness:.5,roughness:.4}),
+      nose     : new THREE.MeshStandardMaterial({color:0x111820,metalness:.3,roughness:.7}),
+      window   : new THREE.MeshStandardMaterial({color:0x4080c0,metalness:.1,roughness:.05,transparent:true,opacity:.7}),
+    };
+
+    function addMesh(geo, mat, pid, parent, px,py,pz, rx,ry,rz, sx,sy,sz) {
+      var m = new THREE.Mesh(geo, mat);
+      m.position.set(px||0,py||0,pz||0);
+      m.rotation.set(rx||0,ry||0,rz||0);
+      if(sx!==undefined) m.scale.set(sx,sy,sz);
+      m.castShadow = true; m.receiveShadow = true;
+      m.userData.partId = pid;
+      (parent||aircraft).add(m);
+      if(!meshMap[pid]) meshMap[pid]=[];
+      meshMap[pid].push(m); allMeshes.push(m);
+      return m;
+    }
+
+    // Fuselage
+    addMesh(new THREE.CylinderGeometry(.9,.85,14,18), MAT.fuselage, 'fuselage', null, 0,0,0, 0,0,Math.PI/2);
+    // Nose cone
+    addMesh(new THREE.ConeGeometry(.85,3,14), MAT.nose, 'nose', null, 7.2,0,0, 0,0,Math.PI/2);
+    // Tail taper
+    addMesh(new THREE.CylinderGeometry(.4,.9,2.5,14), MAT.fuselage, 'fuselage', null, -7.2,0,0, 0,0,-Math.PI/2);
+
+    // Wings (left & right)
+    var wingGeo = new THREE.BoxGeometry(4,.15,1.2);
+    addMesh(wingGeo, MAT.wing, 'wing_l', null,  0,-.4, 3.5);
+    addMesh(wingGeo, MAT.wing, 'wing_r', null,  0,-.4,-3.5);
+
+    // Winglets
+    var wletGeo = new THREE.BoxGeometry(.8,.6,.08);
+    addMesh(wletGeo, MAT.wing, 'wing_l', null,  2,-.15, 5.0, 0,0,.4);
+    addMesh(wletGeo, MAT.wing, 'wing_r', null,  2,-.15,-5.0, 0,0,-.4);
+
+    // Engines (under wing)
+    var engGeo = new THREE.CylinderGeometry(.38,.38,2,14);
+    addMesh(engGeo, MAT.engine, 'engine_l', null,  .5,-1.0, 2.2, 0,0,Math.PI/2);
+    addMesh(engGeo, MAT.engine, 'engine_r', null,  .5,-1.0,-2.2, 0,0,Math.PI/2);
+
+    // Vertical tail
+    var vtGeo = new THREE.BoxGeometry(2.2,.12,1);
+    addMesh(vtGeo, MAT.vtail, 'vtail', null, -6.5, 1.1, 0, 0,0,Math.PI*.38);
+
+    // Horizontal tails
+    var htGeo = new THREE.BoxGeometry(1.6,.1,.6);
+    addMesh(htGeo, MAT.htail, 'htail', null, -6.8,.3, 1.3);
+    addMesh(htGeo, MAT.htail, 'htail', null, -6.8,.3,-1.3);
+
+    // Cockpit windows (decorative)
+    var winGeo = new THREE.SphereGeometry(.28,.8,.5, 0,Math.PI*2, 0,Math.PI*.5);
+    addMesh(winGeo, MAT.window, 'nose', null, 5.2,.3,.4);
+    addMesh(winGeo, MAT.window, 'nose', null, 5.2,.3,-.4);
+
+    // Create part groups for explode mode
+    Object.keys(meshMap).forEach(function(pid){
+      var g=new THREE.Group(); g.name='partGroup_'+pid;
+      aircraft.add(g); partGroups[pid]=g;
+    });
+
+    window._allMeshes=allMeshes; window._meshMap=meshMap;
+  }
+
   var loader=new THREE.GLTFLoader();
   loader.load('https://soxvbtenfnpokhrtlqmq.supabase.co/storage/v1/object/public/models/airbus_a220-300.glb',
     function(gltf){
@@ -5675,7 +5767,12 @@ async function saveJob(){
       if(l){l.style.opacity='0';setTimeout(function(){l.style.display='none';},650);}
     },
     null,
-    function(e){console.warn('GLB error:',e);var l=document.getElementById('aex-loading');if(l){l.style.opacity='0';setTimeout(function(){l.style.display='none';},400);}}
+    function(e){
+      console.warn('GLB error:',e);
+      buildProceduralAircraft();
+      var l=document.getElementById('aex-loading');
+      if(l){l.style.opacity='0';setTimeout(function(){l.style.display='none';},400);}
+    }
   );
 
   // Raycaster
@@ -6516,4 +6613,4 @@ async function saveJob(){
 })();
 </script>
 
-  </html>
+              </html>
