@@ -2,29 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#07090d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nashat Aldhoun">
-<script>
-// ── Kill all Service Workers + clear every cache ──────────────────────────
-// This permanently fixes the chrome-error:// bug caused by a broken SW.
-// No new SW is registered — the site loads directly from Vercel every time.
-(function () {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function (regs) {
-      regs.forEach(function (r) { r.unregister(); });
-    });
-  }
-  if (window.caches) {
-    caches.keys().then(function (keys) {
-      keys.forEach(function (k) { caches.delete(k); });
-    });
-  }
-})();
-</script>
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Google AdSense -->
@@ -5198,4 +5181,4 @@ async function saveJob(){
 
 
 
-  </html>
+                                                                                                          </html>
