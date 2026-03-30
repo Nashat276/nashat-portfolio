@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clearing cache…</title>
+<style>
+  body{margin:0;background:#07090d;color:#b0bcce;font-family:system-ui,sans-serif;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-height:100vh;gap:1rem;text-align:center;}
+  .dot{width:8px;height:8px;border-radius:50%;background:#c8a86c;display:inline-block;
+    animation:blink 1s infinite;}
+  @keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+</style>
+</head>
+<body>
+<span class="dot"></span>
+<p style="font-size:.9rem;color:#616878;">Clearing old cache, please wait…</p>
+<script>
+(function(){
+  var done = 0;
+  var total = 0;
+  var redirected = false;
+
+  function tryRedirect(){
+    if(redirected) return;
+    redirected = true;
+    // Hard reload to bypass any remaining SW interception
+    window.location.replace('/?v=' + Date.now());
+  }
+
+  // Unregister all service workers
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistrations().then(function(regs){
+      if(!regs.length){ maybeDone(); return; }
+      total += regs.length;
+      regs.forEach(function(r){
+        r.unregister().then(function(){ done++; maybeDone(); });
+      });
+    }).catch(maybeDone);
+  }
+
+  // Clear all caches
+  if(window.caches){
+    caches.keys().then(function(keys){
+      if(!keys.length){ maybeDone(); return; }
+      total += keys.length;
+      keys.forEach(function(k){
+        caches.delete(k).then(function(){ done++; maybeDone(); });
+      });
+    }).catch(maybeDone);
+  }
+
+  function maybeDone(){
+    // Redirect after all async ops finish, or after 2s max
+    if(total === 0 || done >= total) tryRedirect();
+  }
+
+  // Safety timeout — always redirect after 2 seconds
+  setTimeout(tryRedirect, 2000);
+})();
+</script>
+</body>
+</html>
